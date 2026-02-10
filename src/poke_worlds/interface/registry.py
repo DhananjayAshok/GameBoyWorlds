@@ -4,7 +4,13 @@ Keeps a record of:
 - Available `Environment`s for each game, with string identifiers and a default environment for each game.
 
 Provides methods to access these.
+
+Registers the Gymnasium environment(s). 
+    - All registered under the id "poke_worlds/environment-v0". The kwargs for creating the environment can be passed in through the `gym.make` call as described in the `get_environment` method. 
+    - Test environments registered under "poke_worlds/test-environment-v0". These are meant to be used for evaluation and are created with the `get_test_environment` method, which takes in a row from the benchmark tasks/questions DataFrame as input.
 """
+gym_env_id = "poke_worlds/environment-v0"
+gym_test_env_id = "poke_worlds/test-environment-v0"
 
 from typing import Dict, Type, Optional, Union, Mapping, List
 from poke_worlds.utils import (
@@ -31,6 +37,7 @@ from poke_worlds.interface.pokemon.environments import (
 from poke_worlds.interface.pokemon.controllers import PokemonStateWiseController
 
 import pandas as pd
+from gymnasium import register
 
 _project_parameters = load_parameters()
 
@@ -206,6 +213,8 @@ def get_environment(
     return environment_class(
         emulator=emulator, controller=controller, parameters=parameters
     )
+    
+register(gym_env_id, entry_point="poke_worlds.interface.registry:get_environment")
 
 
 def get_benchmark_tasks(game: str, parameters: dict = None) -> pd.DataFrame:
@@ -260,6 +269,9 @@ def get_test_environment(
         parameters=parameters,
         **emulator_kwargs,
     )
+
+
+register(gym_test_env_id, entry_point="poke_worlds.interface.registry:get_test_environment")
 
 
 def get_training_environments_kwargs(
