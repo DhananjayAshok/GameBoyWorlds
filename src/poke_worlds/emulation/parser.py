@@ -1,10 +1,6 @@
 import warnings
 
 warnings.filterwarnings("ignore", message=".*SDL2 binaries.*")
-warnings.filterwarnings(
-    "ignore",
-    message=".*This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.*",
-)
 # To suppress pyBoy SDL2 warnings on some systems
 from pyboy import PyBoy
 from abc import ABC, abstractmethod

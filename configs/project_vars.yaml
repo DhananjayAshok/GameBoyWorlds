@@ -1,7 +1,7 @@
 random_seed: 42
 debug_mode: false
 debug_skip_lm: false # Will skip all LM calls, to allow debugging on systems without LM access. 
-invalid_action_penalty: 100.0 # Penalty for invalid actions in the environment
+invalid_action_penalty: 0.0 # Penalty for invalid actions in the environment
 ocr_max_new_tokens: 20
 executor_vlm_model: gpt-4o # The VLM that handles simple goal directed usage of High Level Actions. Use the same model as the backbone to avoid loading multiple models.
 executor_vlm_kind: openai
@@ -12,4 +12,4 @@ text_embedding_model: Qwen/Qwen3-Embedding-0.6B
 text_embedding_model_kind: qwen3
 text_embedding_model_max_length: 512
 image_embedding_model: jinaai/jina-embeddings-v4
-image_embedding_model_kind: jina
+image_embedding_model_kind: random_patch
