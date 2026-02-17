@@ -81,6 +81,14 @@ AVAILABLE_ENVIRONMENTS: Dict[str, Dict[str, Type[Environment]]] = {
         "dummy": DummyEnvironment,
         "default": DummyEnvironment,
     },
+    "sword_of_hope_1": {
+        "dummy": DummyEnvironment,
+        "default": DummyEnvironment,
+    },
+    "sword_of_hope_2": {
+        "dummy": DummyEnvironment,
+        "default": DummyEnvironment,
+    },
 }
 
 AVAILABLE_CONTROLLERS: Dict[str, Dict[str, Type[Controller]]] = {
@@ -103,6 +111,8 @@ AVAILABLE_CONTROLLERS: Dict[str, Dict[str, Type[Controller]]] = {
         "state_wise": PokemonStateWiseController,
     },
     "legend_of_zelda": {},
+    "sword_of_hope_1": {},
+    "sword_of_hope_2": {},
 }
 
 for game in AVAILABLE_GAMES:

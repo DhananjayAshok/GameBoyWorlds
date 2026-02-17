@@ -45,6 +45,10 @@ from poke_worlds.emulation.pokemon.trackers import (
 from poke_worlds.emulation.emulator import Emulator
 from poke_worlds.emulation.pokemon.emulators import PokemonEmulator
 from poke_worlds.emulation.legend_of_zelda.parsers import LegendOfZeldaParser
+from poke_worlds.emulation.sword_of_hope.parsers import (
+    SwordOfHope1Parser,
+    SwordOfHope2Parser,
+)
 
 _project_parameters = load_parameters()
 GAME_TO_GB_NAME = {
@@ -55,6 +59,8 @@ GAME_TO_GB_NAME = {
     "pokemon_fools_gold": "PokemonFoolsGold.gbc",
     "pokemon_prism": "PokemonPrism.gbc",
     "legend_of_zelda": "LegendOfZeldaLinksAwakening.gbc",
+    "sword_of_hope_1": "Sword of Hope, The (USA).gb",
+    "sword_of_hope_2": "Sword of Hope II, The (USA).gb",
     # "zelda_links_awakening": "ZeldaLinksAwakening.gb",
 }
 """ Expected save name for each game. Save the file to <storage_dir_from_config_file>/<game_name>_rom_data/<gb_name>"""
@@ -67,6 +73,8 @@ _STRONGEST_PARSERS: Dict[str, Type[StateParser]] = {
     "pokemon_fools_gold": PokemonFoolsGoldStateParser,
     "pokemon_prism": PokemonPrismStateParser,
     "legend_of_zelda": LegendOfZeldaParser,
+    "sword_of_hope_1": SwordOfHope1Parser,
+    "sword_of_hope_2": SwordOfHope2Parser,
 }
 """ Mapping of game names to their corresponding strongest StateParser classes. 
 Unless you have a very good reason, you should always use the STRONGEST possible parser for a given game. 
@@ -109,6 +117,8 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "default": PokemonOCRTracker,
     },
     "legend_of_zelda": {"default": StateTracker},
+    "sword_of_hope_1": {"default": StateTracker},
+    "sword_of_hope_2": {"default": StateTracker},
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """
 
@@ -132,6 +142,8 @@ AVAILABLE_EMULATORS: Dict[str, Dict[str, Type[Emulator]]] = {
         "default": PokemonEmulator,
     },
     "legend_of_zelda": {"default": Emulator},
+    "sword_of_hope_1": {"default": Emulator},
+    "sword_of_hope_2": {"default": Emulator},
 }
 """ Mapping of game names to their available Emulator classes with string identifiers. """
 
