@@ -11,8 +11,21 @@ import numpy as np
 
 import os
 from typing import Dict, Tuple, Optional, List, Union
-import cv2
 from PIL import Image
+
+
+def _import_cv2():
+    """
+    Import cv2 lazily to avoid loading SDL-backed libs during headless runs
+    where drawing utilities are never used.
+    """
+    try:
+        import cv2
+    except ImportError:
+        log_error(
+            "OpenCV (cv2) is required for drawing helpers in StateParser. Install opencv-python or opencv-python-headless."
+        )
+    return cv2
 
 
 class NamedScreenRegion:
@@ -540,6 +553,7 @@ class StateParser(ABC):
             start_y = max(0, start_y)
             end_x = min(current_frame.shape[1], end_x)
             end_y = min(current_frame.shape[0], end_y)
+        cv2 = _import_cv2()
         frame_with_box = current_frame.copy()
         cv2.rectangle(
             frame_with_box, (start_x, start_y), (end_x, end_y), color, thickness
@@ -574,6 +588,7 @@ class StateParser(ABC):
         end_x = min(center_x + half_box, current_frame.shape[1])
         start_y = max(center_y - half_box, 0)
         end_y = min(center_y + half_box, current_frame.shape[0])
+        cv2 = _import_cv2()
         frame_with_square = current_frame.copy()
         cv2.rectangle(
             frame_with_square, (start_x, start_y), (end_x, end_y), color, thickness
@@ -716,6 +731,7 @@ class StateParser(ABC):
         Returns:
             np.ndarray: The frame with the grid overlay.
         """
+        cv2 = _import_cv2()
         frame_with_grid = current_frame.copy()
         for x in range(0, current_frame.shape[1], grid_skip):
             cv2.line(

@@ -22,14 +22,26 @@ from poke_worlds.utils import (
 )
 
 
-import cv2
-
 from pyboy import PyBoy
 from pyboy.utils import WindowEvent
 from matplotlib import pyplot as plt
 from skimage.transform import downscale_local_mean
 import numpy as np
 from tqdm import tqdm
+
+
+def _import_cv2(parameters: Optional[dict] = None):
+    """
+    Import cv2 lazily so headless runs without video writing do not load extra SDL libraries.
+    """
+    try:
+        import cv2
+    except ImportError:
+        log_error(
+            "OpenCV (cv2) is required for emulator video recording utilities.",
+            parameters,
+        )
+    return cv2
 
 
 class LowLevelActions(Enum):
@@ -606,6 +618,7 @@ class Emulator:
         os.makedirs(base_dir, exist_ok=True)
         video_path = os.path.join(base_dir, f"{video_id}")
         self.close_video()
+        cv2 = _import_cv2(self._parameters)
         self.frame_writer = cv2.VideoWriter(
             video_path,
             cv2.VideoWriter_fourcc(*"mp4v"),
@@ -617,6 +630,7 @@ class Emulator:
         log_info(f"\nStarted recording video to: {video_path}\n", self._parameters)
 
     def check_text_bounds(self, image, text, org, font_face, font_scale, thickness):
+        cv2 = _import_cv2(self._parameters)
         img_h, img_w = image.shape[:2]
         x, y = org
 
@@ -637,6 +651,7 @@ class Emulator:
             return frame
         if self._video_text.strip() == "":
             return frame
+        cv2 = _import_cv2(self._parameters)
         frame = frame.copy()
         font = cv2.FONT_HERSHEY_SIMPLEX
         bottom_left_corner_of_text = (5, frame.shape[0] - 10)
