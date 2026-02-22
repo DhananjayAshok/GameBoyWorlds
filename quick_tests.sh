@@ -1,4 +1,4 @@
-variants=("pokemon_red" "pokemon_crystal" "pokemon_brown" "pokemon_prism" "pokemon_fools_gold" "pokemon_starbeasts" "legend_of_zelda")
+variants=("pokemon_red" "pokemon_crystal" "pokemon_brown" "pokemon_prism" "pokemon_fools_gold" "pokemon_starbeasts" "legend_of_zelda" "sword_of_hope_1" "sword_of_hope_2")
 echo "Testing emulator..."
 for variant in "${variants[@]}"; do
     echo "  Variant: $variant"
