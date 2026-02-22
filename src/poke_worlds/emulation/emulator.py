@@ -139,11 +139,19 @@ class IDPathCreator:
         if not os.path.exists(session_path):
             return
         existing_variants = os.listdir(session_path)
+        cleared_sessions = {}
         for variant in existing_variants:
             tmp_sessions_path = os.path.join(session_path, variant, "tmp_sessions")
             if not os.path.exists(tmp_sessions_path):
                 continue
+            n_sessions = os.listdir(tmp_sessions_path)
             shutil.rmtree(tmp_sessions_path)
+            cleared_sessions[variant] = len(n_sessions)
+        log_info(
+            f"Cleared temporary sessions, statistics:",
+            self._parameters,
+        )
+        log_dict(cleared_sessions, parameters=self._parameters)
 
 
 class Emulator:
