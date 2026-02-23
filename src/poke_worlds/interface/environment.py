@@ -29,8 +29,20 @@ warnings.filterwarnings(
     "ignore",
     message="pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html",
 )
-# This is to ignore deprecation warnings from pygame about pkg_resources
-import pygame
+
+
+def _import_pygame(parameters: dict):
+    """
+    Import pygame lazily so headless runs don't pull in SDL unless rendering is requested.
+    """
+    try:
+        import pygame
+    except ImportError:
+        log_error(
+            "pygame is required for render() / human play display. Install pygame or run without render.",
+            parameters,
+        )
+    return pygame
 
 
 class History:
@@ -269,6 +281,8 @@ class Environment(gym.Env, ABC):
         """ The pygame window for rendering in 'human' mode. Initialized on first render call. """
         self._clock = None
         """ The pygame clock for rendering in 'human' mode. Initialized on first render call. """
+        self._pygame = None
+        """ Lazily loaded pygame module. """
         self._history: History = None
         """ The Environment History, storing all observations, state_information reports, actions and rewards over the episode. Is cleared with reset(). Access through get_history()"""
         self._environment_override_video_text = environment_override_video_text
@@ -671,6 +685,9 @@ class Environment(gym.Env, ABC):
             screen (np.ndarray): The screen to render.
 
         """
+        if self._pygame is None:
+            self._pygame = _import_pygame(self._parameters)
+        pygame = self._pygame
         if self._window is None:
             pygame.init()
             pygame.display.init()
