@@ -28,7 +28,6 @@ from poke_worlds.interface.sword_of_hope import registry as sword_of_hope_regist
 from poke_worlds.interface.deja_vu import registry as deja_vu_registry
 from poke_worlds.interface.harvest_moon import registry as harvest_moon_registry
 
-
 _project_parameters = load_parameters()
 
 _game_registries = [

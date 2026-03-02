@@ -196,3 +196,4 @@ tmp.py
 */*/*.DS_Store
 */*/*/*.DS_Store
 tmp*
+*.DS_Store

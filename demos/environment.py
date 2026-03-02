@@ -34,7 +34,7 @@ import click
 @click.option(
     "--init_state",
     type=str,
-    default="starter",
+    default="default",
     help="Initial state to start the environment in (if supported).",
 )
 @click.option(
