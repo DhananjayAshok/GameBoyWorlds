@@ -56,12 +56,12 @@ Maybe you want to enhance the observation space of the agent with information ab
 
 Whatever your motivation, <img src="assets/logo.png" width="70"> provides a powerful set of approaches for reading game states, and then allows you to aggregate over these values over time to compute useful metrics for reward assignment and evaluation. 
 
-The first thing to do is detect an event at a moment in time. This is done in subclasses of the `StateParser` [object](src/poke_worlds//emulation/emulator.py) in one of two ways: 
+The first thing to do is detect an event at a moment in time. This is done in subclasses of the `StateParser` [object](src/gameboy_worlds//emulation/emulator.py) in one of two ways: 
 
-1. **Emulator Screen Captures:** Often particular game states can be cleanly identified by a unique text popup, or some other characteristic marker on the screen. Any of these can be easily captured and checked with the existing parsing system. For example, the current implementation for Pokémon Red has screen captures set up to identify which starter the player chooses. See the [section below](#state-parser-set-up) for examples of this being done. See the [`StateParser` API documentation](https://dhananjayashok.github.io/PokeWorlds/poke_worlds/emulation/parser.html) for a quick overview on how this works.  
-2. **Memory Slot Hooks:** A strong alternative is to just directly read statistics from the game's WRAM. Visually inaccessible information (e.g. the attack stats of all Pokémon on the opponents team) are often easy to obtain this way. The only catch is, this method relies on knowing which memory slots to look for. That's easy enough for games which have excellent [decompilation guides](https://github.com/pret/pokered/blob/symbols/pokered.sym), but is much harder to do for ROM hacks which may mess around with the slots arbitrarily or less popular games. See the [memory reader](src/poke_worlds/emulation/pokemon/parsers.py) state parser to get a sense of how you should go about this. 
+1. **Emulator Screen Captures:** Often particular game states can be cleanly identified by a unique text popup, or some other characteristic marker on the screen. Any of these can be easily captured and checked with the existing parsing system. For example, the current implementation for Pokémon Red has screen captures set up to identify which starter the player chooses. See the [section below](#state-parser-set-up) for examples of this being done. See the [`StateParser` API documentation](https://dhananjayashok.github.io/PokeWorlds/gameboy_worlds/emulation/parser.html) for a quick overview on how this works.  
+2. **Memory Slot Hooks:** A strong alternative is to just directly read statistics from the game's WRAM. Visually inaccessible information (e.g. the attack stats of all Pokémon on the opponents team) are often easy to obtain this way. The only catch is, this method relies on knowing which memory slots to look for. That's easy enough for games which have excellent [decompilation guides](https://github.com/pret/pokered/blob/symbols/pokered.sym), but is much harder to do for ROM hacks which may mess around with the slots arbitrarily or less popular games. See the [memory reader](src/gameboy_worlds/emulation/pokemon/parsers.py) state parser to get a sense of how you should go about this. 
 
-These approaches allow your state parsers to give instant-wise decisions or indications when an event has occured. You can then configure your `StateTracker` to use the parser to check for this flag / read this information, and store appropriate metrics. See the existing [parsers](src/poke_worlds/emulation/pokemon/parsers.py) and [trackers](src/poke_worlds/emulation/pokemon/trackers.py) for examples. 
+These approaches allow your state parsers to give instant-wise decisions or indications when an event has occured. You can then configure your `StateTracker` to use the parser to check for this flag / read this information, and store appropriate metrics. See the existing [parsers](src/gameboy_worlds/emulation/pokemon/parsers.py) and [trackers](src/gameboy_worlds/emulation/pokemon/trackers.py) for examples. 
 
 ### I want to add a new ROM Hack or GameBoy Game
 Setting up a new game is an easy process at a basic level, but can be an involved endeavour if you want to make the new environment a strong one. Please do reach out to me if you have any questions, and we can work to merge the new ROM into <img src="assets/logo.png" width="70"> together. 
@@ -71,7 +71,7 @@ Setting up a new game is an easy process at a basic level, but can be an involve
 0. Set the repo to `debug` mode by editing the [config file](configs/project_vars.yaml)
 1. Create a `<game>_rom_data_path` parameter in the [configs](configs) (either as a new file or in an existing one)
 2. Obtain the ROM and place it in the desired path under the ROM data folder. Remember, the `<game>_rom_data_path` folder is rooted at the `storage_dir` from the [configs](configs/private_vars.yaml). 
-4. Go to the [registry](src/poke_worlds/emulation/registry.py) and add the ROM name to :
+4. Go to the [registry](src/gameboy_worlds/emulation/registry.py) and add the ROM name to :
     - `GAME_TO_GB_NAME`: This will be the name the system expects to find in `<storage>/<game>_rom_data_path/` 
     - `_STRONGEST_PARSERS`: with `DummyParser` as the value. 
     - `AVAILABLE_STATE_TRACKERS`: give it a `default` value of `StateTracker`. 
@@ -85,7 +85,7 @@ I have provided an [example](https://drive.google.com/file/d/1fsMjkOjpbyeLLNxP3J
 The above steps will let you play the game on the emulator, but the real power of this framework is only realized when you get involved and create a proper `StateParser`. As mentioned in the [section above](#i-want-to-track-fine-grained-details), this is done either by reading from gameboy memory states or by setting up screen captures to track events. Here, I detail the screen capture method. 
 
 Simply put, this approach aims to capture a given region of the games frame at the right moment, hence saving what the screen "looks like" when a particular event occurs. For example, in Pokémon, the top right of the screen always has the edge of the player menu, and is hence a reliable signal as to whether or not the player is in the menu. The exact regions and events to capture will depend on the game, but the most important components are:
-- `NamedScreenRegion`: Every `StateParser` can define certain boxes within the game screen (e.g. the top right portion where the player menu identifier will pop up). These can linked to one or more reference targets, that you need to manually capture once and save. After you save the target, the `StateParser` allows you to take any game frame, select the region in question, and compare it to the reference image. Once you've designated the named regions in the state parser, run the game in dev play mode, stop the game at the moment you want to capture. Then, run `c <region_name>` to save the screen region at that point. The [Pokémon parsers](src/poke_worlds/emulation/pokemon/parsers.py) show a clear example of this, and I have provided an [example](https://drive.google.com/file/d/1EEpoxHAnNwdSMSYcc93xrQCcLzbtVCyX/view?usp=sharing) video of the frames being captured. 
+- `NamedScreenRegion`: Every `StateParser` can define certain boxes within the game screen (e.g. the top right portion where the player menu identifier will pop up). These can linked to one or more reference targets, that you need to manually capture once and save. After you save the target, the `StateParser` allows you to take any game frame, select the region in question, and compare it to the reference image. Once you've designated the named regions in the state parser, run the game in dev play mode, stop the game at the moment you want to capture. Then, run `c <region_name>` to save the screen region at that point. The [Pokémon parsers](src/gameboy_worlds/emulation/pokemon/parsers.py) show a clear example of this, and I have provided an [example](https://drive.google.com/file/d/1EEpoxHAnNwdSMSYcc93xrQCcLzbtVCyX/view?usp=sharing) video of the frames being captured. 
 
 You will know that you have filled out all required regions when you can run `python demos/emulator.py --game <game>` without debug mode. 
 
@@ -109,7 +109,7 @@ The above set up gives you more descriptive state information, but still forces 
 
 You'll likely want to gather as much state and trajectory information as possible, for which you should see the [section above](#I-want-to-create-my-own-starting-states).
 
-Then, you'll want to create your own `Environment` subclass, and configure the reward return. See [`PokemonRedChooseCharmanderFastEnv`](src/poke_worlds/interface/pokemon/environments.py#90) for more
+Then, you'll want to create your own `Environment` subclass, and configure the reward return. See [`PokemonRedChooseCharmanderFastEnv`](src/gameboy_worlds/interface/pokemon/environments.py#90) for more
 
 
 ### Extras:
@@ -162,21 +162,21 @@ First, create a starting state from which your task is achievable. See the [sect
 **3. Set up parser for screen capture (if needed)**
 If your termination condition relies on a specific screen capture not already available in the parser, you'll need to add it. See the [screen capture method](#state-parser-set-up) in the [section above](#i-want-to-track-fine-grained-details) for guidance on capturing named screen regions.
 
-Make sure to use `python -m poke_worlds.setup_data push --game <game>` to update the cloud database. 
+Make sure to use `python -m gameboy_worlds.setup_data push --game <game>` to update the cloud database. 
 
 **4. Create the termination/truncation metric**
-Make a child or descendant of the [TerminationTruncationTracker](src/poke_worlds/emulation/tracker.py) :
-- For termination only: `TerminationMetric` ([line 466](src/poke_worlds/emulation/tracker.py:466))
-- For both termination and truncation: `TerminationTruncationMetric` ([line 368](src/poke_worlds/emulation/tracker.py:368))
+Make a child or descendant of the [TerminationTruncationTracker](src/gameboy_worlds/emulation/tracker.py) :
+- For termination only: `TerminationMetric` ([line 466](src/gameboy_worlds/emulation/tracker.py:466))
+- For both termination and truncation: `TerminationTruncationMetric` ([line 368](src/gameboy_worlds/emulation/tracker.py:368))
 
 If using screen region comparisons (most common), inherit from:
-- `RegionMatchTerminationMetric` ([line 717](src/poke_worlds/emulation/tracker.py:717))
-- `RegionMatchTruncationMetric` ([line 693](src/poke_worlds/emulation/tracker.py:693))
+- `RegionMatchTerminationMetric` ([line 717](src/gameboy_worlds/emulation/tracker.py:717))
+- `RegionMatchTruncationMetric` ([line 693](src/gameboy_worlds/emulation/tracker.py:693))
 
-Example: [`PokemonCenterTerminateMetric`](src/poke_worlds/emulation/pokemon/test_metrics.py:15) inherits from both `RegionMatchTerminationMetric` and `TerminationMetric`.
+Example: [`PokemonCenterTerminateMetric`](src/gameboy_worlds/emulation/pokemon/test_metrics.py:15) inherits from both `RegionMatchTerminationMetric` and `TerminationMetric`.
 
 **5. Create the test tracker**
-Most trackers can be created by simply setting the `TERMINATION_TRUNCATION_METRIC` class parameter. See [`PokemonRedCenterTestTracker`](src/poke_worlds/emulation/pokemon/trackers.py:72) for an example.
+Most trackers can be created by simply setting the `TERMINATION_TRUNCATION_METRIC` class parameter. See [`PokemonRedCenterTestTracker`](src/gameboy_worlds/emulation/pokemon/trackers.py:72) for an example.
 
 ```python
 class MyTestTracker(PokemonTestTracker):
@@ -184,7 +184,7 @@ class MyTestTracker(PokemonTestTracker):
 ```
 
 **6. Register the tracker**
-Add your new tracker to the [`AVAILABLE_STATE_TRACKERS`](src/poke_worlds/emulation/registry.py:58) dictionary in the registry with a descriptive name.
+Add your new tracker to the [`AVAILABLE_STATE_TRACKERS`](src/gameboy_worlds/emulation/registry.py:58) dictionary in the registry with a descriptive name.
 
 **7. Test your implementation**
 Verify it works with the test play script:

@@ -1,6 +1,6 @@
 <div align="center">
   <picture>
-    <img alt="Pokémon Environments" src="assets/logo_tilt.png" width="350px" style="max-width: 100%;">
+    <img alt="Gameboy Environments" src="assets/logo_tilt.png" width="350px" style="max-width: 100%;">
   </picture>
   <br>
   
@@ -22,23 +22,23 @@ Challenge your agents to explore, build general skills and master one of the mos
 
 # Core Features
 
-**Gym Interface For Pokémon Games:**
-<img src="assets/logo.png" width="70px"> bridges the gap between the GameBoyAdvanced [emulator](https://docs.pyboy.dk/) and the standard Reinforcement Learning [Gym](https://gymnasium.farama.org/) API. Users can quickly develop agents to play through the game, and test them in a variety of scenarios across multiple game versions. 
+**Gym Interface For GameBoy Games:**
+<img src="assets/logo.png" width="70px"> bridges the gap between the GameBoy / GameBoyColour [emulators](https://docs.pyboy.dk/) and the standard Reinforcement Learning [Gym](https://gymnasium.farama.org/) API. Users can quickly develop agents to play through the game, and test them in a variety of scenarios across multiple game versions. 
 
 **Lightweight Environment Parsing:**
 <img src="assets/logo.png" width="70px"> provides simple mechanisms to determine the basic state of the agent and identify specific event triggers that occur in the game, allowing one to form descriptive state spaces and track a broad range of metrics over playthroughs. 
 
 **Abstracted Action Space and Low Level Controllers:**
-While all Pokémon games can be played with joystick inputs and a few buttons, not all inputs are meaningful at all times (e.g. when in dialogue, the agent cannot perform any action until the conversation is complete, temporarily reducing the meaningful action space to a single button.) Another major hurdle to progress is the difficulty of learning how abstract actions (e.g. "Open the player Pokémon menu") correspond to low level game console inputs (e.g. Click 'Start' and then move in the menu until you are on the 'Pokémon' option, then click 'A').
+While all games can be played with joystick inputs and a few buttons, not all inputs are meaningful at all times (e.g. when in dialogue, the agent cannot perform any action until the conversation is complete, temporarily reducing the meaningful action space to a single button.) Another major hurdle to progress is the difficulty of learning how abstract actions (e.g. "Open the player menu") correspond to low level game console inputs (e.g. Click 'Start' and then move in the menu until you are on the 'Player' option, then click 'A').
 
-<img src="assets/logo.png" width="70"> allows language-capable agents to play the game without any awareness of the buttons, and perform actions purely by verbalising its intent (e.g. "openmenu(pokemon)"). Our low-level controllers then process the request and convert it into the required sequence of button inputs, providing a layer of abstraction. 
+<img src="assets/logo.png" width="70"> allows language-capable agents to play the game without any awareness of the buttons, and perform actions purely by verbalising its intent (e.g. "openmenu(player)"). Our low-level controllers then process the request and convert it into the required sequence of button inputs, providing a layer of abstraction. 
 
 
 **General and "Unleaked" Test Environments:**
 <img src="assets/logo.png" width="70"> not only supports classic titles like PokémonRed and PokémonCrystal, but also includes multiple fan-made variants such as [PokémonPrism](https://rainbowdevs.com/title/prism/), that place the agent in completely new regions, sometimes with  fan-made Pokémon ([Fakémon](https://en.wikipedia.org/wiki/Fakemon)). The research value of these fan-made games is considerable:
 
 * Fan-made games are an ideal environment to test the *generalization* capabilities of an agent trained in the original games. To perform well in these unseen environments, agents must learn transferrable skills like battle competence and maze navigation, as opposed to memorizing the solutions to the original games.
-* Unlike the original Pokémon games, fan-made games are scarcely documented and so models trained on internet-scale corpora (e.g. Large Language Models) are unlikely to have already acquired a rich base of knowledge regarding the game areas or particular Fakémon. While good performance in PokémonRed may be a result of the backbone model's data being contaminated with walkthroughs and internet guides, the same concern is far less valid for more obscure fan-made games.
+* Unlike the original games, fan-made games are scarcely documented and so models trained on internet-scale corpora (e.g. Large Language Models) are unlikely to have already acquired a rich base of knowledge regarding the game areas or particular Fakémon. While good performance in PokémonRed may be a result of the backbone model's data being contaminated with walkthroughs and internet guides, the same concern is far less valid for more obscure fan-made games.
 
 # Table of Contents
 
@@ -75,11 +75,8 @@ Then, clone the <img src="assets/logo.png" width="70"> repo and install it as a 
 ```
 git clone https://github.com/DhananjayAshok/PokeWorlds
 cd PokeWorlds
-uv pip install -e ".[vlm]"
+uv pip install -e "."
 ```
-
-You can also do a minimal installation with `uv pip install -e .` 
-This doesn't install the packages needed for Vision Language Model inference (`openai`, `torch`, `transformers`, etc.), but you can still do a [lot](https://www.youtube.com/watch?v=DcYLT37ImBY&t=1s) with a setup of this nature. 
 
 If you are in a headless environment, running with this configuration may fail. In that case try:
 ```
@@ -87,7 +84,7 @@ uv pip uninstall opencv-python
 uv pip install opencv-python-headless
 ```
 
-You can now `import poke_worlds` from anywhere. But you can't really run anything just yet. 
+You can now `import gameboy_worlds` from anywhere. But you can't really run anything just yet. 
 
 ## Storage Directory Configuration
 
@@ -99,7 +96,7 @@ bash sync_all.sh
 ```
 If you do not have `bash` (e.g. on Windows), run:
 ```python
-python -m poke_worlds.setup_data pull --game all
+python -m gameboy_worlds.setup_data pull --game all
 ```
 
 
@@ -146,7 +143,7 @@ bash quick_tests.sh
 
 It doesn't take much to get started in <img src="assets/logo.png" width="70">. Below is a simple [example](demos/environment.py) of an agent that takes random actions in Pokémon Red:
 ```python
-from poke_worlds import get_environment
+from gameboy_worlds import get_environment
 
 # Get the Pokémon Red environment
 environment = get_environment(game="pokemon_red", environment_variant="dummy", controller_variant="low_level", headless=True) 
