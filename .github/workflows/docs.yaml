@@ -27,21 +27,20 @@ jobs:
 
       # ADJUST THIS: install all dependencies (including pdoc)
       - run: pip install uv
-      - run: uv sync --extra vlm
+      - run: uv sync
       - run: |
           . .venv/bin/activate
           echo PATH=$PATH >> $GITHUB_ENV
       - run: which python && pip list
       - run: uv pip install pdoc
-      - run: uv pip install -e ".[vlm]"
-      - run: uv pip install vptq
+      - run: uv pip install -e "."
       # ADJUST THIS: build your documentation into docs/.
       # We use a custom build script for pdoc itself, ideally you just run `pdoc -o docs/ ...` here.
       - run: |
           mkdir -p docs/assets
           cp assets/logo_tilt.png docs/assets/
-          cp assets/pokeball.png docs/assets/
-          pdoc src/poke_worlds !poke_worlds.interface.pokemon.transformers -o docs -d google -n --logo "https://dhananjayashok.github.io/PokeWorlds/assets/logo_tilt.png" --favicon "https://dhananjayashok.github.io/PokeWorlds/assets/pokeball.png"
+          cp assets/gameboy.png docs/assets/
+          pdoc src/poke_worlds -o docs -d google -n --logo "https://dhananjayashok.github.io/PokeWorlds/assets/logo_tilt.png" --favicon "https://dhananjayashok.github.io/PokeWorlds/assets/gameboy.png"
       - uses: actions/upload-pages-artifact@v4
         with:
           path: docs/
