@@ -144,7 +144,7 @@ It doesn't take much to get started in <img src="assets/logo.png" width="70">. B
 from gameboy_worlds import get_environment
 
 # Get the Pokémon Red environment
-environment = get_environment(game="pokemon_red", environment_variant="dummy", controller_variant="low_level", headless=True) 
+environment = get_environment(game="pokemon_red", headless=True) 
 # set headless=False to see the screen
 
 # Run an episode in the environment
