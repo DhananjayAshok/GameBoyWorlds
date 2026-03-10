@@ -160,14 +160,6 @@ class LegendOfZeldaLinksAwakeningParser(BaseLegendOfZeldaParser):
             in_inventory = self.named_region_matches_target(current_screen, "health_bar_top")
             return in_inventory
 
-class LegendOfZeldaTheOracleOfAgesParser(BaseLegendOfZeldaParser):
-    def __init__(self, pyboy, parameters):
-        super().__init__(
-            variant="legend_of_zelda_the_oracle_of_ages",
-            pyboy=pyboy,
-            parameters=parameters,
-        )
-
 class LegendOfZeldaTheOracleOfSeasonsParser(BaseLegendOfZeldaParser):
     def __init__(self, pyboy, parameters):
         override_regions = [
