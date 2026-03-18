@@ -1,6 +1,7 @@
 #!/bin/bash
 
-variants=("pokemon_red" "pokemon_crystal" "pokemon_brown" "pokemon_prism" "pokemon_fools_gold" "pokemon_starbeasts" "sword_of_hope_1" "sword_of_hope_2")
+# variants=("pokemon_red" "pokemon_crystal" "pokemon_brown" "pokemon_prism" "pokemon_fools_gold" "pokemon_starbeasts" "sword_of_hope_1" "sword_of_hope_2")
+variants=("harvest_moon_1" "harvest_moon_2" "harvest_moon_3")
 
 
 echo "Testing emulator..."
