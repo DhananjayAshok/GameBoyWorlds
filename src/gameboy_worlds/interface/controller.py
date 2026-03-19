@@ -348,6 +348,34 @@ class LowLevelController(Controller):
     ACTIONS = [LowLevelAction]
     """ A HighLevelAction subclass that directly maps to low level actions. """
 
+    STRING_MAPPER = {
+        "a": LowLevelActions.PRESS_BUTTON_A,
+        "u": LowLevelActions.PRESS_ARROW_UP,
+        "b": LowLevelActions.PRESS_BUTTON_B,
+        "d": LowLevelActions.PRESS_ARROW_DOWN,
+        "l": LowLevelActions.PRESS_ARROW_LEFT,
+        "r": LowLevelActions.PRESS_ARROW_RIGHT,
+        "s": LowLevelActions.PRESS_BUTTON_START,
+        # "e": LowLevelActions.PRESS_BUTTON_SELECT,
+    }
+
+    def string_to_high_level_action(self, input_str):
+        string_low = input_str.lower()
+        low_level_action = None
+        for map_opt in self.STRING_MAPPER:
+            if map_opt in string_low:
+                low_level_action = self.STRING_MAPPER[map_opt]
+                break
+        if low_level_action is None:
+            return None, None
+        return LowLevelAction, {"low_level_action": low_level_action}
+
+    def get_action_strings(self):
+        msg = f"""
+        A, B, S for button. L, R, U, D for arrow keys. (Start button is S)
+        """
+        return {LowLevelAction: msg}
+
 
 class LowLevelPlayController(Controller):
     """A controller that executes low level actions directly, but no menu button presses."""
