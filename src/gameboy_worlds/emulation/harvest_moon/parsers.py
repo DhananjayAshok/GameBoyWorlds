@@ -51,6 +51,8 @@ class HarvestMoonStateParser(StateParser, ABC):
     """ List of common single-target named screen regions for Harvest Moon games. """
 
     COMMON_MULTI_TARGET_REGIONS = [
+        ("screen", 0, 0, 150, 140),
+        ("screen_middle", 65, 55, 20, 20),
     ]
     """ List of common multi-target named screen regions for Harvest Moon games.
 
@@ -212,14 +214,28 @@ class BaseHarvestMoonStateParser(HarvestMoonStateParser, ABC):
 class HarvestMoon1Parser(BaseHarvestMoonStateParser):
     def __init__(self, pyboy, parameters):
         override_multi_target_regions = [
+            ("screen", 0, 0, 160, 143),
+            ("screen_middle", 65, 63, 30, 30),
             ("screen_bottom", 0, 100, 160, 40),
         ]
+        
+        override_multi_targets = {
+            "screen_middle":[
+                "outside_cow_barn_left",
+                "outside_cow_barn_right",
+                "outside_cow_barn_up",
+                "outside_chicken_coop_left",
+                "outside_chicken_coop_right",
+                "outside_chicken_coop_up",
+            ]
+        }
 
         super().__init__(
             pyboy,
             variant="harvest_moon_1",
             parameters=parameters,
             override_multi_target_regions=override_multi_target_regions,
+            override_multi_targets=override_multi_targets,
         )
         
 class HarvestMoon2Parser(BaseHarvestMoonStateParser):
