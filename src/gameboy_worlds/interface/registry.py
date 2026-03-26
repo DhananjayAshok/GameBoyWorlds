@@ -26,11 +26,13 @@ from gameboy_worlds.interface.pokemon import registry as pokemon_registry
 from gameboy_worlds.interface.legend_of_zelda import registry as zelda_registry
 from gameboy_worlds.interface.sword_of_hope import registry as sword_of_hope_registry
 from gameboy_worlds.interface.deja_vu import registry as deja_vu_registry
+from gameboy_worlds.interface.hamtaro import registry as hamtaro_registry
 from gameboy_worlds.interface.harvest_moon import registry as harvest_moon_registry
 
 _project_parameters = load_parameters()
 
 _game_registries = [
+    hamtaro_registry,
     pokemon_registry,
     zelda_registry,
     sword_of_hope_registry,

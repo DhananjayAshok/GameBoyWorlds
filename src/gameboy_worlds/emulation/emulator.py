@@ -429,8 +429,8 @@ class Emulator:
         )
         """ Path to the session directory. This is where all artifacts for this session are saved. """
 
-        self.act_freq = parameters["gameboy_action_freq"]
-        """ Number of emulator ticks per action. Defaults to value specified in config files. """
+        self.wait_ticks = parameters["gameboy_wait_ticks"]
+        """ Number of emulator ticks to wait after an action. Defaults to value specified in config files. """
         self.press_step = parameters["gameboy_press_step"]
         """ Number of emulator ticks to hold down a button press. Defaults to value specified in config files. """
         self.render_headless = parameters["gameboy_headless_render"]
@@ -690,13 +690,13 @@ class Emulator:
             self._pyboy.tick(press_step, True)
             frames.append(self.get_current_frame())
             self._pyboy.send_input(ReleaseActions.release_actions.value[action])
-            self._pyboy.tick(self.act_freq - press_step - 1, True)
+            self._pyboy.tick(self.wait_ticks + press_step + 1, True)
             frames.append(self.get_current_frame())
-            self._pyboy.tick(1, True)
-            frames.append(self.get_current_frame())
+            # self._pyboy.tick(1, True)
+            # frames.append(self.get_current_frame())
             frames = np.stack(frames, axis=0)
         else:
-            self._pyboy.tick(self.act_freq, True)
+            self._pyboy.tick(self.wait_ticks, True)
             frames = [self.get_current_frame()]
             frames = np.array(frames)
         if self.save_video and self.video_writer.video_running:

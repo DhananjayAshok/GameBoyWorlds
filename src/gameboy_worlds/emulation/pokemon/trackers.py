@@ -6,6 +6,7 @@ from gameboy_worlds.emulation.pokemon.base_metrics import (
 )
 from gameboy_worlds.emulation.pokemon.test_metrics import (
     PokemonCenterTerminateMetric,
+    OutsideViridianCenterSubgoal,
     MtMoonTerminateMetric,
     SpeakToBillCompleteTerminateMetric,
     PickupPokeballTerminateMetric,
@@ -29,6 +30,7 @@ from gameboy_worlds.emulation.tracker import (
     StateTracker,
     TestTrackerMixin,
     DummySubGoalMetric,
+    make_subgoal_metric_class,
 )
 from gameboy_worlds.emulation.pokemon.parsers import (
     AgentState,
@@ -41,8 +43,8 @@ class CorePokemonTracker(StateTracker):
     StateTracker for core Pokémon metrics.
     """
 
-    _REMOVE_GRID_OVERLAY = False
-    """ Whether to remove the grid overlay drawn by the state parser when the agent is in FREE ROAM. This is useful for VLM based agents may need a coordinate grid overlayed onto the frame, but may cause issues for agents that do not understand that it is not a part of the game. """
+    _ADD_GRID_OVERLAY = False
+    """ Whether to add the grid overlay drawn by the state parser when the agent is in FREE ROAM. This is useful for VLM based agents may need a coordinate grid overlayed onto the frame, but may cause issues for agents that do not understand that it is not a part of the game. """
 
     def start(self):
         super().start()
@@ -53,7 +55,7 @@ class CorePokemonTracker(StateTracker):
         Calls on super().step(), but then modifies the current frame to overlay the grid if the agent is in FREE ROAM.
         """
         super().step(*args, **kwargs)
-        if self._REMOVE_GRID_OVERLAY:
+        if self._ADD_GRID_OVERLAY:
             state = self.episode_metrics["pokemon_core"]["agent_state"]
             # if agent_state is in FREE ROAM, draw the grid, otherwise do not
             if state == AgentState.FREE_ROAM:
@@ -96,7 +98,7 @@ class PokemonRedCenterTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = PokemonCenterTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideViridianCenterSubgoal])
 
 
 class PokemonRedMtMoonTestTracker(PokemonTestTracker):

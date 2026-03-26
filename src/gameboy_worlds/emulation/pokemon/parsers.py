@@ -106,6 +106,7 @@ class PokemonStateParser(StateParser, ABC):
         ("screen_quadrant_2", 0, 0, 60, 60),
         ("screen_quadrant_3", 0, 70, 60, 70),
         ("screen_quadrant_4", 85, 70, 60, 70),
+        ("screen_middle", 65, 55, 20, 20),
     ]
     """ List of common multi-target named screen regions for Pokemon games.
     
@@ -117,6 +118,7 @@ class PokemonStateParser(StateParser, ABC):
     - screen_quadrant_2: Top left quadrant of the screen.
     - screen_quadrant_3: Bottom left quadrant of the screen.
     - screen_quadrant_4: Bottom right quadrant of the screen.
+    - screen_middle: Middle of the screen.
     """
 
     COMMON_MULTI_TARGETS = {
@@ -683,6 +685,10 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
                 "viridian_pokemon_center_entrance",
                 "mt_moon_entrance",
                 "bought_potion_at_pewter_pokemart",
+            ],
+            "screen_middle": [
+                "outside_viridian_center_from_left",
+                "outside_viridian_center_from_right",
             ],
         }
         super().__init__(

@@ -55,12 +55,6 @@ def compute_secondary_parameters(params: dict):
             params[key] = os.path.abspath(
                 os.path.join(params["rom_data_dir"], relative_addition)
             )
-    if params["debug_skip_lm"]:
-        if not params["debug_mode"]:
-            logger.error(
-                "Can only set `debug_skip_lm` to True in configs if you are in debug mode. Set `debug_mode` to True in configs"
-            )
-            sys.exit(1)
 
 
 def load_parameters(parameters: dict = None) -> dict:
@@ -98,7 +92,9 @@ def load_parameters(parameters: dict = None) -> dict:
         error("Please create private_vars.yaml in the configs directory")
     for file in config_files:
         if file.endswith(".yaml"):
-            configs = load_yaml(os.path.join(project_root, "configs", file))
+            configs = None
+            while configs is None:
+                configs = load_yaml(os.path.join(project_root, "configs", file))
             for key in configs:
                 if key in params:
                     error(

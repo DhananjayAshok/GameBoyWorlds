@@ -8,6 +8,7 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
+from time import perf_counter_ns
 
 
 def is_none_str(s) -> bool:
@@ -158,3 +159,55 @@ def get_benchmark_tasks(game: str, parameters: dict = None) -> pd.DataFrame:
             parameters,
         )
     return game_tasks_df
+
+
+class _Profiler:
+    """
+    A simple profiler class to track the time taken by different events in the code. It can also group events together and show the percentage of time taken by each event in the group.
+    """
+
+    LOG_EVENTS = False
+    last_event_time = None
+    last_event = None
+    group = None
+    group_name = None
+
+    @staticmethod
+    def event(event_name):
+        current_time = perf_counter_ns()
+        if _Profiler.last_event_time is not None:
+            elapsed_time = current_time - _Profiler.last_event_time
+            if _Profiler.LOG_EVENTS:
+                log_info(
+                    f"{_Profiler.last_event} -> {event_name}: {elapsed_time / 1e6:.2f} ms",
+                )
+        _Profiler.last_event_time = current_time
+        _Profiler.last_event = event_name
+        if _Profiler.group_name is not None:
+            _Profiler.group.append((event_name, current_time))
+
+    @staticmethod
+    def start_group(group_name):
+        if _Profiler.group_name is not None:
+            fractions = []
+            total_time = 0
+            for i in range(1, len(_Profiler.group)):
+                event_name, event_time = _Profiler.group[i]
+                prev_event_name, prev_event_time = _Profiler.group[i - 1]
+                elapsed_time = event_time - prev_event_time
+                total_time += elapsed_time
+            for i in range(1, len(_Profiler.group)):
+                event_name, event_time = _Profiler.group[i]
+                prev_event_name, prev_event_time = _Profiler.group[i - 1]
+                elapsed_time = event_time - prev_event_time
+                fractions.append(elapsed_time / total_time if total_time > 0 else 0)
+                log_info(
+                    f"{_Profiler.group_name} - {prev_event_name} -> {event_name}: {elapsed_time / 1e6:.2f} ms ({fractions[-1]*100:.2f}%)",
+                )
+
+        _Profiler.group_name = group_name
+        _Profiler.group = []
+
+    @staticmethod
+    def close_group():
+        _Profiler.start_group(None)

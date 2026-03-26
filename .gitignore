@@ -186,6 +186,7 @@ rom_data/*/*.gb.state
 rom_data/*/*.gbc.state
 
 videos/
+configs/config.env
 download_roms.sh
 rom_data.zip
 *.out
@@ -198,7 +199,4 @@ tmp.py
 tmp*
 *.DS_Store
 
-# Claude Code
-.claude/
-CLAUDE.md
-README_pipeline.md
+

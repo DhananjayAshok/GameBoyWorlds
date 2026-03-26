@@ -15,7 +15,7 @@ import click
 )
 @click.option(
     "--play_mode",
-    type=click.Choice(["human", "random", "random_play"]),
+    type=click.Choice(["human", "random"]),
     default="random",
     help="Play mode: 'random' for random actions.",
 )
@@ -24,6 +24,12 @@ import click
     type=str,
     default="default",
     help="The environment variant to use.",
+)
+@click.option(
+    "--controller_variant",
+    type=str,
+    default="low_level",
+    help="The controller variant to use.",
 )
 @click.option(
     "--max_steps",
@@ -65,6 +71,7 @@ def main(
     game,
     play_mode,
     environment_variant,
+    controller_variant,
     max_steps,
     init_state,
     state_tracker_class,
@@ -72,10 +79,6 @@ def main(
     save_video,
     show_mode,
 ):
-    if play_mode == "human":
-        controller_variant = "state_wise"
-    else:
-        controller_variant = play_mode.replace("random", "low_level")
     environment = get_environment(
         game=game,
         environment_variant=environment_variant,

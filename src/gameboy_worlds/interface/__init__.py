@@ -12,4 +12,4 @@ You can skim the abstract base class documentation to understand the structure t
 
 from gameboy_worlds.interface.action import HighLevelAction
 from gameboy_worlds.interface.controller import Controller
-from gameboy_worlds.interface.environment import Environment, History
+from gameboy_worlds.interface.environment import Environment

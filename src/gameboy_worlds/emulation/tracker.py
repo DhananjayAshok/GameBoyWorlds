@@ -421,6 +421,60 @@ class DummySubGoal(SubGoal):
         return False
 
 
+class RegionMatchSubGoal(SubGoal, ABC):
+    """
+    A subgoal that is completed if a specific region matches a target. Can be used to track subgoals that require specific dialogue boxes to appear, etc.
+    """
+
+    NAME = "placeholder"
+    _NAMED_REGION: str = None
+    _TARGET_NAME: str = None
+
+    def __init__(self):
+        super().__init__()
+        if self._NAMED_REGION is None or self._TARGET_NAME is None:
+            log_error(
+                "Subclasses of RegionMatchSubGoal must set _NAMED_REGION and _TARGET_NAME class variables.",
+            )
+
+    def _check_completed(self, frame: np.ndarray, parser: StateParser) -> bool:
+        matches = parser.named_region_matches_multi_target(
+            frame, self._NAMED_REGION, self._TARGET_NAME
+        )
+        return matches
+
+
+class AnyRegionMatchSubGoal(SubGoal, ABC):
+    """
+    A subgoal that is completed if any of a list of specific regions matches their targets.
+    """
+
+    NAME = "placeholder"
+    _NAMED_REGIONS: List[str] = None
+    _TARGET_NAMES: List[str] = None
+
+    def __init__(self):
+        super().__init__()
+        if (
+            self._NAMED_REGIONS is None
+            or self._TARGET_NAMES is None
+            or len(self._NAMED_REGIONS) != len(self._TARGET_NAMES)
+            or len(self._NAMED_REGIONS) == 0
+        ):
+            log_error(
+                "Subclasses of AnyRegionMatchSubGoal must set _NAMED_REGIONS and _TARGET_NAMES class variables, and they must be of the same length non zero.",
+            )
+
+    def _check_completed(self, frame: np.ndarray, parser: StateParser) -> bool:
+        for named_region, target_name in zip(self._NAMED_REGIONS, self._TARGET_NAMES):
+            matches = parser.named_region_matches_multi_target(
+                frame, named_region, target_name
+            )
+            if matches:
+                return True
+        return False
+
+
 class SubGoalMetric(MetricGroup, ABC):
     """
     Tracks subgoal based progress towards a specific test goal.
@@ -508,6 +562,26 @@ class DummySubGoalMetric(SubGoalMetric):
     """
 
     SUBGOALS = [DummySubGoal]
+
+
+def make_subgoal_metric_class(subgoals: List[Type[SubGoal]]) -> Type[SubGoalMetric]:
+    """
+    Factory function to create a SubGoalMetric class with the given subgoals and name.
+
+    Args:
+        subgoals (List[Type[SubGoal]]): The list of SubGoal classes to track.
+        name (str): The name of the SubGoalMetric class.
+
+    Returns:
+        Type[SubGoalMetric]: A new SubGoalMetric class with the specified subgoals and name.
+    """
+    if len(subgoals) == 0:
+        log_error("Must provide at least one subgoal to create a SubGoalMetric class.")
+
+    class CustomSubGoalMetric(SubGoalMetric):
+        SUBGOALS = subgoals
+
+    return CustomSubGoalMetric
 
 
 class TerminationTruncationMetric(MetricGroup, ABC):
@@ -877,6 +951,38 @@ class RegionMatchTerminationMetric(TerminationTruncationMetric, ABC):
     """
     Terminates the episode if a specific region matches a target.
     Can be used to terminate episodes when specific dialogue boxes appear, etc.
+    """
+
+    _TERMINATION_NAMED_REGION = None
+    _TERMINATION_TARGET_NAME = None
+
+    def determine_terminated(self, current_frame, recent_frames):
+        if (
+            self._TERMINATION_NAMED_REGION is None
+            or self._TERMINATION_TARGET_NAME is None
+        ):
+            log_error(
+                "Must set _TERMINATION_NAMED_REGION and _TERMINATION_TARGET_NAME.",
+                self._parameters,
+            )
+        all_frames = [current_frame]
+        if recent_frames is not None:
+            all_frames = recent_frames
+        for frame in all_frames:
+            matches = self.state_parser.named_region_matches_multi_target(
+                frame,
+                self._TERMINATION_NAMED_REGION,
+                self._TERMINATION_TARGET_NAME,
+            )
+            if matches:
+                return True
+        return False
+
+
+class RegionMatchTerminationOnlyMetric(TerminationMetric, ABC):
+    """
+    RegionMatchTerminationMetric with no truncation.
+    No truncation.
     """
 
     _TERMINATION_NAMED_REGION = None

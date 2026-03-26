@@ -1,5 +1,5 @@
-gameboy_action_freq: 128
-gameboy_press_step: 8
+gameboy_wait_ticks: 8 # number of emulator ticks to wait after an action. This is in addition to the press step time. So total ticks to wait after an action is gameboy_wait_ticks + gameboy_press_step + 1.
+gameboy_press_step: 5
 gameboy_headed_emulation_speed: 5 # Set this to a multiplier to speed up emulation with a window, e.g. 2 for 2x speed
 gameboy_max_steps: 10000
 gameboy_hard_max_steps: 1000000
