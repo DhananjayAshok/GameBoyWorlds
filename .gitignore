@@ -197,3 +197,8 @@ tmp.py
 */*/*/*.DS_Store
 tmp*
 *.DS_Store
+
+# Claude Code
+.claude/
+CLAUDE.md
+README_pipeline.md
