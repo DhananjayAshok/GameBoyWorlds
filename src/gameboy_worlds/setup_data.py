@@ -112,6 +112,10 @@ def push_data_to_hub(parameters, game):
     Upload local data to the Hugging Face Hub.
     """
     check_variant(game, parameters)
+    if game == "all":
+        raise ValueError(
+            f"Pushing to all is unsafe. Please specify a game variant to push."
+        )
     games = [game] if game != "all" else AVAILABLE_GAMES
     for game in games:
         repo_name = f"GameBoy-{game}"
