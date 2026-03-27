@@ -10,6 +10,9 @@ from gameboy_worlds.emulation.deja_vu.parsers import (
 from gameboy_worlds.emulation.deja_vu.trackers import (
     DejaVuCoatTestTracker,
     DejaVuOCRTracker,
+    DejaVuTakeGunTestTracker,
+    DejaVuOpenDoorTestTracker,
+    DejaVuCloseDoorTestTracker,
     DejaVuOpenPocketTestTracker,
     DejaVuOpenWalletTestTracker,
     DejaVuTakeGunTestTracker,
