@@ -6,6 +6,9 @@ from gameboy_worlds.emulation.sword_of_hope.parsers import (
     SwordOfHope1Parser,
     SwordOfHope2Parser,
 )
+from gameboy_worlds.emulation.sword_of_hope.trackers import (
+    SwordOfHope1MillRoomTestTracker,
+)
 
 GAME_TO_GB_NAME = {
     "sword_of_hope_1": "SwordOfHope.gb",
@@ -25,7 +28,10 @@ This means there is never a reason to use a weaker parser.
 
 
 AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
-    "sword_of_hope_1": {"default": StateTracker},
+    "sword_of_hope_1": {
+        "default": StateTracker,
+        "mill_room_test": SwordOfHope1MillRoomTestTracker,
+    },
     "sword_of_hope_2": {"default": StateTracker},
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """
