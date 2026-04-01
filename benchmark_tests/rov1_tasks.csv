@@ -1,0 +1,2 @@
+game,task_category,task,init_state,state_tracker_class
+runes_of_virtue_1,menu,Open the inventory menu,gameplay,open_menu_test

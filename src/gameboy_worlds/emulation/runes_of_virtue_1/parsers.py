@@ -3,7 +3,7 @@ from gameboy_worlds.emulation.parser import StateParser, NamedScreenRegion
 import os
 
 
-class UltimaRunesOfVirtueParser(StateParser):
+class RunesOfVirtue1Parser(StateParser):
     """
     State parser for Ultima: Runes of Virtue.
 
@@ -15,7 +15,7 @@ class UltimaRunesOfVirtueParser(StateParser):
       content during normal gameplay.
     """
 
-    VARIANT = "ultima_runes_of_virtue"
+    VARIANT = "runes_of_virtue_1"
 
     REGIONS = [
         ("menu_indicator", 20, 30, 40, 20),

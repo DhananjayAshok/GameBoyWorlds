@@ -374,11 +374,10 @@ class LowLevelPlayController(Controller):
             return None, None
         return LowLevelPlayAction, {"low_level_action": low_level_action}
 
-    def get_action_strings(self):
-        msg = f"""
-        A, B for button. L, R, U, D for arrow keys
-        """
-        return msg
+    def get_action_strings(self, return_all: bool = False):
+        return {
+            LowLevelPlayAction: "A, B for button. L, R, U, D for arrow keys",
+        }
 
 
 class RandomPlayController(Controller):
