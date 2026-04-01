@@ -12,3 +12,5 @@ pokemon_red,"catch_pokemon, combat",Catch Pikachu,encounter_pikachu_starting_cha
 pokemon_red,menu,Open the Map,location_viridian_city_starting_charmander,open_map_test,location_viridian_city_complete,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism"
 pokemon_red,menu,Use a Potion on Charmander,location_pewter_city_starting_charmander,used_potion_on_charmander_test,location_pewter_city_complete,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism"
 pokemon_red,"navigation, menu, interaction",Buy a Potion,location_pewter_pokemart_starting_charmander,bought_potion_at_pewter_pokemart_test,,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism"
+sword_of_hope_1,navigation,Reach the first adjacent room from the start state,navigation_old_house,mill_room_test,,sword_of_hope_2
+sword_of_hope_1,navigation,Navigate from the Old Man's Room to the Shaman's Room,navigation_old_house,shaman_room_test,,sword_of_hope_2

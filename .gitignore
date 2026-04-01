@@ -199,4 +199,7 @@ tmp.py
 tmp*
 *.DS_Store
 
+# Claude Code
+.claude/
 CLAUDE.md
+README_pipeline.md
