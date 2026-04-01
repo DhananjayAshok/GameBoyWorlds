@@ -10,6 +10,8 @@ from gameboy_worlds.emulation.legend_of_zelda.parsers import (
 
 from gameboy_worlds.emulation.legend_of_zelda.trackers import (
     CoreLegendOfZeldaTracker,
+    ZeldaLinksAwakeningOwlTestTracker,
+    ZeldaLinksAwakeningShieldTestTracker,
 )
 
 
@@ -31,7 +33,11 @@ This means there is never a reason to use a weaker parser.
 
 
 AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
-    "legend_of_zelda_links_awakening": {"default": CoreLegendOfZeldaTracker},
+    "legend_of_zelda_links_awakening": {
+        "default": CoreLegendOfZeldaTracker,
+        "pickup_sword_test": ZeldaLinksAwakeningOwlTestTracker,
+        "shield_test": ZeldaLinksAwakeningShieldTestTracker
+        },
     "legend_of_zelda_the_oracle_of_seasons": {"default": CoreLegendOfZeldaTracker},
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """
