@@ -51,6 +51,9 @@ class HarvestMoonStateParser(StateParser, ABC):
     """ List of common single-target named screen regions for Harvest Moon games. """
 
     COMMON_MULTI_TARGET_REGIONS = [
+        ("screen", 0, 0, 150, 140),
+        ("screen_middle", 65, 55, 20, 20),
+        ("dialogue_box_top", 58, 10, 40, 10),
     ]
     """ List of common multi-target named screen regions for Harvest Moon games.
 
@@ -64,6 +67,9 @@ class HarvestMoonStateParser(StateParser, ABC):
         "screen_bottom": [
             "cow_barn_entrance",
             "chicken_coop_entrance",
+        ],
+        "dialogue_box_top":[
+            "pick_up_watercan",
         ],
     }
     """ Common multi-targets for the common multi-target named screen regions.
@@ -212,14 +218,42 @@ class BaseHarvestMoonStateParser(HarvestMoonStateParser, ABC):
 class HarvestMoon1Parser(BaseHarvestMoonStateParser):
     def __init__(self, pyboy, parameters):
         override_multi_target_regions = [
+            ("screen", 0, 0, 160, 143),
+            ("screen_middle", 65, 63, 30, 30),
             ("screen_bottom", 0, 100, 160, 40),
+            ("dialogue_box_top", 60, 11, 40, 8),
+            ("item_watercan_above", 56, 85, 15, 35),
+            ("item_watercan_right", 55, 80, 30, 20),
+            ("item_watercan_below", 56, 70, 15, 30),
+            
         ]
+        
+        override_multi_targets = {
+            "screen_middle":[
+                "outside_cow_barn_left",
+                "outside_cow_barn_right",
+                "outside_cow_barn_up",
+                "outside_chicken_coop_left",
+                "outside_chicken_coop_right",
+                "outside_chicken_coop_up",
+            ],
+            "item_watercan_above":[
+                "pickup_watercan_down",
+            ],
+            "item_watercan_right":[
+                "pickup_watercan_left",
+            ],
+            "item_watercan_below":[
+                "pickup_watercan_up",
+            ]
+        }
 
         super().__init__(
             pyboy,
             variant="harvest_moon_1",
             parameters=parameters,
             override_multi_target_regions=override_multi_target_regions,
+            override_multi_targets=override_multi_targets,
         )
         
 class HarvestMoon2Parser(BaseHarvestMoonStateParser):

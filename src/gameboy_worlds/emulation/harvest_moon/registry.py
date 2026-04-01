@@ -11,6 +11,7 @@ from gameboy_worlds.emulation.harvest_moon.trackers import (
     HarvestMoonOCRTracker,
     HarvestMoonCowBarnTracker,   
     HarvestMoonChickenCoopTracker,
+    HarvestMoonPickupWaterCanTracker,
 )
 
 GAME_TO_GB_NAME = {
@@ -37,6 +38,7 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "default": HarvestMoonOCRTracker,
         "cow_barn_test": HarvestMoonCowBarnTracker,
         "chicken_coop_test": HarvestMoonChickenCoopTracker,
+        "pickup_watercan_test": HarvestMoonPickupWaterCanTracker,
     },
     "harvest_moon_2": {
         "default": HarvestMoonOCRTracker,

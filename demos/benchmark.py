@@ -43,7 +43,7 @@ def main(
         controller_variant="low_level",
         save_video=True,
         max_steps=max_steps,
-        headless=True,
+        headless=False,
         init_state=init_state,
         state_tracker_class=state_tracker_class,
     )
