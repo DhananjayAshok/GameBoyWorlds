@@ -125,8 +125,9 @@ class BaseLegendOfZeldaParser(StateParser):
             return "in_dialogue"
         if self.is_in_inventory(current_screen):
             return "in_inventory"
-        if self.is_in_cutscene(current_screen):
-            return "in_cutscene"
+        #if self.is_in_cutscene(current_screen):
+        #    return "in_cutscene" 
+        #need to fix this as it is giving in cutscene by checking the specfic health bar at that point
         return "free_roam"
 
 
@@ -137,13 +138,28 @@ class LegendOfZeldaLinksAwakeningParser(BaseLegendOfZeldaParser):
             ("equipped_action_1", 7, 130, 8, 10),
             ("equipped_action_2", 46, 130, 8, 10),
             ("owl_tracker", 70, 30, 13, 16),
-            ("shield_tracker", 106, 54, 7, 8)
+            ("shield_tracker", 106, 54, 7, 8),
+            ("outside_tarinhouse_tracker", 122, 20, 5, 10),
+            ("kid_screen_tracker", 154, 49, 5, 8),
+            ("library", 33, 17, 12, 13),
+            ("signboard", 32, 17, 14, 10),
+            ("cash_counter_tracker", 94, 84, 15, 10),
+            ("shop_signboard_tracker", 57, 73, 30, 5),
+            ("call_booth", 76, 50, 20, 12),
+            ("telephone_tracker", 81, 76, 13, 9),
+            ("telephone_speech_tracker", 25, 16, 53, 7),
+            ("bush_outside_forest", 97, 33, 13, 11),
+            ("brave_keyword_tracker", 102, 15, 38, 8),
+            ("open_chest_tracker", 64, 49, 14, 7),
+            ("stone_break_tracker", 49, 35, 12, 40),
         ]
 
         """
         - health_bar: Health bar appears at the bottom in legends of zelda link's awakening.
         - equipped_action_1: Action shown on the bottom-left side of the screen (triggered by A).
         - equipped_action_2: Action shown to the right of equipped_action_1 (triggered by S).
+        - outside_tarinhouse_tracker: fence outside the house
+        - kid_screen_tracker: represents the tree on the right when we can see kids playing
         """
         super().__init__(
             variant="legend_of_zelda_links_awakening",

@@ -12,6 +12,16 @@ from gameboy_worlds.emulation.harvest_moon.trackers import (
     HarvestMoonCowBarnTracker,   
     HarvestMoonChickenCoopTracker,
     HarvestMoonPickupWaterCanTracker,
+    HarvestMoonGoToSleepTracker,
+    HarvestMoonFeedSpiritTracker,
+    HarvestMoonWaterTurnipTracker,
+    HarvestMoonBuyPotatoSeedsTracker,
+    HarvestMoonBuyTurnipSeedsTracker,
+    HarvestMoonBuyRiceBallTracker,
+    HarvestMoonOpenStorageListTracker,
+    HarvestMoonFindLostBirdTracker,
+    HarvestMoonSpeakToBlueHairGirlTracker,
+    HarvestMoonFillChickenFodderTracker,
 )
 
 GAME_TO_GB_NAME = {
@@ -39,6 +49,16 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "cow_barn_test": HarvestMoonCowBarnTracker,
         "chicken_coop_test": HarvestMoonChickenCoopTracker,
         "pickup_watercan_test": HarvestMoonPickupWaterCanTracker,
+        "go_to_sleep_test": HarvestMoonGoToSleepTracker,
+        "feed_spirit_test": HarvestMoonFeedSpiritTracker,
+        "water_turnip_test": HarvestMoonWaterTurnipTracker,
+        "buy_potato_seeds_test": HarvestMoonBuyPotatoSeedsTracker,
+        "buy_turnip_seeds_test": HarvestMoonBuyTurnipSeedsTracker,
+        "buy_rice_ball_test": HarvestMoonBuyRiceBallTracker,
+        "open_storage_list_test": HarvestMoonOpenStorageListTracker,
+        "find_lost_bird_test": HarvestMoonFindLostBirdTracker,
+        "speak_to_blue_hair_girl_test": HarvestMoonSpeakToBlueHairGirlTracker,
+        "fill_chicken_fodder_test": HarvestMoonFillChickenFodderTracker,
     },
     "harvest_moon_2": {
         "default": HarvestMoonOCRTracker,

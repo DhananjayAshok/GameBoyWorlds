@@ -68,9 +68,6 @@ class HarvestMoonStateParser(StateParser, ABC):
             "cow_barn_entrance",
             "chicken_coop_entrance",
         ],
-        "dialogue_box_top":[
-            "pick_up_watercan",
-        ],
     }
     """ Common multi-targets for the common multi-target named screen regions.
     - screen_bottom: Location/event captures for the bottom strip of the screen.
@@ -222,10 +219,33 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             ("screen_middle", 65, 63, 30, 30),
             ("screen_bottom", 0, 100, 160, 40),
             ("dialogue_box_top", 60, 11, 40, 8),
+            ("dialogue_box_bottom", 0, 105, 160, 35),
+            ("field_middle", 75, 60, 10,10),
+            ("item_bed", 0, 40, 40, 40),
             ("item_watercan_above", 56, 85, 15, 35),
             ("item_watercan_right", 55, 80, 30, 20),
             ("item_watercan_below", 56, 70, 15, 30),
-            
+            ("item_storage_list", 0, 40, 20, 30),
+            ("item_spirit_left", 70, 50, 30, 30),
+            ("item_spirit_below", 70, 50, 30, 30),
+            ("item_spirit_above", 70, 50, 15, 50),
+            ("item_lost_bird_left", 70, 65, 30, 25),
+            ("item_lost_bird_right", 60, 65, 30, 25),
+            ("item_lost_bird_below", 70, 50, 20, 35),
+            ("item_blue_hair_girl_left", 80, 20, 30, 30),
+            ("item_blue_hair_girl_right", 95, 20, 30, 30), 
+            ("item_blue_hair_girl_below", 95, 20, 20, 40), 
+            ("item_chicken_stall_block1", 5, 40, 25, 20),
+            ("item_next_to_chicken_stall_block1", 5, 55, 25, 25),
+            ("item_chicken_silo_left", 100, 40, 30, 30),
+            ("item_chicken_silo_below1", 120, 50, 15, 35),
+            ("item_chicken_silo_below2", 135, 50, 15, 35),
+            ("turnip_center", 70, 90, 20, 20),
+            ("turnip_top", 70, 70, 20, 35),
+            ("center_sign", 55, 65, 50, 15),
+            ("screen_top_half", 0, 0, 160, 65),
+            ("screen_bottom_half", 0, 75, 160, 65),
+            ("left_border_frame", 0, 0, 5, 140),
         ]
         
         override_multi_targets = {
@@ -237,6 +257,23 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
                 "outside_chicken_coop_right",
                 "outside_chicken_coop_up",
             ],
+            "dialogue_box_bottom":[
+                "choose_yes_for_sleep",
+                "fed_spirit",
+                "select_potato_seeds",
+                "select_potato_seeds_portion",
+                "select_turnip_seeds",
+                "select_turnip_seeds_portion",
+                "select_rice_ball",
+                "found_bird_for_friend",
+                "speaking_to_blue_hair_girl",
+            ],
+            "item_bed":[
+                "sleep_in_bed",
+            ],
+            "item_storage_list":[
+                "next_to_storage_list",
+            ],
             "item_watercan_above":[
                 "pickup_watercan_down",
             ],
@@ -245,7 +282,78 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             ],
             "item_watercan_below":[
                 "pickup_watercan_up",
-            ]
+            ],
+            "item_spirit_left":[
+                "feed_spirit_right",
+            ],
+            "item_spirit_above":[
+                "feed_spirit_down",
+            ],
+            "item_spirit_below":[
+                "feed_spirit_up",
+            ],
+            "item_lost_bird_left":[
+                "find_lost_bird_right",
+            ],
+            "item_lost_bird_right":[
+                "find_lost_bird_left",
+            ], 
+            "item_lost_bird_below":[
+                "find_lost_bird_up",
+            ],
+            "item_blue_hair_girl_left":[
+                "next_to_blue_hair_girl_right",
+            ],
+            "item_blue_hair_girl_right":[
+                "next_to_blue_hair_girl_left",
+            ], 
+            "item_blue_hair_girl_below":[
+                "next_to_blue_hair_girl_up",
+            ],
+            "item_chicken_stall_block1":[
+                "filled_chicken_stall_block1",
+            ],
+            "item_next_to_chicken_stall_block1":[
+                "next_to_chicken_stall_block1",
+            ],
+            "item_chicken_silo_left":[
+                "next_to_chicken_silo_right",
+                "got_fodder_from_chicken_silo_right",
+            ],
+            "item_chicken_silo_below1":[
+                "next_to_chicken_silo_up1",
+                "got_fodder_from_chicken_silo_up1",
+            ],
+            "item_chicken_silo_below2":[
+                "next_to_chicken_silo_up2",
+                "got_fodder_from_chicken_silo_up2",
+            ],
+            "dialogue_box_top":[
+                "pick_up_watercan",
+            ],
+            "turnip_center":[
+                "finish_watering",
+            ],
+            "turnip_top":[
+                "ready_to_water",
+            ],
+            "center_sign":[
+                "outside_flower_shop",
+                "outside_restaurant",
+            ],
+            "screen_bottom_half":[
+                "bought_potato_seeds",                
+                "bought_turnip_seeds",
+                "option_to_buy_rice_ball",
+                "bought_rice_ball",
+            ],
+            "screen_top_half":[
+                "in_restaurant",
+                "in_flower_shop",
+            ],
+            "left_border_frame":[
+                "open_storage_list",
+            ],
         }
 
         super().__init__(
