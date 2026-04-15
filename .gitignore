@@ -203,6 +203,5 @@ tmp*
 .claude/
 CLAUDE.md
 README_pipeline.md
-dev/save_region_from_screenshot.py
 benchmark_tests/tasks.csv
 configs/gameboy_vars.yaml
