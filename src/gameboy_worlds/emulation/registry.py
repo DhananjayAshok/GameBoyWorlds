@@ -30,6 +30,7 @@ from gameboy_worlds.emulation.sword_of_hope import registry as sword_of_hope_reg
 from gameboy_worlds.emulation.deja_vu import registry as deja_vu_registry
 from gameboy_worlds.emulation.harvest_moon import registry as harvest_moon_registry
 from gameboy_worlds.emulation.harrypotter import registry as harrypotter_registry
+from gameboy_worlds.emulation.bomberman import registry as bomberman_registry
 
 
 _game_registries = [
@@ -40,6 +41,7 @@ _game_registries = [
     deja_vu_registry,
     harvest_moon_registry,
     harrypotter_registry,
+    bomberman_registry,
 ]
 
 _project_parameters = load_parameters()

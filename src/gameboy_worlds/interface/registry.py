@@ -29,6 +29,7 @@ from gameboy_worlds.interface.deja_vu import registry as deja_vu_registry
 from gameboy_worlds.interface.hamtaro import registry as hamtaro_registry
 from gameboy_worlds.interface.harvest_moon import registry as harvest_moon_registry
 from gameboy_worlds.interface.harrypotter import registry as harrypotter_registry
+from gameboy_worlds.interface.bomberman import registry as bomberman_registry
 
 _project_parameters = load_parameters()
 
@@ -40,6 +41,7 @@ _game_registries = [
     deja_vu_registry,
     harvest_moon_registry,
     harrypotter_registry,
+    bomberman_registry,
 ]
 
 AVAILABLE_ENVIRONMENTS: Dict[str, Dict[str, Type[Environment]]] = {}
