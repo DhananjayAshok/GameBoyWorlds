@@ -110,6 +110,7 @@ class BombermanPocketParser(BombermanParser):
         ("area_intro_block", 0, 0, 53, 20),
         ("pause_indicator", 96, 128, 64, 16),
         ("hud_heart", 54, 136, 10, 7),
+        ("hud_enemy_count", 86, 136, 21, 7),
         ("hud_bomb_count", 110, 136, 20, 7),
         ("hud_bottom_right", 130, 136, 30, 7),
         ("zone_background", 0, 0, 160, 32),
@@ -126,6 +127,7 @@ class BombermanPocketParser(BombermanParser):
         "area_intro_block": ["area_intro_active"],
         "pause_indicator": ["pause_active"],
         "hud_heart": [],
+        "hud_enemy_count": [],
         "hud_bomb_count": [],
         "hud_bottom_right": [],
         "zone_background": [
@@ -181,6 +183,8 @@ class BombermanQuestParser(BombermanParser):
         ("item_select_panel", 95, 5, 65, 85),
         ("zone_background", 0, 0, 160, 32),
         ("book_bottom", 0, 120, 160, 20),
+        ("bottom_strip", 0, 120, 160, 24),
+        ("button_region", 80, 80, 16, 16),
     ]
 
     MULTI_TARGETS = {
@@ -193,13 +197,12 @@ class BombermanQuestParser(BombermanParser):
             "bomb_component_select_active",
         ],
         "zone_background": [
-            "in_field_zone",
-            "in_forest_zone",
-            "in_desert_zone",
-            "in_cloud_zone",
             "in_camp",
+            "in_house",
         ],
         "book_bottom": ["book_read_active"],
+        "bottom_strip": [],
+        "button_region": [],
     }
 
     def is_in_menu(self, current_screen: np.ndarray) -> bool:
@@ -236,14 +239,5 @@ class BombermanQuestParser(BombermanParser):
     def is_in_camp(self, current_screen: np.ndarray) -> bool:
         return self._matches(current_screen, "zone_background", "in_camp")
 
-    def is_in_field_zone(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "zone_background", "in_field_zone")
-
-    def is_in_forest_zone(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "zone_background", "in_forest_zone")
-
-    def is_in_desert_zone(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "zone_background", "in_desert_zone")
-
-    def is_in_cloud_zone(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "zone_background", "in_cloud_zone")
+    def is_in_house(self, current_screen: np.ndarray) -> bool:
+        return self._matches(current_screen, "zone_background", "in_house")

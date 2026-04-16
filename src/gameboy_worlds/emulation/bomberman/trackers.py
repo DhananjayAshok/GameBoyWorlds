@@ -16,16 +16,15 @@ from gameboy_worlds.emulation.bomberman.test_metrics import (
     BombermanQuestGameOverTerminateMetric,
     BombermanQuestPauseMenuOpenTerminateMetric,
     CharabomSelectOpenTerminateMetric,
-    CloudZoneTerminateMetric,
-    DesertZoneTerminateMetric,
     DialogueActiveTerminateMetric,
     EnterCampTerminateMetric,
-    FieldZoneTerminateMetric,
+    ButtonRegionChangedTerminateMetric,
+    EnterHouseTerminateMetric,
     AreaIntroTerminateMetric,
-    ForestZoneTerminateMetric,
     HudBombCountChangedTerminateMetric,
     HudBottomRightChangedTerminateMetric,
     HudChangedTerminateMetric,
+    HudPocketEnemyCountChangedTerminateMetric,
     HudEnemyCountChangedTerminateMetric,
     HudFireChangedTerminateMetric,
     HudHeartChangedTerminateMetric,
@@ -162,6 +161,10 @@ class BombermanPocketHudChangedTestTracker(BombermanPocketBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = HudChangedTerminateMetric
 
 
+class BombermanPocketHudEnemyCountChangedTestTracker(BombermanPocketBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = HudPocketEnemyCountChangedTerminateMetric
+
+
 class BombermanPocketHudBottomRightChangedTestTracker(
     BombermanPocketBaseTestTracker
 ):
@@ -214,21 +217,6 @@ class BombermanQuestBattleTestTracker(BombermanQuestBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = BattleActiveTerminateMetric
 
 
-class BombermanQuestFieldZoneTestTracker(BombermanQuestBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = FieldZoneTerminateMetric
-
-
-class BombermanQuestForestZoneTestTracker(BombermanQuestBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = ForestZoneTerminateMetric
-
-
-class BombermanQuestDesertZoneTestTracker(BombermanQuestBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = DesertZoneTerminateMetric
-
-
-class BombermanQuestCloudZoneTestTracker(BombermanQuestBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = CloudZoneTerminateMetric
-
 
 class BombermanQuestShieldSelectTestTracker(BombermanQuestBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = ShieldSelectTerminateMetric
@@ -240,6 +228,14 @@ class BombermanQuestBombComponentSelectTestTracker(BombermanQuestBaseTestTracker
 
 class BombermanQuestEnterCampTestTracker(BombermanQuestBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = EnterCampTerminateMetric
+
+
+class BombermanQuestEnterHouseTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = EnterHouseTerminateMetric
+
+
+class BombermanQuestButtonRegionChangedTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = ButtonRegionChangedTerminateMetric
 
 
 class BombermanQuestBookReadTestTracker(BombermanQuestBaseTestTracker):
