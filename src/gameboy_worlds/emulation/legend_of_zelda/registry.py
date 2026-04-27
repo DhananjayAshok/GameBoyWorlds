@@ -30,6 +30,22 @@ from gameboy_worlds.emulation.legend_of_zelda.trackers import (
     ZeldaLinksAwakeningWeirdTunnelInsideTestTracker,
     ZeldaLinksAwakeningWitchTalkTestTracker,
     ZeldaLinksAwakeningSignboardReaderTestTracker,
+    ZeldaOracleOfSeasonsOtherPeopleTracker,
+    ZeldaOracleOfSeasonsGirlTalkTracker,
+    ZeldaOracleOfSeasonsJumpingTracker,
+    ZeldaOracleOfSeasonsFarmerTalkTracker,
+    ZeldaOracleOfSeasonsLibraryTracker,
+    ZeldaOracleOfSeasonsParrotTalkTracker,
+    ZeldaOracleOfSeasonsFallTracker,
+    ZeldaOracleOfSeasonsStairsTracker,
+    ZeldaOracleOfSeasonsSignboardReadTracker,
+    ZeldaOracleOfSeasonsShopInsideTracker,
+    ZeldaOracleOfSeasonsShopPersonTalkTracker,
+    ZeldaOracleOfSeasonsGirlHouseTracker,
+    ZeldaOracleOfSeasonsPotInteractionTracker,
+    ZeldaOracleOfSeasonsInsideTunnelTracker,
+    ZeldaOracleOfSeasonsArtistTalkTracker,
+    ZeldaOracleOfSeasonsChickenHouseTracker,
 )
 
 
@@ -76,7 +92,26 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "signboard_reader_tracker": ZeldaLinksAwakeningSignboardReaderTestTracker,
 
         },
-    "legend_of_zelda_the_oracle_of_seasons": {"default": CoreLegendOfZeldaTracker},
+    "legend_of_zelda_the_oracle_of_seasons": {
+        "default": CoreLegendOfZeldaTracker,
+        "other_people_tracker": ZeldaOracleOfSeasonsOtherPeopleTracker,
+        "girl_talk_tracker": ZeldaOracleOfSeasonsGirlTalkTracker,
+        "jumping_tracker": ZeldaOracleOfSeasonsJumpingTracker,
+        "farmer_talk_tracker": ZeldaOracleOfSeasonsFarmerTalkTracker,
+        "library_tracker": ZeldaOracleOfSeasonsLibraryTracker,
+        "parrot_talk_tracker": ZeldaOracleOfSeasonsParrotTalkTracker,
+        "fall_tracker": ZeldaOracleOfSeasonsFallTracker,
+        "stairs_tracker": ZeldaOracleOfSeasonsStairsTracker,
+        "signboard_read_tracker": ZeldaOracleOfSeasonsSignboardReadTracker,
+        "shop_inside_tracker": ZeldaOracleOfSeasonsShopInsideTracker,
+        "shop_person_talk_tracker": ZeldaOracleOfSeasonsShopPersonTalkTracker,
+        "girl_house_tracker": ZeldaOracleOfSeasonsGirlHouseTracker,
+        "pot_interaction_tracker": ZeldaOracleOfSeasonsPotInteractionTracker,
+        "inside_tunnel_tracker": ZeldaOracleOfSeasonsInsideTunnelTracker,
+        "artist_talk_tracker": ZeldaOracleOfSeasonsArtistTalkTracker,
+        "chicken_house_tracker": ZeldaOracleOfSeasonsChickenHouseTracker,
+        },
+
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """
 
