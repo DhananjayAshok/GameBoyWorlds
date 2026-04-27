@@ -21,6 +21,7 @@ There are two ways to navigate the documentation:
 ### Notable API Imports
 **Utils Submodule:**
 * `get_benchmark_tasks`: Function to get benchmark tasks for evaluating agents in different game variants.
+* `get_benchmark_tasks_dfs`: Function to get benchmark tasks for evaluating agents in different game variants.
 
 **Emulation Submodule:**
 * `AVAILABLE_GAMES`: List of available game variants supported by the package.
@@ -29,6 +30,7 @@ There are two ways to navigate the documentation:
 * `clear_tmp_sessions`: Function to clear temporary emulator sessions.
 
 **Interface Submodule:**
+* `AVAILABLE_BENCHMARKS`: List of available benchmark modules for evaluating agents.
 * `get_environment`: Factory function to get an environment instance for a specified game variant and environment variant.
 * `get_test_environment`: Function to create a test environment based on a benchmark task.
 * `get_training_environments_kwargs`: Function to get keyword arguments for creating training environments for a specified game variant.
@@ -36,7 +38,7 @@ There are two ways to navigate the documentation:
 
 """
 
-from gameboy_worlds.utils import get_benchmark_tasks
+from gameboy_worlds.utils import get_benchmark_tasks_dfs, get_benchmark_tasks
 
 from gameboy_worlds.emulation.registry import (
     AVAILABLE_GAMES,
@@ -44,6 +46,7 @@ from gameboy_worlds.emulation.registry import (
     get_available_init_states,
 )
 from gameboy_worlds.interface.registry import (
+    AVAILABLE_BENCHMARKS,
     get_environment,
     get_test_environment,
     get_training_environments_kwargs,

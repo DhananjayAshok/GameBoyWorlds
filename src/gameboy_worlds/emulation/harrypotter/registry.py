@@ -7,6 +7,16 @@ from gameboy_worlds.emulation.harrypotter.parsers import (
 )
 from gameboy_worlds.emulation.harrypotter.trackers import (
     PotionsShopTestTracker,
+    EnterOllivandersTestTracker,
+    GetWandTestTracker,
+    ReceiveFolioMagiTestTracker,
+    SelectCardDeckTestTracker,
+    EnterGringottsTestTracker,
+    TalkHagridGringottsTestTracker,
+    GainLevelTestTracker,
+    GainSpellTestTracker,
+    WinBattleTestTracker,
+    BeatBossRatTestTracker,
 )
 
 GAME_TO_GB_NAME = {
@@ -28,6 +38,16 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
     "harrypotter_philosophersstone": {
         "default": StateTracker,
         "potions_shop_test": PotionsShopTestTracker,
+        "enter_ollivanders_test": EnterOllivandersTestTracker,
+        "get_wand_test": GetWandTestTracker,
+        "receive_folio_magi_test": ReceiveFolioMagiTestTracker,
+        "select_card_deck_test": SelectCardDeckTestTracker,
+        "enter_gringotts_test": EnterGringottsTestTracker,
+        "talk_hagrid_gringotts_test": TalkHagridGringottsTestTracker,
+        "gain_level_test": GainLevelTestTracker,
+        "gain_spell_test": GainSpellTestTracker,
+        "win_battle_test": WinBattleTestTracker,
+        "beat_boss_rat_test": BeatBossRatTestTracker,
     },
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """

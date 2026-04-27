@@ -9,6 +9,7 @@ from gameboy_worlds.utils import (
     get_lowest_level_subclass,
     verify_parameters,
     log_dict,
+    import_pygame,
 )
 
 
@@ -30,7 +31,6 @@ warnings.filterwarnings(
     message="pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html",
 )
 # This is to ignore deprecation warnings from pygame about pkg_resources
-import pygame
 
 
 class Environment(gym.Env, ABC):
@@ -526,6 +526,7 @@ class Environment(gym.Env, ABC):
             screen (np.ndarray): The screen to render.
 
         """
+        pygame = import_pygame(self._parameters)
         if self._window is None:
             pygame.init()
             pygame.display.init()

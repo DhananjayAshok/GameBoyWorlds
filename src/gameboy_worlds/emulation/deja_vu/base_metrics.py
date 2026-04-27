@@ -79,8 +79,8 @@ class DejaVuOCRMetric(OCRegionMetric):
 
     def start(self):
         self.kinds = {
-            "dialogue": "dialogue_top_left_hook",
-            "menu": "menu_bottom_line",
+            "dialogue": "dialogue_box_area",
+            "menu": "menu_box_area",
         }
         super().start()
 
@@ -88,8 +88,8 @@ class DejaVuOCRMetric(OCRegionMetric):
         self.state_parser: DejaVuStateParser
         if kind == "dialogue":
             in_dialogue = self.state_parser.is_in_dialogue(current_screen=current_frame)
-            in_menu = self.state_parser.is_in_menu(current_screen=current_frame)
-            return in_dialogue and not in_menu
+            # in_menu = self.state_parser.is_in_menu(current_screen=current_frame)
+            return in_dialogue  # and not in_menu
         if kind == "menu":
             in_menu = self.state_parser.is_in_menu(current_screen=current_frame)
             return in_menu
@@ -114,8 +114,8 @@ class DejaVuTestMetric(MetricGroup):
     def reset(self, first=False):
         if not first:
             pass
-        self.prev_was_fight = False
-        self.is_in_fight = False
+        self.is_in_dialogue = False
+        self.pre_was_dialogue = False
 
     def close(self):
         self.reset()
@@ -123,14 +123,14 @@ class DejaVuTestMetric(MetricGroup):
 
     def step(self, current_frame: np.ndarray, recent_frames: Optional[np.ndarray]):
         self.state_parser: DejaVuStateParser
-        is_fight = False
-        self.prev_was_fight = self.is_in_fight
-        self.is_in_fight = is_fight
+        is_dialogue = self.state_parser.is_in_dialogue(current_screen=current_frame)
+        self.pre_was_dialogue = self.is_in_dialogue
+        self.is_in_dialogue = is_dialogue
 
     def report(self) -> dict:
         return {
-            "is_in_fight": self.is_in_fight,
-            "was_in_fight_last_step": self.prev_was_fight,
+            "is_in_dialogue": self.is_in_dialogue,
+            "was_in_dialogue_last_step": self.pre_was_dialogue,
         }
 
     def report_final(self) -> dict:

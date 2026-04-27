@@ -4,14 +4,19 @@ warnings.filterwarnings("ignore", message=".*SDL2 binaries.*")
 # To suppress pyBoy SDL2 warnings on some systems
 from pyboy import PyBoy
 from abc import ABC, abstractmethod
-from gameboy_worlds.utils import log_error, log_warn, verify_parameters, show_frames
+from gameboy_worlds.utils import (
+    log_error,
+    log_warn,
+    verify_parameters,
+    show_frames,
+    import_cv2,
+)
 
 
 import numpy as np
 
 import os
 from typing import Dict, Tuple, Optional, List, Union
-import cv2
 from PIL import Image
 
 
@@ -203,7 +208,7 @@ class NamedScreenRegion:
         """
         if self.target is None:
             if self._parameters["debug_mode"]:
-                return False
+                return float("inf")
             log_error(
                 f"No target image set for NamedScreenRegion {self.name}. Cannot compare.",
                 self._parameters,
@@ -215,7 +220,7 @@ class NamedScreenRegion:
                     self._parameters,
                 )
             else:
-                return False
+                return float("inf")
         diff = np.abs(reference.astype(np.float32) - self.target.astype(np.float32))
         mae = np.mean(diff)
         return mae
@@ -566,6 +571,7 @@ class StateParser(ABC):
             end_x = min(current_frame.shape[1], end_x)
             end_y = min(current_frame.shape[0], end_y)
         frame_with_box = current_frame.copy()
+        cv2 = import_cv2(None)
         cv2.rectangle(
             frame_with_box, (start_x, start_y), (end_x, end_y), color, thickness
         )
@@ -600,6 +606,7 @@ class StateParser(ABC):
         start_y = max(center_y - half_box, 0)
         end_y = min(center_y + half_box, current_frame.shape[0])
         frame_with_square = current_frame.copy()
+        cv2 = import_cv2(None)
         cv2.rectangle(
             frame_with_square, (start_x, start_y), (end_x, end_y), color, thickness
         )
@@ -742,6 +749,7 @@ class StateParser(ABC):
             np.ndarray: The frame with the grid overlay.
         """
         frame_with_grid = current_frame.copy()
+        cv2 = import_cv2(None)
         for x in range(0, current_frame.shape[1], grid_skip):
             cv2.line(
                 frame_with_grid,

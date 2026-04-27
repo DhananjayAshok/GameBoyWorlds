@@ -197,9 +197,13 @@ tmp.py
 */*/*.DS_Store
 */*/*/*.DS_Store
 tmp*
+results/
 *.DS_Store
 
 # Claude Code
 .claude/
 CLAUDE.md
 README_pipeline.md
+
+# Local docs / notes
+docs/

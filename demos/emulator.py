@@ -1,3 +1,8 @@
+"""
+Usage:
+python demos/emulator.py --game pokemon_red --play_mode human
+"""
+
 from gameboy_worlds import get_emulator, AVAILABLE_GAMES
 import click
 
@@ -35,7 +40,7 @@ def main(game, init_state, play_mode, headless, save_video):
         emulator = get_emulator(
             game=game, init_state=init_state, headless=False, save_video=save_video
         )
-        emulator._dev_play()
+        emulator.human_play()
     else:
         if headless != False:
             headless = True

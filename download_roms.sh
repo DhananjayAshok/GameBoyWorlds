@@ -73,7 +73,7 @@ rom_links["harvest_moon:harvest_moon_3"]="PLACEHOLDER"
 # ---------------------------------------------------------------------------
 # 1. Install gdown
 # ---------------------------------------------------------------------------
-uv pip install gdown
+uv pip install gdown==6.0.0
 
 # ---------------------------------------------------------------------------
 # 2. Source config
@@ -114,7 +114,7 @@ for series in "${!rom_series[@]}"; do
         echo "Downloading [$series / $game] -> $dest"
         # gdown saves with the original Google Drive filename;
         # cd into dest so the file lands there directly.
-        (cd "$dest" && gdown --fuzzy "$link")
+        (cd "$dest" && gdown "$link")
     done
 done
 

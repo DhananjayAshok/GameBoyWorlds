@@ -11,6 +11,34 @@ import pandas as pd
 from time import perf_counter_ns
 
 
+def import_cv2(parameters: dict = None):
+    """
+    Import cv2 lazily so headless runs without video writing do not load extra SDL libraries.
+    """
+    try:
+        import cv2
+    except ImportError:
+        log_error(
+            "OpenCV (cv2) is required for emulator video recording utilities.",
+            parameters,
+        )
+    return cv2
+
+
+def import_pygame(parameters: dict):
+    """
+    Import pygame lazily so headless runs don't pull in SDL unless rendering is requested.
+    """
+    try:
+        import pygame
+    except ImportError:
+        log_error(
+            "pygame is required for render() / human play display. Install pygame or run without render.",
+            parameters,
+        )
+    return pygame
+
+
 def is_none_str(s) -> bool:
     """
     Checks if a string is None or represents a null value.
@@ -149,15 +177,25 @@ def show_frames(
             plt.show()
 
 
-def get_benchmark_tasks_df(parameters: dict = None) -> pd.DataFrame:
+def get_benchmark_tasks_dfs(parameters: dict = None) -> dict[str, pd.DataFrame]:
     """
     Loads the benchmark tasks from the benchmark_tests/tasks.csv file
+
+    Args:
+        parameters (dict, optional): Additional parameters for error logging.
+    Returns:
+        dict[str, pd.DataFrame]: A dictionary mapping game names to their corresponding DataFrames containing the benchmark tasks.
     """
     parameters = load_parameters(parameters)
     project_root = parameters["project_root"]
-    tasks_filepath = os.path.join(project_root, "benchmark_tests", "tasks.csv")
-    tasks_df = pd.read_csv(tasks_filepath)
-    return tasks_df
+    module_paths = os.listdir(project_root + "/benchmark_tests/")
+    benchmark_dfs = {}
+    for module_path in module_paths:
+        if module_path.endswith(".csv"):
+            tasks_filepath = os.path.join(project_root, "benchmark_tests", module_path)
+            benchmark_name = module_path.strip(".csv")
+            benchmark_dfs[benchmark_name] = pd.read_csv(tasks_filepath)
+    return benchmark_dfs
 
 
 def get_benchmark_tasks(game: str, parameters: dict = None) -> pd.DataFrame:
@@ -172,8 +210,25 @@ def get_benchmark_tasks(game: str, parameters: dict = None) -> pd.DataFrame:
         pd.DataFrame: DataFrame containing the benchmark tasks for the specified game.
     """
     parameters = load_parameters(parameters)
-    tasks_df = get_benchmark_tasks_df(parameters)
-    game_tasks_df = tasks_df[tasks_df["game"] == game]
+    tasks_dfs = get_benchmark_tasks_dfs(parameters)
+    available_games = set()
+    task_df = None
+    for benchmark_name, df in tasks_dfs.items():
+        available_games.update(set(df["game"].unique()))
+        if game in df["game"].unique():
+            if task_df is not None:
+                log_error(
+                    f"Multiple benchmark modules contain tasks for game variant '{game}'. Please ensure that only one benchmark CSV file contains tasks for this game.",
+                    parameters,
+                )
+            task_df = df
+
+    if game not in available_games:
+        log_error(
+            f"Game variant '{game}' not found in benchmark tasks. Available game variants: {available_games}",
+            parameters=parameters,
+        )
+    game_tasks_df = task_df[task_df["game"] == game]
     if len(game_tasks_df) == 0:
         log_error(
             f"No benchmark tasks found for game variant '{game}'. Please ensure that the benchmark_tests/tasks.csv file contains tasks for this game.",

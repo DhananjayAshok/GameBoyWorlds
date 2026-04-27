@@ -19,10 +19,9 @@ from gameboy_worlds.utils import (
     is_none_str,
     verify_parameters,
     log_dict,
+    import_cv2,
 )
 
-
-import cv2
 
 from pyboy import PyBoy
 from pyboy.utils import WindowEvent
@@ -174,6 +173,7 @@ class VideoWriter:
         self.video_running = False
         """ Whether the video writer is currently recording video. """
         project_dir = self._parameters["project_root"]
+        cv2 = import_cv2(self._parameters)
         self._button_images = {
             None: cv2.imread(
                 os.path.join(project_dir, "assets/buttons/idle.png"),
@@ -254,6 +254,7 @@ class VideoWriter:
         os.makedirs(base_dir, exist_ok=True)
         video_path = os.path.join(base_dir, f"{video_id}")
         self.close_video()
+        cv2 = import_cv2(self._parameters)
         self._frame_writer = cv2.VideoWriter(
             video_path,
             cv2.VideoWriter_fourcc(*"mp4v"),
@@ -289,6 +290,7 @@ class VideoWriter:
         button_offset = 0
         button_x = self._output_shape[0] - button_size - button_offset
         button_y = self._output_shape[1] - button_size - button_offset
+        cv2 = import_cv2(self._parameters)
         button_image = cv2.resize(button_image, (button_size, button_size))
         alphas = button_image[:, :, 3] / 255.0
 
@@ -837,6 +839,7 @@ class Emulator:
                 Enter 'c <region_name> <save_name / None if region.target_path is set>' to capture a named region and save it as a .npy file. To enter a multi-target region use the format "c <region_name>,<target_name> <save_name>" (no spaces in between region and target name)
                 Enter 'd <None / region_name>' to draw a named region and display the current screen with the region drawn.
                 Enter 'b' to enter a breakpoint.
+                Enter 'g <code>' to apply a GameShark code (e.g. g 0101C7C9).
                 Valid region names are: {valid_regions}
                 Initially unassigned regions (target array not set) were: {unassigned_regions}\n\t Note: This list does not update as you assign targets during this session.
                 Current State: 
@@ -847,7 +850,7 @@ class Emulator:
                 user_input = input("Dev mode input: ")
                 user_input = user_input.lower().strip()
                 first_char = user_input[0] if len(user_input) > 0 else ""
-                allowed_inputs = ["e", "", "p", "w", "c", "s", "l", "d", "b"]
+                allowed_inputs = ["e", "", "p", "w", "c", "s", "l", "d", "b", "g"]
                 if first_char not in allowed_inputs:
                     log_warn(
                         f"Invalid input {user_input}. Valid inputs are: {allowed_inputs}",
@@ -905,6 +908,15 @@ class Emulator:
                         current_frame=self.get_current_frame(), y_offset=0
                     )
                     breakpoint()
+                elif first_char == "g":
+                    parts = user_input.split(" ")
+                    if len(parts) != 2:
+                        log_warn(f"Invalid input {user_input}. Usage: g <code>", self._parameters)
+                    else:
+                        code = parts[1].upper()
+                        self._pyboy.gameshark.add(code)
+                        log_info(f"GameShark code applied: {code}", self._parameters)
+                    continue
                 else:
                     current_frame = self.get_current_frame()
                     # draw it even if c, so we can see what we're capturing
