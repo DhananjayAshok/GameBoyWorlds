@@ -72,6 +72,9 @@ class DejaVuStateParser(StateParser, ABC):
     COMMON_REGIONS = [
         ("dialogue_top_left_hook", 0, 73, 10, 6),
         ("menu_bottom_line", 0, 143, 160, 1),
+        ("selected_outfit_button", 120, 17, 14, 15),
+        ("pointed_at_13_on_map", 136, 80, 8, 8),
+        ("pointed_at_21_on_map", 120, 72, 8, 8),
     ]
     """ 
     List of common named screen regions for Deja Vu game.
@@ -79,15 +82,20 @@ class DejaVuStateParser(StateParser, ABC):
     Deja Vu uses a primarily text/menu-driven interface. These regions help identify:
     - dialogue_top_left_hook: A hook that appears in the top left after certain events, can be used to determine if certain game mechanics are available.
     - menu_bottom_line: A line that appears at the bottom of the screen when any menu is open, can be used to prevent agent interaction with the UI frame of the emulator.
+    - selected_outfit_button: The area where the "Selected Outfit" button appears when the outfit menu is open, can be used to determine if the outfit menu is open.
+    (the map is divided into a 5x5 grid of locations, with (1,1) being the bottom left and (5,5) being the top right - (i,j) corresponds to i-th row from the bottom and j-th column from the left)
+    - pointed_at_13_on_map: The agent is currently pointing at location (1,3) on the map.
+    - pointed_at_21_on_map: The agent is currently pointing at location (2,1) on the map.
     """
 
     COMMON_MULTI_TARGET_REGIONS = [
         ("dialogue_box_area", 0, 74, 160, 55),
         ("menu_box_area", 0, 70, 160, 70),
-        ("action_bar_in_normal", 0, 113, 160, 15),
-        ("action_bar_in_menu", 0, 25, 160, 15),
-        ("menu_title_area", 23, 51, 96, 22),
+        ("action_bar_in_normal", 0, 114, 160, 14),
+        ("action_bar_in_menu", 0, 26, 160, 14),
+        ("menu_title_area", 23, 56, 96, 17),
         ("game_screen_area", 0, 0, 112, 112),
+        # ("map_area", 120, 48, 40, 40),
     ]
     """
     List of common multi-target named screen regions for Deja Vu games.
@@ -99,6 +107,7 @@ class DejaVuStateParser(StateParser, ABC):
     - action_bar_in_menu: The upper area of the action bar in when menu activated.
     - menu_title_area: The area where the menu title appears.
     - game_screen_area: The entire game screen area.
+    - map_area: The area where the map appears when the map is open.
     """
 
     COMMON_MULTI_TARGETS = {
@@ -112,18 +121,25 @@ class DejaVuStateParser(StateParser, ABC):
             "a_default_target",
             "no_action_selected",
             "selected_watch_action",
+            "selected_use_action",
             "selected_take_action",
             "selected_open_action",
             "selected_close_action",
+            "selected_talk_action",
             "selected_hit_action",
+            "selected_throw_action",
         ],
         "action_bar_in_menu": [
             "a_default_target",
             "no_action_selected",
             "selected_watch_action",
+            "selected_use_action",
             "selected_take_action",
             "selected_open_action",
             "selected_close_action",
+            "selected_talk_action",
+            "selected_hit_action",
+            "selected_throw_action",
         ],
         "menu_title_area": [
             "a_default_target",
@@ -133,7 +149,12 @@ class DejaVuStateParser(StateParser, ABC):
         "game_screen_area": [
             "a_default_target",
             "socko_on_screen",
-        ]
+        ],
+        # "map_area": [
+        #     "a_default_target",
+        #     "pointed_at_1_3",
+        #     "pointed_at_2_1",
+        # ],
     }
     """
     Common multi-targets for Deja Vu game regions.
@@ -145,11 +166,13 @@ class DejaVuStateParser(StateParser, ABC):
         - selected_take_action: The "Take" action is currently selected in the action bar.
         - selected_open_action: The "Open" action is currently selected in the action bar.
         - selected_close_action: The "Close" action is currently selected in the action bar.
+        - selected_use_action: The "Use" action is currently selected in the action bar.
     - action_bar_in_menu:
         - selected_watch_action: The "Watch" action is currently selected in the action bar.
         - selected_take_action: The "Take" action is currently selected in the action bar.
         - selected_open_action: The "Open" action is currently selected in the action bar.
         - selected_close_action: The "Close" action is currently selected in the action bar.
+        - selected_use_action: The "Use" action is currently selected in the action bar.
     - menu_title_area:
         - address_menu: The address menu is currently open.
         - goods_menu: The goods menu is currently open.
@@ -296,6 +319,10 @@ class DejaVu1StateParser(DejaVuStateParser):
         override_regions = [
             ("selected_coat_item", 0, 79, 160, 8),
             ("selected_wallet_item", 0, 120, 160, 8),
+            ("selected_coin_item", 0, 95, 160, 8),
+            ("using_coin_item", 0, 95, 160, 8),
+            ("using_key3_item", 0, 88, 160, 8),
+            ("using_key2_item", 0, 128, 160, 8),
         ]
         override_multi_target_regions = []
         override_multi_targets = {
@@ -311,6 +338,13 @@ class DejaVu1StateParser(DejaVuStateParser):
                 "opened_spigot",
                 "hit_bottle",
                 "entered_cellar",
+                "entered_connecting_room",
+                "made_bet",
+                "entered_empty_room",
+                "unlocked_front_door",
+                "met_mugger",
+                "hit_mugger",
+                "unlocked_car_door",
             ],
             "menu_title_area": [
                 "coat_pocket_menu",
@@ -338,9 +372,43 @@ class DejaVu2StateParser(DejaVuStateParser):
     """Game state parser for Deja Vu II: The Casebooks of Ace Harding."""
 
     def __init__(self, pyboy, parameters):
-        override_regions = []
+        override_regions = [
+            ("selected_gum_item", 0, 79, 160, 8),
+            ("selected_pants_item", 0, 112, 160, 8),
+            ("selected_trench_coat_item", 0, 88, 160, 8),
+            ("selected_wallet1_item", 0, 96, 160, 8),
+            ("selected_newsclip1_item", 0, 79, 160, 8),
+            ("selected_license1_item", 0, 79, 160, 8),
+        ]
         override_multi_target_regions = []
-        override_multi_targets = {}
+        override_multi_targets = {
+            "dialogue_box_area": [
+                "opened_trench_coat_pocket",
+                "taken_gum",
+                "opened_pants_pocket",
+                "taken_pants",
+                "closed_pants_pocket",
+                "put_on_trench_coat",
+                "put_on_pants",
+                "opened_wallet1",
+                "taken_newsclip1",
+                "taken_license1",
+                "closed_wallet1",
+                "opened_cold_tap",
+                "closed_cold_tap",
+                "checked_newsclip1",
+                "taken_ring1",
+                "opened_room_door",
+                "closed_room_door",
+                "entered_hallway",
+                "selected_2_chips",
+                "bought_2_chips",
+            ],
+            "menu_title_area": [
+                "trench_coat_pocket_menu",
+                "wallet1_menu",
+            ],
+        }
 
         super().__init__(
             variant="deja_vu_2",
