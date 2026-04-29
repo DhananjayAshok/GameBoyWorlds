@@ -37,7 +37,7 @@ def main(
     parameters = load_parameters()
     np.random.seed(parameters["seed"])
     os.makedirs("results", exist_ok=True)
-    df = pd.read_csv(f"benchmark_tests/{benchmark}.csv")
+    df = pd.read_csv(f"benchmark/tests/{benchmark}.csv")
     per_episode = []
     for idx, row in tqdm(
         df.iterrows(), total=len(df), desc=f"Running {benchmark} tasks"

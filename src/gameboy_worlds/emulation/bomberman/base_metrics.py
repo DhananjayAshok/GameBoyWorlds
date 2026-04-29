@@ -2,7 +2,7 @@ from typing import Optional
 
 import numpy as np
 
-from gameboy_worlds.emulation.tracker import MetricGroup
+from gameboy_worlds.emulation.tracker import MetricGroup, OCRegionMetric
 from gameboy_worlds.emulation.bomberman.parsers import (
     BombermanMaxParser,
     BombermanPocketParser,
@@ -65,3 +65,54 @@ class BombermanQuestCoreMetrics(BombermanCoreMetrics):
         "is_reading_sign": "is_reading_sign",
         "is_in_battle": "is_in_battle",
     }
+
+
+class BombermanQuestOCRMetric(OCRegionMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+
+    @property
+    def parser(self) -> BombermanQuestParser:
+        return self.state_parser  # type: ignore
+
+    def start(self):
+        self.kinds = {"dialogue": "dialogue_box"}
+        super().start()
+
+    def can_read_kind(self, current_frame: np.ndarray, kind: str) -> bool:
+        if kind == "dialogue":
+            return self.parser.is_in_dialogue(current_frame)
+        return False
+
+
+class BombermanPocketOCRMetric(OCRegionMetric):
+    REQUIRED_PARSER = BombermanPocketParser
+
+    @property
+    def parser(self) -> BombermanPocketParser:
+        return self.state_parser  # type: ignore
+
+    def start(self):
+        self.kinds = {"area_intro": "area_intro_block"}
+        super().start()
+
+    def can_read_kind(self, current_frame: np.ndarray, kind: str) -> bool:
+        if kind == "area_intro":
+            return self.parser.is_in_any_area_intro(current_frame)
+        return False
+
+
+class BombermanMaxOCRMetric(OCRegionMetric):
+    REQUIRED_PARSER = BombermanMaxParser
+
+    @property
+    def parser(self) -> BombermanMaxParser:
+        return self.state_parser  # type: ignore
+
+    def start(self):
+        self.kinds = {"stage_briefing": "stage_briefing_box"}
+        super().start()
+
+    def can_read_kind(self, current_frame: np.ndarray, kind: str) -> bool:
+        if kind == "stage_briefing":
+            return self.parser.is_stage_briefing_active(current_frame)
+        return False

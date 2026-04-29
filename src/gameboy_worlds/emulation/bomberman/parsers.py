@@ -55,7 +55,8 @@ class BombermanMaxParser(BombermanParser):
 
     MULTI_TARGET_REGIONS = [
         ("screen_top", 0, 0, 160, 16),
-        ("stage_briefing_strip", 0, 84, 160, 8),
+        ("stage_briefing_strip", 0, 87, 43, 41),
+        ("stage_briefing_box", 0, 72, 160, 56),
         ("hud_enemy_count", 110, 136, 17, 8),
         ("hud_bomb_count", 127, 136, 15, 8),
         ("hud_fire", 142, 136, 18, 8),
@@ -106,8 +107,10 @@ class BombermanPocketParser(BombermanParser):
 
     MULTI_TARGET_REGIONS = [
         ("area_intro_strip", 0, 0, 160, 20),
+        ("area_intro_block", 0, 0, 53, 20),
         ("pause_indicator", 96, 128, 64, 16),
         ("hud_heart", 54, 136, 10, 7),
+        ("hud_enemy_count", 86, 136, 21, 7),
         ("hud_bomb_count", 110, 136, 20, 7),
         ("hud_bottom_right", 130, 136, 30, 7),
         ("zone_background", 0, 0, 160, 32),
@@ -115,19 +118,16 @@ class BombermanPocketParser(BombermanParser):
 
     MULTI_TARGETS = {
         "area_intro_strip": [
-            "area_intro_forest",
-            "area_intro_ocean",
-            "area_intro_wind",
-            "area_intro_cloud",
-            "area_intro_evil",
             "world_clear",
             "game_over",
             "jump_level_select",
             "jump_results",
             "jump_ranking",
         ],
+        "area_intro_block": ["area_intro_active"],
         "pause_indicator": ["pause_active"],
         "hud_heart": [],
+        "hud_enemy_count": [],
         "hud_bomb_count": [],
         "hud_bottom_right": [],
         "zone_background": [
@@ -148,20 +148,11 @@ class BombermanPocketParser(BombermanParser):
     def is_world_clear(self, current_screen: np.ndarray) -> bool:
         return self._matches(current_screen, "area_intro_strip", "world_clear")
 
-    def is_area_intro_forest(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "area_intro_strip", "area_intro_forest")
+    def is_area_intro_active(self, current_screen: np.ndarray) -> bool:
+        return self._matches(current_screen, "area_intro_block", "area_intro_active")
 
-    def is_area_intro_ocean(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "area_intro_strip", "area_intro_ocean")
-
-    def is_area_intro_wind(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "area_intro_strip", "area_intro_wind")
-
-    def is_area_intro_cloud(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "area_intro_strip", "area_intro_cloud")
-
-    def is_area_intro_evil(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "area_intro_strip", "area_intro_evil")
+    def is_in_any_area_intro(self, current_screen: np.ndarray) -> bool:
+        return self.is_area_intro_active(current_screen)
 
     def is_in_forest_world(self, current_screen: np.ndarray) -> bool:
         return self._matches(current_screen, "zone_background", "in_forest_world")
@@ -179,17 +170,21 @@ class BombermanPocketParser(BombermanParser):
         return self._matches(current_screen, "zone_background", "in_evil_world")
 
 
+
 class BombermanQuestParser(BombermanParser):
     VARIANT = "bomberman_quest"
 
     MULTI_TARGET_REGIONS = [
         ("screen_top", 0, 0, 160, 16),
         ("dialogue_strip", 0, 12, 160, 10),
+        ("dialogue_box", 0, 12, 160, 60),
         ("dialogue_icon", 124, 30, 31, 27),
         ("hud_bottom", 47, 136, 33, 8),
         ("item_select_panel", 95, 5, 65, 85),
         ("zone_background", 0, 0, 160, 32),
         ("book_bottom", 0, 120, 160, 20),
+        ("bottom_strip", 0, 120, 160, 24),
+        ("button_region", 80, 80, 16, 16),
     ]
 
     MULTI_TARGETS = {
@@ -202,13 +197,12 @@ class BombermanQuestParser(BombermanParser):
             "bomb_component_select_active",
         ],
         "zone_background": [
-            "in_field_zone",
-            "in_forest_zone",
-            "in_desert_zone",
-            "in_cloud_zone",
             "in_camp",
+            "in_house",
         ],
         "book_bottom": ["book_read_active"],
+        "bottom_strip": [],
+        "button_region": [],
     }
 
     def is_in_menu(self, current_screen: np.ndarray) -> bool:
@@ -245,14 +239,5 @@ class BombermanQuestParser(BombermanParser):
     def is_in_camp(self, current_screen: np.ndarray) -> bool:
         return self._matches(current_screen, "zone_background", "in_camp")
 
-    def is_in_field_zone(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "zone_background", "in_field_zone")
-
-    def is_in_forest_zone(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "zone_background", "in_forest_zone")
-
-    def is_in_desert_zone(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "zone_background", "in_desert_zone")
-
-    def is_in_cloud_zone(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "zone_background", "in_cloud_zone")
+    def is_in_house(self, current_screen: np.ndarray) -> bool:
+        return self._matches(current_screen, "zone_background", "in_house")

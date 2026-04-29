@@ -1,7 +1,10 @@
 from gameboy_worlds.emulation.bomberman.base_metrics import (
     BombermanMaxCoreMetrics,
+    BombermanMaxOCRMetric,
     BombermanPocketCoreMetrics,
+    BombermanPocketOCRMetric,
     BombermanQuestCoreMetrics,
+    BombermanQuestOCRMetric,
 )
 from gameboy_worlds.emulation.bomberman.test_metrics import (
     BattleActiveTerminateMetric,
@@ -13,18 +16,15 @@ from gameboy_worlds.emulation.bomberman.test_metrics import (
     BombermanQuestGameOverTerminateMetric,
     BombermanQuestPauseMenuOpenTerminateMetric,
     CharabomSelectOpenTerminateMetric,
-    CloudAreaIntroTerminateMetric,
-    CloudZoneTerminateMetric,
-    DesertZoneTerminateMetric,
     DialogueActiveTerminateMetric,
     EnterCampTerminateMetric,
-    EvilAreaIntroTerminateMetric,
-    FieldZoneTerminateMetric,
-    ForestAreaIntroTerminateMetric,
-    ForestZoneTerminateMetric,
+    ButtonRegionChangedTerminateMetric,
+    EnterHouseTerminateMetric,
+    AreaIntroTerminateMetric,
     HudBombCountChangedTerminateMetric,
     HudBottomRightChangedTerminateMetric,
     HudChangedTerminateMetric,
+    HudPocketEnemyCountChangedTerminateMetric,
     HudEnemyCountChangedTerminateMetric,
     HudFireChangedTerminateMetric,
     HudHeartChangedTerminateMetric,
@@ -32,7 +32,6 @@ from gameboy_worlds.emulation.bomberman.test_metrics import (
     JumpRankingTerminateMetric,
     JumpResultsTerminateMetric,
     NpcDialogueTerminateMetric,
-    OceanAreaIntroTerminateMetric,
     PauseActiveTerminateMetric,
     PauseMenuOpenTerminateMetric,
     PitchAreaTerminateMetric,
@@ -40,7 +39,6 @@ from gameboy_worlds.emulation.bomberman.test_metrics import (
     SignDialogueTerminateMetric,
     StageBriefingTerminateMetric,
     StageSelectTerminateMetric,
-    WindAreaIntroTerminateMetric,
     WorldClearTerminateMetric,
 )
 from gameboy_worlds.emulation.tracker import (
@@ -67,7 +65,13 @@ class BombermanMaxTracker(BombermanTracker):
     CORE_METRIC_CLASS = BombermanMaxCoreMetrics
 
 
-class BombermanMaxBaseTestTracker(BombermanBaseTestTracker, BombermanMaxTracker):
+class BombermanMaxOCRTracker(BombermanMaxTracker):
+    def start(self):
+        super().start()
+        self.metric_classes.extend([BombermanMaxOCRMetric])
+
+
+class BombermanMaxBaseTestTracker(BombermanBaseTestTracker, BombermanMaxOCRTracker):
     pass
 
 
@@ -111,7 +115,13 @@ class BombermanPocketTracker(BombermanTracker):
     CORE_METRIC_CLASS = BombermanPocketCoreMetrics
 
 
-class BombermanPocketBaseTestTracker(BombermanBaseTestTracker, BombermanPocketTracker):
+class BombermanPocketOCRTracker(BombermanPocketTracker):
+    def start(self):
+        super().start()
+        self.metric_classes.extend([BombermanPocketOCRMetric])
+
+
+class BombermanPocketBaseTestTracker(BombermanBaseTestTracker, BombermanPocketOCRTracker):
     pass
 
 
@@ -120,23 +130,11 @@ class BombermanPocketPauseMenuTestTracker(BombermanPocketBaseTestTracker):
 
 
 class BombermanPocketForestAreaIntroTestTracker(BombermanPocketBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = ForestAreaIntroTerminateMetric
+    TERMINATION_TRUNCATION_METRIC = AreaIntroTerminateMetric
 
 
 class BombermanPocketOceanAreaIntroTestTracker(BombermanPocketBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = OceanAreaIntroTerminateMetric
-
-
-class BombermanPocketWindAreaIntroTestTracker(BombermanPocketBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = WindAreaIntroTerminateMetric
-
-
-class BombermanPocketCloudAreaIntroTestTracker(BombermanPocketBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = CloudAreaIntroTerminateMetric
-
-
-class BombermanPocketEvilAreaIntroTestTracker(BombermanPocketBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = EvilAreaIntroTerminateMetric
+    TERMINATION_TRUNCATION_METRIC = AreaIntroTerminateMetric
 
 
 class BombermanPocketWorldClearTestTracker(BombermanPocketBaseTestTracker):
@@ -163,6 +161,10 @@ class BombermanPocketHudChangedTestTracker(BombermanPocketBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = HudChangedTerminateMetric
 
 
+class BombermanPocketHudEnemyCountChangedTestTracker(BombermanPocketBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = HudPocketEnemyCountChangedTerminateMetric
+
+
 class BombermanPocketHudBottomRightChangedTestTracker(
     BombermanPocketBaseTestTracker
 ):
@@ -177,7 +179,13 @@ class BombermanQuestTracker(BombermanTracker):
     CORE_METRIC_CLASS = BombermanQuestCoreMetrics
 
 
-class BombermanQuestBaseTestTracker(BombermanBaseTestTracker, BombermanQuestTracker):
+class BombermanQuestOCRTracker(BombermanQuestTracker):
+    def start(self):
+        super().start()
+        self.metric_classes.extend([BombermanQuestOCRMetric])
+
+
+class BombermanQuestBaseTestTracker(BombermanBaseTestTracker, BombermanQuestOCRTracker):
     pass
 
 
@@ -209,21 +217,6 @@ class BombermanQuestBattleTestTracker(BombermanQuestBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = BattleActiveTerminateMetric
 
 
-class BombermanQuestFieldZoneTestTracker(BombermanQuestBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = FieldZoneTerminateMetric
-
-
-class BombermanQuestForestZoneTestTracker(BombermanQuestBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = ForestZoneTerminateMetric
-
-
-class BombermanQuestDesertZoneTestTracker(BombermanQuestBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = DesertZoneTerminateMetric
-
-
-class BombermanQuestCloudZoneTestTracker(BombermanQuestBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = CloudZoneTerminateMetric
-
 
 class BombermanQuestShieldSelectTestTracker(BombermanQuestBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = ShieldSelectTerminateMetric
@@ -235,6 +228,14 @@ class BombermanQuestBombComponentSelectTestTracker(BombermanQuestBaseTestTracker
 
 class BombermanQuestEnterCampTestTracker(BombermanQuestBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = EnterCampTerminateMetric
+
+
+class BombermanQuestEnterHouseTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = EnterHouseTerminateMetric
+
+
+class BombermanQuestButtonRegionChangedTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = ButtonRegionChangedTerminateMetric
 
 
 class BombermanQuestBookReadTestTracker(BombermanQuestBaseTestTracker):

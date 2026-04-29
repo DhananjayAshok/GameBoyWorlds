@@ -26,6 +26,7 @@ class _BaseSwordOfHopeParser(StateParser):
         ("battle_viewport", 4, 16, 152, 56),
         ("battle_command", 4, 74, 152, 70),
         ("status_command", 4, 72, 152, 72),
+        ("full_screen", 0, 0, 160, 144),
     ]
     """
     - room_label: The room name text on the right side of the MOVE|ROOM status bar. Used for location-based termination.
@@ -109,19 +110,54 @@ class SwordOfHope1Parser(_BaseSwordOfHopeParser):
             "dialogue_active",
             "dialogue_cleared",
             "look_selected",
+            "exploration_menu",
+            "menu_open",
         ],
         "battle_command": [
             "battle_active",
             "battle_won",
+            "battle_magic_menu",
+            "escape_confirmed",
         ],
         "status_command": [
             "look_target_options",
             "item_found",
             "shop_menu_open",
             "purchase_confirmed",
+            "dialogue_visible",
+            "dialogue_initiated",
+            "dialogue_advanced",
+            "magic_menu_open",
+            "teleport_result",
+            "teleport_dest_cursor",
+            "teleport_landed",
+        ],
+        "battle_full": [
+            "mistress_first_dialogue",
+            "mistress_second_dialogue",
+            "save_prompt_visible",
+            "save_confirmed",
+            "look_path_target",
+            "herb_received",
+            "treant_defeated",
+            "key_m_selected",
+            "gate_opened",
+            "in_backroom",
+            "scroll_received",
+            "grace_selected",
+            "charm_received",
         ],
     }
 
 
 class SwordOfHope2Parser(_BaseSwordOfHopeParser):
     VARIANT = "sword_of_hope_2"
+
+    COMMON_MULTI_TARGETS = {
+        "status_command": [
+            "dialogue_active",
+            "dialogue_cleared",
+            "dialogue_initiated",
+            "dialogue_advanced",
+        ],
+    }

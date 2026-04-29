@@ -70,34 +70,10 @@ class PauseActiveTerminateMetric(RegionMatchTerminationMetric, TerminationMetric
     _TERMINATION_TARGET_NAME = "pause_active"
 
 
-class ForestAreaIntroTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+class AreaIntroTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BombermanPocketParser
-    _TERMINATION_NAMED_REGION = "area_intro_strip"
-    _TERMINATION_TARGET_NAME = "area_intro_forest"
-
-
-class OceanAreaIntroTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = BombermanPocketParser
-    _TERMINATION_NAMED_REGION = "area_intro_strip"
-    _TERMINATION_TARGET_NAME = "area_intro_ocean"
-
-
-class WindAreaIntroTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = BombermanPocketParser
-    _TERMINATION_NAMED_REGION = "area_intro_strip"
-    _TERMINATION_TARGET_NAME = "area_intro_wind"
-
-
-class CloudAreaIntroTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = BombermanPocketParser
-    _TERMINATION_NAMED_REGION = "area_intro_strip"
-    _TERMINATION_TARGET_NAME = "area_intro_cloud"
-
-
-class EvilAreaIntroTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = BombermanPocketParser
-    _TERMINATION_NAMED_REGION = "area_intro_strip"
-    _TERMINATION_TARGET_NAME = "area_intro_evil"
+    _TERMINATION_NAMED_REGION = "area_intro_block"
+    _TERMINATION_TARGET_NAME = "area_intro_active"
 
 
 class WorldClearTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
@@ -135,6 +111,12 @@ class JumpRankingTerminateMetric(RegionMatchTerminationMetric, TerminationMetric
 class HudChangedTerminateMetric(RegionChangedTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BombermanPocketParser
     _CHANGED_NAMED_REGION = "hud_bomb_count"
+    _CHANGE_MAE_THRESHOLD = 10
+
+
+class HudPocketEnemyCountChangedTerminateMetric(RegionChangedTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanPocketParser
+    _CHANGED_NAMED_REGION = "hud_enemy_count"
     _CHANGE_MAE_THRESHOLD = 10
 
 
@@ -225,25 +207,15 @@ class EnterCampTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     _TERMINATION_TARGET_NAME = "in_camp"
 
 
-class FieldZoneTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+class EnterHouseTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BombermanQuestParser
     _TERMINATION_NAMED_REGION = "zone_background"
-    _TERMINATION_TARGET_NAME = "in_field_zone"
+    _TERMINATION_TARGET_NAME = "in_house"
 
 
-class ForestZoneTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+class ButtonRegionChangedTerminateMetric(RegionChangedTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BombermanQuestParser
-    _TERMINATION_NAMED_REGION = "zone_background"
-    _TERMINATION_TARGET_NAME = "in_forest_zone"
+    _CHANGED_NAMED_REGION = "button_region"
+    _CHANGE_MAE_THRESHOLD = 10
 
 
-class DesertZoneTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = BombermanQuestParser
-    _TERMINATION_NAMED_REGION = "zone_background"
-    _TERMINATION_TARGET_NAME = "in_desert_zone"
-
-
-class CloudZoneTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = BombermanQuestParser
-    _TERMINATION_NAMED_REGION = "zone_background"
-    _TERMINATION_TARGET_NAME = "in_cloud_zone"

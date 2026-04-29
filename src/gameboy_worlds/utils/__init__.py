@@ -179,7 +179,7 @@ def show_frames(
 
 def get_benchmark_tasks_dfs(parameters: dict = None) -> dict[str, pd.DataFrame]:
     """
-    Loads the benchmark tasks from the benchmark_tests/tasks.csv file
+    Loads the benchmark tasks from the benchmark/tests/tasks.csv file
 
     Args:
         parameters (dict, optional): Additional parameters for error logging.
@@ -188,11 +188,11 @@ def get_benchmark_tasks_dfs(parameters: dict = None) -> dict[str, pd.DataFrame]:
     """
     parameters = load_parameters(parameters)
     project_root = parameters["project_root"]
-    module_paths = os.listdir(project_root + "/benchmark_tests/")
+    module_paths = os.listdir(project_root + "/benchmark/tests/")
     benchmark_dfs = {}
     for module_path in module_paths:
         if module_path.endswith(".csv"):
-            tasks_filepath = os.path.join(project_root, "benchmark_tests", module_path)
+            tasks_filepath = os.path.join(project_root, "benchmark/tests", module_path)
             benchmark_name = module_path.strip(".csv")
             benchmark_dfs[benchmark_name] = pd.read_csv(tasks_filepath)
     return benchmark_dfs
@@ -200,7 +200,7 @@ def get_benchmark_tasks_dfs(parameters: dict = None) -> dict[str, pd.DataFrame]:
 
 def get_benchmark_tasks(game: str, parameters: dict = None) -> pd.DataFrame:
     """
-    Loads the benchmark tasks for the specified game from the benchmark_tests/tasks.csv file
+    Loads the benchmark tasks for the specified game from the benchmark/tests/tasks.csv file
 
     Args:
         game (str): The variant of the game to get benchmark tasks for.
@@ -231,7 +231,7 @@ def get_benchmark_tasks(game: str, parameters: dict = None) -> pd.DataFrame:
     game_tasks_df = task_df[task_df["game"] == game]
     if len(game_tasks_df) == 0:
         log_error(
-            f"No benchmark tasks found for game variant '{game}'. Please ensure that the benchmark_tests/tasks.csv file contains tasks for this game.",
+            f"No benchmark tasks found for game variant '{game}'. Please ensure that the benchmark/tests/tasks.csv file contains tasks for this game.",
             parameters,
         )
     return game_tasks_df
