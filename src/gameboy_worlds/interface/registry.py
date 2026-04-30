@@ -29,6 +29,7 @@ from gameboy_worlds.interface.deja_vu import registry as deja_vu_registry
 from gameboy_worlds.interface.hamtaro import registry as hamtaro_registry
 from gameboy_worlds.interface.harvest_moon import registry as harvest_moon_registry
 from gameboy_worlds.interface.harry_potter import registry as harry_potter_registry
+from gameboy_worlds.interface.bomberman import registry as bomberman_registry
 
 _project_parameters = load_parameters()
 
@@ -40,6 +41,7 @@ _game_registries = [
     deja_vu_registry,
     harvest_moon_registry,
     harry_potter_registry,
+    bomberman_registry,
 ]
 
 AVAILABLE_ENVIRONMENTS: Dict[str, Dict[str, Type[Environment]]] = {}
@@ -305,3 +307,12 @@ def get_shifted_environments_kwargs(
             parameters,
         )
     return shifted_envs_kwargs
+
+
+import os
+
+AVAILABLE_BENCHMARKS = [
+    item.strip(".csv")
+    for item in os.listdir(_project_parameters["project_root"] + "/benchmark/tests")
+]
+""" List of available benchmark names. Populated by the files in benchmark/tests. """

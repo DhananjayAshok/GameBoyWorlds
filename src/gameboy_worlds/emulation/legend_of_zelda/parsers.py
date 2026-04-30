@@ -152,6 +152,19 @@ class LegendOfZeldaLinksAwakeningParser(BaseLegendOfZeldaParser):
             ("brave_keyword_tracker", 102, 15, 38, 8),
             ("open_chest_tracker", 64, 49, 14, 7),
             ("stone_break_tracker", 49, 35, 12, 40),
+            ("bring_keyword_tracker", 24, 86, 56, 10),
+            ("skeleton_tracker", 63, 78, 18, 19),
+            ("skeleton2_tracker", 63, 32, 18, 14),
+            ("no_grass", 79, 36, 14, 8),
+            ("diamond_tracker", 47, 65, 17, 10),
+            ("house_right_window", 106, 63, 25, 8),
+            ("stool", 80, 81, 14, 10),
+            ("char_onstairs", 46, 60, 18, 18),
+            ("pot", 80, 33, 15, 12),
+            ("pond", 55, 39, 51, 31),
+            ("signboard_tracker", 28, 30, 21, 18),
+            ("witch_tracker", 62, 52, 18, 26),
+            ("pots_tracker", 16, 80, 15, 32)
         ]
 
         """
@@ -197,6 +210,22 @@ class LegendOfZeldaTheOracleOfSeasonsParser(BaseLegendOfZeldaParser):
             ("dialogue_top", 8, 25, 8, 37),
             ("dialogue_bottom", 8, 97, 8, 37),
             ("bricks", 152, 24, 7, 100),
+            ("beer_guy_tracker", 15, 48, 18, 16),
+            ("red_edges", 106, 76, 15, 12),
+            ("after_jump", 79, 67, 16, 14),
+            ("flowers", 112, 31, 16, 17),
+            ("books", 128, 17, 15, 21),
+            ("door", 65, 130, 28, 12),
+            ("bottom_right_shore", 90, 73, 18, 16),
+            ("edge_character", 140, 25, 16, 19),
+            ("char_onstairs", 0, 16, 159, 78),
+            ("bush", 97, 33, 13, 13),
+            ("clocks", 81, 17, 11, 10),
+            ("fireplace", 16, 32, 32, 16),
+            ("oof_its_heavy", 9, 25, 136, 17),
+            ("green_rock_tracker", 79, 47, 16, 14),
+            ("rock", 97, 97, 14, 13),
+            ("almirah", 80, 17, 31, 12)
         ]
         """
         - bricks: bricks on the right side of the screen, signifying that the inventory is open.

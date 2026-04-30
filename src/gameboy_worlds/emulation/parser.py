@@ -208,7 +208,7 @@ class NamedScreenRegion:
         """
         if self.target is None:
             if self._parameters["debug_mode"]:
-                return False
+                return float("inf")
             log_error(
                 f"No target image set for NamedScreenRegion {self.name}. Cannot compare.",
                 self._parameters,
@@ -220,7 +220,7 @@ class NamedScreenRegion:
                     self._parameters,
                 )
             else:
-                return False
+                return float("inf")
         diff = np.abs(reference.astype(np.float32) - self.target.astype(np.float32))
         mae = np.mean(diff)
         return mae

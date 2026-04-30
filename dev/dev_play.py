@@ -18,13 +18,23 @@ import click
 @click.option(
     "--init_state", type=str, default=None, help="Name of the initial state file"
 )
-def main(game, state_tracker_class, init_state):
+@click.option(
+    "--gameshark",
+    type=str,
+    default=None,
+    multiple=True,
+    help="GameShark code(s) to apply on startup (e.g. 0101C7C9). Can be repeated for multiple codes.",
+)
+def main(game, state_tracker_class, init_state, gameshark):
     env = get_emulator(
         game=game,
         init_state=init_state,
         headless=False,
         state_tracker_class=state_tracker_class,
     )
+    for code in gameshark:
+        env._pyboy.gameshark.add(code)
+        print(f"GameShark code applied: {code}")
     env._dev_play()
 
 

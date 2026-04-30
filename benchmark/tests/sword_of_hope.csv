@@ -1,0 +1,23 @@
+game,task_category,task,init_state,state_tracker_class,other_disallowed_states,shifted_training_games
+sword_of_hope_1,navigation,Reach the first adjacent room from the start state,navigation_old_house,mill_room_test,,sword_of_hope_2
+sword_of_hope_1,navigation,Navigate from the Old Man's Room to the Shaman's House,navigation_old_house,shaman_room_test,,sword_of_hope_2
+sword_of_hope_1,dialogue,Clear the active dialogue box and return control to the player,dialogue_example,dialogue_clear_test,,sword_of_hope_2
+sword_of_hope_1,combat,Finish a battle encounter without a game over,battle_example,battle_won_test,,sword_of_hope_2
+sword_of_hope_1,interaction,Look at an object in the environment to discover a hidden item,overworld_safe,look_item_test,,sword_of_hope_2
+sword_of_hope_1,"menu, interaction",Buy equipment or supplies from a shop,shop_forest,buy_item_test,,sword_of_hope_2
+sword_of_hope_1,"navigation, progression",From default reach a stable overworld position with no open dialogue or menu,opening_dialogue,overworld_from_default_test,,sword_of_hope_2
+sword_of_hope_1,interaction,Talk to an NPC or interactable and advance one full dialogue page,default,talk_to_npc_test,,sword_of_hope_2
+sword_of_hope_1,menu,Open the command menu and close it to return to exploration,menu_example,menu_open_close_test,,sword_of_hope_2
+sword_of_hope_1,"combat, menu",During battle choose a non-default command such as item spell or defend,battle_example,battle_magic_command_test,,sword_of_hope_2
+sword_of_hope_1,menu,Cast Teleport to return to a previously visited location,default,cast_teleport_test,,sword_of_hope_2
+sword_of_hope_1,interaction,Talk to an NPC multiple times to trigger a progression event,pre_mistress_levelled_up,talk_to_npc_multiple_test,,sword_of_hope_2
+sword_of_hope_1,dialogue,Make a binary dialogue choice that affects the outcome,at_shaman_levelled_up,binary_choice_save_test,,sword_of_hope_2
+sword_of_hope_1,interaction,Look at surroundings to reveal a previously hidden path,forest_c5,look_surround_herb_test,,sword_of_hope_2
+sword_of_hope_1,combat,Defeat a boss using offensive magic spells (Treant with Firebal2),pre_treant_engage,defeat_treant_test,,sword_of_hope_2
+sword_of_hope_1,interaction,Open a chest / collect a quest item (Scroll of Grace from backroom),mistress_backroom_access,collect_scroll_grace_test,,sword_of_hope_2
+sword_of_hope_1,"menu, interaction",Use a key or quest item to unlock passage to a new area,at_martel_gate,use_key_unlock_test,,sword_of_hope_2
+sword_of_hope_1,menu,Cast a quest spell at a specific location to trigger a story event (Grace at Martel altar -> Charm),at_martel_altar,cast_grace_altar_test,,sword_of_hope_2
+sword_of_hope_1,menu,Cast Teleport to return to a previously visited location (full completion - arrival),default,complete_teleport_test,,sword_of_hope_2
+sword_of_hope_1,"combat, menu",Escape from a battle using the Escape command,battle_example,escape_battle_test,,sword_of_hope_2
+sword_of_hope_2,dialogue,Clear the active dialogue box and return control to the player,default,dialogue_clear_test,,sword_of_hope_1
+sword_of_hope_2,interaction,Talk to an NPC or interactable and advance one full dialogue page,default,talk_to_npc_test,,sword_of_hope_1

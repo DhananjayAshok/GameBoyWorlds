@@ -1,3 +1,8 @@
+"""
+Usage:
+python demos/emulator.py --game pokemon_red --play_mode human
+"""
+
 from gameboy_worlds import get_emulator, AVAILABLE_GAMES
 import click
 

@@ -197,6 +197,7 @@ tmp.py
 */*/*.DS_Store
 */*/*/*.DS_Store
 tmp*
+results/
 *.DS_Store
 
 # Claude Code
