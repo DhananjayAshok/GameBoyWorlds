@@ -71,12 +71,6 @@ class HarvestMoonStateParser(StateParser, ABC):
             "cow_barn_entrance",
             "chicken_coop_entrance",
         ],
-        "screen": [
-            "menu_open",
-        ],
-        "dialogue_box_top": [
-            "dialogue_open",
-        ],
     }
     """ Common multi-targets for the common multi-target named screen regions.
     - screen_bottom: Location/event captures for the bottom strip of the screen.
@@ -616,22 +610,10 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
                 "read_signs_dialogue",
                 "barn_dialogue",
             ],
-            "screen_middle": [
-                "outside_storage_left",
-                "outside_storage_right",
-                "outside_storage_up",
-            ],
-            "screen_bottom": [
-                "storage_shed_entrance",
-            ],
             "dialogue_box_bottom": [
-                "choose_yes_for_sleep",
                 "option_to_diary_sleep",
-                "reading_village_sign",
-                "reading_farm_sign",
                 "reading_secret_garden_sign",
                 "reading_crop_field_sign",
-                "reading_notice_board",
             ],
             "flower_shop_location": [
                 "outside_flower_shop_up",
@@ -644,27 +626,6 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
             "item_diary": [
                 "next_to_diary",
             ],
-            "item_storage_list": [
-                "next_to_storage_list",
-            ],
-            "item_village_sign_above": [
-                "next_to_village_sign_down",
-            ],
-            "item_village_sign_left": [
-                "next_to_village_sign_right",
-            ],
-            "item_village_sign_right": [
-                "next_to_village_sign_left",
-            ],
-            "item_farm_sign_above": [
-                "next_to_farm_sign_down",
-            ],
-            "item_farm_sign_left": [
-                "next_to_farm_sign_right",
-            ],
-            "item_farm_sign_right": [
-                "next_to_farm_sign_left",
-            ],
             "item_secret_garden_sign_above": [
                 "next_to_secret_garden_sign_down",
             ],
@@ -676,24 +637,6 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
             ],
             "item_crop_field_sign_above": [
                 "next_to_crop_field_sign_down",
-            ],
-            "item_notice_board_above": [
-                "next_to_notice_board_down",
-            ],
-            "item_notice_board_left": [
-                "next_to_notice_board_right",
-            ],
-            "item_notice_board_right": [
-                "next_to_notice_board_left",
-            ],
-            "turnip_center": [
-                "finish_watering",
-            ],
-            "turnip_top": [
-                "ready_to_water",
-            ],
-            "center_sign": [
-                "outside_flower_shop",
             ],
             "restaurant_location": [
                 "outside_restaurant_up",
@@ -721,12 +664,6 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
                 "select_todays_special",
                 "option_to_buy_todays_special",
             ],
-            "dialogue_box_top": [
-                "pick_up_watercan",
-            ],
-            "left_border_frame": [
-                "open_storage_list",
-            ],
         }
         super().__init__(
             pyboy,
@@ -738,8 +675,11 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
         )
 
     def dialogue_box_open(self, current_screen: np.ndarray) -> bool:
-        return self.named_region_matches_target(current_screen, "dialogue_bottom_right")
-
+        captured = self.capture_named_region(current_screen, "dialogue_bottom_right")
+        return self.named_screen_regions["dialogue_bottom_right"].matches_any_multi_target(
+            self.DIALOGUE_TYPES, captured
+        )
+        
     def dialogue_box_empty(self, current_screen: np.ndarray) -> bool:
         box = self.capture_named_region(
             current_frame=current_screen, name="dialogue_box_bottom"
@@ -821,9 +761,6 @@ class HarvestMoon3Parser(BaseHarvestMoonStateParser):
                 "bought_turnip_seeds",
                 "bought_potato_seeds",
                 "select_meal_set",
-                "bought_meal_set",
-                "select_coffee",
-                "bought_coffee",
                 "shopping_mall_label",
                 "farmers_union_label",
                 "aquarium_label",
@@ -852,9 +789,6 @@ class HarvestMoon3Parser(BaseHarvestMoonStateParser):
             "item_potato_seeds_below": [
                 "next_to_potato_seeds_up",
             ],
-            "screen_top_half": [
-                "in_flower_shop",
-            ],
             "npc_lukia_right": [
                 "next_to_lukia_left",
             ],
@@ -870,18 +804,18 @@ class HarvestMoon3Parser(BaseHarvestMoonStateParser):
             "npc_lyla_right": [
                 "next_to_lyla_left",
             ],
-            "item_meal_set_above": [
-                "next_to_meal_set_down",
-            ],
-            "item_meal_set_below": [
-                "next_to_meal_set_up",
-            ],
-            "item_coffee_above": [
-                "next_to_coffee_down",
-            ],
-            "item_coffee_below": [
-                "next_to_coffee_up",
-            ],
+            # "item_meal_set_above": [
+            #     "next_to_meal_set_down",
+            # ],
+            # "item_meal_set_below": [
+            #     "next_to_meal_set_up",
+            # ],
+            # "item_coffee_above": [
+            #     "next_to_coffee_down",
+            # ],
+            # "item_coffee_below": [
+            #     "next_to_coffee_up",
+            # ],
             "entrance": [
                 "shopping_mall_entrance",
                 "farmers_union_entrance",
@@ -899,8 +833,13 @@ class HarvestMoon3Parser(BaseHarvestMoonStateParser):
         )
 
     def dialogue_box_open(self, current_screen: np.ndarray) -> bool:
-        return self.named_region_matches_target(current_screen, "dialogue_bottom_right")
-
+        captured = self.capture_named_region(current_screen, "dialogue_bottom_right")
+        if self.named_screen_regions["dialogue_bottom_right"].matches_any_multi_target(
+            self.DIALOGUE_TYPES, captured
+        ):
+            return True
+        return False
+    
     def dialogue_box_empty(self, current_screen: np.ndarray) -> bool:
         box = self.capture_named_region(
             current_frame=current_screen, name="dialogue_box_bottom"
