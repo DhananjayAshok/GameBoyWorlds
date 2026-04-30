@@ -66,8 +66,8 @@ class HarvestMoonOCRMetric(OCRegionMetric):
 
     def start(self):
         self.kinds = {
-            "dialogue": "screen",
-            "menu": "screen",
+            "dialogue": "dialogue_bottom_right",
+            "menu": "menu_top_right",
         }
         super().start()
 
@@ -95,8 +95,8 @@ class HarvestMoon1OCRMetric(HarvestMoonOCRMetric):
 
     def start(self):
         self.kinds = {
-            "dialogue": "dialogue_box_bottom",
-            "menu": "screen",
+            "dialogue": "dialogue_bottom_right",
+            "menu": "menu_top_right",
         }
         OCRegionMetric.start(self)
 
@@ -106,8 +106,8 @@ class HarvestMoon2OCRMetric(HarvestMoonOCRMetric):
 
     def start(self):
         self.kinds = {
-            "dialogue": "dialogue_box_bottom",
-            "menu": "screen",
+            "dialogue": "dialogue_bottom_right",
+            "menu": "menu_top_right",
         }
         OCRegionMetric.start(self)
 
@@ -117,8 +117,8 @@ class HarvestMoon3OCRMetric(HarvestMoonOCRMetric):
 
     def start(self):
         self.kinds = {
-            "dialogue": "dialogue_box_bottom",
-            "menu": "screen",
+            "dialogue": "dialogue_bottom_right",
+            "menu": "menu_top_right",
         }
         OCRegionMetric.start(self)
 
