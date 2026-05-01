@@ -213,9 +213,34 @@ class EnterHouseTerminateMetric(RegionMatchTerminationMetric, TerminationMetric)
     _TERMINATION_TARGET_NAME = "in_house"
 
 
+class SaveNpcActiveTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+    _TERMINATION_NAMED_REGION = "zone_background"
+    _TERMINATION_TARGET_NAME = "save_npc_active"
+
+
+
+class EnterCaveTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+    _TERMINATION_NAMED_REGION = "zone_background"
+    _TERMINATION_TARGET_NAME = "in_cave"
+
+
 class ButtonRegionChangedTerminateMetric(RegionChangedTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BombermanQuestParser
     _CHANGED_NAMED_REGION = "button_region"
     _CHANGE_MAE_THRESHOLD = 10
+
+
+class BoxPickedUpTerminateMetric(RegionChangedTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+    _CHANGED_NAMED_REGION = "box_detector"
+    _CHANGE_MAE_THRESHOLD = 10
+
+
+class SwitchActivatedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+    _TERMINATION_NAMED_REGION = "switch_detector"
+    _TERMINATION_TARGET_NAME = "switch_activated"
 
 

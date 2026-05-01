@@ -185,6 +185,8 @@ class BombermanQuestParser(BombermanParser):
         ("book_bottom", 0, 120, 160, 20),
         ("bottom_strip", 0, 120, 160, 24),
         ("button_region", 80, 80, 16, 16),
+        ("switch_detector", 64, 64, 16, 16),
+        ("box_detector", 80, 64, 16, 16),
     ]
 
     MULTI_TARGETS = {
@@ -199,10 +201,14 @@ class BombermanQuestParser(BombermanParser):
         "zone_background": [
             "in_camp",
             "in_house",
+            "in_cave",
+            "save_npc_active",
         ],
         "book_bottom": ["book_read_active"],
         "bottom_strip": [],
         "button_region": [],
+        "switch_detector": ["switch_activated"],
+        "box_detector": [],
     }
 
     def is_in_menu(self, current_screen: np.ndarray) -> bool:
@@ -241,3 +247,6 @@ class BombermanQuestParser(BombermanParser):
 
     def is_in_house(self, current_screen: np.ndarray) -> bool:
         return self._matches(current_screen, "zone_background", "in_house")
+
+    def is_in_cave(self, current_screen: np.ndarray) -> bool:
+        return self._matches(current_screen, "zone_background", "in_cave")
