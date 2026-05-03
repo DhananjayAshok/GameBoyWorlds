@@ -4,7 +4,7 @@ from gameboy_worlds.emulation.bomberman.trackers import (
     BombermanQuestTracker,
 )
 from gameboy_worlds.emulation.emulator import Emulator
-from gameboy_worlds.interface.environment import DummyEnvironment
+from gameboy_worlds.interface.environment import DummyEnvironment, TestEnvironmentMixin
 
 
 class BombermanMaxEnvironment(DummyEnvironment):
@@ -20,4 +20,16 @@ class BombermanPocketEnvironment(DummyEnvironment):
 class BombermanQuestEnvironment(DummyEnvironment):
     REQUIRED_EMULATOR = Emulator
     REQUIRED_STATE_TRACKER = BombermanQuestTracker
+
+
+class BombermanMaxTestEnvironment(TestEnvironmentMixin, BombermanMaxEnvironment):
+    pass
+
+
+class BombermanPocketTestEnvironment(TestEnvironmentMixin, BombermanPocketEnvironment):
+    pass
+
+
+class BombermanQuestTestEnvironment(TestEnvironmentMixin, BombermanQuestEnvironment):
+    pass
 
