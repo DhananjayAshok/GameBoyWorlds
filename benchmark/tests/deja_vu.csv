@@ -1,42 +1,42 @@
 game,task_category,task,init_state,state_tracker_class,other_disallowed_states,shifted_training_games
-deja_vu_1,item,Take coat from the front door,selected_watch_action_in_front_door,take_coat_test,,,deja_vu_2
-deja_vu_1,item,Take gun from the front door,taken_coat_in_front_door,take_gun_test,,,deja_vu_2
-deja_vu_1,navigation,Open the door,taken_gun_in_front_door,open_door_test,,,deja_vu_2
-deja_vu_1,navigation,Close the door,opened_door,close_door_test,,,deja_vu_2
-deja_vu_1,menu,Open the coat pocket,taken_coat_in_front_door,open_pocket_test,,,deja_vu_2
-deja_vu_1,menu,Open the wallet in the coat pocket,opened_pocket_in_menu,open_wallet_test,,,deja_vu_2
-deja_vu_1,menu,close the pocket,opened_pocket_in_menu,close_pocket_test,,,deja_vu_2
-deja_vu_1,menu,close the wallet,opened_wallet_in_menu,close_wallet_test,,,deja_vu_2
-deja_vu_1,item,check the coat,selected_watch_action_in_front_door,check_coat_test,,,deja_vu_2
-deja_vu_1,item,check the gun,taken_coat_in_front_door,check_gun_test,,,deja_vu_2
-deja_vu_1,action,open the spigot,in_cellar,open_spigot_test,,,deja_vu_2
-deja_vu_1,action,hit the bottle,in_cellar,hit_bottle_test,,,deja_vu_2
-deja_vu_1,navigation,get into cellar,in_empty_restaurant,enter_cellar_test,,,deja_vu_2
-deja_vu_1,navigation,enter connecting room,hit_bottle,enter_connecting_room_test,,,deja_vu_2
-deja_vu_1,interaction,make a bet,in_casino,make_bet_test,,,deja_vu_2
-deja_vu_1,navigation,go to empty room from map,back_to_cellar,enter_empty_room_from_map_test,,,deja_vu_2
-deja_vu_1,navigation,unlock the front,back_to_empty_restaurant,unlock_front_door_test,,,deja_vu_2
-deja_vu_1,interaction,meet the mugger,unlocked_front_door,meet_mugger_test,,,deja_vu_2
-deja_vu_1,action,hit the mugger,met_mugger,hit_mugger_test,,,deja_vu_2
-deja_vu_1,"action, navigation",unlock the car door,in_street,unlock_car_door_test,,,deja_vu_2
-deja_vu_1,interaction,speak to the taxi driver,,speak_to_driver_test,,,deja_vu_1
-deja_vu_2,menu,open the trench coat pocket,in_bathroom,open_trench_coat_pocket_test,,,deja_vu_1
-deja_vu_2,navigation,open the bathroom door,taken_pants_pocket,open_bathroom_door_test,,,deja_vu_1
-deja_vu_2,item,take gum from trench coat,opened_trench_coat_pocket,take_gum_test,,,deja_vu_1
-deja_vu_2,menu,open the pants pocket,in_bathroom,open_pants_pocket_test,,,deja_vu_1
-deja_vu_2,item,take the pants,in_bathroom,take_pants_test,,,deja_vu_1
-deja_vu_2,menu,close the pants pocket,taken_pants_pocket,close_pants_pocket_test,,,deja_vu_1
-deja_vu_2,item,put on the trench coat,taken_pants,put_on_pants_test,,,deja_vu_1
-deja_vu_2,item,put on the pants,put_on_trench_coat,put_on_trench_coat_test,,,deja_vu_1
-deja_vu_2,menu,open wallet1,put_on_pants,open_wallet1_test,,,deja_vu_1
-deja_vu_2,item,take newsclip1,opened_wallet1,take_newsclip1_test,,,deja_vu_1
-deja_vu_2,item,take license1,taken_1_dollar,take_license1_test,,,deja_vu_1
-deja_vu_2,menu,close wallet1,taken_license1,close_wallet1,,,deja_vu_1
-deja_vu_2,action,open the cold tap,closed_wallet1,open_cold_tap_test,,,deja_vu_1
-deja_vu_2,action,close thte cold tap,opened_cold_tap,close_cold_tap_test,,,deja_vu_1
-deja_vu_2,item,check the newsclip1,closed_wallet1,check_newsclip1_test,,,deja_vu_1
-deja_vu_2,item,take the ring1,in_hotel_room,take_ring1_test,,,deja_vu_1
-deja_vu_2,navigation,open the door from map,all_set_in_hotel_room,open_door_from_map_test,,,deja_vu_1
-deja_vu_2,navigation,close the door from map,opened_door_in_hotel_room,close_door_from_map_test,,,deja_vu_1
-deja_vu_2,navigation,enter the hallway,opened_door_in_hotel_room,enter_hallway_test,,,deja_vu_1
-deja_vu_2,interaction,buy 2 chips,in_cashier,buy_2_chips_test,,,deja_vu_1
+deja_vu_1,item,Take coat from the front door,selected_watch_action_in_front_door,take_coat_test,,deja_vu_2
+deja_vu_1,item,Take gun from the front door,taken_coat_in_front_door,take_gun_test,,deja_vu_2
+deja_vu_1,navigation,Open the door,taken_gun_in_front_door,open_door_test,,deja_vu_2
+deja_vu_1,navigation,Close the door,opened_door,close_door_test,,deja_vu_2
+deja_vu_1,menu,Open the coat pocket,taken_coat_in_front_door,open_pocket_test,,deja_vu_2
+deja_vu_1,menu,Open the wallet in the coat pocket,opened_pocket_in_menu,open_wallet_test,,deja_vu_2
+deja_vu_1,menu,close the pocket,opened_pocket_in_menu,close_pocket_test,,deja_vu_2
+deja_vu_1,menu,close the wallet,opened_wallet_in_menu,close_wallet_test,,deja_vu_2
+deja_vu_1,item,check the coat,selected_watch_action_in_front_door,check_coat_test,,deja_vu_2
+deja_vu_1,item,check the gun,taken_coat_in_front_door,check_gun_test,,deja_vu_2
+deja_vu_1,action,open the spigot,in_cellar,open_spigot_test,,deja_vu_2
+deja_vu_1,action,hit the bottle,in_cellar,hit_bottle_test,,deja_vu_2
+deja_vu_1,navigation,get into cellar,in_empty_restaurant,enter_cellar_test,,deja_vu_2
+deja_vu_1,navigation,enter connecting room,hit_bottle,enter_connecting_room_test,,deja_vu_2
+deja_vu_1,interaction,make a bet,in_casino,make_bet_test,,deja_vu_2
+deja_vu_1,navigation,go to empty room from map,back_to_cellar,enter_empty_room_from_map_test,,deja_vu_2
+deja_vu_1,navigation,unlock the front,back_to_empty_restaurant,unlock_front_door_test,,deja_vu_2
+deja_vu_1,interaction,meet the mugger,unlocked_front_door,meet_mugger_test,,deja_vu_2
+deja_vu_1,action,hit the mugger,met_mugger,hit_mugger_test,,deja_vu_2
+deja_vu_1,"action, navigation",unlock the car door,in_street,unlock_car_door_test,,deja_vu_2
+deja_vu_1,interaction,speak to the taxi driver,,speak_to_driver_test,,deja_vu_1
+deja_vu_2,menu,open the trench coat pocket,in_bathroom,open_trench_coat_pocket_test,,deja_vu_1
+deja_vu_2,navigation,open the bathroom door,taken_pants_pocket,open_bathroom_door_test,,deja_vu_1
+deja_vu_2,item,take gum from trench coat,opened_trench_coat_pocket,take_gum_test,,deja_vu_1
+deja_vu_2,menu,open the pants pocket,in_bathroom,open_pants_pocket_test,,deja_vu_1
+deja_vu_2,item,take the pants,in_bathroom,take_pants_test,,deja_vu_1
+deja_vu_2,menu,close the pants pocket,taken_pants_pocket,close_pants_pocket_test,,deja_vu_1
+deja_vu_2,item,put on the trench coat,taken_pants,put_on_pants_test,,deja_vu_1
+deja_vu_2,item,put on the pants,put_on_trench_coat,put_on_trench_coat_test,,deja_vu_1
+deja_vu_2,menu,open wallet1,put_on_pants,open_wallet1_test,,deja_vu_1
+deja_vu_2,item,take newsclip1,opened_wallet1,take_newsclip1_test,,deja_vu_1
+deja_vu_2,item,take license1,taken_1_dollar,take_license1_test,,deja_vu_1
+deja_vu_2,menu,close wallet1,taken_license1,close_wallet1,,deja_vu_1
+deja_vu_2,action,open the cold tap,closed_wallet1,open_cold_tap_test,,deja_vu_1
+deja_vu_2,action,close thte cold tap,opened_cold_tap,close_cold_tap_test,,deja_vu_1
+deja_vu_2,item,check the newsclip1,closed_wallet1,check_newsclip1_test,,deja_vu_1
+deja_vu_2,item,take the ring1,in_hotel_room,take_ring1_test,,deja_vu_1
+deja_vu_2,navigation,open the door from map,all_set_in_hotel_room,open_door_from_map_test,,deja_vu_1
+deja_vu_2,navigation,close the door from map,opened_door_in_hotel_room,close_door_from_map_test,,deja_vu_1
+deja_vu_2,navigation,enter the hallway,opened_door_in_hotel_room,enter_hallway_test,,deja_vu_1
+deja_vu_2,interaction,buy 2 chips,in_cashier,buy_2_chips_test,,deja_vu_1
