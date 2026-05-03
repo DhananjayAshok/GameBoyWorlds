@@ -18,7 +18,11 @@ from gameboy_worlds.emulation.bomberman.test_metrics import (
     CharabomSelectOpenTerminateMetric,
     DialogueActiveTerminateMetric,
     EnterCampTerminateMetric,
+    BoxPickedUpTerminateMetric,
+    EnterCaveTerminateMetric,
+    SaveNpcActiveTerminateMetric,
     ButtonRegionChangedTerminateMetric,
+    SwitchActivatedTerminateMetric,
     EnterHouseTerminateMetric,
     AreaIntroTerminateMetric,
     HudBombCountChangedTerminateMetric,
@@ -234,8 +238,25 @@ class BombermanQuestEnterHouseTestTracker(BombermanQuestBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = EnterHouseTerminateMetric
 
 
+class BombermanQuestEnterCaveTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = EnterCaveTerminateMetric
+
+
 class BombermanQuestButtonRegionChangedTestTracker(BombermanQuestBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = ButtonRegionChangedTerminateMetric
+
+
+class BombermanQuestSwitchActivatedTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SwitchActivatedTerminateMetric
+
+
+class BombermanQuestBoxPickedUpTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = BoxPickedUpTerminateMetric
+
+
+class BombermanQuestSaveNpcTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SaveNpcActiveTerminateMetric
+
 
 
 class BombermanQuestBookReadTestTracker(BombermanQuestBaseTestTracker):
