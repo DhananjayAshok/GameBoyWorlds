@@ -73,8 +73,33 @@ class DejaVuStateParser(StateParser, ABC):
         ("dialogue_top_left_hook", 0, 73, 10, 6),
         ("menu_bottom_line", 0, 143, 160, 1),
         ("selected_outfit_button", 120, 17, 14, 15),
+        # map locations
+        ("pointed_at_11_on_map", 120, 80, 8, 8),
         ("pointed_at_13_on_map", 136, 80, 8, 8),
         ("pointed_at_21_on_map", 120, 72, 8, 8),
+        ("pointed_at_25_on_map", 152, 72, 8, 8),
+        ("pointed_at_35_on_map", 152, 64, 8, 8),
+        ("pointed_at_41_on_map", 120, 56, 8, 8),
+        ("pointed_at_45_on_map", 152, 56, 8, 8),
+        ("pointed_at_52_on_map", 128, 48, 8, 8),
+        # action in menu
+        ("selected_watch_action_in_menu", 8, 33, 16, 5),
+        ("selected_use_action_in_menu", 24, 33, 16, 5),
+        ("selected_take_action_in_menu", 40, 33, 16, 5),
+        ("selected_open_action_in_menu", 64, 33, 16, 5),
+        ("selected_close_action_in_menu", 80, 33, 16, 5),
+        ("selected_talk_action_in_menu", 104, 33, 16, 5),
+        ("selected_hit_action_in_menu", 120, 33, 16, 5),
+        ("selected_throw_action_in_menu", 136, 33, 16, 5),
+        # action in normal
+        ("selected_watch_action_in_normal", 8, 121, 16, 5),
+        ("selected_use_action_in_normal", 24, 121, 16, 5),
+        ("selected_take_action_in_normal", 40, 121, 16, 5),
+        ("selected_open_action_in_normal", 64, 121, 16, 5),
+        ("selected_close_action_in_normal", 80, 121, 16, 5),
+        ("selected_talk_action_in_normal", 104, 121, 16, 5),
+        ("selected_hit_action_in_normal", 120, 121, 16, 5),
+        ("selected_throw_action_in_normal", 136, 121, 16, 5),
     ]
     """ 
     List of common named screen regions for Deja Vu game.
@@ -83,16 +108,17 @@ class DejaVuStateParser(StateParser, ABC):
     - dialogue_top_left_hook: A hook that appears in the top left after certain events, can be used to determine if certain game mechanics are available.
     - menu_bottom_line: A line that appears at the bottom of the screen when any menu is open, can be used to prevent agent interaction with the UI frame of the emulator.
     - selected_outfit_button: The area where the "Selected Outfit" button appears when the outfit menu is open, can be used to determine if the outfit menu is open.
-    (the map is divided into a 5x5 grid of locations, with (1,1) being the bottom left and (5,5) being the top right - (i,j) corresponds to i-th row from the bottom and j-th column from the left)
-    - pointed_at_13_on_map: The agent is currently pointing at location (1,3) on the map.
-    - pointed_at_21_on_map: The agent is currently pointing at location (2,1) on the map.
+    - pointed_at_{ij}_on_map: The agent is currently pointing at location (i,j) on the map. (the map is divided into a 5x5 grid of locations, with (1,1) being the bottom left and (5,5) being the top right)
+    - selected_{action}_action_in_menu: The specified action is currently selected in the action bar while a menu is open.
+    - selected_{action}_action_in_normal: The specified action is currently selected in the action bar while no menu is open.
     """
 
     COMMON_MULTI_TARGET_REGIONS = [
         ("dialogue_box_area", 0, 74, 160, 55),
         ("menu_box_area", 0, 70, 160, 70),
-        ("action_bar_in_normal", 0, 114, 160, 14),
-        ("action_bar_in_menu", 0, 26, 160, 14),
+        # ("action_bar_in_normal", 0, 114, 160, 14),
+        # ("action_bar_in_menu", 0, 26, 160, 14),
+        ("no_action", 0, 114, 160, 14),
         ("menu_title_area", 23, 56, 96, 17),
         ("game_screen_area", 0, 0, 112, 112),
         # ("map_area", 120, 48, 40, 40),
@@ -103,51 +129,30 @@ class DejaVuStateParser(StateParser, ABC):
     Deja Vu has certain regions that can contain multiple important visual cues.
     - dialogue_box_area: The area where dialogue text appears. Can contain multiple targets such as clues
     - menu_box_area: The area where menu options appear. Can contain multiple targets such as items or actions.
-    - action_bar_in_normal: The upper area of the action bar in normal state.
-    - action_bar_in_menu: The upper area of the action bar in when menu activated.
+    - no_action: The area where no action is currently selected in the action bar.
     - menu_title_area: The area where the menu title appears.
     - game_screen_area: The entire game screen area.
-    - map_area: The area where the map appears when the map is open.
+    (- map_area: The area where the map appears when the map is open.)
     """
 
     COMMON_MULTI_TARGETS = {
         "dialogue_box_area": [
-            "a_default_target",
+            "_",
             "nothing_usual",
             "opened_door",
             "closed_door",
         ],
-        "action_bar_in_normal": [
-            "a_default_target",
+        "no_action": [
+            "_",
             "no_action_selected",
-            "selected_watch_action",
-            "selected_use_action",
-            "selected_take_action",
-            "selected_open_action",
-            "selected_close_action",
-            "selected_talk_action",
-            "selected_hit_action",
-            "selected_throw_action",
-        ],
-        "action_bar_in_menu": [
-            "a_default_target",
-            "no_action_selected",
-            "selected_watch_action",
-            "selected_use_action",
-            "selected_take_action",
-            "selected_open_action",
-            "selected_close_action",
-            "selected_talk_action",
-            "selected_hit_action",
-            "selected_throw_action",
         ],
         "menu_title_area": [
-            "a_default_target",
+            "_",
             "address_menu",
             "goods_menu",
         ],
         "game_screen_area": [
-            "a_default_target",
+            "_",
             "socko_on_screen",
         ],
         # "map_area": [
@@ -161,18 +166,8 @@ class DejaVuStateParser(StateParser, ABC):
     - dialogue_box_area:
         - nothing_usual: Point at useless area.
         - opened_door: Open the door in front of you.
-    - action_bar_in_normal:
-        - selected_watch_action: The "Watch" action is currently selected in the action bar.
-        - selected_take_action: The "Take" action is currently selected in the action bar.
-        - selected_open_action: The "Open" action is currently selected in the action bar.
-        - selected_close_action: The "Close" action is currently selected in the action bar.
-        - selected_use_action: The "Use" action is currently selected in the action bar.
-    - action_bar_in_menu:
-        - selected_watch_action: The "Watch" action is currently selected in the action bar.
-        - selected_take_action: The "Take" action is currently selected in the action bar.
-        - selected_open_action: The "Open" action is currently selected in the action bar.
-        - selected_close_action: The "Close" action is currently selected in the action bar.
-        - selected_use_action: The "Use" action is currently selected in the action bar.
+    - no_action:
+        - no_action_selected: No action is currently selected in the action bar.
     - menu_title_area:
         - address_menu: The address menu is currently open.
         - goods_menu: The goods menu is currently open.
@@ -323,6 +318,7 @@ class DejaVu1StateParser(DejaVuStateParser):
             ("using_coin_item", 0, 95, 160, 8),
             ("using_key3_item", 0, 88, 160, 8),
             ("using_key2_item", 0, 128, 160, 8),
+            ("selected_westend_address", 0, 88, 160, 8),
         ]
         override_multi_target_regions = []
         override_multi_targets = {
@@ -345,6 +341,17 @@ class DejaVu1StateParser(DejaVuStateParser):
                 "met_mugger",
                 "hit_mugger",
                 "unlocked_car_door",
+                "opened_dashbrd",
+                "closed_dashbrd",
+                "checked_note2",
+                "checked_map",
+                "checked_snapshot",
+                "in_front_of_newsstand",
+                "entered_taxi",
+                "talked_to_taxi_driver",
+                "went_to_westend",
+                "paid_taxi",
+                "outside_apartment",
             ],
             "menu_title_area": [
                 "coat_pocket_menu",
@@ -352,7 +359,12 @@ class DejaVu1StateParser(DejaVuStateParser):
             ],
             "game_screen_area": [
                 "opened_cellar_door",
-            ]
+            ],
+            "no_action": [
+                "in_cellar",
+                "in_empty_restaurant",
+                "on_peoria_st",
+            ],
         }
 
         super().__init__(
@@ -403,10 +415,30 @@ class DejaVu2StateParser(DejaVuStateParser):
                 "entered_hallway",
                 "selected_2_chips",
                 "bought_2_chips",
+                "returned_cashier",
+                "selected_50_chips",
+                "cashed_out",
+                "opened_lobby_door",
+                "exited_casino",
+                "talked_in_train_station",
+                "visited_counter",
+                "taken_pamphlet",
+                "timetable",
+                "entered_platform",
+                "entered_train",
+                "bought_ticket",
+                "checked_girl",
+                "checked_sign",
             ],
             "menu_title_area": [
                 "trench_coat_pocket_menu",
                 "wallet1_menu",
+            ],
+            "game_screen_area": [
+                "on_track9",
+            ],
+            "no_action": [
+                "in_lobby",
             ],
         }
 

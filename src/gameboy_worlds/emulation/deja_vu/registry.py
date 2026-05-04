@@ -2,14 +2,14 @@ from typing import Optional, Union, Type, Dict
 from gameboy_worlds.emulation.parser import StateParser
 from gameboy_worlds.emulation.tracker import StateTracker
 from gameboy_worlds.emulation.emulator import Emulator
-
-from gameboy_worlds.emulation.deja_vu.parsers import (
-    DejaVu1StateParser,
-    DejaVu2StateParser,
-)
+from gameboy_worlds.emulation.deja_vu.emulators import DejaVuEmulator
+from gameboy_worlds.emulation.deja_vu.parsers import DejaVu1StateParser, DejaVu2StateParser
+# deja_vu_1 trackers
 from gameboy_worlds.emulation.deja_vu.trackers import (
-    DejaVuOCRTracker,
     DejaVu1CheckGunTestTracker,
+    DejaVu1CheckedNote2TestTracker,
+    DejaVu1CheckedMapTestTracker,
+    DejaVu1CheckedSnapshotTestTracker,
     DejaVu1CloseDoorTestTracker,
     DejaVu1ClosePocketTestTracker,
     DejaVu1CloseWalletTestTracker,
@@ -17,6 +17,10 @@ from gameboy_worlds.emulation.deja_vu.trackers import (
     DejaVu1EnterCellarTestTracker,
     DejaVu1EnterConnectingRoomTestTracker,
     DejaVu1EnterEmptyRoomFromMapTestTracker,
+    DejaVu1EnterTaxiTestTracker,
+    DejaVu1GoNewsstandTestTracker,
+    DejaVu1GotoApartmentTestTracker,
+    DejaVu1GotoWestendTestTracker,
     DejaVu1HitBottleTestTracker,
     DejaVu1HitMuggerTestTracker,
     DejaVu1MeetMuggerTestTracker,
@@ -24,10 +28,17 @@ from gameboy_worlds.emulation.deja_vu.trackers import (
     DejaVu1OpenPocketTestTracker,
     DejaVu1OpenSpigotTestTracker,
     DejaVu1OpenWalletTestTracker,
+    DejaVu1PayTaxiTestTracker,
     DejaVu1TakeGunTestTracker,
     DejaVu1CheckCoatTestTracker,
+    DejaVu1TalkToTaxiDriverTestTracker,
     DejaVu1UnlockCarDoorTestTracker,
     DejaVu1UnlockFrontDoorTestTracker,
+    DejaVu1CloseDashbrdTestTracker,
+    DejaVu1OpenDashbrdTestTracker,
+)
+# deja_vu_2 trackers
+from gameboy_worlds.emulation.deja_vu.trackers import (
     DejaVu2Buy2ChipsTestTracker,
     DejaVu2CheckNewsclip1TestTracker,
     DejaVu2CloseDoorFromMapTestTracker,
@@ -45,9 +56,21 @@ from gameboy_worlds.emulation.deja_vu.trackers import (
     DejaVu2TakeLicense1TestTracker,
     DejaVu2TakeNewsclip1TestTracker,
     DejaVu2TakePantsTestTracker,
+    DejaVu2ReturnToCashierTestTracker,
+    DejaVu2CashOutTestTracker,
+    DejaVu2ExitCasinoTestTracker,
+    DejaVu2OpenLobbyDoorTestTracker,
+    DejaVu2TalkInTrainStationTestTracker,
+    DejaVu2VisitCounterTestTracker,
+    DejaVu2CheckTimetableTestTracker,
+    DejaVu2TakePamphletTestTracker,
+    DejaVu2EnterPlatformTestTracker,
+    DejaVu2EnterTrainTestTracker,
+    DejaVu2BuyTicketTestTracker,
+    DejaVu2CheckGirlTestTracker,
+    DejaVu2CheckSignTestTracker,
 )
-from gameboy_worlds.emulation.deja_vu.emulators import DejaVuEmulator
-
+from gameboy_worlds.emulation.deja_vu.trackers import  DejaVuOCRTracker
 GAME_TO_GB_NAME = {
     "deja_vu_1": "DejaVu.gbc",
     "deja_vu_2": "DejaVu.gbc",
@@ -88,10 +111,21 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "meet_mugger_test": DejaVu1MeetMuggerTestTracker,
         "hit_mugger_test": DejaVu1HitMuggerTestTracker,
         "unlock_car_door_test": DejaVu1UnlockCarDoorTestTracker,
+        "open_dashbrd_test": DejaVu1OpenDashbrdTestTracker,
+        "close_dashbrd_test": DejaVu1CloseDashbrdTestTracker,
+        "check_note2_test": DejaVu1CheckedNote2TestTracker,
+        "check_map_test": DejaVu1CheckedMapTestTracker,
+        "check_snapshot_test": DejaVu1CheckedSnapshotTestTracker,
+        "go_newsstand_test": DejaVu1GoNewsstandTestTracker,
+        "enter_taxi_test": DejaVu1EnterTaxiTestTracker,
+        "talk_to_taxi_driver_test": DejaVu1TalkToTaxiDriverTestTracker,
+        "goto_westend_test": DejaVu1GotoWestendTestTracker,
+        "pay_taxi_test": DejaVu1PayTaxiTestTracker,
+        "goto_apartment_test": DejaVu1GotoApartmentTestTracker,
     },
     "deja_vu_2": {
         "default": DejaVuOCRTracker,
-        "open_trench_coat_test": DejaVu2OpenTrenchCoatTestTracker,
+        "open_trench_coat_pocket_test": DejaVu2OpenTrenchCoatTestTracker,
         "open_bathroom_door_test": DejaVu2OpenBathroomDoorTestTracker,
         "take_gum_test": DejaVu2TakeGumTestTracker,
         "open_pants_pocket_test": DejaVu2OpenPantsPocketTestTracker,
@@ -111,6 +145,19 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "close_door_from_map_test": DejaVu2CloseDoorFromMapTestTracker,
         "enter_hallway_test": DejaVu2EnterHallwayTestTracker,
         "buy_2_chips_test": DejaVu2Buy2ChipsTestTracker,
+        "return_cashier_test": DejaVu2ReturnToCashierTestTracker,
+        "cash_out_test": DejaVu2CashOutTestTracker,
+        "open_lobby_door_test": DejaVu2OpenLobbyDoorTestTracker,
+        "exit_casino_test": DejaVu2ExitCasinoTestTracker,
+        "talk_in_train_station_test": DejaVu2TalkInTrainStationTestTracker,
+        "visit_counter_test": DejaVu2VisitCounterTestTracker,
+        "take_pamphlet_test": DejaVu2TakePamphletTestTracker,
+        "check_timetable_test": DejaVu2CheckTimetableTestTracker,
+        "enter_platform_track6_test": DejaVu2EnterPlatformTestTracker,
+        "enter_train_test": DejaVu2EnterTrainTestTracker,
+        "buy_ticket_test": DejaVu2BuyTicketTestTracker,
+        "check_girl_test": DejaVu2CheckGirlTestTracker,
+        "check_sign_test": DejaVu2CheckSignTestTracker,
     },
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """
