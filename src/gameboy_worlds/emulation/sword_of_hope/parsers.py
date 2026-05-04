@@ -27,6 +27,10 @@ class _BaseSwordOfHopeParser(StateParser):
         ("battle_command", 4, 74, 152, 70),
         ("status_command", 4, 72, 152, 72),
         ("full_screen", 0, 0, 160, 144),
+        ("soh2_enemy_viewport", 4, 0, 152, 68),
+        ("soh2_battle_command", 4, 68, 152, 19),
+        ("soh2_party_stats", 4, 87, 152, 48),
+        ("soh2_room_label", 8, 4, 144, 20),
     ]
     """
     - room_label: The room name text on the right side of the MOVE|ROOM status bar. Used for location-based termination.
@@ -37,6 +41,10 @@ class _BaseSwordOfHopeParser(StateParser):
     - battle_viewport: Full-width enemy sprite area (wider than game_viewport to include right side).
     - battle_command: Battle command area including FIGHT/AUTO row + MAGIC/USE/ESCAPE + enemy list.
     - status_command: Status bar + command area combined (y=72 to y=144). Useful for detecting interaction results where text changes span both areas.
+    - soh2_enemy_viewport: SoH2 only. Enemy sprite area; SoH2 has no top stats bar so the sprite extends to y=0.
+    - soh2_battle_command: SoH2 only. Horizontal command row (CLASH/FLEE/AUTO solo, MAGIC/ITEM/etc with party).
+    - soh2_party_stats: SoH2 only. Live LV/HP/MP table at the bottom. Values change per frame so this is mainly for VLM/OCR, not for .npy match termination.
+    - soh2_room_label: SoH2 only. The room name header at the TOP of the screen (SoH2 puts the room name above the viewport, not in the bottom MOVE bar like SoH1).
     """
 
     COMMON_MULTI_TARGETS = {}
@@ -159,5 +167,46 @@ class SwordOfHope2Parser(_BaseSwordOfHopeParser):
             "dialogue_cleared",
             "dialogue_initiated",
             "dialogue_advanced",
+            "dialogue_visible",
+            "battle_won",
+            "escape_confirmed",
+            "wheat_purchased",
+            "motion_result",
+            "battle_magic_menu",
+            "cpr_sword_purchased",
+            "wheat_from_tree",
+            "wheat_consumed",
+            "cursor_on_power",
+            "power_stats_first_page",
+            "power_stats_exp_page",
+            "cursor_on_look",
+            "cursor_on_item",
+            "cursor_on_open",
+            "cursor_on_magic",
+            "cursor_on_hit",
+        ],
+        "full_screen": [
+            "shop_menu_open",
+            "magic_menu_open",
+            "weapons_shop_menu_open",
+            "look_shopkeeper",
+            "shop_buy_sell_menu",
+            "cursor_on_cpr_sword",
+            "hit_tree_target",
+            "item_menu_open",
+            "use_menu_open",
+            "cursor_on_wheat",
+        ],
+        "command_area": [
+            "exploration_menu",
+            "power_menu_last_slide",
+        ],
+        "soh2_room_label": [
+            "kings_room",
+            "riccar_castle",
+        ],
+        "soh2_battle_command": [
+            "battle_active",
+            "cursor_on_auto",
         ],
     }

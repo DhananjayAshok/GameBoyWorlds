@@ -11,7 +11,45 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     SoH2DialogueAdvancedTerminateMetric,
     SoH2DialogueInitiatedSubGoal,
     SoH2ExplorationMenuTerminateMetric,
-    SoH2MenuOpenSubGoal,
+    SoH2PowerMenuLastSlideSubGoal,
+    SoH2BattleWonTerminateMetric,
+    SoH2BattleActiveSubGoal,
+    SoH2EscapeConfirmedTerminateMetric,
+    SoH2WheatPurchasedTerminateMetric,
+    SoH2ShopMenuOpenTerminateMetric,
+    SoH2ShopMenuOpenSubGoal,
+    SoH2BattleMagicMenuTerminateMetric,
+    SoH2MotionResultTerminateMetric,
+    SoH2MagicMenuOpenSubGoal,
+    SoH2ItemFoundTerminateMetric,
+    SoH2LookTargetSubGoal,
+    SoH2CprSwordPurchasedTerminateMetric,
+    SoH2WeaponsShopMenuOpenSubGoal,
+    SoH2LookShopkeeperSubGoal,
+    SoH2ShopBuySellMenuSubGoal,
+    SoH2CursorOnCprSwordSubGoal,
+    SoH2CursorOnAutoTerminateMetric,
+    SoH2WheatFromTreeTerminateMetric,
+    SoH2HitTreeTargetSubGoal,
+    SoH2UseMenuOpenTerminateMetric,
+    SoH2ItemMenuOpenSubGoal,
+    SoH2UseMenuOpenSubGoal,
+    SoH2WheatConsumedTerminateMetric,
+    SoH2CursorOnWheatSubGoal,
+    SoH2PowerStatsExpPageTerminateMetric,
+    SoH2CursorOnPowerSubGoal,
+    SoH2PowerStatsFirstPageSubGoal,
+    SoH2CursorOnLookTerminateMetric,
+    SoH2CursorOnItemTerminateMetric,
+    SoH2CursorOnOpenTerminateMetric,
+    SoH2CursorOnMagicTerminateMetric,
+    SoH2CursorOnHitTerminateMetric,
+    SoH2CursorOnPowerTerminateMetric,
+    SoH2CursorOnLookSubGoal,
+    SoH2CursorOnItemSubGoal,
+    SoH2CursorOnOpenSubGoal,
+    SoH2CursorOnMagicSubGoal,
+    SoH2CursorOnHitSubGoal,
     SoH2DialogueVisibleSubGoal,
     SoH2FirstAdjacentRoomTerminateMetric,
     SoH2StarterRoomSubGoal,
@@ -114,22 +152,254 @@ class SwordOfHope2TalkToNpcTestTracker(SwordOfHope2TestTracker):
 
 class SwordOfHope2MenuOpenCloseTestTracker(SwordOfHope2TestTracker):
     """
-    Terminates when the agent closes an open menu and returns to exploration.
-    Subgoals: menu_open -> (termination) exploration_menu.
+    Terminates when the agent closes the Power menu and returns to exploration.
+    Starts at default.state (exploration menu showing). The agent must navigate
+    cursor onto Power, open Power, cycle through stat slides, then press B to
+    close back to exploration.
+    Subgoals: power_menu_last_slide -> (termination) exploration_menu.
     """
 
     TERMINATION_TRUNCATION_METRIC = SoH2ExplorationMenuTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2MenuOpenSubGoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2PowerMenuLastSlideSubGoal])
 
 
 class SwordOfHope2FirstAdjacentRoomTestTracker(SwordOfHope2TestTracker):
     """
-    Terminates when the agent reaches the first adjacent room from the start state
-    (room_label/castle_corridor). Subgoal: castle_throne starting room visible.
+    Terminates when the agent reaches Riccar Castle (first adjacent room from
+    the King's Room). Subgoal: kings_room starting room visible.
     """
 
     TERMINATION_TRUNCATION_METRIC = SoH2FirstAdjacentRoomTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([SoH2StarterRoomSubGoal])
+
+
+class SwordOfHope2BattleWonTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent wins a battle in SoH2.
+    Starts at battle_example.state (battle active at t=0).
+    Subgoals: battle_active -> (termination) battle_won.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2BattleWonTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2BattleActiveSubGoal])
+
+
+class SwordOfHope2EscapeBattleTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent successfully escapes from a battle in SoH2.
+    Starts at battle_example.state (battle active at t=0).
+    Subgoals: battle_active -> (termination) escape_confirmed.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2EscapeConfirmedTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2BattleActiveSubGoal])
+
+
+class SwordOfHope2OpenShopMenuTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent opens a shop's buy menu.
+    Starts at shop_example.state (player in front of a shop).
+    No subgoals (single-step interaction).
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2ShopMenuOpenTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope2BattleMagicCommandTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent selects MAGIC in battle and the magic submenu shows.
+    Starts at battle_example.state.
+    Subgoals: battle_active -> (termination) battle_magic_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2BattleMagicMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2BattleActiveSubGoal])
+
+
+class SwordOfHope2AutoBattleTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent navigates the cursor onto the AUTO command in
+    the battle command row. Tests command-row navigation.
+    Starts at battle_example.state.
+    Subgoals: battle_active -> (termination) cursor_on_auto.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnAutoTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2BattleActiveSubGoal])
+
+
+class SwordOfHope2OpenItemMenuTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent reaches the Use submenu via Item -> Use chain.
+    SoH2 inventory flow: press ITEM (inventory list) -> press A on an item to
+    bring up the Use submenu.
+    Starts at default.state.
+    Subgoals: item_menu_open -> (termination) use_menu_open.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2UseMenuOpenTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2ItemMenuOpenSubGoal])
+
+
+class SwordOfHope2CursorOnLookTestTracker(SwordOfHope2TestTracker):
+    """Cursor at LOOK in the exploration command grid. Region: status_command."""
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnLookTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope2CursorOnItemTestTracker(SwordOfHope2TestTracker):
+    """Cursor at ITEM in the exploration command grid."""
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnItemTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope2CursorOnOpenTestTracker(SwordOfHope2TestTracker):
+    """Cursor at OPEN in the exploration command grid."""
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnOpenTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope2CursorOnMagicTestTracker(SwordOfHope2TestTracker):
+    """Cursor at MAGIC in the exploration command grid."""
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnMagicTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope2CursorOnHitTestTracker(SwordOfHope2TestTracker):
+    """Cursor at HIT in the exploration command grid."""
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnHitTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope2CycleThroughCommandsTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent has cycled the cursor through all 6 commands
+    in order (LOOK -> ITEM -> OPEN -> MAGIC -> HIT -> POWER) without pressing
+    A on any of them.
+    Starts at default.state.
+    Subgoals: cursor_on_look -> cursor_on_item -> cursor_on_open
+              -> cursor_on_magic -> cursor_on_hit
+              -> (termination) cursor_on_power.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnPowerTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [
+            SoH2CursorOnLookSubGoal,
+            SoH2CursorOnItemSubGoal,
+            SoH2CursorOnOpenSubGoal,
+            SoH2CursorOnMagicSubGoal,
+            SoH2CursorOnHitSubGoal,
+        ]
+    )
+
+
+class SwordOfHope2ViewExpNeededTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent reaches the Power stats page that shows
+    "X more EXP needed for level up". Full chain: navigate to Power in
+    command grid -> open Power menu (first stats page) -> cycle to last
+    EXP page.
+    Starts at lvl3_overworld.state (Theo at lvl 3, stable overworld).
+    Subgoals: cursor_on_power -> power_stats_first_page
+              -> (termination) power_stats_exp_page.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2PowerStatsExpPageTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [SoH2CursorOnPowerSubGoal, SoH2PowerStatsFirstPageSubGoal]
+    )
+
+
+class SwordOfHope2UseWheatTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent uses Wheat from inventory and consumes it.
+    Full chain: ITEM submenu -> cursor on Wheat -> press A (Use submenu) ->
+    confirm USE -> wheat consumption dialogue.
+    Starts at wheat_in_inventory.state (player has Wheat in inventory at a
+    stable overworld position).
+    Subgoals: item_menu_open -> cursor_on_wheat -> use_menu_open
+              -> (termination) wheat_consumed.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2WheatConsumedTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [SoH2ItemMenuOpenSubGoal, SoH2CursorOnWheatSubGoal, SoH2UseMenuOpenSubGoal]
+    )
+
+
+class SwordOfHope2HitTreeWheatTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent uses Hit on a tree at Riccar Woods [A4] and
+    receives Wheat. Wheat drops are randomized — may take 1, 2, or more
+    hits — so the agent must keep Hitting until the wheat dialogue appears.
+    Starts at hit_tree_example.state (player adjacent to the [A4] tree).
+    Subgoals: hit_tree_target -> (termination) wheat_from_tree.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2WheatFromTreeTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2HitTreeTargetSubGoal])
+
+
+class SwordOfHope2CastMotionTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent casts Motion magic from the overworld.
+    Starts at lvl2_overworld.state (Theo at level 2 with Motion spell available).
+    Subgoals: magic_menu_open -> (termination) motion_result.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2MotionResultTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2MagicMenuOpenSubGoal])
+
+
+class SwordOfHope2LookItemTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent uses Look on an object and discovers an item.
+    Starts at look_example.state (player adjacent to a Lookable object).
+    Subgoals: look_target -> (termination) item_found.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2ItemFoundTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2LookTargetSubGoal])
+
+
+class SwordOfHope2BuyWheatTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent buys Wheat from a shop in SoH2.
+    Starts at shop_example.state (player in front of a shop, ready to interact).
+    Wheat is item-specific because the post-buy dialogue contains the item name
+    ("WHEAT? Thank you"), so the capture is keyed to wheat.
+    Subgoals: shop_menu_open -> (termination) wheat_purchased.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2WheatPurchasedTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2ShopMenuOpenSubGoal])
+
+
+class SwordOfHope2BuyCprSwordTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent buys the CPR Sword (3rd item) from the Weapons Shop.
+    Starts at weapons_shop_example.state (player adjacent to the shopkeeper, ready to Look).
+    Multi-step interaction:
+      1. Look menu with cursor on shopkeeper
+      2. After A on shopkeeper, BUY/SELL choice menu
+      3. After picking BUY, item list visible (cursor on first item)
+      4. Cursor navigated down to CPR Sword (3rd entry)
+      5. After confirming, "CPR SWORD? Thank you"
+    Subgoals: look_shopkeeper -> shop_buy_sell_menu -> weapons_shop_menu_open
+              -> cursor_on_cpr_sword -> (termination) cpr_sword_purchased.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CprSwordPurchasedTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [
+            SoH2LookShopkeeperSubGoal,
+            SoH2ShopBuySellMenuSubGoal,
+            SoH2WeaponsShopMenuOpenSubGoal,
+            SoH2CursorOnCprSwordSubGoal,
+        ]
+    )
 
 
 class SwordOfHope2OverworldFromDefaultTestTracker(SwordOfHope2TestTracker):

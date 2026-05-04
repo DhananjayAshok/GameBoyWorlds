@@ -21,3 +21,24 @@ sword_of_hope_1,menu,Cast Teleport to return to a previously visited location (f
 sword_of_hope_1,"combat, menu",Escape from a battle using the Escape command,battle_example,escape_battle_test,,sword_of_hope_2
 sword_of_hope_2,dialogue,Clear the active dialogue box and return control to the player,default,dialogue_clear_test,,sword_of_hope_1
 sword_of_hope_2,interaction,Talk to an NPC or interactable and advance one full dialogue page,default,talk_to_npc_test,,sword_of_hope_1
+sword_of_hope_2,menu,Open the command menu and close it to return to exploration,default,menu_open_close_test,,sword_of_hope_1
+sword_of_hope_2,navigation,Reach the first adjacent room from the start state,default,first_adjacent_room_test,,sword_of_hope_1
+sword_of_hope_2,"navigation, progression",From default reach a stable overworld position with no open dialogue or menu,opening_dialogue,overworld_from_default_test,,sword_of_hope_1
+sword_of_hope_2,combat,Finish a battle encounter without a game over,battle_example,battle_won_test,,sword_of_hope_1
+sword_of_hope_2,"combat, menu",Escape from a battle using the Flee command,battle_example,escape_battle_test,,sword_of_hope_1
+sword_of_hope_2,"menu, interaction",Open a shop's buy menu,shop_example,open_shop_menu_test,,sword_of_hope_1
+sword_of_hope_2,"menu, interaction",Buy Wheat from a shop,shop_example,buy_wheat_test,,sword_of_hope_1
+sword_of_hope_2,"combat, menu",During battle choose Magic command (submenu opens),battle_example,battle_magic_command_test,,sword_of_hope_1
+sword_of_hope_2,menu,Cast Motion magic from overworld at lvl 2,lvl2_overworld,cast_motion_test,,sword_of_hope_1
+sword_of_hope_2,"menu, interaction",Buy CPR Sword from Weapons Shop via Look-shopkeeper-Buy chain,weapons_shop_example,buy_cpr_sword_test,,sword_of_hope_1
+sword_of_hope_2,"combat, menu",Navigate cursor to AUTO command in battle row,battle_example,auto_battle_test,,sword_of_hope_1
+sword_of_hope_2,interaction,Hit a tree at Riccar Woods [A4] until Wheat is received,hit_tree_example,hit_tree_wheat_test,,sword_of_hope_1
+sword_of_hope_2,"menu, interaction",Open Item submenu and reach the Use action (Item -> Use chain),default,open_item_menu_test,,sword_of_hope_1
+sword_of_hope_2,"menu, interaction",Use Wheat from inventory,hit_tree_example,use_wheat_test,,sword_of_hope_1
+sword_of_hope_2,"menu, interaction",View Theo's stats and reach EXP-to-level-up page,lvl3_overworld,view_exp_needed_test,,sword_of_hope_1
+sword_of_hope_2,"menu, navigation",Navigate cursor onto LOOK in command grid,default,cursor_on_look_test,,sword_of_hope_1
+sword_of_hope_2,"menu, navigation",Navigate cursor onto ITEM in command grid,default,cursor_on_item_test,,sword_of_hope_1
+sword_of_hope_2,"menu, navigation",Navigate cursor onto OPEN in command grid,default,cursor_on_open_test,,sword_of_hope_1
+sword_of_hope_2,"menu, navigation",Navigate cursor onto MAGIC in command grid,default,cursor_on_magic_test,,sword_of_hope_1
+sword_of_hope_2,"menu, navigation",Navigate cursor onto HIT in command grid,default,cursor_on_hit_test,,sword_of_hope_1
+sword_of_hope_2,"menu, navigation",Cycle cursor through all 6 commands in order,default,cycle_through_commands_test,,sword_of_hope_1
