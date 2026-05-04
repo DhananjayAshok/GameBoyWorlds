@@ -125,7 +125,7 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
     },
     "deja_vu_2": {
         "default": DejaVuOCRTracker,
-        "open_trench_coat_test": DejaVu2OpenTrenchCoatTestTracker,
+        "open_trench_coat_pocket_test": DejaVu2OpenTrenchCoatTestTracker,
         "open_bathroom_door_test": DejaVu2OpenBathroomDoorTestTracker,
         "take_gum_test": DejaVu2TakeGumTestTracker,
         "open_pants_pocket_test": DejaVu2OpenPantsPocketTestTracker,
