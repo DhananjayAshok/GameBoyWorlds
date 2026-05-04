@@ -164,7 +164,17 @@ class LegendOfZeldaLinksAwakeningParser(BaseLegendOfZeldaParser):
             ("pond", 55, 39, 51, 31),
             ("signboard_tracker", 28, 30, 21, 18),
             ("witch_tracker", 62, 52, 18, 26),
-            ("pots_tracker", 16, 80, 15, 32)
+            ("pots_tracker", 16, 80, 15, 32),
+            ("gemstone", 79, 64, 14, 13),
+            ("no_weapon", 45, 0, 27, 16),
+            ("yes_weapon", 46, 0, 26, 15),
+            ("girl", 30, 62, 17, 15),
+            ("piece", 71, 54, 17, 28),
+            ("shroom_taker", 26, 24, 20, 24),
+            ("shroom_sword", 40, 0, 36, 16),
+            ("shroom_shield", 2, 3, 31, 9),
+            ("signboard2", 44, 13, 25, 19),
+            ("empty_land", 0, 0, 160, 80)
         ]
 
         """
@@ -225,7 +235,22 @@ class LegendOfZeldaTheOracleOfSeasonsParser(BaseLegendOfZeldaParser):
             ("oof_its_heavy", 9, 25, 136, 17),
             ("green_rock_tracker", 79, 47, 16, 14),
             ("rock", 97, 97, 14, 13),
-            ("almirah", 80, 17, 31, 12)
+            ("almirah", 80, 17, 31, 12),
+            ("signboard_entry", 27, 29, 19, 16),
+            ("grass_right", 118, 79, 18, 14),
+            ("open_gate", 70, 51, 16, 18),
+            ("sign_dialogue", 0, 80, 122, 38),
+            ("left_screen", 0, 16, 108, 128),
+            ("right_screent", 107, 46, 49, 47),
+            ("right_screenb", 110, 30, 48, 18),
+            ("stool", 32, 5, 17, 13),
+            ("bush_of_pier", 47, 71, 40, 18),
+            ("empty_walk", 109, 17, 47, 126),
+            ("cat", 67, 95, 22, 20),
+            ("meow", 64, 96, 62, 30),
+            ("look_no_matter", 16, 79, 78, 39),
+            ("chest", 14, 32, 19, 15),
+            ("dog", 28, 66, 22, 13),
         ]
         """
         - bricks: bricks on the right side of the screen, signifying that the inventory is open.
