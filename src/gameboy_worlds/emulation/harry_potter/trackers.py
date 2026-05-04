@@ -4,7 +4,8 @@ from gameboy_worlds.emulation.tracker import (
     DummySubGoalMetric,
     make_subgoal_metric_class,
 )
-from gameboy_worlds.emulation.harrypotter.test_metrics import (
+from gameboy_worlds.emulation.harry_potter.base_metrics import HarryPotterOCRMetric
+from gameboy_worlds.emulation.harry_potter.test_metrics import (
     PotionsShopTerminateMetric,
     OllivandersInteriorTerminateMetric,
     OutsideOllivandersSubgoal,
@@ -22,12 +23,46 @@ from gameboy_worlds.emulation.harrypotter.test_metrics import (
     GainSpellTerminateMetric,
     WinBattleTerminateMetric,
     FindBossRatSubgoal,
+    # Task 14
+    FindHagridVaultTerminateMetric,
+    NavigateToHagridSubgoal,
+    # Madam Malkin split tasks
+    EnterMalkinsTerminateMetric,
+    OpenMalkinsBuyMenuTerminateMetric,
+    SelectRobesTerminateMetric,
+    ConfirmRobesPurchaseTerminateMetric,
+    OutsideMalkinsSubgoal,
+    # CoS Task 1
+    FindDobbyTerminateMetric,
+    FindDobbySubgoal,
+    # CoS Task 2
+    SelectCardDeckCosTerminateMetric,
+    # CoS Task 3
+    BoardFlyingCarTerminateMetric,
+    TalkToRonCosSubgoal,
+    # CoS Task 4
+    EnterBurrowTerminateMetric,
+    OutsideBurrowAfterCutsceneSubgoal,
+    # CoS Task 5
+    EnterBattleCosTerminateMetric,
 )
 
 
-class HarryPotterTestTracker(TestTrackerMixin, StateTracker):
+class HarryPotterOCRTracker(StateTracker):
+    """
+    Base tracker that adds OCR dialogue capture support for Harry Potter games.
+    Requires the parser to have a "dialogue_box_full" region defined.
+    """
+
+    def start(self):
+        super().start()
+        self.metric_classes.extend([HarryPotterOCRMetric])
+
+
+class HarryPotterTestTracker(TestTrackerMixin, HarryPotterOCRTracker):
     """
     Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harry Potter games.
+    All test trackers get OCR dialogue capture support via HarryPotterOCRTracker.
     """
 
     TERMINATION_TRUNCATION_METRIC = PotionsShopTerminateMetric
@@ -92,3 +127,60 @@ class BeatBossRatTestTracker(HarryPotterTestTracker):
     """Boss fight — termination TBD, subgoal is finding the boss rat."""
     TERMINATION_TRUNCATION_METRIC = WinBattleTerminateMetric  # placeholder until boss-specific termination
     SUBGOAL_METRIC = make_subgoal_metric_class([FindBossRatSubgoal])
+
+
+# Task 14
+class FindHagridVaultTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = FindHagridVaultTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([NavigateToHagridSubgoal])
+
+
+# Madam Malkin split tasks (Task 15a/b/c/d)
+class EnterMalkinsTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = EnterMalkinsTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideMalkinsSubgoal])
+
+
+class OpenMalkinsBuyMenuTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = OpenMalkinsBuyMenuTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SelectRobesTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectRobesTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class ConfirmRobesPurchaseTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = ConfirmRobesPurchaseTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+# CoS Task 1
+class FindDobbyTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = FindDobbyTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([FindDobbySubgoal])
+
+
+# CoS Task 2
+class SelectCardDeckCosTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectCardDeckCosTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+# CoS Task 3
+class BoardFlyingCarTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = BoardFlyingCarTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([TalkToRonCosSubgoal])
+
+
+# CoS Task 4
+class EnterBurrowTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = EnterBurrowTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideBurrowAfterCutsceneSubgoal])
+
+
+# CoS Task 5
+class EnterBattleCosTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = EnterBattleCosTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric

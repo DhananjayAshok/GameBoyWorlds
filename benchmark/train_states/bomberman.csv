@@ -1,0 +1,9 @@
+game,name,description,states
+bomberman_quest,quest_read_sign,Reading a sign in the world,"entrance_next_to_sign, next_to_box_sign, next_to_cave_sign, next_to_danger_sign, next_to_green_cave_entrance_sign, next_to_green_cave_sign, next_to_house_sign, next_to_peace_town_sign"
+bomberman_quest,quest_talk_to_npc,Talking to an NPC in the world,"in_library, in_room_next_to_bomb_workshop_man, in_room_next_to_girl, next_to_guide_bottom, next_to_guide_right, next_to_old_man, starter"
+bomberman_pocket,pocket_defeat_enemy,Defeating an enemy using a bomb,"area_1_next_to_enemy, area_2_next_to_enemy, area_3_next_to_enemy, stage_4_next_to_enemy, next_to_strong_enemy, next_to_shell, ocean_area_1_next_to_enemy, ocean_area_1_next_to_strong_enemy, ocean_area_2_next_to_enemy, ocean_area_3_next_to_enemy"
+bomberman_pocket,pocket_take_exit,Taking the stage exit,"area_1_next_to_exit, area_2_next_to_exit, area_3_next_to_exit, ocean_area_1_next_to_exit, ocean_area_2_next_to_exit, ocean_area_3_next_to_exit"
+bomberman_pocket,pocket_pickup_bomb_up,Picking up a bomb up,"next_to_bomb_up, area_2_next_to_bomb_up, area_3_next_to_bomb_up, ocean_area_2_next_to_bomb_up, ocean_area_3_next_to_bomb_up, ocean_area_4_next_to_bomb_up"
+bomberman_max,max_defeat_enemy,Defeating an enemy using a bomb,"stage_1_next_to_enemy, stage_2_next_to_enemy, stage_3_next_to_enemy, stage_5_next_to_enemy, stage_10_next_to_enemy, stage_12_next_to_enemy, stage_14_next_to_enemy, stage_14_next_to_strong_enemy, stage_22_next_to_enemy, next_to_skull, stage_16_next_to_skull, next_to_flower"
+bomberman_max,max_go_to_exit,Going to the stage exit,"stage_1_next_to_exit, stage_2_next_to_exit, stage_5_next_to_exit, stage_10_next_to_exit, stage_14_next_to_exit, stage_14_next_to_exit_2, stage_2_next_to_red_exit"
+bomberman_max,max_pickup_item,Picking up a power-up item,"next_to_bomb_up, stage_2_next_to_bomb_up, next_to_fire, stage_2_next_to_fire_up"
