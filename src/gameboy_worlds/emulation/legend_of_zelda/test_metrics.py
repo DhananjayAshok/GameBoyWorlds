@@ -104,8 +104,18 @@ class OutsideTarinHouseTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
 class OpenInventoryTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "health_bar_top"
 
+class NoWeaponTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "no_weapon"
+
+class YesWeaponTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "yes_weapon"
+
 class TalkToKidTerminateMetric(ZeldaRegionAndStateTerminationMetric):
     _TERMINATION_NAMED_REGION = "kid_screen_tracker"
+    _TERMINATION_AGENT_STATE = "in_dialogue"
+
+class StatueTalkTerminateMetric(ZeldaRegionAndStateTerminationMetric):
+    _TERMINATION_NAMED_REGION = "girl"
     _TERMINATION_AGENT_STATE = "in_dialogue"
 
 class ReadSignboardTerminateMetric(ZeldaRegionAndStateTerminationMetric):
@@ -125,8 +135,30 @@ class EnterDarkForestTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "brave_keyword_tracker"
 
 
+class InsideTunnelTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "gemstone"
+
+
 class OpenChestTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "open_chest_tracker"
+
+class HeartTakeTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "piece"
+
+class ShroomTakeTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "shroom_taker"
+
+class ShroomSwordTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "shroom_sword"
+
+class ShroomShieldTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "shroom_shield"
+
+class SignCheckerTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "signboard2"
+
+class WaterCheckerTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "empty_land"
 
 class MakeCall2TerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "bring_keyword_tracker"
@@ -176,6 +208,10 @@ class OracleRegionMatchTerminationOnlyMetric(ZeldaRegionMatchTerminationOnlyMetr
 
 
 class OracleRegionAndStateTerminationMetric(ZeldaRegionAndStateTerminationMetric):
+    REQUIRED_PARSER = LegendOfZeldaTheOracleOfSeasonsParser
+
+
+class OracleMultiRegionTerminationOnlyMetric(ZeldaMultiRegionTerminationOnlyMetric):
     REQUIRED_PARSER = LegendOfZeldaTheOracleOfSeasonsParser
 
 
@@ -281,3 +317,62 @@ class OracleArtistTalkTerminateMetric(OracleRegionAndStateTerminationMetric):
 
 class OracleChickenHouseTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "almirah"
+
+
+class OracleJigglyPathWalkTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "signboard_entry"
+
+
+class OracleFairyMeetTerminateMetric(OracleRegionAndStateTerminationMetric):
+    _TERMINATION_NAMED_REGION = "grass_right"
+    _TERMINATION_AGENT_STATE = "in_dialogue"
+
+
+class OracleThingInteractionTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "open_gate"
+
+
+class OracleInventoryOpenTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "bricks"
+
+
+class OracleClockTowerSignReadTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "sign_dialogue"
+
+
+class OracleNearStairsTerminateMetric(OracleMultiRegionTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGIONS = ["left_screen", "right_screent", "right_screenb"]
+
+
+class OracleTalkToGirlTerminateMetric(OracleRegionAndStateTerminationMetric):
+    _TERMINATION_NAMED_REGION = "stool"
+    _TERMINATION_AGENT_STATE = "in_dialogue"
+
+
+class OraclePierGoTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "bush_of_pier"
+
+
+class OracleBoardwalkTerminateMetric(OracleRegionAndStateTerminationMetric):
+    _TERMINATION_NAMED_REGION = "empty_walk"
+    _TERMINATION_AGENT_STATE = "in_dialogue"
+
+
+class OracleCatCheckTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "cat"
+
+
+class OracleCatTalkTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "meow"
+
+
+class OracleOwnerTalkTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "look_no_matter"
+
+
+class OracleBridgeWalkTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "chest"
+
+
+class OracleDogTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGION = "dog"
