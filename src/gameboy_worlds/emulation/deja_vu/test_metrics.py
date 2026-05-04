@@ -189,11 +189,23 @@ class TalkedToTaxiDriverTerminationMetric(RegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "dialogue_box_area"
     _TERMINATION_TARGET_NAME = "talked_to_taxi_driver"
 
-class GotoWestendTerminationMetric(RegionMatchTerminationOnlyMetric):
+class WenttoWestendTerminationMetric(RegionMatchTerminationOnlyMetric):
     REQUIRED_PARSER = DejaVu1StateParser
 
     _TERMINATION_NAMED_REGION = "dialogue_box_area"
     _TERMINATION_TARGET_NAME = "went_to_westend"
+
+class PaidTaxiTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu1StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "paid_taxi"
+
+class OutsideApartmentTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu1StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "outside_apartment"
 
 
 # deja_vu_2 termination metrics
@@ -317,59 +329,87 @@ class Bought2ChipsTerminationMetric(RegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "dialogue_box_area"
     _TERMINATION_TARGET_NAME = "bought_2_chips"
 
+class ReturnedToCashierTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "returned_cashier"
+
+class CashedOutTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "cashed_out"
+
+class OpenedLobbyDoorTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "opened_lobby_door"
+
+class ExitedCasinoTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "exited_casino"
+
+class TalkedInTrainStationTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "talked_in_train_station"
+
+class VisitedCounterTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "visited_counter"
+
+class TakenPamphletTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "taken_pamphlet"
+
+class CheckedTimetableTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "timetable"
+
+class EnteredPlatformTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "entered_platform"
+
+class EnteredTrainTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "entered_train"
+
+class BoughtTicketTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "bought_ticket"
+
+class CheckedGirlTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "checked_girl"
+
+class CheckedSignTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "checked_sign"
+
 
 # subgoal classes
 # subgoal classes with multiple region match requirements
-class SelectedTakeActionInNormalSubGoal(AnyRegionMatchSubGoal):
-    NAME = "selected_take_action"
-    _NAMED_REGIONS = ["action_bar_in_normal"]
-    _TARGET_NAMES = ["selected_take_action"]
-
-class SelectedOpenActionInNormalSubGoal(AnyRegionMatchSubGoal):
-    NAME = "selected_open_action"
-    _NAMED_REGIONS = ["action_bar_in_normal"]
-    _TARGET_NAMES = ["selected_open_action"]
-
-class SelectedCloseActionInNormalSubGoal(AnyRegionMatchSubGoal):
-    NAME = "selected_close_action"
-    _NAMED_REGIONS = ["action_bar_in_normal"]
-    _TARGET_NAMES = ["selected_close_action"]
-
-class SelectedHitActionInNormalSubGoal(AnyRegionMatchSubGoal):
-    NAME = "selected_hit_action_in_normal"
-    _NAMED_REGIONS = ["action_bar_in_normal"]
-    _TARGET_NAMES = ["selected_hit_action"]
-
-class NoActionSelectedInNormalSubGoal(AnyRegionMatchSubGoal):
-    NAME = "no_action_selected"
-    _NAMED_REGIONS = ["action_bar_in_normal"]
-    _TARGET_NAMES = ["no_action_selected"]
-
-class SelectedTakeActionInMenuSubGoal(AnyRegionMatchSubGoal):
-    NAME = "selected_take_action_in_menu"
-    _NAMED_REGIONS = ["action_bar_in_menu"]
-    _TARGET_NAMES = ["selected_take_action"]
-
-class SelectedOpenActionInMenuSubGoal(AnyRegionMatchSubGoal):
-    NAME = "selected_open_action_in_menu"
-    _NAMED_REGIONS = ["action_bar_in_menu"]
-    _TARGET_NAMES = ["selected_open_action"]
-
-class SelectedCloseActionInMenuSubGoal(AnyRegionMatchSubGoal):
-    NAME = "selected_close_action_in_menu"
-    _NAMED_REGIONS = ["action_bar_in_menu"]
-    _TARGET_NAMES = ["selected_close_action"]
-
-class SelectedWatchActionInMenuSubGoal(AnyRegionMatchSubGoal):
-    NAME = "selected_watch_action_in_menu"
-    _NAMED_REGIONS = ["action_bar_in_menu"]
-    _TARGET_NAMES = ["selected_watch_action"]
-
-class NoActionSelectedInMenuSubGoal(AnyRegionMatchSubGoal):
-    NAME = "no_action_selected_in_menu"
-    _NAMED_REGIONS = ["action_bar_in_menu"]
-    _TARGET_NAMES = ["no_action_selected"]
-
 class InCoatPocketMenuSubGoal(AnyRegionMatchSubGoal):
     NAME = "in_coat_pocket_menu"
     _NAMED_REGIONS = ["menu_title_area"]
@@ -400,11 +440,6 @@ class InTrenchCoatPocketMenuSubGoal(AnyRegionMatchSubGoal):
     _NAMED_REGIONS = ["menu_title_area"]
     _TARGET_NAMES = ["trench_coat_pocket_menu"]
 
-class SelectedUseActionInMenuSubGoal(AnyRegionMatchSubGoal):
-    NAME = "selected_use_action_in_menu"
-    _NAMED_REGIONS = ["action_bar_in_menu"]
-    _TARGET_NAMES = ["selected_use_action"]
-
 class InWallet1MenuSubGoal(AnyRegionMatchSubGoal):
     NAME = "in_wallet1_menu"
     _NAMED_REGIONS = ["menu_title_area"]
@@ -415,10 +450,27 @@ class Selected2ChipsSubGoal(AnyRegionMatchSubGoal):
     _NAMED_REGIONS = ["dialogue_box_area"]
     _TARGET_NAMES = ["selected_2_chips"]
 
-class SelectedTalkActionInNormalSubGoal(AnyRegionMatchSubGoal):
-    NAME = "selected_talk_action_in_normal"
-    _NAMED_REGIONS = ["action_bar_in_normal"]
-    _TARGET_NAMES = ["selected_talk_action"]
+# subgoal classes for no action selected
+class NoActionInCellarSubGoal(AnyRegionMatchSubGoal):
+    NAME = "no_action_in_cellar"
+    _NAMED_REGIONS = ["no_action"]
+    _TARGET_NAMES = ["in_cellar"]
+
+class NoActionInEmptyRestaurantSubGoal(AnyRegionMatchSubGoal):
+    NAME = "no_action_in_empty_restaurant"
+    _NAMED_REGIONS = ["no_action"]
+    _TARGET_NAMES = ["in_empty_restaurant"]
+
+class NoActionOnPeoriaStSubGoal(AnyRegionMatchSubGoal):
+    NAME = "no_action_on_peoria_st"
+    _NAMED_REGIONS = ["no_action"]
+    _TARGET_NAMES = ["on_peoria_st"]
+
+class NoActionInLobbySubGoal(AnyRegionMatchSubGoal):
+    NAME = "no_action_in_lobby"
+    _NAMED_REGIONS = ["no_action"]
+    _TARGET_NAMES = ["in_lobby"]
+
 
 # subgoal classes with single region match requirement
 class PointedAtCoatSubGoal(SingleRegionMatchSubGoal):
@@ -488,3 +540,76 @@ class UsingKey2SubGoal(SingleRegionMatchSubGoal):
 class PointedAtWestendAddressSubGoal(SingleRegionMatchSubGoal):
     NAME = "pointed_at_westend_address"
     _NAMED_REGION = "selected_westend_address"
+
+class PointedAt25OnMapSubGoal(SingleRegionMatchSubGoal):
+    NAME = "pointed_at_25_on_map"
+    _NAMED_REGION = "pointed_at_25_on_map"
+
+class PointedAt35OnMapSubGoal(SingleRegionMatchSubGoal):
+    NAME = "pointed_at_35_on_map"
+    _NAMED_REGION = "pointed_at_35_on_map"
+
+class PointedAt41OnMapSubGoal(SingleRegionMatchSubGoal):
+    NAME = "pointed_at_41_on_map"
+    _NAMED_REGION = "pointed_at_41_on_map"
+
+class PointedAt45OnMapSubGoal(SingleRegionMatchSubGoal):
+    NAME = "pointed_at_45_on_map"
+    _NAMED_REGION = "pointed_at_45_on_map"
+
+class PointedAt52OnMapSubGoal(SingleRegionMatchSubGoal):
+    NAME = "pointed_at_52_on_map"
+    _NAMED_REGION = "pointed_at_52_on_map"
+
+
+# Action selection subgoals in menu and normal have the same target names
+# Menu action selection subgoals
+# class NoActionSelectedInMenuSubGoal(AnyRegionMatchSubGoal):
+#     NAME = "no_action_selected_in_menu"
+#     _NAMED_REGIONS = ["action_bar_in_menu"]
+#     _TARGET_NAMES = ["no_action_selected"]
+
+class SelectedWatchActionInMenuSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_watch_action_in_menu"
+    _NAMED_REGION = "selected_watch_action_in_menu"
+
+class SelectedUseActionInMenuSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_use_action_in_menu"
+    _NAMED_REGION = "selected_use_action_in_menu"
+
+class SelectedTakeActionInMenuSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_take_action_in_menu"
+    _NAMED_REGION = "selected_take_action_in_menu"
+
+class SelectedOpenActionInMenuSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_open_action_in_menu"
+    _NAMED_REGION = "selected_open_action_in_menu"
+
+class SelectedCloseActionInMenuSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_close_action_in_menu"
+    _NAMED_REGION = "selected_close_action_in_menu"
+
+# Normal action selection subgoals
+class SelectedWatchActionInNormalSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_watch_action_in_normal"
+    _NAMED_REGION = "selected_watch_action_in_normal"
+
+class SelectedTakeActionInNormalSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_take_action_in_normal"
+    _NAMED_REGION = "selected_take_action_in_normal"
+
+class SelectedOpenActionInNormalSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_open_action_in_normal"
+    _NAMED_REGION = "selected_open_action_in_normal"
+
+class SelectedCloseActionInNormalSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_close_action_in_normal"
+    _NAMED_REGION = "selected_close_action_in_normal"
+
+class SelectedTalkActionInNormalSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_talk_action_in_normal"
+    _NAMED_REGION = "selected_talk_action_in_normal"
+
+class SelectedHitActionInNormalSubGoal(SingleRegionMatchSubGoal):
+    NAME = "selected_hit_action_in_normal"
+    _NAMED_REGION = "selected_hit_action_in_normal"
