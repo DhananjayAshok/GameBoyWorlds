@@ -37,6 +37,7 @@ from gameboy_worlds.emulation.deja_vu.test_metrics import (
     EnteredEmptyRoomFromMapTerminationMetric,
     EnteredHallwayTerminationMetric,
     EnteredPlatformTerminationMetric,
+    EnteredShermanTerminationMetric,
     EnteredTaxiTerminationMetric,
     EnteredTrainTerminationMetric,
     ExitedCasinoTerminationMetric,
@@ -48,6 +49,7 @@ from gameboy_worlds.emulation.deja_vu.test_metrics import (
     TakenPamphletTerminationMetric,
     TalkedInTrainStationTerminationMetric,
     VisitedCounterTerminationMetric,
+    WenttoOfficeTerminationMetric,
     WenttoWestendTerminationMetric,
     HitBottleTerminationMetric,
     HitMuggerTerminationMetric,
@@ -125,6 +127,8 @@ from gameboy_worlds.emulation.deja_vu.test_metrics import (
     PointedAt45OnMapSubGoal,
     PointedAt52OnMapSubGoal,
     PointedAt41OnMapSubGoal,
+    OpenedDoorSubGoal,
+    NoActionInShermanLobbySubGoal,
 )
 
 
@@ -368,7 +372,7 @@ class DejaVu1CloseDashbrdTestTracker(DejaVuTestTracker):
     TERMINATION_TRUNCATION_METRIC = ClosedDashbrdTerminationMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([SelectedCloseActionInNormalSubGoal])
 
-class DejaVu1CheckedNote2TestTracker(DejaVuTestTracker):
+class DejaVu1CheckNote2TestTracker(DejaVuTestTracker):
     """
     A TestTracker for Deja Vu games that terminates when the agent checks note 2.
     """
@@ -379,7 +383,7 @@ class DejaVu1CheckedNote2TestTracker(DejaVuTestTracker):
         InGoodsMenuSubGoal,
     ])
 
-class DejaVu1CheckedMapTestTracker(DejaVuTestTracker):
+class DejaVu1CheckMapTestTracker(DejaVuTestTracker):
     """
     A TestTracker for Deja Vu games that terminates when the agent checks the map.
     """
@@ -390,7 +394,7 @@ class DejaVu1CheckedMapTestTracker(DejaVuTestTracker):
         InGoodsMenuSubGoal,
     ])
 
-class DejaVu1CheckedSnapshotTestTracker(DejaVuTestTracker):
+class DejaVu1CheckSnapshotTestTracker(DejaVuTestTracker):
     """
     A TestTracker for Deja Vu games that terminates when the agent checks the snapshot.
     """
@@ -448,6 +452,22 @@ class DejaVu1GotoApartmentTestTracker(DejaVuTestTracker):
 
     TERMINATION_TRUNCATION_METRIC = OutsideApartmentTerminationMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([PointedAt25OnMapSubGoal])
+
+class DejaVu1EnterShermanTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent enters Sherman.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = EnteredShermanTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([OpenedDoorSubGoal])
+
+class DejaVu1GotoOfficeTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent goes to the office.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = WenttoOfficeTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([NoActionInShermanLobbySubGoal])
 
 
 # deja_vu_2 test trackers

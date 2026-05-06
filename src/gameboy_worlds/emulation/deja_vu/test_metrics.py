@@ -207,6 +207,18 @@ class OutsideApartmentTerminationMetric(RegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "dialogue_box_area"
     _TERMINATION_TARGET_NAME = "outside_apartment"
 
+class EnteredShermanTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu1StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "entered_sherman"
+
+class WenttoOfficeTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu1StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "stood_in_front_office"
+
 
 # deja_vu_2 termination metrics
 class OpenedTrenchCoatPocketTerminationMetric(RegionMatchTerminationOnlyMetric):
@@ -380,8 +392,8 @@ class CheckedTimetableTerminationMetric(RegionMatchTerminationOnlyMetric):
 class EnteredPlatformTerminationMetric(RegionMatchTerminationOnlyMetric):
     REQUIRED_PARSER = DejaVu2StateParser
 
-    _TERMINATION_NAMED_REGION = "dialogue_box_area"
-    _TERMINATION_TARGET_NAME = "entered_platform"
+    _TERMINATION_NAMED_REGION = "game_screen_area"
+    _TERMINATION_TARGET_NAME = "on_track6"
 
 class EnteredTrainTerminationMetric(RegionMatchTerminationOnlyMetric):
     REQUIRED_PARSER = DejaVu2StateParser
@@ -450,6 +462,11 @@ class Selected2ChipsSubGoal(AnyRegionMatchSubGoal):
     _NAMED_REGIONS = ["dialogue_box_area"]
     _TARGET_NAMES = ["selected_2_chips"]
 
+class OpenedDoorSubGoal(AnyRegionMatchSubGoal):
+    NAME = "opened_door"
+    _NAMED_REGIONS = ["dialogue_box_area"]
+    _TARGET_NAMES = ["opened_door"]
+
 # subgoal classes for no action selected
 class NoActionInCellarSubGoal(AnyRegionMatchSubGoal):
     NAME = "no_action_in_cellar"
@@ -470,6 +487,11 @@ class NoActionInLobbySubGoal(AnyRegionMatchSubGoal):
     NAME = "no_action_in_lobby"
     _NAMED_REGIONS = ["no_action"]
     _TARGET_NAMES = ["in_lobby"]
+
+class NoActionInShermanLobbySubGoal(AnyRegionMatchSubGoal):
+    NAME = "no_action_in_sherman_lobby"
+    _NAMED_REGIONS = ["no_action"]
+    _TARGET_NAMES = ["at_sherman_lobby"]
 
 
 # subgoal classes with single region match requirement

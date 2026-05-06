@@ -352,6 +352,8 @@ class DejaVu1StateParser(DejaVuStateParser):
                 "went_to_westend",
                 "paid_taxi",
                 "outside_apartment",
+                "entered_sherman",
+                "stood_in_front_office",
             ],
             "menu_title_area": [
                 "coat_pocket_menu",
@@ -364,6 +366,7 @@ class DejaVu1StateParser(DejaVuStateParser):
                 "in_cellar",
                 "in_empty_restaurant",
                 "on_peoria_st",
+                "at_sherman_lobby",
             ],
         }
 
@@ -435,7 +438,7 @@ class DejaVu2StateParser(DejaVuStateParser):
                 "wallet1_menu",
             ],
             "game_screen_area": [
-                "on_track9",
+                "on_track6",
             ],
             "no_action": [
                 "in_lobby",
