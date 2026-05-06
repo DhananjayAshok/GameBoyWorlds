@@ -35,25 +35,25 @@ deja_vu_2,item,take gum from trench coat,opened_trench_coat_pocket,take_gum_test
 deja_vu_2,menu,open the pants pocket,in_bathroom,open_pants_pocket_test,,deja_vu_1
 deja_vu_2,item,take the pants,in_bathroom,take_pants_test,,deja_vu_1
 deja_vu_2,menu,close the pants pocket,taken_pants_pocket,close_pants_pocket_test,,deja_vu_1
-deja_vu_2,item,put on the trench coat,taken_pants,put_on_pants_test,,deja_vu_1
-deja_vu_2,item,put on the pants,put_on_trench_coat,put_on_trench_coat_test,,deja_vu_1
+deja_vu_2,item,put on the trench coat,taken_pants_pocket,put_on_trench_coat_test,,deja_vu_1
+deja_vu_2,item,put on the pants,put_on_trench_coat,put_on_pants_test,,deja_vu_1
 deja_vu_2,menu,open wallet1,put_on_pants,open_wallet1_test,,deja_vu_1
 deja_vu_2,item,take newsclip1,opened_wallet1,take_newsclip1_test,,deja_vu_1
 deja_vu_2,item,take license1,taken_1_dollar,take_license1_test,,deja_vu_1
-deja_vu_2,menu,close wallet1,taken_license1,close_wallet1,,deja_vu_1
+deja_vu_2,menu,close wallet1,taken_license1,close_wallet1_test,,deja_vu_1
 deja_vu_2,item,check the newsclip1,closed_wallet1,check_newsclip1_test,,deja_vu_1
 deja_vu_2,navigation,open the door from map,all_set_in_hotel_room,open_door_from_map_test,,deja_vu_1
 deja_vu_2,navigation,close the door from map,opened_door_in_hotel_room,close_door_from_map_test,,deja_vu_1
 deja_vu_2,navigation,enter the hallway,opened_door_in_hotel_room,enter_hallway_test,,deja_vu_1
 deja_vu_2,interaction,buy 2 chips,in_cashier,buy_2_chips_test,,deja_vu_1
-deja_vu_2,navigation,return to  cashier,win_blackjack,returned_cashier_test,,deja_vu_1
+deja_vu_2,navigation,return to  cashier,win_blackjack,return_cashier_test,,deja_vu_1
 deja_vu_2,interaction,cash out,returned_cashier,cash_out_test,,deja_vu_1
 deja_vu_2,navigation,open the door of lobby,in_lobby,open_lobby_door_test,,deja_vu_1
 deja_vu_2,navigation,exit the casino,opened_lobby_door,exit_casino_test,,deja_vu_1
 deja_vu_2,interaction,talk in train station,in_train_station,talk_in_train_station_test,,deja_vu_1
 deja_vu_2,navigation,visit counter,talked_in_train_station,visit_counter_test,,deja_vu_1
 deja_vu_2,menu,check the timetable,taken_pamphlet,check_timetable_test,,deja_vu_1
-deja_vu_2,navigation,enter the platform on track9,back_to_train_station,enter_platform_track9_test,,deja_vu_1
+deja_vu_2,navigation,enter the platform on track6,back_to_train_station,enter_platform_track6_test,,deja_vu_1
 deja_vu_2,navigation,enter the train,on_track6,enter_train_test,,deja_vu_1
 deja_vu_2,interaction,buy a train ticket,ticket_seller,buy_ticket_test,,deja_vu_1
 deja_vu_2,interaction,check the girl in the train,in_train,check_girl_test,,deja_vu_1
