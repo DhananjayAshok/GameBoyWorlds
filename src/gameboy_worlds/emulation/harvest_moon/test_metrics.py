@@ -60,6 +60,32 @@ class OutsideChickenCoopSubgoal(AnyRegionMatchSubGoal):
         "outside_chicken_coop_right",
         "outside_chicken_coop_up",
     ]
+
+class OutsideChickenCoop2Subgoal(AnyRegionMatchSubGoal):
+    NAME = "outside_chicken_coop"
+    _NAMED_REGIONS = [
+        "outside_barns",
+        "outside_barns",
+        "outside_barns",
+    ]
+    _TARGET_NAMES = [
+        "outside_chicken_coop_left",
+        "outside_chicken_coop_right",
+        "outside_chicken_coop_up",
+    ]
+    
+class OutsideChickenCoop3Subgoal(AnyRegionMatchSubGoal):
+    NAME = "outside_chicken_coop"
+    _NAMED_REGIONS = [
+        "outside_chicken_coop",
+        "outside_chicken_coop",
+        "outside_chicken_coop",
+    ]
+    _TARGET_NAMES = [
+        "outside_chicken_coop_left",
+        "outside_chicken_coop_right",
+        "outside_chicken_coop_up",
+    ]
     
 class CowBarnTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BaseHarvestMoonStateParser
@@ -73,6 +99,19 @@ class OutsideCowBarnSubgoal(AnyRegionMatchSubGoal):
         "screen_middle",
         "screen_middle",
         "screen_middle",
+    ]
+    _TARGET_NAMES = [
+        "outside_cow_barn_left",
+        "outside_cow_barn_right",
+        "outside_cow_barn_up",
+    ]
+
+class OutsideCowBarn2Subgoal(AnyRegionMatchSubGoal):
+    NAME = "outside_cow_barn"
+    _NAMED_REGIONS = [
+        "outside_barns",
+        "outside_barns",
+        "outside_barns",
     ]
     _TARGET_NAMES = [
         "outside_cow_barn_left",
@@ -211,17 +250,36 @@ class FeedSpiritTerminateMetric(RegionMatchTerminationMetric, TerminationMetric)
     _TERMINATION_NAMED_REGION = "dialogue_box_bottom"
     _TERMINATION_TARGET_NAME = "fed_spirit"
 
+class HelpSpiritEarthquakeTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BaseHarvestMoonStateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_bottom"
+    _TERMINATION_TARGET_NAME = "helped_spirit_earthquake"
+
 class NextToSpiritSubgoal(AnyRegionMatchSubGoal):
     NAME = "next_to_spirit"
     _NAMED_REGIONS = [
         "item_spirit_left",
         "item_spirit_below",
-        "item_spirit_above",       
+        "item_spirit_above",
     ]
     _TARGET_NAMES = [
         "feed_spirit_right",
         "feed_spirit_up",
         "feed_spirit_down",
+    ]
+
+class NextToEarthquakeSpiritSubgoal(AnyRegionMatchSubGoal):
+    NAME = "next_to_spirit_earthquake"
+    _NAMED_REGIONS = [
+        "item_spirit_left",
+        "item_spirit_below",
+        "item_spirit_above",
+    ]
+    _TARGET_NAMES = [
+        "help_spirit_earthquake_right",
+        "help_spirit_earthquake_up",
+        "help_spirit_earthquake_down",
     ]
 
 class WaterTurnipTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
@@ -239,6 +297,135 @@ class NextToTurnipSubgoal(AnyRegionMatchSubGoal):
         "ready_to_water",
     ]
     
+class BuyMaterialTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BaseHarvestMoonStateParser
+
+    _TERMINATION_NAMED_REGION = "screen_bottom_half"
+    _TERMINATION_TARGET_NAME = "bought_material"
+
+class OutsideCarpenterSubgoal(AnyRegionMatchSubGoal):
+    NAME = "outside_carpenter"
+    _NAMED_REGIONS = [
+        "center_sign",
+    ]
+    _TARGET_NAMES = [
+        "outside_carpenter",
+    ]
+
+class ShopForMaterialSubgoal(AnyRegionMatchSubGoal):
+    NAME = "shop_for_material"
+    _NAMED_REGIONS = [
+        "screen_top_half",
+    ]
+    _TARGET_NAMES = [
+        "in_carpenter",
+    ]
+
+class SelectMaterialSubgoal(AnyRegionMatchSubGoal):
+    NAME = "selected_material"
+    _NAMED_REGIONS = [
+        "dialogue_box_bottom",
+    ]
+    _TARGET_NAMES = [
+        "select_material",
+    ]
+
+class BuyChickenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BaseHarvestMoonStateParser
+
+    _TERMINATION_NAMED_REGION = "screen_bottom_half"
+    _TERMINATION_TARGET_NAME = "bought_chicken"
+
+class OutsideAnimalShopSubgoal(AnyRegionMatchSubGoal):
+    NAME = "outside_animal_shop"
+    _NAMED_REGIONS = [
+        "center_sign",
+    ]
+    _TARGET_NAMES = [
+        "outside_animal_shop",
+    ]
+
+class ShopForAnimalSubgoal(AnyRegionMatchSubGoal):
+    NAME = "shop_for_animal"
+    _NAMED_REGIONS = [
+        "screen_top_half",
+    ]
+    _TARGET_NAMES = [
+        "in_animal_shop",
+    ]
+
+class SelectChickenSubgoal(AnyRegionMatchSubGoal):
+    NAME = "selected_chicken"
+    _NAMED_REGIONS = [
+        "dialogue_box_bottom",
+    ]
+    _TARGET_NAMES = [
+        "select_chicken",
+    ]
+
+class BuyCowBrushTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BaseHarvestMoonStateParser
+
+    _TERMINATION_NAMED_REGION = "screen_bottom_half"
+    _TERMINATION_TARGET_NAME = "bought_cow_brush"
+
+class BuySaddlebagTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BaseHarvestMoonStateParser
+
+    _TERMINATION_NAMED_REGION = "screen_bottom_half"
+    _TERMINATION_TARGET_NAME = "bought_saddlebag"
+
+class BuyMilkerTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BaseHarvestMoonStateParser
+
+    _TERMINATION_NAMED_REGION = "screen_bottom_half"
+    _TERMINATION_TARGET_NAME = "bought_milker"
+
+class OutsideToolShopSubgoal(AnyRegionMatchSubGoal):
+    NAME = "outside_tool_shop"
+    _NAMED_REGIONS = [
+        "center_sign",
+    ]
+    _TARGET_NAMES = [
+        "outside_tool_shop",
+    ]
+
+class ShopForToolsSubgoal(AnyRegionMatchSubGoal):
+    NAME = "shop_for_tools"
+    _NAMED_REGIONS = [
+        "screen_top_half",
+    ]
+    _TARGET_NAMES = [
+        "in_tool_shop",
+    ]
+
+class SelectCowBrushSubgoal(AnyRegionMatchSubGoal):
+    NAME = "selected_cow_brush"
+    _NAMED_REGIONS = [
+        "dialogue_box_bottom",
+    ]
+    _TARGET_NAMES = [
+        "select_cow_brush",
+    ]
+
+class SelectSaddlebagSubgoal(AnyRegionMatchSubGoal):
+    NAME = "selected_saddlebag"
+    _NAMED_REGIONS = [
+        "dialogue_box_bottom",
+    ]
+    _TARGET_NAMES = [
+        "select_saddlebag",
+    ]
+
+class SelectMilkerSubgoal(AnyRegionMatchSubGoal):
+    NAME = "selected_milker"
+    _NAMED_REGIONS = [
+        "dialogue_box_bottom",
+    ]
+    _TARGET_NAMES = [
+        "select_milker",
+    ]
+
 class BuyPotatoSeedsTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BaseHarvestMoonStateParser
 
@@ -443,12 +630,29 @@ class NextToStorageListSubgoal(AnyRegionMatchSubGoal):
         "next_to_storage_list",
     ]
 
+class FindRainyMoneyTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BaseHarvestMoonStateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_bottom"
+    _TERMINATION_TARGET_NAME = "found_rainy_money"
+
+class NextToSafeSubgoal(AnyRegionMatchSubGoal):
+    NAME = "next_to_safe"
+    _NAMED_REGIONS = [
+        "item_safe_below",
+        "item_safe_below",
+    ]
+    _TARGET_NAMES = [
+        "next_to_safe_up",
+        "next_to_safe_left",
+    ]
+
 class FindLostBirdTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BaseHarvestMoonStateParser
 
     _TERMINATION_NAMED_REGION = "dialogue_box_bottom"
     _TERMINATION_TARGET_NAME = "found_bird_for_friend"
-    
+
 class NextToLostBirdSubgoal(AnyRegionMatchSubGoal):
     NAME = "next_to_lost_bird"
     _NAMED_REGIONS = [
@@ -1086,3 +1290,23 @@ class NearTheatreSubgoal(AnyRegionMatchSubGoal):
     _TARGET_NAMES = [
         "theatre_label",
     ]
+
+class HotSpringEntranceTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BaseHarvestMoonStateParser
+
+    _TERMINATION_NAMED_REGION = "entrance"
+    _TERMINATION_TARGET_NAME = "hot_spring_entrance"
+
+class NearHotSpringSubgoal(AnyRegionMatchSubGoal):
+    NAME = "outside_hot_spring"
+    _NAMED_REGIONS = [
+        "outside_hot_spring",
+        "outside_hot_spring",
+        "outside_hot_spring",
+    ]
+    _TARGET_NAMES = [
+        "outside_hot_spring_left",
+        "outside_hot_spring_right",
+        "outside_hot_spring_up",
+    ]
+

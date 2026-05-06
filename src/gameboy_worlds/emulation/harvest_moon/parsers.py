@@ -261,6 +261,7 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             ("item_spirit_left", 70, 50, 30, 30),
             ("item_spirit_below", 70, 50, 30, 30),
             ("item_spirit_above", 70, 50, 15, 50),
+            ("item_safe_below", 40, 30, 15, 40),
             ("item_lost_bird_left", 70, 65, 30, 25),
             ("item_lost_bird_right", 60, 65, 30, 25),
             ("item_lost_bird_below", 70, 50, 20, 35),
@@ -315,8 +316,15 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
                 "storage_shed_entrance",
             ],
             "dialogue_box_bottom":[
+                "found_rainy_money",
+                "select_material",
+                "select_chicken",
+                "select_cow_brush",
+                "select_saddlebag",
+                "select_milker",
                 "choose_yes_for_sleep",
                 "fed_spirit",
+                "helped_spirit_earthquake",
                 "select_potato_seeds",
                 "select_potato_seeds_portion",
                 "select_turnip_seeds",
@@ -378,12 +386,19 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             ],
             "item_spirit_left":[
                 "feed_spirit_right",
+                "help_spirit_earthquake_right",
             ],
             "item_spirit_above":[
                 "feed_spirit_down",
+                "help_spirit_earthquake_down",
             ],
             "item_spirit_below":[
                 "feed_spirit_up",
+                "help_spirit_earthquake_up",
+            ],
+            "item_safe_below":[
+                "next_to_safe_up",
+                "next_to_safe_left",
             ],
             "item_lost_bird_left":[
                 "find_lost_bird_right",
@@ -457,11 +472,19 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
                 "ready_to_water",
             ],
             "center_sign":[
+                "outside_carpenter",
+                "outside_animal_shop",
+                "outside_tool_shop",
                 "outside_flower_shop",
                 "outside_restaurant",
                 "outside_church",
             ],
             "screen_bottom_half":[
+                "bought_material",
+                "bought_chicken",
+                "bought_cow_brush",
+                "bought_saddlebag",
+                "bought_milker",
                 "bought_potato_seeds",
                 "bought_turnip_seeds",
                 "option_to_buy_rice_ball",
@@ -472,6 +495,9 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
                 "bought_cake",
             ],
             "screen_top_half":[
+                "in_carpenter",
+                "in_animal_shop",
+                "in_tool_shop",
                 "in_restaurant",
                 "in_flower_shop",
                 "in_church",
@@ -567,7 +593,8 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
         ]
         override_multi_target_regions = [
             ("dialogue_bottom_right", 153, 135, 10, 10),
-            ("screen_middle", 65, 63, 30, 30),
+            ("screen_middle", 50, 25, 40, 43),
+            ("outside_barns", 40, 15, 50, 53),
             ("screen_bottom", 0, 95, 160, 40),
             ("dialogue_box_top", 60, 11, 40, 8),
             ("dialogue_box_bottom", 0, 105, 160, 35),
@@ -664,6 +691,14 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
                 "select_todays_special",
                 "option_to_buy_todays_special",
             ],
+            "outside_barns":[
+                "outside_cow_barn_left",
+                "outside_cow_barn_right",
+                "outside_cow_barn_up",
+                "outside_chicken_coop_left",
+                "outside_chicken_coop_right",
+                "outside_chicken_coop_up",
+            ],
         }
         super().__init__(
             pyboy,
@@ -746,6 +781,8 @@ class HarvestMoon3Parser(BaseHarvestMoonStateParser):
             ("item_turnip_1", 75, 80, 10, 13),
             ("item_turnip_2", 75, 80, 10, 13),
             ("entrance", 40, 65, 80, 80),
+            ("outside_chicken_coop", 45, 40, 45, 35),
+            ("outside_hot_spring", 45, 40, 45, 35),
         ]
         override_multi_targets = {
             "dialogue_bottom_right": [
@@ -804,6 +841,11 @@ class HarvestMoon3Parser(BaseHarvestMoonStateParser):
             "npc_lyla_right": [
                 "next_to_lyla_left",
             ],
+            "outside_chicken_coop": [
+                "outside_chicken_coop_left",
+                "outside_chicken_coop_right",
+                "outside_chicken_coop_up",
+            ],
             # "item_meal_set_above": [
             #     "next_to_meal_set_down",
             # ],
@@ -821,6 +863,12 @@ class HarvestMoon3Parser(BaseHarvestMoonStateParser):
                 "farmers_union_entrance",
                 "aquarium_entrance",
                 "theatre_entrance",
+                "hot_spring_entrance",
+            ],
+            "outside_hot_spring": [
+                "outside_hot_spring_left",
+                "outside_hot_spring_right",
+                "outside_hot_spring_up",
             ],
         }
         super().__init__(
