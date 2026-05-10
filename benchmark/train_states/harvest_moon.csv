@@ -1,0 +1,22 @@
+game,name,description,states
+harvest_moon_1,at_home,Inside the farmhouse,at_home
+harvest_moon_1,shopping_area,In the shopping area,shopping_area
+harvest_moon_1,on_farm,On the farm,"outside_barns, outside_storage, near_storage_shed"
+harvest_moon_1,inside_storage,Inside the storage shed,inside_storage
+harvest_moon_1,inside_chicken_coop,Inside the chicken coop,"fill_chicken_fodder"
+harvest_moon_1,farming,Tending to crops at various stages,"water_turnips"
+harvest_moon_1,lost_bird_mission,Mission to help friend find lost bird,"lost_bird"
+harvest_moon_1,earthquake_event,After an earthquake event,"earthquake"
+harvest_moon_1,harvest_spirit,Interaction with harvest spirit,"picked_apple"
+harvest_moon_1,picinic,Attending a picinic event,picinic
+harvest_moon_2,on_farm,On the farm,"wandering,outside_barns, outside_home"
+harvest_moon_2,at_home,Inside the farmhouse,at_home
+harvest_moon_2,shopping_area,In the shopping area,"shopping_area, shopping_area_left,shopping_area_low"
+harvest_moon_2,inside_shops,Inside the shops,"inside_animal_shop, inside_flower_shop, inside_restaurant"
+harvest_moon_3,at_home,Inside the farmhouse at home,at_home
+harvest_moon_3,island_exploration,Exploring the island map,"island_map"
+harvest_moon_3,in_village,In the village,in_village
+harvest_moon_3,on_farm,On the farm,"outside_barns, outside_home, outside_storage"
+harvest_moon_3,inside_cow_barn,Inside the cow barn,inside_cow_barn
+harvest_moon_3,mainland_exploration,On the mainland,"mainland_map, mainland_port"
+harvest_moon_3,shopping_mall,In the shopping mall,"shopping_mall, shopping_mall_upstairs"

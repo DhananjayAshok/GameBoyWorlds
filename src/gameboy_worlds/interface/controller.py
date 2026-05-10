@@ -342,37 +342,57 @@ class Controller(ABC):
         raise NotImplementedError
 
 
+def parse_button_string(input_str: str) -> Optional[LowLevelActions]:
+    string_low = input_str.lower().strip().strip("(").strip(")").replace("_", " ")
+    mapper = {
+        "a": LowLevelActions.PRESS_BUTTON_A,
+        "up": LowLevelActions.PRESS_ARROW_UP,
+        "b": LowLevelActions.PRESS_BUTTON_B,
+        "down": LowLevelActions.PRESS_ARROW_DOWN,
+        "left": LowLevelActions.PRESS_ARROW_LEFT,
+        "right": LowLevelActions.PRESS_ARROW_RIGHT,
+        "start": LowLevelActions.PRESS_BUTTON_START,
+        "u": LowLevelActions.PRESS_ARROW_UP,
+        "d": LowLevelActions.PRESS_ARROW_DOWN,
+        "l": LowLevelActions.PRESS_ARROW_LEFT,
+        "r": LowLevelActions.PRESS_ARROW_RIGHT,
+        "s": LowLevelActions.PRESS_BUTTON_START,
+    }
+    for map_opt in mapper:
+        if string_low == map_opt:
+            return mapper[map_opt]
+    if "move" in string_low:
+        directions_in_string = []
+        for dir_opt in ["up", "down", "left", "right"]:
+            if dir_opt in string_low:
+                directions_in_string.append(dir_opt)
+        if len(directions_in_string) == 1:
+            return mapper[directions_in_string[0]]
+    if "press" in string_low:
+        buttons_in_string = []
+        for button_opt in ["a", "b", "start"]:
+            if button_opt in string_low:
+                buttons_in_string.append(button_opt)
+        if len(buttons_in_string) == 1:
+            return mapper[buttons_in_string[0]]
+    return None
+
+
 class LowLevelController(Controller):
     """A controller that executes low level actions directly on the emulator."""
 
     ACTIONS = [LowLevelAction]
     """ A HighLevelAction subclass that directly maps to low level actions. """
 
-    STRING_MAPPER = {
-        "a": LowLevelActions.PRESS_BUTTON_A,
-        "u": LowLevelActions.PRESS_ARROW_UP,
-        "b": LowLevelActions.PRESS_BUTTON_B,
-        "d": LowLevelActions.PRESS_ARROW_DOWN,
-        "l": LowLevelActions.PRESS_ARROW_LEFT,
-        "r": LowLevelActions.PRESS_ARROW_RIGHT,
-        "s": LowLevelActions.PRESS_BUTTON_START,
-        # "e": LowLevelActions.PRESS_BUTTON_SELECT,
-    }
-
     def string_to_high_level_action(self, input_str):
-        string_low = input_str.lower()
-        low_level_action = None
-        for map_opt in self.STRING_MAPPER:
-            if map_opt in string_low:
-                low_level_action = self.STRING_MAPPER[map_opt]
-                break
+        low_level_action = parse_button_string(input_str)
         if low_level_action is None:
             return None, None
         return LowLevelAction, {"low_level_action": low_level_action}
 
     def get_action_strings(self, return_all=False):
         msg = f"""
-        Arrow Keys (U for up, D for down, L for left, R for right), A and B for buttons, S for start.
+        Arrow Keys (UP for up, DOWN for down, LEFT for left, RIGHT for right), A and B for buttons, START for start.
         """
         return {LowLevelAction: msg}
 
@@ -384,27 +404,14 @@ class LowLevelPlayController(Controller):
     """ A HighLevelAction subclass that directly maps to low level actions, but no menu button presses. """
 
     def string_to_high_level_action(self, input_str):
-        string_low = input_str.lower()
-        low_level_action = None
-        mapper = {
-            "a": LowLevelActions.PRESS_BUTTON_A,
-            "u": LowLevelActions.PRESS_ARROW_UP,
-            "b": LowLevelActions.PRESS_BUTTON_B,
-            "d": LowLevelActions.PRESS_ARROW_DOWN,
-            "l": LowLevelActions.PRESS_ARROW_LEFT,
-            "r": LowLevelActions.PRESS_ARROW_RIGHT,
-        }
-        for map_opt in mapper:
-            if map_opt in string_low:
-                low_level_action = mapper[map_opt]
-                break
+        low_level_action = parse_button_string(input_str)
         if low_level_action is None:
             return None, None
         return LowLevelPlayAction, {"low_level_action": low_level_action}
 
     def get_action_strings(self):
         msg = f"""
-        A, B for button. L, R, U, D for arrow keys
+        A, B for button. LEFT, RIGHT, UP, DOWN for arrow keys
         """
         return msg
 

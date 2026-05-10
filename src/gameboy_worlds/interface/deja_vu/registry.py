@@ -18,7 +18,9 @@ AVAILABLE_ENVIRONMENTS: Dict[str, Dict[str, Type[Environment]]] = {
     },
     "deja_vu_2": {
         "dummy": DummyEnvironment,
-        "default": DummyEnvironment,
+        "default": DejaVuOCREnvironment,
+        "basic": DejaVuEnvironment,
+        "test": DejaVuTestEnvironment,
     },
 }
 

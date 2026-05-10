@@ -190,7 +190,7 @@ Add your new tracker to the [`AVAILABLE_STATE_TRACKERS`](src/gameboy_worlds/emul
 Verify it works with the test play script:
 
 ```bash
-python dev/test_play.py --game <game> --state_tracker_class <your_tracker_name> --init_state <your_start_state>
+python dev/dev_play.py --game <game> --state_tracker_class <your_tracker_name> --init_state <your_start_state>
 ```
 
 The game should automatically stop when you reach the termination/truncation condition.

@@ -1052,3 +1052,38 @@ class RegionMatchTerminationOnlyMetric(TerminationMetric, ABC):
             if matches:
                 return True
         return False
+
+class RegionChangedTerminationMetric(TerminationTruncationMetric, ABC):
+    """
+    Terminates the episode if a specific named region changes significantly
+    from its appearance at the start of the episode (on reset).
+
+    Useful for detecting pickups, stat changes, or any event that alters a
+    HUD region without having a fixed reference capture.
+
+    Subclass and set:
+        _CHANGED_NAMED_REGION: name of the NamedScreenRegion to monitor
+        _CHANGE_MAE_THRESHOLD: MAE threshold above which the region is considered changed (default 10)
+    """
+
+    _CHANGED_NAMED_REGION = None
+    _CHANGE_MAE_THRESHOLD = 10
+
+    def reset(self, first=False):
+        super().reset(first=first)
+        self._region_baseline = None
+
+    def determine_truncated(self, current_frame, recent_frames):
+        return False
+
+    def determine_terminated(self, current_frame, recent_frames):
+        if self._CHANGED_NAMED_REGION is None:
+            log_error("Must set _CHANGED_NAMED_REGION.", self._parameters)
+        cropped = self.state_parser.capture_named_region(
+            current_frame, self._CHANGED_NAMED_REGION
+        )
+        if self._region_baseline is None:
+            self._region_baseline = cropped.copy()
+            return False
+        mae = np.abs(cropped.astype(float) - self._region_baseline.astype(float)).mean()
+        return mae > self._CHANGE_MAE_THRESHOLD

@@ -8,7 +8,7 @@ dependencies = [
     "bidict>=0.23.1",
     "click>=8.3.0",
     "gymnasium>=1.2.3",
-    "huggingface-hub>=0.36.0",
+    "huggingface-hub[hf-xet]>=0.36.0",
     "matplotlib>=3.10.7",
     "numpy",
     "opencv-python>=4.11.0.86",

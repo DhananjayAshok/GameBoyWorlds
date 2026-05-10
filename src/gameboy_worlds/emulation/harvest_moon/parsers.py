@@ -33,10 +33,13 @@ class AgentState(Enum):
     """
     0. FREE_ROAM: The agent is freely roaming the game world.
     1. IN_DIALOGUE: The agent is currently in a dialogue state.
+    2. IN_MENU: The agent has a menu open.
     """
 
     FREE_ROAM = 0
     IN_DIALOGUE = 1
+    IN_MENU = 2
+    IN_STORAGE_LIST = 3
 
 
 class HarvestMoonStateParser(StateParser, ABC):
@@ -157,15 +160,14 @@ class HarvestMoonStateParser(StateParser, ABC):
             named_screen_regions.append(region)
         super().__init__(pyboy, parameters, named_screen_regions)
 
-    def get_agent_state(self, current_screen: np.ndarray) -> AgentState:
-        """
-        Determines the current agent state based on the screen.
+    # def is_in_menu(self, current_screen: np.ndarray) -> bool:
+    #     return self.named_region_matches_multi_target(current_screen, "screen", "menu_open")
 
-        Returns:
-            AgentState: FREE_ROAM or IN_DIALOGUE.
-        """
-        # if self.is_in_dialogue(current_screen):
-        #     return AgentState.IN_DIALOGUE
+    
+
+    def get_agent_state(self, current_screen: np.ndarray) -> AgentState:
+        if self.is_in_dialogue(current_screen):
+            return AgentState.IN_DIALOGUE
         return AgentState.FREE_ROAM
 
 
@@ -213,28 +215,65 @@ class BaseHarvestMoonStateParser(HarvestMoonStateParser, ABC):
         return f"<HarvestMoonParser(variant={self.variant})>"
 
 class HarvestMoon1Parser(BaseHarvestMoonStateParser):
+
+    DIALOGUE_TYPES = [
+        "home_dialogue",
+        "shop_dialogue",
+        "church_dialogue",
+        "harvest_spirits_dialogue",
+        "read_signs_dialogue",
+        "evening_dialogue",
+        "barn_dialogue",
+        "winter_read_signs_dialogue",
+        "winter_evening_dialogue",
+    ]
     def __init__(self, pyboy, parameters):
+        override_regions = [
+            ("menu_top_right", 153, 0, 5, 5),
+            ("storage_list_top_right", 153, 0, 6, 6),
+        ]
+        
         override_multi_target_regions = [
+            ("dialogue_bottom_right", 153, 135, 10, 10),
             ("screen", 0, 0, 160, 143),
             ("screen_middle", 65, 63, 30, 30),
             ("screen_bottom", 0, 100, 160, 40),
             ("dialogue_box_top", 60, 11, 40, 8),
+            ("dialogue_box_top_mid", 68, 11, 22, 8),
+            ("dialogue_box_top_short", 71, 11, 15, 8),
             ("dialogue_box_bottom", 0, 105, 160, 35),
             ("field_middle", 75, 60, 10,10),
             ("item_bed", 0, 40, 40, 40),
             ("item_watercan_above", 56, 85, 15, 35),
             ("item_watercan_right", 55, 80, 30, 20),
             ("item_watercan_below", 56, 70, 15, 30),
+            ("item_sickle_above", 88, 85, 15, 35),
+            ("item_sickle_left", 70, 80, 30, 20),
+            ("item_sickle_below", 88, 70, 15, 30),
+            ("item_hoe_above", 102, 85, 15, 35),
+            ("item_hoe_below", 102, 70, 15, 30),
+            ("item_hammer_above", 120, 85, 15, 35),
+            ("item_hammer_below", 120, 70, 15, 30),
+            ("item_grass_seed_above", 56, 55, 15, 35),
+            ("item_grass_seed_right", 55, 70, 30, 20),
+            ("item_grass_seed_below", 56, 70, 15, 30),
             ("item_storage_list", 0, 40, 20, 30),
             ("item_spirit_left", 70, 50, 30, 30),
             ("item_spirit_below", 70, 50, 30, 30),
             ("item_spirit_above", 70, 50, 15, 50),
+            ("item_safe_below", 40, 30, 15, 40),
             ("item_lost_bird_left", 70, 65, 30, 25),
             ("item_lost_bird_right", 60, 65, 30, 25),
             ("item_lost_bird_below", 70, 50, 20, 35),
             ("item_blue_hair_girl_left", 80, 20, 30, 30),
-            ("item_blue_hair_girl_right", 95, 20, 30, 30), 
-            ("item_blue_hair_girl_below", 95, 20, 20, 40), 
+            ("item_blue_hair_girl_right", 95, 20, 30, 30),
+            ("item_blue_hair_girl_below", 95, 20, 20, 40),
+            ("item_golden_hair_girl_above", 32, 40, 15, 40),
+            ("item_golden_hair_girl_right", 30, 55, 35, 25),
+            ("item_golden_hair_girl_below", 32, 55, 15, 35),
+            ("item_pink_hair_girl_left", 32, 68, 33, 22),
+            ("item_pink_hair_girl_right", 48, 68, 30, 22),
+            ("item_pink_hair_girl_above", 48, 68, 15, 38),
             ("item_chicken_stall_block1", 5, 40, 25, 20),
             ("item_next_to_chicken_stall_block1", 5, 55, 25, 25),
             ("item_chicken_silo_left", 100, 40, 30, 30),
@@ -249,6 +288,17 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
         ]
         
         override_multi_targets = {
+            "dialogue_bottom_right":[
+                "home_dialogue",
+                "shop_dialogue",
+                "church_dialogue",
+                "harvest_spirits_dialogue",
+                "read_signs_dialogue",
+                "evening_dialogue",
+                "barn_dialogue",
+                "winter_read_signs_dialogue",
+                "winter_evening_dialogue",
+            ],
             "screen_middle":[
                 "outside_cow_barn_left",
                 "outside_cow_barn_right",
@@ -256,17 +306,38 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
                 "outside_chicken_coop_left",
                 "outside_chicken_coop_right",
                 "outside_chicken_coop_up",
+                "outside_storage_left",
+                "outside_storage_right",
+                "outside_storage_up",
+            ],
+            "screen_bottom": [
+                "cow_barn_entrance",
+                "chicken_coop_entrance",
+                "storage_shed_entrance",
             ],
             "dialogue_box_bottom":[
+                "found_rainy_money",
+                "select_material",
+                "select_chicken",
+                "select_cow_brush",
+                "select_saddlebag",
+                "select_milker",
                 "choose_yes_for_sleep",
                 "fed_spirit",
+                "helped_spirit_earthquake",
                 "select_potato_seeds",
                 "select_potato_seeds_portion",
                 "select_turnip_seeds",
                 "select_turnip_seeds_portion",
                 "select_rice_ball",
+                "select_croissant",
+                "select_cake",
                 "found_bird_for_friend",
                 "speaking_to_blue_hair_girl",
+                "speaking_to_golden_hair_girl",
+                "speaking_to_pink_hair_girl",
+                "option_to_pray",
+                "praying",
             ],
             "item_bed":[
                 "sleep_in_bed",
@@ -283,14 +354,51 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             "item_watercan_below":[
                 "pickup_watercan_up",
             ],
+            "item_sickle_above":[
+                "pickup_sickle_down",
+            ],
+            "item_sickle_left":[
+                "pickup_sickle_right",
+            ],
+            "item_sickle_below":[
+                "pickup_sickle_up",
+            ],
+            "item_hoe_above":[
+                "pickup_hoe_down",
+            ],
+            "item_hoe_below":[
+                "pickup_hoe_up",
+            ],
+            "item_hammer_above":[
+                "pickup_hammer_down",
+            ],
+            "item_hammer_below":[
+                "pickup_hammer_up",
+            ],
+            "item_grass_seed_above":[
+                "pickup_grass_seed_down",
+            ],
+            "item_grass_seed_right":[
+                "pickup_grass_seed_left",
+            ],
+            "item_grass_seed_below":[
+                "pickup_grass_seed_up",
+            ],
             "item_spirit_left":[
                 "feed_spirit_right",
+                "help_spirit_earthquake_right",
             ],
             "item_spirit_above":[
                 "feed_spirit_down",
+                "help_spirit_earthquake_down",
             ],
             "item_spirit_below":[
                 "feed_spirit_up",
+                "help_spirit_earthquake_up",
+            ],
+            "item_safe_below":[
+                "next_to_safe_up",
+                "next_to_safe_left",
             ],
             "item_lost_bird_left":[
                 "find_lost_bird_right",
@@ -306,9 +414,27 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             ],
             "item_blue_hair_girl_right":[
                 "next_to_blue_hair_girl_left",
-            ], 
+            ],
             "item_blue_hair_girl_below":[
                 "next_to_blue_hair_girl_up",
+            ],
+            "item_golden_hair_girl_above":[
+                "next_to_golden_hair_girl_down",
+            ],
+            "item_golden_hair_girl_right":[
+                "next_to_golden_hair_girl_left",
+            ],
+            "item_golden_hair_girl_below":[
+                "next_to_golden_hair_girl_up",
+            ],
+            "item_pink_hair_girl_left":[
+                "next_to_pink_hair_girl_right",
+            ],
+            "item_pink_hair_girl_right":[
+                "next_to_pink_hair_girl_left",
+            ],
+            "item_pink_hair_girl_above":[
+                "next_to_pink_hair_girl_down",
             ],
             "item_chicken_stall_block1":[
                 "filled_chicken_stall_block1",
@@ -330,6 +456,14 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             ],
             "dialogue_box_top":[
                 "pick_up_watercan",
+                "pick_up_grass_seed",
+            ],
+            "dialogue_box_top_mid":[
+                "pick_up_sickle",
+                "pick_up_hammer",
+            ],
+            "dialogue_box_top_short":[
+                "pick_up_hoe",
             ],
             "turnip_center":[
                 "finish_watering",
@@ -338,18 +472,35 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
                 "ready_to_water",
             ],
             "center_sign":[
+                "outside_carpenter",
+                "outside_animal_shop",
+                "outside_tool_shop",
                 "outside_flower_shop",
                 "outside_restaurant",
+                "outside_church",
             ],
             "screen_bottom_half":[
-                "bought_potato_seeds",                
+                "bought_material",
+                "bought_chicken",
+                "bought_cow_brush",
+                "bought_saddlebag",
+                "bought_milker",
+                "bought_potato_seeds",
                 "bought_turnip_seeds",
                 "option_to_buy_rice_ball",
                 "bought_rice_ball",
+                "option_to_buy_croissant",
+                "bought_croissant",
+                "option_to_buy_cake",
+                "bought_cake",
             ],
             "screen_top_half":[
+                "in_carpenter",
+                "in_animal_shop",
+                "in_tool_shop",
                 "in_restaurant",
                 "in_flower_shop",
+                "in_church",
             ],
             "left_border_frame":[
                 "open_storage_list",
@@ -360,31 +511,537 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             pyboy,
             variant="harvest_moon_1",
             parameters=parameters,
+            override_regions=override_regions,
             override_multi_target_regions=override_multi_target_regions,
             override_multi_targets=override_multi_targets,
         )
+
+    def dialogue_box_open(self, current_screen: np.ndarray) -> bool:
+        """
+        Determines if a dialogue box is currently open by checking the dialogue bottom right region.
+        Args:
+            current_screen (np.ndarray): The current screen frame from the emulator.
+        Returns:
+            bool: True if a dialogue box is open, False otherwise.
+        """
+        captured = self.capture_named_region(current_screen, "dialogue_bottom_right")
+        return self.named_screen_regions["dialogue_bottom_right"].matches_any_multi_target(
+            self.DIALOGUE_TYPES, captured
+        )
+
+    def dialogue_box_empty(self, current_screen: np.ndarray) -> bool:
+        box = self.capture_named_region(
+            current_frame=current_screen, name="dialogue_box_bottom"
+        )
+        perc_lt_255 = np.mean(box < 255)
+        if perc_lt_255 < 0.082:  # Empirical threshold
+            return True
+        return False
+    
+    def is_in_menu(self, current_screen: np.ndarray) -> bool:
+        return self.named_region_matches_target(current_screen, "menu_top_right")
+
+    def is_in_storage_list(self, current_screen: np.ndarray) -> bool:
+        return self.named_region_matches_target(current_screen, "storage_list_top_right")
+
+    def is_in_dialogue(self, current_screen: np.ndarray) -> bool:
+        """
+        Returns True if the dialogue_bottom_right region matches any of the saved dialogue type targets.
+        """
+        captured = self.capture_named_region(current_screen, "dialogue_bottom_right")
+        return self.named_screen_regions["dialogue_bottom_right"].matches_any_multi_target(
+            self.DIALOGUE_TYPES, captured
+        )
+
+    def get_agent_state(self, current_screen: np.ndarray) -> AgentState:
+        """
+        Determines the current agent state based on the screen.
+
+        Args:
+            current_screen (np.ndarray): The current screen frame from the emulator.
+
+        Returns:
+            AgentState: The current agent state.
+        """
+        if self.is_in_menu(current_screen):
+            return AgentState.IN_MENU
+        if self.is_in_storage_list(current_screen):
+            return AgentState.IN_STORAGE_LIST
+        if self.is_in_dialogue(current_screen):
+            return AgentState.IN_DIALOGUE
+        return AgentState.FREE_ROAM
         
 class HarvestMoon2Parser(BaseHarvestMoonStateParser):
+    DIALOGUE_TYPES = [
+        "home_dialogue",
+        "carpenter_dialogue",
+        "hospital_dialogue",
+        "tool_shop_dialogue",
+        "animal_shop_dialogue",
+        "restaurant_dialogue",
+        "library_dialogue",
+        "flower_shop_dialogue",
+        "church_dialogue",
+        "read_signs_dialogue",
+        "barn_dialogue",
+    ]
+
     def __init__(self, pyboy, parameters):
-        override_multi_target_regions = [
-            ("screen_bottom", 0, 95, 160, 40),
+        override_regions = [
+            ("menu_top_right", 153, 8, 6, 6),
+            ("storage_list_top_right", 153, 0, 6, 6),
         ]
+        override_multi_target_regions = [
+            ("dialogue_bottom_right", 153, 135, 10, 10),
+            ("screen_middle", 50, 25, 40, 43),
+            ("outside_barns", 40, 15, 50, 53),
+            ("screen_bottom", 0, 95, 160, 40),
+            ("dialogue_box_top", 60, 11, 40, 8),
+            ("dialogue_box_bottom", 0, 105, 160, 35),
+            ("hospital_location", 65, 0, 55, 70),
+            ("tool_shop_location", 65, 0, 55, 70),
+            ("carpenter_location", 35, 0, 55, 70),
+            ("animal_shop_location", 65, 0, 55, 70),
+            ("library_location", 35, 0, 55, 70),
+            ("flower_shop_location", 30, 0, 105, 70),
+            ("restaurant_location", 40, 0, 70, 70),
+            ("item_clock_below", 95, 25, 15, 45),
+            ("item_bed", 0, 40, 40, 40),
+            ("item_diary", 45, 40, 20, 40),
+            ("item_storage_list", 0, 40, 20, 30),
+            ("item_village_sign_above", 70, 85, 20, 35),
+            ("item_village_sign_left", 55, 70, 30, 25),
+            ("item_village_sign_right", 75, 70, 30, 25),
+            ("item_farm_sign_above", 70, 85, 20, 35),
+            ("item_farm_sign_left", 55, 70, 30, 25),
+            ("item_farm_sign_right", 75, 70, 30, 25),
+            ("item_secret_garden_sign_above", 74, 50, 15, 45),
+            ("item_secret_garden_sign_right", 58, 50, 27, 25),
+            ("item_secret_garden_sign_left", 72, 50, 30, 25),
+            ("item_crop_field_sign_above", 71, 55, 24, 40),
+            ("item_notice_board_above", 70, 85, 20, 35),
+            ("item_notice_board_left", 55, 70, 30, 25),
+            ("item_notice_board_right", 75, 70, 30, 25),
+            ("turnip_center", 70, 90, 20, 20),
+            ("turnip_top", 70, 70, 20, 35),
+            ("center_sign", 55, 65, 50, 15),
+            ("screen_top_half", 0, 0, 160, 65),
+            ("screen_bottom_half", 0, 75, 160, 65),
+            ("left_border_frame", 0, 0, 5, 140),
+        ]
+        override_multi_targets = {
+            "dialogue_bottom_right": [
+                "home_dialogue",
+                "carpenter_dialogue",
+                "hospital_dialogue",
+                "tool_shop_dialogue",
+                "animal_shop_dialogue",
+                "restaurant_dialogue",
+                "library_dialogue",
+                "flower_shop_dialogue",
+                "church_dialogue",
+                "read_signs_dialogue",
+                "barn_dialogue",
+            ],
+            "dialogue_box_bottom": [
+                "found_lucky_money",
+                "option_to_diary_sleep",
+                "reading_secret_garden_sign",
+                "reading_crop_field_sign",
+            ],
+            "item_clock_below": [
+                "next_to_clock_up",
+            ],
+            "flower_shop_location": [
+                "outside_flower_shop_up",
+                "outside_flower_shop_left",
+                "outside_flower_shop_right",
+            ],
+            "item_bed": [
+                "sleep_in_bed",
+            ],
+            "item_diary": [
+                "next_to_diary",
+            ],
+            "item_secret_garden_sign_above": [
+                "next_to_secret_garden_sign_down",
+            ],
+            "item_secret_garden_sign_right": [
+                "next_to_secret_garden_sign_left",
+            ],
+            "item_secret_garden_sign_left": [
+                "next_to_secret_garden_sign_right",
+            ],
+            "item_crop_field_sign_above": [
+                "next_to_crop_field_sign_down",
+            ],
+            "restaurant_location": [
+                "outside_restaurant_up",
+                "outside_restaurant_left",
+                "outside_restaurant_right",
+            ],
+            "hospital_location": [
+                "outside_hospital_up",
+                "outside_hospital_left",
+                "outside_hospital_right",
+            ],
+            "tool_shop_location": [
+                "outside_tool_shop_up",
+                "outside_tool_shop_left",
+                "outside_tool_shop_right",
+            ],
+            "carpenter_location": [
+                "outside_carpenter_up",
+                "outside_carpenter_left",
+                "outside_carpenter_right",
+            ],
+            "animal_shop_location": [
+                "outside_animal_shop_up",
+                "outside_animal_shop_left",
+                "outside_animal_shop_right",
+            ],
+            "library_location": [
+                "outside_library_up",
+                "outside_library_left",
+                "outside_library_right",
+            ],
+            "screen_top_half": [
+                "in_hospital",
+                "in_tool_shop",
+                "in_carpenter",
+                "in_animal_shop",
+                "in_library",
+                "in_flower_shop",
+                "in_restaurant",
+            ],
+            "screen_bottom_half": [
+                "bought_potato_seeds",
+                "bought_asparagus_seeds",
+                "select_potato_seeds",
+                "select_potato_seeds_portion",
+                "select_asparagus_seeds",
+                "select_asparagus_seeds_portion",
+                "bought_lunch_set",
+                "select_lunch_set",
+                "option_to_buy_lunch_set",
+                "bought_beverage_set",
+                "select_beverage_set",
+                "option_to_buy_beverage_set",
+                "bought_todays_special",
+                "select_todays_special",
+                "option_to_buy_todays_special",
+            ],
+            "outside_barns":[
+                "outside_cow_barn_left",
+                "outside_cow_barn_right",
+                "outside_cow_barn_up",
+                "outside_chicken_coop_left",
+                "outside_chicken_coop_right",
+                "outside_chicken_coop_up",
+            ],
+        }
         super().__init__(
             pyboy,
             variant="harvest_moon_2",
             parameters=parameters,
+            override_regions=override_regions,
             override_multi_target_regions=override_multi_target_regions,
+            override_multi_targets=override_multi_targets,
         )
+
+    def dialogue_box_open(self, current_screen: np.ndarray) -> bool:
+        captured = self.capture_named_region(current_screen, "dialogue_bottom_right")
+        return self.named_screen_regions["dialogue_bottom_right"].matches_any_multi_target(
+            self.DIALOGUE_TYPES, captured
+        )
+        
+    def dialogue_box_empty(self, current_screen: np.ndarray) -> bool:
+        box = self.capture_named_region(
+            current_frame=current_screen, name="dialogue_box_bottom"
+        )
+        perc_lt_255 = np.mean(box < 255)
+        if perc_lt_255 < 0.082:  # Empirical threshold
+            return True
+        return False
+
+    def is_in_menu(self, current_screen: np.ndarray) -> bool:
+        return self.named_region_matches_target(current_screen, "menu_top_right")
+
+    def is_in_storage_list(self, current_screen: np.ndarray) -> bool:
+        return self.named_region_matches_target(current_screen, "storage_list_top_right")
+
+    def is_in_dialogue(self, current_screen: np.ndarray) -> bool:
+        captured = self.capture_named_region(current_screen, "dialogue_bottom_right")
+        return self.named_screen_regions["dialogue_bottom_right"].matches_any_multi_target(
+            self.DIALOGUE_TYPES, captured
+        )
+
+    def get_agent_state(self, current_screen: np.ndarray) -> AgentState:
+        if self.is_in_menu(current_screen):
+            return AgentState.IN_MENU
+        if self.is_in_storage_list(current_screen):
+            return AgentState.IN_STORAGE_LIST
+        if self.is_in_dialogue(current_screen):
+            return AgentState.IN_DIALOGUE
+        return AgentState.FREE_ROAM
 
 
 class HarvestMoon3Parser(BaseHarvestMoonStateParser):
+    DIALOGUE_TYPES = [
+        "normal_dialogue",
+        "mainland_dialogue",
+    ]
+
     def __init__(self, pyboy, parameters):
-        override_multi_target_regions = [
-            ("screen_bottom", 0, 95, 160, 40),
+        override_regions = [
+            ("menu_top_right", 153, 0, 6, 6),
         ]
+        override_multi_target_regions = [
+            ("dialogue_bottom_right", 153, 135, 10, 10),
+            ("screen_bottom", 0, 95, 160, 40),
+            ("dialogue_box_bottom", 0, 98, 160, 45),
+            ("item_secret_garden_sign_above", 60, 55, 20, 40),
+            ("item_secret_garden_sign_right", 50, 55, 35, 25),
+            ("item_turnip_seeds_above", 30, 55, 17, 41),
+            ("item_turnip_seeds_below", 30, 40, 17, 39),
+            ("item_potato_seeds_above", 63, 55, 17, 41),
+            ("item_potato_seeds_below", 63, 40, 17, 39),
+            ("screen_top_half", 0, 0, 160, 65),
+            ("screen_bottom_half", 0, 75, 160, 65),
+            ("item_storage_sign_below", 70, 40, 20, 40),
+            ("item_storage_sign_left", 70, 55, 35, 25),
+            ("item_storage_sign_right", 55, 55, 30, 25),
+            ("item_morning_market_sign_left", 128, 55, 31, 27),
+            ("npc_kirk_above", 65, 55, 25, 40),
+            ("npc_kirk_mainland_right", 55, 45, 30, 25),
+            ("npc_kirk_mainland_below", 70, 40, 15, 40),
+            ("npc_joe_left", 125, 55, 34, 25),
+            ("npc_lukia_right", 38, 55, 34, 25),
+            ("dialogue_box_upper_border", 0, 96, 160, 8),
+            ("npc_lucus_above", 70, 55, 19, 40),
+            ("npc_lucus_left", 70, 55, 34, 25),
+            ("npc_lucus_right", 55, 55, 34, 25),
+            ("npc_lyla_right", 54, 55, 34, 25),
+            ("item_meal_set_empty_1", 80, 40, 30, 15),
+            ("item_meal_set_empty_2", 80, 80, 30, 15),
+            ("item_coffee_above", 72, 55, 15, 39),
+            ("item_coffee_below", 72, 40, 13, 30),
+            ("entrance", 40, 65, 80, 80),
+            ("top_entrance", 45, 0, 70, 40),
+            ("outside_chicken_coop", 45, 40, 45, 35),
+            ("outside_hot_spring", 45, 40, 45, 35),
+            ("item_tea_above", 70, 55, 17, 41),
+            ("item_tea_below", 70, 40, 17, 39),
+            ("item_asparagus_seeds_above", 72, 55, 17, 41),
+            ("item_asparagus_seeds_below", 72, 40, 17, 39),
+            ("item_right_cow_stall_block", 115, 25, 45, 25),
+            ("item_right_cow_stall_block_below", 115, 25, 45, 50),
+            ("item_ferry_sign_above", 70, 60, 16, 45),
+            ("item_ferry_sign_left", 70, 60, 30, 28),
+            ("item_fireplace_below", 105, 40, 15, 40),
+        ]
+        override_multi_targets = {
+            "dialogue_bottom_right": [
+                "normal_dialogue",
+                "mainland_dialogue",
+            ],
+            "dialogue_box_bottom": [
+                "reading_secret_garden_sign",
+                "reading_storage_sign",
+                "reading_morning_market_sign",
+                "reading_ferry_sign",
+                "found_secret_savings",
+                "select_tea",
+                "select_asparagus_seeds",
+                "select_coffee",
+                "select_turnip_seeds",
+                "select_turnip_seeds_portion",
+                "select_potato_seeds",
+                "select_potato_seeds_portion",
+                "bought_turnip_seeds",
+                "bought_potato_seeds",
+                "select_meal_set",
+                "farm_label",
+                "village_label",
+                "grassland_label",
+                "forest_label",
+                "cliff_label",
+                "mountain_label",
+                "shopping_mall_label",
+                "farmers_union_label",
+                "aquarium_label",
+                "theatre_label",
+            ],
+            "item_storage_sign_below": [
+                "next_to_storage_sign_up",
+            ],
+            "item_storage_sign_left": [
+                "next_to_storage_sign_right",
+            ],
+            "item_storage_sign_right": [
+                "next_to_storage_sign_left",
+            ],
+            "item_morning_market_sign_left": [
+                "next_to_morning_market_sign_right",
+            ],
+            "npc_kirk_above": [
+                "next_to_kirk_down",
+            ],
+            "npc_kirk_mainland_right": [
+                "next_to_kirk_mainland_left",
+            ],
+            "npc_kirk_mainland_below": [
+                "next_to_kirk_mainland_up",
+            ],
+            "npc_joe_left": [
+                "next_to_joe_right",
+            ],
+            "dialogue_box_upper_border": [
+                "speaking_to_kirk_village",
+                "speaking_to_joe",
+                "speaking_to_lukia",
+                "speaking_to_lucus",
+                "speaking_to_lyla",
+            ],
+            "item_secret_garden_sign_above": [
+                "next_to_secret_garden_sign_down",
+            ],
+            "item_secret_garden_sign_right": [
+                "next_to_secret_garden_sign_left",
+            ],
+            "item_turnip_seeds_above": [
+                "next_to_turnip_seeds_down",
+            ],
+            "item_turnip_seeds_below": [
+                "next_to_turnip_seeds_up",
+            ],
+            "item_potato_seeds_above": [
+                "next_to_potato_seeds_down",
+            ],
+            "item_potato_seeds_below": [
+                "next_to_potato_seeds_up",
+            ],
+            "npc_lukia_right": [
+                "next_to_lukia_left",
+            ],
+            "npc_lucus_above": [
+                "next_to_lucus_down",
+            ],
+            "npc_lucus_left": [
+                "next_to_lucus_right",
+            ],
+            "npc_lucus_right": [
+                "next_to_lucus_left",
+            ],
+            "npc_lyla_right": [
+                "next_to_lyla_left",
+            ],
+            "outside_chicken_coop": [
+                "outside_chicken_coop_left",
+                "outside_chicken_coop_right",
+                "outside_chicken_coop_up",
+            ],
+            "item_meal_set_empty_1": [
+                "bought_meal_set_1",
+            ],
+            "item_meal_set_empty_2": [
+                "bought_meal_set_2",
+            ],
+            "item_coffee_above": [
+                "next_to_coffee_down",
+            ],
+            "item_coffee_below": [
+                "next_to_coffee_up",
+            ],
+            "top_entrance": [
+                "village_entrance",
+            ],
+            "entrance": [
+                "village_ferry_entrance",
+                "farm_entrance",
+                "grassland_entrance",
+                "forest_entrance",
+                "cliff_entrance",
+                "mountain_entrance",
+                "shopping_mall_entrance",
+                "farmers_union_entrance",
+                "aquarium_entrance",
+                "theatre_entrance",
+                "hot_spring_entrance",
+            ],
+            "item_tea_above": [
+                "next_to_tea_down",
+            ],
+            "item_tea_below": [
+                "next_to_tea_up",
+            ],
+            "item_asparagus_seeds_above": [
+                "next_to_asparagus_seeds_down",
+            ],
+            "item_asparagus_seeds_below": [
+                "next_to_asparagus_seeds_up",
+            ],
+            "item_right_cow_stall_block": [
+                "filled_right_cow_stall_block",
+            ],
+            "item_right_cow_stall_block_below": [
+                "next_to_right_cow_stall_block_up",
+            ],
+            "item_ferry_sign_above": [
+                "next_to_ferry_sign_down",
+            ],
+            "item_ferry_sign_left": [
+                "next_to_ferry_sign_right",
+            ],
+            "item_fireplace_below": [
+                "next_to_fireplace_up",
+            ],
+            "outside_hot_spring": [
+                "outside_hot_spring_left",
+                "outside_hot_spring_right",
+                "outside_hot_spring_up",
+            ],
+        }
         super().__init__(
             pyboy,
             variant="harvest_moon_3",
             parameters=parameters,
+            override_regions=override_regions,
             override_multi_target_regions=override_multi_target_regions,
+            override_multi_targets=override_multi_targets,
         )
+
+    def dialogue_box_open(self, current_screen: np.ndarray) -> bool:
+        captured = self.capture_named_region(current_screen, "dialogue_bottom_right")
+        if self.named_screen_regions["dialogue_bottom_right"].matches_any_multi_target(
+            self.DIALOGUE_TYPES, captured
+        ):
+            return True
+        return False
+    
+    def dialogue_box_empty(self, current_screen: np.ndarray) -> bool:
+        box = self.capture_named_region(
+            current_frame=current_screen, name="dialogue_box_bottom"
+        )
+        perc_lt_255 = np.mean(box < 255)
+        if perc_lt_255 < 0.082:  # Empirical threshold
+            return True
+        return False
+
+    def is_in_menu(self, current_screen: np.ndarray) -> bool:
+        return self.named_region_matches_target(current_screen, "menu_top_right")
+    
+    def is_in_dialogue(self, current_screen: np.ndarray) -> bool:
+        captured = self.capture_named_region(current_screen, "dialogue_bottom_right")
+        if self.named_screen_regions["dialogue_bottom_right"].matches_any_multi_target(
+            self.DIALOGUE_TYPES, captured
+        ):
+            return True
+        return False
+
+    def get_agent_state(self, current_screen: np.ndarray) -> AgentState:
+        if self.is_in_menu(current_screen):
+            return AgentState.IN_MENU
+        if self.is_in_dialogue(current_screen):
+            return AgentState.IN_DIALOGUE
+        return AgentState.FREE_ROAM
