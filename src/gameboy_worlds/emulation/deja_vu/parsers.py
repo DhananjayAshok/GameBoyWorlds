@@ -77,6 +77,7 @@ class DejaVuStateParser(StateParser, ABC):
         ("pointed_at_11_on_map", 120, 80, 8, 8),
         ("pointed_at_13_on_map", 136, 80, 8, 8),
         ("pointed_at_21_on_map", 120, 72, 8, 8),
+        ("pointed_at_24_on_map", 144, 72, 8, 8),
         ("pointed_at_25_on_map", 152, 72, 8, 8),
         ("pointed_at_35_on_map", 152, 64, 8, 8),
         ("pointed_at_41_on_map", 120, 56, 8, 8),
@@ -319,6 +320,7 @@ class DejaVu1StateParser(DejaVuStateParser):
             ("using_key3_item", 0, 88, 160, 8),
             ("using_key2_item", 0, 128, 160, 8),
             ("selected_westend_address", 0, 88, 160, 8),
+            ("using_bullet_item", 0, 88, 160, 8),
         ]
         override_multi_target_regions = []
         override_multi_targets = {
@@ -354,6 +356,15 @@ class DejaVu1StateParser(DejaVuStateParser):
                 "outside_apartment",
                 "entered_sherman",
                 "stood_in_front_office",
+                "entered_westend",
+                "opened_elevator_door",
+                "entered_elevator",
+                "closed_elevator_door",
+                "checked_photo",
+                "opened_desk",
+                "unlocked_office_door",
+                "opened_westend_door",
+                "opened_sherman_door",
             ],
             "menu_title_area": [
                 "coat_pocket_menu",
@@ -361,12 +372,14 @@ class DejaVu1StateParser(DejaVuStateParser):
             ],
             "game_screen_area": [
                 "opened_cellar_door",
+                "shot_door",
             ],
             "no_action": [
                 "in_cellar",
                 "in_empty_restaurant",
                 "on_peoria_st",
-                "at_sherman_lobby",
+                "in_sherman_lobby",
+                "in_westend_lobby",
             ],
         }
 
@@ -394,6 +407,7 @@ class DejaVu2StateParser(DejaVuStateParser):
             ("selected_wallet1_item", 0, 96, 160, 8),
             ("selected_newsclip1_item", 0, 79, 160, 8),
             ("selected_license1_item", 0, 79, 160, 8),
+            ("using_cash_item", 0, 79, 160, 8),
         ]
         override_multi_target_regions = []
         override_multi_targets = {
@@ -432,6 +446,11 @@ class DejaVu2StateParser(DejaVuStateParser):
                 "bought_ticket",
                 "checked_girl",
                 "checked_sign",
+                "chatted_seller",
+                "bought_newspaper",
+                "taken_newsclip4",
+                "entered_chicago_taxi",
+                "chatted_taxi_driver",
             ],
             "menu_title_area": [
                 "trench_coat_pocket_menu",
