@@ -279,8 +279,19 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             ("item_chicken_silo_left", 100, 40, 30, 30),
             ("item_chicken_silo_below1", 120, 50, 15, 35),
             ("item_chicken_silo_below2", 135, 50, 15, 35),
+            ("item_egg_right", 13, 76, 23, 29),
+            ("item_egg_above", 11, 63, 14, 42),
+            ("item_egg_pickup_right", 25, 70, 11, 30),
+            ("item_egg_pickup_above", 10, 58, 15, 29),
+            ("item_shipping_box_right", 7, 85, 30, 26),
+            ("item_shipping_box_up", 7, 104, 30, 26),
             ("turnip_center", 70, 90, 20, 20),
             ("turnip_top", 70, 70, 20, 35),
+            ("item_turnip_field", 55, 65, 47, 54),
+            ("item_turnip_field_water", 40, 58, 47, 47),
+            # ("item_broken_fence_field", 70, 55, 17, 32),
+            # ("item_fence_up", 50, 55, 50, 10),
+            # ("item_fence_down", 55, 65, 47, 54),
             ("center_sign", 55, 65, 50, 15),
             ("screen_top_half", 0, 0, 160, 65),
             ("screen_bottom_half", 0, 75, 160, 65),
@@ -454,6 +465,24 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
                 "next_to_chicken_silo_up2",
                 "got_fodder_from_chicken_silo_up2",
             ],
+            "item_egg_right": [
+                "next_to_egg_left",
+            ],
+            "item_egg_above": [
+                "next_to_egg_down",
+            ],
+            "item_egg_pickup_right": [
+                "picked_up_egg_right",
+            ],
+            "item_egg_pickup_above": [
+                "picked_up_egg_up",
+            ],
+            "item_shipping_box_right": [
+                "drop_egg_into_shipping_box_right",
+            ],
+            "item_shipping_box_up": [
+                "drop_egg_into_shipping_box_up",
+            ],
             "dialogue_box_top":[
                 "pick_up_watercan",
                 "pick_up_grass_seed",
@@ -471,6 +500,30 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             "turnip_top":[
                 "ready_to_water",
             ],
+            "item_turnip_field": [
+                "next_to_center_turnip_down_1",
+                "next_to_center_turnip_down_2",
+                "center_turnip_harvested_1",
+                "center_turnip_harvested_2",
+            ],
+            "item_turnip_field_water":[
+                "next_to_center_turnip_left_1",
+                "next_to_center_turnip_left_2",
+                "center_turnip_watered_1",
+                "center_turnip_watered_2",
+            ],
+            # "item_broken_fence_field": [
+            #     "picked_up_missing_fence_down",
+            #     "picked_up_missing_fence_up",
+            #     "picked_up_missing_fence_right",
+            #     "picked_up_missing_fence_left",
+            # ],
+            # "item_fence_up": [
+            #     "restored_fence_up",
+            # ],
+            # "item_fence_down": [
+            #     "restored_fence_down",
+            # ],
             "center_sign":[
                 "outside_carpenter",
                 "outside_animal_shop",
@@ -624,10 +677,23 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
             ("item_notice_board_right", 75, 70, 30, 25),
             ("turnip_center", 70, 90, 20, 20),
             ("turnip_top", 70, 70, 20, 35),
+            ("item_eggplant_field", 55, 25, 50, 45),
+            ("item_carrot_field", 55, 25, 50, 45),
+            ("item_next_to_shipping_box", 0, 20, 30, 50),
+            ("item_shipping_box_field", 0, 20, 45, 25),
+            ("item_start_line", 0, 20, 30, 50),
+            ("item_distance_markers", 65, 40, 30, 30),
+            ("item_potato_field", 32, 40, 50, 45),
+            ("item_asparagus_field", 70, 40, 50, 45),
             ("center_sign", 55, 65, 50, 15),
             ("screen_top_half", 0, 0, 160, 65),
             ("screen_bottom_half", 0, 75, 160, 65),
             ("left_border_frame", 0, 0, 5, 140),
+            ("top_left_label", 0, 0, 160, 15),
+            ("equipment_region_1", 45, 15, 26, 17),
+            ("equipment_region_2", 72, 15, 26, 17),
+            ("equipment_region_3", 95, 15, 26, 17),
+            ("equipment_region_4", 119, 15, 26, 17),
         ]
         override_multi_targets = {
             "dialogue_bottom_right": [
@@ -648,6 +714,12 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
                 "option_to_diary_sleep",
                 "reading_secret_garden_sign",
                 "reading_crop_field_sign",
+                "computers_article_selected",
+                "reading_computers_article",
+                "boulders_article_selected",
+                "reading_boulders_article",
+                "crops_article_selected",
+                "reading_crops_article",
             ],
             "item_clock_below": [
                 "next_to_clock_up",
@@ -674,6 +746,43 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
             ],
             "item_crop_field_sign_above": [
                 "next_to_crop_field_sign_down",
+            ],
+            "item_start_line": [
+                "at_the_start_line",
+            ],
+            "item_next_to_shipping_box": [
+                "next_to_shipping_box_up",
+            ],
+            "item_shipping_box_field": [
+                "drop_eggplant_into_shipping_box",
+            ],
+            "item_distance_markers": [
+                "crossed_500m_line",
+                "crossed_1000m_line",
+            ],
+            "item_eggplant_field": [
+                "next_to_center_eggplant_up_1",
+                "next_to_center_eggplant_up_2",
+                "center_eggplant_harvested_1",
+                "center_eggplant_harvested_2",
+            ],
+            "item_carrot_field": [
+                "next_to_center_carrot_up_1",
+                "next_to_center_carrot_up_2",
+                "center_carrot_harvested_1",
+                "center_carrot_harvested_2",
+            ],
+            "item_potato_field": [
+                "next_to_center_potato_left_1",
+                "next_to_center_potato_left_2",
+                "center_potato_watered_1",
+                "center_potato_watered_2",
+            ],
+            "item_asparagus_field": [
+                "next_to_center_asparagus_right_1",
+                "next_to_center_asparagus_right_2",
+                "center_asparagus_watered_1",
+                "center_asparagus_watered_2",
             ],
             "restaurant_location": [
                 "outside_restaurant_up",
@@ -738,6 +847,32 @@ class HarvestMoon2Parser(BaseHarvestMoonStateParser):
                 "outside_chicken_coop_left",
                 "outside_chicken_coop_right",
                 "outside_chicken_coop_up",
+            ],
+            "top_left_label": [
+                "ready_to_pick_sickle",
+                "ready_to_pick_hammer",
+                "ready_to_pick_fishing_rod",
+                "ready_to_pick_net",
+                "ready_to_pick_rosemary_seeds",
+            ],
+            "equipment_region_1": [
+                "sprinkler_selected_1",
+                "sickle_equipped_1",
+            ],
+            "equipment_region_2": [
+                "ax_selected_2",
+                "net_equipped",
+                "rosemary_seeds_equipped",
+            ],
+            "equipment_region_3": [
+                "hoe_selected_3",
+                "net_equipped_3",
+            ],
+            "equipment_region_4":[
+                "empty_hands_selected",
+                "sickle_equipped",
+                "hammer_equipped",
+                "fishing_rod_equipped",
             ],
         }
         super().__init__(
