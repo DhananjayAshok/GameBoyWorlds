@@ -283,6 +283,154 @@ class EscapeConfirmedTerminateMetric(RegionMatchTerminationMetric, TerminationMe
 
 
 # ---------------------------------------------------------------------------
+# Sword of Hope 1 — cursor-on-command, view-state, and battle-AUTO metrics
+# Mirror the SoH2 cursor_on_<command> pattern. Region = status_command (152x72)
+# for the exploration command grid; battle_command for in-battle cursor.
+# ---------------------------------------------------------------------------
+
+
+class CursorOnLookTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "cursor_on_look"
+
+
+class CursorOnOpenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "cursor_on_open"
+
+
+class CursorOnUseTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "cursor_on_use"
+
+
+class CursorOnMagicTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "cursor_on_magic"
+
+
+class CursorOnHitTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "cursor_on_hit"
+
+
+class CursorOnPowerTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "cursor_on_power"
+
+
+class CursorOnLookSubGoal(RegionMatchSubGoal):
+    NAME = "cursor_on_look"
+    _NAMED_REGION = "status_command"
+    _TARGET_NAME = "cursor_on_look"
+
+
+class CursorOnOpenSubGoal(RegionMatchSubGoal):
+    NAME = "cursor_on_open"
+    _NAMED_REGION = "status_command"
+    _TARGET_NAME = "cursor_on_open"
+
+
+class CursorOnUseSubGoal(RegionMatchSubGoal):
+    NAME = "cursor_on_use"
+    _NAMED_REGION = "status_command"
+    _TARGET_NAME = "cursor_on_use"
+
+
+class CursorOnMagicSubGoal(RegionMatchSubGoal):
+    NAME = "cursor_on_magic"
+    _NAMED_REGION = "status_command"
+    _TARGET_NAME = "cursor_on_magic"
+
+
+class CursorOnHitSubGoal(RegionMatchSubGoal):
+    NAME = "cursor_on_hit"
+    _NAMED_REGION = "status_command"
+    _TARGET_NAME = "cursor_on_hit"
+
+
+class CursorOnPowerSubGoal(RegionMatchSubGoal):
+    NAME = "cursor_on_power"
+    _NAMED_REGION = "status_command"
+    _TARGET_NAME = "cursor_on_power"
+
+
+class PowerStatsFirstPageTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "power_stats_first_page"
+
+
+class UseMenuOpenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "full_screen"
+    _TERMINATION_TARGET_NAME = "use_menu_open"
+
+
+class CursorOnAutoTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_command"
+    _TERMINATION_TARGET_NAME = "cursor_on_auto"
+
+
+# ---------------------------------------------------------------------------
+# Sword of Hope 1 — sub-scope variants reusing existing captures.
+# Each terminates on an intermediate state that other trackers use as a
+# subgoal, creating shorter-scope evaluation tasks.
+# ---------------------------------------------------------------------------
+
+
+class ShopMenuOpenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "shop_menu_open"
+
+
+class LookSelectedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "command_area"
+    _TERMINATION_TARGET_NAME = "look_selected"
+
+
+class MenuOpenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "command_area"
+    _TERMINATION_TARGET_NAME = "menu_open"
+
+
+class MagicMenuOpenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "magic_menu_open"
+
+
+class DialogueInitiatedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "dialogue_initiated"
+
+
+# ---------------------------------------------------------------------------
 # Sword of Hope 2 metrics (5-task starter set)
 # ---------------------------------------------------------------------------
 
@@ -593,3 +741,86 @@ class SoH2CursorOnCprSwordSubGoal(RegionMatchSubGoal):
     NAME = "cursor_on_cpr_sword"
     _NAMED_REGION = "full_screen"
     _TARGET_NAME = "cursor_on_cpr_sword"
+
+
+# ---------------------------------------------------------------------------
+# SoH2 +7 batch terminators — all reuse existing capture targets. The matching
+# SubGoal classes were defined earlier; these are the role-swapped Terminate
+# versions used as the goal state for shorter sub-scope tests.
+# ---------------------------------------------------------------------------
+
+
+class SoH2PowerStatsFirstPageTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope2Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "power_stats_first_page"
+
+
+class SoH2MagicMenuOpenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope2Parser
+
+    _TERMINATION_NAMED_REGION = "full_screen"
+    _TERMINATION_TARGET_NAME = "magic_menu_open"
+
+
+class SoH2ItemMenuOpenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope2Parser
+
+    _TERMINATION_NAMED_REGION = "full_screen"
+    _TERMINATION_TARGET_NAME = "item_menu_open"
+
+
+class SoH2LookShopkeeperTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope2Parser
+
+    _TERMINATION_NAMED_REGION = "full_screen"
+    _TERMINATION_TARGET_NAME = "look_shopkeeper"
+
+
+class SoH2WeaponsShopMenuOpenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope2Parser
+
+    _TERMINATION_NAMED_REGION = "full_screen"
+    _TERMINATION_TARGET_NAME = "weapons_shop_menu_open"
+
+
+class SoH2CursorOnCprSwordTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope2Parser
+
+    _TERMINATION_NAMED_REGION = "full_screen"
+    _TERMINATION_TARGET_NAME = "cursor_on_cpr_sword"
+
+
+class SoH2ShopBuySellMenuTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope2Parser
+
+    _TERMINATION_NAMED_REGION = "full_screen"
+    _TERMINATION_TARGET_NAME = "shop_buy_sell_menu"
+
+
+class SoH2CursorOnWheatTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope2Parser
+
+    _TERMINATION_NAMED_REGION = "full_screen"
+    _TERMINATION_TARGET_NAME = "cursor_on_wheat"
+
+
+class SoH2CursorOnClashTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope2Parser
+
+    _TERMINATION_NAMED_REGION = "soh2_battle_command"
+    _TERMINATION_TARGET_NAME = "cursor_on_clash"
+
+
+class SoH2Temple1fTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope2Parser
+
+    _TERMINATION_NAMED_REGION = "soh2_room_label"
+    _TERMINATION_TARGET_NAME = "temple_1f"
+
+
+class SoH2OutsideTempleSubGoal(RegionMatchSubGoal):
+    NAME = "outside_temple"
+    _NAMED_REGION = "soh2_room_label"
+    _TARGET_NAME = "outside_temple"

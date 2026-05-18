@@ -53,6 +53,17 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     SoH2DialogueVisibleSubGoal,
     SoH2FirstAdjacentRoomTerminateMetric,
     SoH2StarterRoomSubGoal,
+    SoH2PowerStatsFirstPageTerminateMetric,
+    SoH2MagicMenuOpenTerminateMetric,
+    SoH2ItemMenuOpenTerminateMetric,
+    SoH2LookShopkeeperTerminateMetric,
+    SoH2WeaponsShopMenuOpenTerminateMetric,
+    SoH2CursorOnCprSwordTerminateMetric,
+    SoH2ShopBuySellMenuTerminateMetric,
+    SoH2CursorOnWheatTerminateMetric,
+    SoH2CursorOnClashTerminateMetric,
+    SoH2Temple1fTerminateMetric,
+    SoH2OutsideTempleSubGoal,
     MillRoomTerminateMetric,
     ShamanRoomTerminateMetric,
     DialogueClearedTerminateMetric,
@@ -74,6 +85,20 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     CharmReceivedTerminateMetric,
     TeleportLandedTerminateMetric,
     EscapeConfirmedTerminateMetric,
+    CursorOnLookTerminateMetric,
+    CursorOnOpenTerminateMetric,
+    CursorOnUseTerminateMetric,
+    CursorOnMagicTerminateMetric,
+    CursorOnHitTerminateMetric,
+    CursorOnPowerTerminateMetric,
+    PowerStatsFirstPageTerminateMetric,
+    UseMenuOpenTerminateMetric,
+    CursorOnAutoTerminateMetric,
+    ShopMenuOpenTerminateMetric,
+    LookSelectedTerminateMetric,
+    MenuOpenTerminateMetric,
+    MagicMenuOpenTerminateMetric,
+    DialogueInitiatedTerminateMetric,
     OldmanHouseSubGoal,
     InForestSubGoal,
     ShamanHouseSubGoal,
@@ -95,6 +120,12 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     InBackroomSubGoal,
     GraceSelectedSubGoal,
     TeleportDestCursorSubGoal,
+    CursorOnLookSubGoal,
+    CursorOnOpenSubGoal,
+    CursorOnUseSubGoal,
+    CursorOnMagicSubGoal,
+    CursorOnHitSubGoal,
+    CursorOnPowerSubGoal,
 )
 
 
@@ -413,6 +444,146 @@ class SwordOfHope2OverworldFromDefaultTestTracker(SwordOfHope2TestTracker):
     SUBGOAL_METRIC = make_subgoal_metric_class([SoH2DialogueVisibleSubGoal])
 
 
+class SwordOfHope2CursorOnPowerTestTracker(SwordOfHope2TestTracker):
+    """Cursor at POWER in the exploration command grid. Region: status_command."""
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnPowerTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope2PowerFirstPageTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent reaches the Power stats first page.
+    Shorter scope than view_exp_needed_test (which cycles past the first page).
+    Starts at default.state.
+    Subgoals: cursor_on_power -> (termination) power_stats_first_page.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2PowerStatsFirstPageTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2CursorOnPowerSubGoal])
+
+
+class SwordOfHope2OpenMagicMenuTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent opens the Magic submenu from exploration.
+    Starts at default.state.
+    Subgoals: cursor_on_magic -> (termination) magic_menu_open.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2MagicMenuOpenTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2CursorOnMagicSubGoal])
+
+
+class SwordOfHope2OpenItemViewTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent opens the Item (inventory) submenu.
+    Shorter scope than open_item_menu_test (which proceeds to the Use submenu).
+    Starts at default.state.
+    Subgoals: cursor_on_item -> (termination) item_menu_open.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2ItemMenuOpenTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2CursorOnItemSubGoal])
+
+
+class SwordOfHope2LookShopkeeperTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent looks at the weapons-shop shopkeeper (Look menu
+    with cursor on shopkeeper visible).
+    Starts at weapons_shop_example.state (player adjacent to the shopkeeper).
+    Subgoals: cursor_on_look -> (termination) look_shopkeeper.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2LookShopkeeperTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2CursorOnLookSubGoal])
+
+
+class SwordOfHope2OpenWeaponsShopBuyTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent reaches the weapons shop's BUY item list.
+    Shorter scope than buy_cpr_sword_test.
+    Starts at weapons_shop_example.state.
+    Subgoals: shop_buy_sell_menu -> (termination) weapons_shop_menu_open.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2WeaponsShopMenuOpenTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2ShopBuySellMenuSubGoal])
+
+
+class SwordOfHope2CursorOnCprSwordTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the cursor is on CPR Sword (3rd entry) in the weapons shop
+    item list. Shorter scope than buy_cpr_sword_test (no purchase confirmation).
+    Starts at weapons_shop_example.state.
+    Subgoals: weapons_shop_menu_open -> (termination) cursor_on_cpr_sword.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnCprSwordTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2WeaponsShopMenuOpenSubGoal])
+
+
+class SwordOfHope2OpenUseMenuTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the Use submenu opens after selecting a usable item.
+    Shorter scope than use_wheat_test (which proceeds to wheat consumption).
+    Starts at hit_tree_example.state (Wheat in inventory).
+    Subgoals: item_menu_open -> cursor_on_wheat -> (termination) use_menu_open.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2UseMenuOpenTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [SoH2ItemMenuOpenSubGoal, SoH2CursorOnWheatSubGoal]
+    )
+
+
+class SwordOfHope2OpenShopBuySellTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the BUY/SELL choice menu opens after engaging the
+    shopkeeper. Shorter scope than open_weapons_shop_buy_test (which proceeds
+    to the BUY item list).
+    Starts at weapons_shop_example.state.
+    Subgoals: look_shopkeeper -> (termination) shop_buy_sell_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2ShopBuySellMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2LookShopkeeperSubGoal])
+
+
+class SwordOfHope2CursorOnWheatTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the cursor lands on Wheat in the Item submenu.
+    Shorter scope than use_wheat_test (which proceeds to consumption).
+    Starts at hit_tree_example.state.
+    Subgoals: item_menu_open -> (termination) cursor_on_wheat.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnWheatTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2ItemMenuOpenSubGoal])
+
+
+class SwordOfHope2BattleClashTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the cursor lands on CLASH in the battle command row.
+    Mirror of cursor_on_auto_test but for the default attack command.
+    Starts at battle_example.state.
+    Subgoals: battle_active -> (termination) cursor_on_clash.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnClashTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2BattleActiveSubGoal])
+
+
+class SwordOfHope2EnterTempleFirstFloorTestTracker(SwordOfHope2TestTracker):
+    """
+    Terminates when the agent reaches the Ancient Temple's 1st floor from
+    outside the temple entrance. Story event #1 in SoH2 — leave Castle,
+    find Ancient Temple. Starts at outside_temple.state.
+    Subgoals: outside_temple -> (termination) temple_1f.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2Temple1fTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2OutsideTempleSubGoal])
+
+
 class SwordOfHope1MillRoomTestTracker(SwordOfHope1TestTracker):
     """
     Terminates when the agent reaches the Mill Room (first adjacent room from start).
@@ -656,3 +827,160 @@ class SwordOfHope1EscapeBattleTestTracker(SwordOfHope1TestTracker):
 
     TERMINATION_TRUNCATION_METRIC = EscapeConfirmedTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([BattleActiveSubGoal])
+
+
+class SwordOfHope1CursorOnLookTestTracker(SwordOfHope1TestTracker):
+    """Cursor at LOOK in the exploration command grid. Region: status_command."""
+    TERMINATION_TRUNCATION_METRIC = CursorOnLookTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope1CursorOnOpenTestTracker(SwordOfHope1TestTracker):
+    """Cursor at OPEN in the exploration command grid."""
+    TERMINATION_TRUNCATION_METRIC = CursorOnOpenTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope1CursorOnUseTestTracker(SwordOfHope1TestTracker):
+    """Cursor at USE in the exploration command grid."""
+    TERMINATION_TRUNCATION_METRIC = CursorOnUseTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope1CursorOnMagicTestTracker(SwordOfHope1TestTracker):
+    """Cursor at MAGIC in the exploration command grid."""
+    TERMINATION_TRUNCATION_METRIC = CursorOnMagicTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope1CursorOnHitTestTracker(SwordOfHope1TestTracker):
+    """Cursor at HIT in the exploration command grid."""
+    TERMINATION_TRUNCATION_METRIC = CursorOnHitTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope1CursorOnPowerTestTracker(SwordOfHope1TestTracker):
+    """Cursor at POWER in the exploration command grid."""
+    TERMINATION_TRUNCATION_METRIC = CursorOnPowerTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope1CycleThroughCommandsTestTracker(SwordOfHope1TestTracker):
+    """
+    Terminates when the agent has cycled the cursor through all 6 commands
+    in order (LOOK -> OPEN -> USE -> MAGIC -> HIT -> POWER) without pressing
+    A on any of them.
+    Starts at default.state.
+    Subgoals: cursor_on_look -> cursor_on_open -> cursor_on_use
+              -> cursor_on_magic -> cursor_on_hit
+              -> (termination) cursor_on_power.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CursorOnPowerTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [
+            CursorOnLookSubGoal,
+            CursorOnOpenSubGoal,
+            CursorOnUseSubGoal,
+            CursorOnMagicSubGoal,
+            CursorOnHitSubGoal,
+        ]
+    )
+
+
+class SwordOfHope1OpenStatusViewTestTracker(SwordOfHope1TestTracker):
+    """
+    Terminates when the agent reaches the Power menu's first stats page.
+    Full chain: navigate cursor to Power in command grid -> press A to open
+    Power -> first stats page visible.
+    Starts at default.state.
+    Subgoals: cursor_on_power -> (termination) power_stats_first_page.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = PowerStatsFirstPageTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([CursorOnPowerSubGoal])
+
+
+class SwordOfHope1OpenUseMenuTestTracker(SwordOfHope1TestTracker):
+    """
+    Terminates when the agent opens the Use submenu (inventory selection).
+    Full chain: navigate cursor to Use in command grid -> press A to open
+    Use submenu (inventory list visible).
+    Starts at default.state (assuming Theo has at least one usable item).
+    Subgoals: cursor_on_use -> (termination) use_menu_open.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = UseMenuOpenTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([CursorOnUseSubGoal])
+
+
+class SwordOfHope1AutoBattleTestTracker(SwordOfHope1TestTracker):
+    """
+    Terminates when the agent navigates the cursor onto the AUTO command in
+    the battle command row. Tests command-row navigation in battle.
+    Starts at battle_example.state.
+    Subgoals: battle_active -> (termination) cursor_on_auto.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CursorOnAutoTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([BattleActiveSubGoal])
+
+
+class SwordOfHope1ShopMenuOpenTestTracker(SwordOfHope1TestTracker):
+    """
+    Terminates when the shop's buy menu first opens. Shorter scope than
+    buy_item_test (which proceeds to purchase confirmation).
+    Starts at shop_forest.state.
+    Subgoals: dummy (single-step interaction).
+    """
+
+    TERMINATION_TRUNCATION_METRIC = ShopMenuOpenTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope1LookCommandSelectTestTracker(SwordOfHope1TestTracker):
+    """
+    Terminates when the LOOK command is selected in the command grid.
+    Shorter scope than look_item_test (which proceeds to item discovery).
+    Starts at default.state.
+    Subgoals: dummy (single-step cursor + A).
+    """
+
+    TERMINATION_TRUNCATION_METRIC = LookSelectedTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope1MenuOpenTestTracker(SwordOfHope1TestTracker):
+    """
+    Terminates when the command menu first opens. Shorter scope than
+    menu_open_close_test (which proceeds to closing back to exploration).
+    Starts at default.state.
+    Subgoals: dummy (single-step menu trigger).
+    """
+
+    TERMINATION_TRUNCATION_METRIC = MenuOpenTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope1MagicMenuOpenTestTracker(SwordOfHope1TestTracker):
+    """
+    Terminates when the Magic spell list opens from the overworld. Shorter
+    scope than cast_teleport_test (which proceeds to casting Teleport).
+    Starts at default.state.
+    Subgoals: dummy (single navigation chain to open Magic submenu).
+    """
+
+    TERMINATION_TRUNCATION_METRIC = MagicMenuOpenTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SwordOfHope1DialogueInitiatedTestTracker(SwordOfHope1TestTracker):
+    """
+    Terminates the moment an NPC dialogue page first appears. Shorter scope
+    than talk_to_npc_test (which proceeds through one full dialogue advance).
+    Starts at default.state.
+    Subgoals: dummy (single talk action).
+    """
+
+    TERMINATION_TRUNCATION_METRIC = DialogueInitiatedTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric

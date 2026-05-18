@@ -126,6 +126,7 @@ class SwordOfHope1Parser(_BaseSwordOfHopeParser):
             "battle_won",
             "battle_magic_menu",
             "escape_confirmed",
+            "cursor_on_auto",
         ],
         "status_command": [
             "look_target_options",
@@ -139,6 +140,13 @@ class SwordOfHope1Parser(_BaseSwordOfHopeParser):
             "teleport_result",
             "teleport_dest_cursor",
             "teleport_landed",
+            "cursor_on_look",
+            "cursor_on_open",
+            "cursor_on_use",
+            "cursor_on_magic",
+            "cursor_on_hit",
+            "cursor_on_power",
+            "power_stats_first_page",
         ],
         "battle_full": [
             "mistress_first_dialogue",
@@ -204,9 +212,12 @@ class SwordOfHope2Parser(_BaseSwordOfHopeParser):
         "soh2_room_label": [
             "kings_room",
             "riccar_castle",
+            "temple_1f",
+            "outside_temple",
         ],
         "soh2_battle_command": [
             "battle_active",
             "cursor_on_auto",
+            "cursor_on_clash",
         ],
     }
