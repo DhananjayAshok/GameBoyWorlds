@@ -6,7 +6,7 @@ from gameboy_worlds.emulation.runes_of_virtue.parsers import (
     AgentState,
     RunesOfVirtueStateParser,
 )
-from gameboy_worlds.emulation.tracker import MetricGroup
+from gameboy_worlds.emulation.tracker import MetricGroup, OCRegionMetric
 
 
 class CoreRunesOfVirtueMetrics(MetricGroup):
@@ -39,3 +39,28 @@ class CoreRunesOfVirtueMetrics(MetricGroup):
 
     def report_final(self) -> dict:
         return {}
+
+
+class RunesOfVirtueOCRMetric(OCRegionMetric):
+    """
+    Captures Runes of Virtue dialogue regions for downstream OCR.
+    """
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+
+    def start(self):
+        self.kinds = {"dialogue": self.state_parser.get_dialogue_ocr_region_name()}
+        super().start()
+
+    def can_read_kind(self, current_frame: np.ndarray, kind: str) -> bool:
+        self.state_parser: RunesOfVirtueStateParser
+        if kind == "dialogue":
+            in_dialogue = self.state_parser.dialogue_box_open(
+                current_screen=current_frame
+            )
+            dialogue_empty = self.state_parser.dialogue_box_empty(
+                current_screen=current_frame
+            )
+            in_menu = self.state_parser.is_in_menu(current_screen=current_frame)
+            return in_dialogue and not dialogue_empty and not in_menu
+        return False

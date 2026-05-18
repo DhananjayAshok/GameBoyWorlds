@@ -9,6 +9,7 @@ from gameboy_worlds.emulation.runes_of_virtue.parsers import (
 from gameboy_worlds.emulation.runes_of_virtue.emulators import RunesOfVirtueEmulator
 from gameboy_worlds.emulation.runes_of_virtue.trackers import (
     CoreRunesOfVirtueTracker,
+    RunesOfVirtueOCRTracker,
     RunesOfVirtue1CaveOfDeceitTestTracker,
     RunesOfVirtue1ChucklesDialogTestTracker,
     RunesOfVirtue1DeathScreenTestTracker,
@@ -18,9 +19,17 @@ from gameboy_worlds.emulation.runes_of_virtue.trackers import (
     RunesOfVirtue1OpenMenuTestTracker,
     RunesOfVirtue1SherryDialogTestTracker,
     RunesOfVirtue1TelescopeViewTestTracker,
+    RunesOfVirtue2BlacksmithFailBuyShieldTestTracker,
+    RunesOfVirtue2CaveOfDishonourLadder1TestTracker,
+    RunesOfVirtue2CavernOfHatredTestTracker,
+    RunesOfVirtue2CaveOfDishonourTestTracker,
+    RunesOfVirtue2DeathScreenTestTracker,
+    RunesOfVirtue2LordWhitsaberDialogTestTracker,
     RunesOfVirtue2NystulDialogTestTracker,
     RunesOfVirtue2OpenMenuTestTracker,
     RunesOfVirtue2ReadBookTestTracker,
+    RunesOfVirtue2SandyCookDialogTestTracker,
+    RunesOfVirtue2SherryMouseDialogTestTracker,
 )
 from gameboy_worlds.emulation.tracker import StateTracker
 
@@ -41,7 +50,8 @@ STRONGEST_PARSERS: Dict[str, Type[StateParser]] = {
 
 AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
     "runes_of_virtue_1": {
-        "default": CoreRunesOfVirtueTracker,
+        "default": RunesOfVirtueOCRTracker,
+        "basic": CoreRunesOfVirtueTracker,
         "open_menu_test": RunesOfVirtue1OpenMenuTestTracker,
         "king_dialog_test": RunesOfVirtue1KingDialogTestTracker,
         "chuckles_dialog_test": RunesOfVirtue1ChucklesDialogTestTracker,
@@ -53,10 +63,23 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "death_screen_test": RunesOfVirtue1DeathScreenTestTracker,
     },
     "runes_of_virtue_2": {
-        "default": CoreRunesOfVirtueTracker,
+        "default": RunesOfVirtueOCRTracker,
+        "basic": CoreRunesOfVirtueTracker,
         "open_menu_test": RunesOfVirtue2OpenMenuTestTracker,
         "read_book_test": RunesOfVirtue2ReadBookTestTracker,
         "nystul_dialog_test": RunesOfVirtue2NystulDialogTestTracker,
+        "blacksmith_fail_buy_shield_test": (
+            RunesOfVirtue2BlacksmithFailBuyShieldTestTracker
+        ),
+        "sherry_mouse_dialog_test": RunesOfVirtue2SherryMouseDialogTestTracker,
+        "sandy_cook_dialog_test": RunesOfVirtue2SandyCookDialogTestTracker,
+        "lord_whitsaber_dialog_test": RunesOfVirtue2LordWhitsaberDialogTestTracker,
+        "cave_of_dishonour_test": RunesOfVirtue2CaveOfDishonourTestTracker,
+        "cavern_of_hatred_test": RunesOfVirtue2CavernOfHatredTestTracker,
+        "cave_of_dishonour_ladder_1_test": (
+            RunesOfVirtue2CaveOfDishonourLadder1TestTracker
+        ),
+        "death_screen_test": RunesOfVirtue2DeathScreenTestTracker,
     },
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """
