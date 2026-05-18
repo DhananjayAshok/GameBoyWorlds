@@ -36,6 +36,10 @@ class TickUntilStable(SingleHighLevelAction):
             prev = curr
         return [self._state_tracker.report()], -1
 
+    @staticmethod
+    def get_action_name() -> str:
+        return "TickUntilStable"
+
 
 class MoveCursor(SingleHighLevelAction):
     """Move the menu cursor in a given direction (up, down, left, right)."""
@@ -58,6 +62,10 @@ class MoveCursor(SingleHighLevelAction):
         self._emulator.step(action)
         curr = self._emulator.get_current_frame()
         return [self._state_tracker.report()], 0 if frame_changed(prev, curr) else -1
+
+    @staticmethod
+    def get_action_name(**kwargs) -> str:
+        return f"MoveCursor {kwargs.get('direction', '')}"
 
 
 class MoveGrid(HighLevelAction):
@@ -95,6 +103,10 @@ class MoveGrid(HighLevelAction):
                         return reports, -1
         return reports, 0
 
+    @staticmethod
+    def get_action_name(x_steps: int, y_steps: int) -> str:
+        return f"MoveGrid ({x_steps}, {y_steps})"
+
 
 class OpenButtonMenu(SingleHighLevelAction):
     """Open the bottom button menu (usually START button)."""
@@ -109,6 +121,10 @@ class OpenButtonMenu(SingleHighLevelAction):
     def _execute(self):
         self._emulator.step(LowLevelActions.PRESS_BUTTON_START)
         return [self._state_tracker.report()], 0
+
+    @staticmethod
+    def get_action_name() -> str:
+        return "OpenButtonMenu"
 
 
 class CloseButtonMenu(SingleHighLevelAction):
@@ -125,6 +141,10 @@ class CloseButtonMenu(SingleHighLevelAction):
         self._emulator.step(LowLevelActions.PRESS_BUTTON_B)
         return [self._state_tracker.report()], 0
 
+    @staticmethod
+    def get_action_name() -> str:
+        return "CloseButtonMenu"
+
 
 class SelectMenuOption(SingleHighLevelAction):
     """Select the current menu option (A button)."""
@@ -140,6 +160,10 @@ class SelectMenuOption(SingleHighLevelAction):
         self._emulator.step(LowLevelActions.PRESS_BUTTON_A)
         return [self._state_tracker.report()], 0
 
+    @staticmethod
+    def get_action_name() -> str:
+        return "SelectMenuOption"
+
 
 class AdvanceDialogue(SingleHighLevelAction):
     """Advance dialogue (B button)."""
@@ -154,6 +178,10 @@ class AdvanceDialogue(SingleHighLevelAction):
     def _execute(self):
         self._emulator.step(LowLevelActions.PRESS_BUTTON_B)
         return [self._state_tracker.report()], 0
+
+    @staticmethod
+    def get_action_name() -> str:
+        return "AdvanceDialogue"
 
 
 # Helper for MoveGrid
@@ -208,6 +236,10 @@ class InteractAction(SingleHighLevelAction):
         if action_success == 0:
             action_success = -1
         return [self._state_tracker.report()], action_success
+
+    @staticmethod
+    def get_action_name() -> str:
+        return "Interact"
 
 
 class BaseMovementAction(HighLevelAction, ABC):
@@ -458,6 +490,10 @@ class MoveStepsAction(BaseMovementAction):
                 return False
         return super().is_valid(**kwargs)
 
+    @staticmethod
+    def get_action_name(direction: str, steps: int) -> str:
+        return f"Move {direction} {steps}"
+
 
 class MoveGridAction(BaseMovementAction):
     """
@@ -518,6 +554,10 @@ class MoveGridAction(BaseMovementAction):
                 return False
         return super().is_valid()
 
+    @staticmethod
+    def get_action_name(x_steps: int, y_steps: int) -> str:
+        return f"MoveGrid ({x_steps}, {y_steps})"
+
 
 class MenuAction(HighLevelAction):
     """
@@ -572,6 +612,10 @@ class MenuAction(HighLevelAction):
         frames, done = self._emulator.step(action)
         action_success = 0 if frame_changed(current_frame, frames[-1]) else -1
         return [self._state_tracker.report()], action_success
+
+    @staticmethod
+    def get_action_name(menu_action: str) -> str:
+        return f"Menu {menu_action}"
 
 
 class OpenMenuAction(HighLevelAction):
@@ -646,6 +690,10 @@ class OpenMenuAction(HighLevelAction):
                     return state_reports, 0
         return state_reports, -1
 
+    @staticmethod
+    def get_action_name(option: str) -> str:
+        return f"OpenMenu {option}"
+
 
 class PuzzleAction(HighLevelAction):
     """
@@ -700,3 +748,7 @@ class PuzzleAction(HighLevelAction):
         frames, done = self._emulator.step(action)
         action_success = 0 if frame_changed(current_frame, frames[-1]) else -1
         return [self._state_tracker.report()], action_success
+
+    @staticmethod
+    def get_action_name(puzzle_action: str) -> str:
+        return f"Puzzle {puzzle_action}"

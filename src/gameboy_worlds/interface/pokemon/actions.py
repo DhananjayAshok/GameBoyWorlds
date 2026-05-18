@@ -71,6 +71,10 @@ class PassDialogueAction(SingleHighLevelAction):
             )
         return [report], action_success
 
+    @staticmethod
+    def get_action_name() -> str:
+        return "PassDialogue"
+
 
 class InteractAction(SingleHighLevelAction):
     """
@@ -123,6 +127,10 @@ class InteractAction(SingleHighLevelAction):
         return [
             self._state_tracker.report()
         ], action_success  # 0 means something maybe happened. 1 means def happened.
+
+    @staticmethod
+    def get_action_name() -> str:
+        return "Interact"
 
 
 class BaseMovementAction(HighLevelAction, ABC):
@@ -449,6 +457,10 @@ class MoveStepsAction(BaseMovementAction):
                 return False
         return super().is_valid(**kwargs)
 
+    @staticmethod
+    def get_action_name(direction: str, steps: int) -> str:
+        return f"Move {direction} {steps}"
+
 
 class MoveGridAction(BaseMovementAction):
     """
@@ -530,6 +542,10 @@ class MoveGridAction(BaseMovementAction):
                 return False
         return super().is_valid()
 
+    @staticmethod
+    def get_action_name(x_steps: int, y_steps: int) -> str:
+        return f"MoveGrid ({x_steps}, {y_steps})"
+
 
 class MenuAction(HighLevelAction):
     """
@@ -603,6 +619,10 @@ class MenuAction(HighLevelAction):
         frames, done = self._emulator.step(action)
         action_success = 0 if frame_changed(current_frame, frames[-1]) else -1
         return [self._state_tracker.report()], action_success
+
+    @staticmethod
+    def get_action_name(menu_action: str) -> str:
+        return f"Menu {menu_action}"
 
 
 class OpenMenuAction(HighLevelAction):
@@ -681,6 +701,10 @@ class OpenMenuAction(HighLevelAction):
         self._emulator.step(LowLevelActions.PRESS_BUTTON_A)
         ret_states.append(self._state_tracker.report())
         return ret_states, 0
+
+    @staticmethod
+    def get_action_name(option: str) -> str:
+        return f"OpenMenu {option}"
 
 
 class BattleMenuAction(HighLevelAction):
@@ -838,6 +862,10 @@ class BattleMenuAction(HighLevelAction):
             pass  # Will never happen.
         return state_reports, success
 
+    @staticmethod
+    def get_action_name(option: str) -> str:
+        return f"BattleMenu {option}"
+
 
 class PickAttackAction(HighLevelAction):
     """
@@ -910,3 +938,7 @@ class PickAttackAction(HighLevelAction):
             )  # to get through any attack animation dialogue
             state_reports.append(self._state_tracker.report())
         return state_reports, 0
+
+    @staticmethod
+    def get_action_name(option: int) -> str:
+        return f"PickAttack {option}"

@@ -352,6 +352,8 @@ class Emulator:
         save_video: bool = None,
         session_name: str = None,
         instance_id: str = None,
+        wait_ticks: int = None,
+        press_step: int = None,
     ):
         """
         Start the GameBoy emulator with the given ROM file and initial state.
@@ -368,6 +370,8 @@ class Emulator:
             save_video (bool, optional): Whether to save video of the episodes.
             session_name (str, optional): Name of the session. If None, a new session name will be allocated. This is the broad category you want to save files to
             instance_id (str, optional): Unique identifier for this environment instance. If None, a new UUID will be generated. The instance ID is useful for distinguishing multiple environments running in parallel with the same session name.
+            wait_ticks (int, optional): Number of ticks to wait between actions.
+            press_step (int, optional): Number of steps to press a button for.
         """
         verify_parameters(parameters)
         self._parameters = parameters
@@ -431,9 +435,13 @@ class Emulator:
         )
         """ Path to the session directory. This is where all artifacts for this session are saved. """
 
-        self.wait_ticks = parameters["gameboy_wait_ticks"]
+        if wait_ticks is None:
+            wait_ticks = parameters["gameboy_wait_ticks"]
+        self.wait_ticks = wait_ticks
         """ Number of emulator ticks to wait after an action. Defaults to value specified in config files. """
-        self.press_step = parameters["gameboy_press_step"]
+        if press_step is None:
+            press_step = parameters["gameboy_press_step"]
+        self.press_step = press_step
         """ Number of emulator ticks to hold down a button press. Defaults to value specified in config files. """
         self.render_headless = parameters["gameboy_headless_render"]
         """ Whether to render the emulator screen even in headless mode. This must be true for methods that rely on image observations (e.g. VLMs) to access the screen. Defaults to value specified in config files. """
@@ -911,7 +919,10 @@ class Emulator:
                 elif first_char == "g":
                     parts = user_input.split(" ")
                     if len(parts) != 2:
-                        log_warn(f"Invalid input {user_input}. Usage: g <code>", self._parameters)
+                        log_warn(
+                            f"Invalid input {user_input}. Usage: g <code>",
+                            self._parameters,
+                        )
                     else:
                         code = parts[1].upper()
                         self._pyboy.gameshark.add(code)

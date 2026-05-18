@@ -105,6 +105,10 @@ class MoveAction(HighLevelAction):
             }
         return transition_state_dicts, action_success
 
+    @staticmethod
+    def get_action_name(direction: str, steps: int) -> str:
+        return f"Move {direction} {steps}"
+
 
 class OpenInventoryAction(SingleHighLevelAction):
     REQUIRED_STATE_TRACKER = CoreLegendOfZeldaTracker
@@ -121,6 +125,10 @@ class OpenInventoryAction(SingleHighLevelAction):
         if not frame_changed(previous, frames[-1]):
             return [report], -1
         return [report], 1 if state == IN_INVENTORY else 0
+
+    @staticmethod
+    def get_action_name() -> str:
+        return "OpenInventory"
 
 
 class CloseInventoryAction(SingleHighLevelAction):
@@ -139,6 +147,10 @@ class CloseInventoryAction(SingleHighLevelAction):
             return [report], -1
         return [report], 1 if state != IN_INVENTORY else 0
 
+    @staticmethod
+    def get_action_name() -> str:
+        return "CloseInventory"
+
 
 class SkipDialogueAction(SingleHighLevelAction):
     REQUIRED_STATE_TRACKER = CoreLegendOfZeldaTracker
@@ -156,6 +168,10 @@ class SkipDialogueAction(SingleHighLevelAction):
             return [report], -1
         return [report], 0 if state != IN_DIALOGUE else 1
 
+    @staticmethod
+    def get_action_name() -> str:
+        return "SkipDialogue"
+
 
 class InteractAction(SingleHighLevelAction):
     REQUIRED_STATE_TRACKER = CoreLegendOfZeldaTracker
@@ -172,6 +188,10 @@ class InteractAction(SingleHighLevelAction):
         if not frame_changed(previous, frames[-1]):
             return [report], -1
         return [report], 1 if state != FREE_ROAM else 0
+
+    @staticmethod
+    def get_action_name() -> str:
+        return "Interact"
 
 
 class UseOtherInventoryItemAction(SingleHighLevelAction):
@@ -192,3 +212,7 @@ class UseOtherInventoryItemAction(SingleHighLevelAction):
         if not frame_changed(previous, frames[-1]):
             return [report], -1
         return [report], 0
+
+    @staticmethod
+    def get_action_name() -> str:
+        return "UseOtherInventoryItem"

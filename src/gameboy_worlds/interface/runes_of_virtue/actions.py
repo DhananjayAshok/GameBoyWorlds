@@ -63,6 +63,10 @@ class PassDialogueAction(SingleHighLevelAction):
             )
         return [report], action_success
 
+    @staticmethod
+    def get_action_name() -> str:
+        return "PassDialogue"
+
 
 class InteractAction(SingleHighLevelAction):
     """
@@ -106,6 +110,10 @@ class InteractAction(SingleHighLevelAction):
                 action_success = 0
         return [report], action_success
 
+    @staticmethod
+    def get_action_name() -> str:
+        return "Interact"
+
 
 class OpenMenuAction(SingleHighLevelAction):
     """
@@ -145,6 +153,10 @@ class OpenMenuAction(SingleHighLevelAction):
         else:
             action_success = 1
         return [report], action_success
+
+    @staticmethod
+    def get_action_name() -> str:
+        return "OpenMenu"
 
 
 class BaseMovementAction(HighLevelAction, ABC):
@@ -312,6 +324,10 @@ class MoveStepsAction(BaseMovementAction):
                 return False
         return super().is_valid(**kwargs)
 
+    @staticmethod
+    def get_action_name(direction: str, steps: int) -> str:
+        return f"Move {direction} {steps}"
+
 
 class MenuAction(HighLevelAction):
     """
@@ -379,3 +395,7 @@ class MenuAction(HighLevelAction):
         frames, done = self._emulator.step(action)
         action_success = 0 if frame_changed(current_frame, frames[-1]) else -1
         return [self._state_tracker.report()], action_success
+
+    @staticmethod
+    def get_action_name(menu_action: str) -> str:
+        return f"Menu {menu_action}"

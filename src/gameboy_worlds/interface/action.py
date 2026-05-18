@@ -205,6 +205,19 @@ class HighLevelAction(ABC):
             return None, None
         return self.execute(**parameters)
 
+    @staticmethod
+    @abstractmethod
+    def get_action_name(**kwargs) -> str:
+        """
+        Returns a human readable name for the high level action with the given parameters.
+
+        :param kwargs: The high level action's parameters.
+        :type kwargs: Dict[str, Any]
+        :return: A human readable name for the high level action.
+        :rtype: str
+        """
+        raise NotImplementedError
+
 
 class SingleHighLevelAction(HighLevelAction):
     """
@@ -280,6 +293,15 @@ class LowLevelAction(HighLevelAction):
         """
         return [{"low_level_action": action} for action in LowLevelActions]
 
+    @staticmethod
+    def get_action_name(low_level_action: LowLevelActions) -> str:
+        action = (
+            str(low_level_action)
+            .replace("LowLevelActions.PRESS_ARROW_", "")
+            .replace("LowLevelActions.PRESS_BUTTON_", "")
+        )
+        return action
+
 
 class LowLevelPlayAction(HighLevelAction):
     """A HighLevelAction subclass that directly maps to low level actions, except no menu button presses."""
@@ -328,6 +350,15 @@ class LowLevelPlayAction(HighLevelAction):
 
     def get_all_valid_parameters(self) -> List[Dict[str, Any]]:
         return [{"low_level_action": action} for action in self.allowed_actions]
+
+    @staticmethod
+    def get_action_name(low_level_action: LowLevelActions) -> str:
+        action = (
+            str(low_level_action)
+            .replace("LowLevelActions.PRESS_ARROW_", "")
+            .replace("LowLevelActions.PRESS_BUTTON_", "")
+        )
+        return action
 
 
 class RandomPlayAction(HighLevelAction):
@@ -392,3 +423,7 @@ class RandomPlayAction(HighLevelAction):
 
     def get_all_valid_parameters(self) -> List[Dict[str, Any]]:
         return [{"kind": "move"}, {"kind": "press"}]
+
+    @staticmethod
+    def get_action_name(kind: str) -> str:
+        return kind
