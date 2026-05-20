@@ -237,6 +237,9 @@ def get_benchmark_tasks(game: str, parameters: dict = None) -> pd.DataFrame:
     return game_tasks_df
 
 
+# DELTA TODO: 1: Change benchmark/tests to include a test_only column and create a get_train_states function to return a dict with the train rows from the csv.
+
+
 class _Profiler:
     """
     A simple profiler class to track the time taken by different events in the code. It can also group events together and show the percentage of time taken by each event in the group.

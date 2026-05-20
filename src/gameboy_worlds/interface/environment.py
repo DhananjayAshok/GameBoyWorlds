@@ -149,6 +149,38 @@ class Environment(gym.Env, ABC):
         """ The pygame clock for rendering in 'human' mode. Initialized on first render call. """
         self.reset()  # I don't think this will cause issues, but should check that resetting here works well with gymnasium SyncVectorEnv final_obs construction.
 
+    def save_custom_state(self, state_name: str):
+        """
+        Saves a custom state of the emulator. This is useful for saving states during training or evaluation that can be loaded later for analysis or replay.
+
+        Args:
+            state_name (str): Name of the state to save. This will be saved as a .state file in the states directory.
+        """
+        # don't allow path like state names
+        if (
+            "/" in state_name
+            or "\\" in state_name
+            or " " in state_name
+            or not state_name.isalnum()
+        ):
+            log_error(
+                f"State name '{state_name}' is invalid. State names must be alphanumeric and cannot contain spaces or path characters.",
+                self._parameters,
+            )
+        state_name = f"custom_{state_name}"
+        self._emulator.save_state(state_name=state_name)
+        return state_name
+
+    def delete_custom_state(self, state_name: str):
+        """
+        Deletes a custom state of the emulator that was previously saved with `save_custom_state`.
+
+        Args:
+            state_name (str): Name of the state to delete. This should be the name returned by `save_custom_state`.
+        """
+        state_name = f"custom_{state_name}"
+        self._emulator.delete_state(state_name=state_name)
+
     @abstractmethod
     def get_observation(
         self,
