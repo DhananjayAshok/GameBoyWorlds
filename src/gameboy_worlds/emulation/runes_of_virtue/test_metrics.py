@@ -6,7 +6,7 @@ from gameboy_worlds.emulation.runes_of_virtue.parsers import (
     RunesOfVirtueStateParser,
 )
 from gameboy_worlds.emulation.tracker import (
-    RegionMatchTerminationMetric,
+    RegionMatchTerminationOnlyMetric,
     TerminationMetric,
 )
 
@@ -47,9 +47,7 @@ class RunesOfVirtue2OpenMenuTerminateMetric(TerminationMetric):
         return False
 
 
-class RunesOfVirtue1KingDialogTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
-):
+class RunesOfVirtue1KingDialogTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when the king's dialog is on screen."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser
@@ -57,29 +55,97 @@ class RunesOfVirtue1KingDialogTerminateMetric(
     _TERMINATION_TARGET_NAME = "king_dialog"
 
 
-class RunesOfVirtue2ReadBookTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
-):
+class RunesOfVirtue2ReadBookTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when an opened book is on screen."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser
-    _TERMINATION_NAMED_REGION = "book_open_indicator"
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
     _TERMINATION_TARGET_NAME = "book_open"
 
 
-class RunesOfVirtue2NystulDialogTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
-):
+class RunesOfVirtue2NystulDialogTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when Nystul's dialog is on screen."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser
-    _TERMINATION_NAMED_REGION = "nystul_dialog_indicator"
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
     _TERMINATION_TARGET_NAME = "nystul_dialog"
 
 
-class RunesOfVirtue1ChucklesDialogTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
+class RunesOfVirtue2BlacksmithFailBuyShieldTerminateMetric(
+    RegionMatchTerminationOnlyMetric
 ):
+    """Terminates when the blacksmith's failed shield purchase dialog is on screen."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "blacksmith_fail_buy_shield"
+
+
+class RunesOfVirtue2SherryMouseDialogTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Sherry the mouse's dialog is on screen."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "sherry_mouse_dialog"
+
+
+class RunesOfVirtue2SandyCookDialogTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Sandy the cook's dialog is on screen."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "sandy_cook_dialog"
+
+
+class RunesOfVirtue2LordWhitsaberDialogTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Lord Whitsaber's dialog is on screen."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "lord_whitsaber_dialog"
+
+
+class RunesOfVirtue2CaveOfDishonourTerminateMetric(RegionMatchTerminationOnlyMetric):
+    """Terminates when the player has entered the Cave of Dishonour."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cave_of_dishonour"
+
+
+class RunesOfVirtue2CavernOfHatredTerminateMetric(RegionMatchTerminationOnlyMetric):
+    """Terminates when the player has entered the Cavern of Hatred."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_hatred"
+
+
+class RunesOfVirtue2CaveOfDishonourLadder1TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player reaches the first ladder in the Cave of Dishonour."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cave_of_dishonour_ladder_1"
+
+
+class RunesOfVirtue2DeathScreenTerminateMetric(RegionMatchTerminationOnlyMetric):
+    """Terminates when the death / game over screen is on screen."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "death_screen_indicator"
+    _TERMINATION_TARGET_NAME = "death_screen"
+
+
+class RunesOfVirtue1ChucklesDialogTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when Chuckles's dialog is on screen."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser
@@ -87,9 +153,7 @@ class RunesOfVirtue1ChucklesDialogTerminateMetric(
     _TERMINATION_TARGET_NAME = "chuckles_dialog"
 
 
-class RunesOfVirtue1GnuGnu1DialogTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
-):
+class RunesOfVirtue1GnuGnu1DialogTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when Gnu Gnu's 1st store dialog is on screen."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser
@@ -97,9 +161,7 @@ class RunesOfVirtue1GnuGnu1DialogTerminateMetric(
     _TERMINATION_TARGET_NAME = "gnu_gnu_1_dialog"
 
 
-class RunesOfVirtue1GnuGnu2DialogTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
-):
+class RunesOfVirtue1GnuGnu2DialogTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when Gnu Gnu's 2nd store dialog is on screen."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser
@@ -107,9 +169,7 @@ class RunesOfVirtue1GnuGnu2DialogTerminateMetric(
     _TERMINATION_TARGET_NAME = "gnu_gnu_2_dialog"
 
 
-class RunesOfVirtue1SherryDialogTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
-):
+class RunesOfVirtue1SherryDialogTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when Sherry's dialog is on screen."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser
@@ -117,9 +177,7 @@ class RunesOfVirtue1SherryDialogTerminateMetric(
     _TERMINATION_TARGET_NAME = "sherry_dialog"
 
 
-class RunesOfVirtue1CaveOfDeceitTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
-):
+class RunesOfVirtue1CaveOfDeceitTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when the player is inside the Cave of Deceit."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser
@@ -127,9 +185,7 @@ class RunesOfVirtue1CaveOfDeceitTerminateMetric(
     _TERMINATION_TARGET_NAME = "cave_of_deceit"
 
 
-class RunesOfVirtue1TelescopeViewTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
-):
+class RunesOfVirtue1TelescopeViewTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when the telescope view is on screen."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser
@@ -137,9 +193,7 @@ class RunesOfVirtue1TelescopeViewTerminateMetric(
     _TERMINATION_TARGET_NAME = "telescope_view"
 
 
-class RunesOfVirtue1DeathScreenTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
-):
+class RunesOfVirtue1DeathScreenTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when the death / game over screen is on screen."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser

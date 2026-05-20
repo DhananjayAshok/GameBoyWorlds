@@ -11,3 +11,11 @@ runes_of_virtue_1,survival,Die,gameplay,death_screen_test,,runes_of_virtue_2
 runes_of_virtue_2,menu,Open the inventory menu,gameplay,open_menu_test,,runes_of_virtue_1
 runes_of_virtue_2,interaction,Read a book,read_book,read_book_test,,runes_of_virtue_1
 runes_of_virtue_2,dialog,Talk to Nystul,near_nystul,nystul_dialog_test,,runes_of_virtue_1
+runes_of_virtue_2,dialog,Talk to blacksmith and fail to buy shield,near_blacksmith,blacksmith_fail_buy_shield_test,,runes_of_virtue_1
+runes_of_virtue_2,dialog,Talk to Sherry the mouse,near_sherry_mouse,sherry_mouse_dialog_test,,runes_of_virtue_1
+runes_of_virtue_2,dialog,Talk to Sandy the cook,near_sandy_cook,sandy_cook_dialog_test,,runes_of_virtue_1
+runes_of_virtue_2,dialog,Talk to Lord Whitsaber,near_lord_whitsaber,lord_whitsaber_dialog_test,,runes_of_virtue_1
+runes_of_virtue_2,navigation,Enter the Cave of Dishonour,near_cave_of_dishonour,cave_of_dishonour_test,,runes_of_virtue_1
+runes_of_virtue_2,navigation,Cave of Dishonour ladder 1,cave_of_dishonour_done,cave_of_dishonour_ladder_1_test,,runes_of_virtue_1
+runes_of_virtue_2,navigation,Enter the Cavern of Hatred,near_cavern_of_hatred,cavern_of_hatred_test,,runes_of_virtue_1
+runes_of_virtue_2,survival,Die,gameplay,death_screen_test,,runes_of_virtue_1
