@@ -297,6 +297,53 @@ def get_shifted_training_states(
     return shifted_training_states
 
 
+def get_all_training_states(parameters: dict = None) -> Dict[str, List[str]]:
+    """
+    Gets all regular training states for the all games (for which training states are specified).
+
+    Args:
+        parameters (dict, optional): Additional parameters for error logging.
+
+    Returns:
+        Dict[str, List[str]]: A dictionary containing {game: training_states} entries for all games for which training states are specified in the benchmark tasks.
+    """
+    parameters = load_parameters(parameters)
+    tasks_dfs = get_benchmark_tasks_dfs(parameters)
+    all_games = set()
+    for df in tasks_dfs.values():
+        all_games.update(df["game"].unique())
+    all_training_states = {}
+    for game in all_games:
+        training_states = get_training_states(game, parameters)
+        if training_states is not None:
+            all_training_states[game] = training_states
+    return all_training_states
+
+
+def get_all_shifted_training_states(
+    parameters: dict = None,
+) -> Dict[str, Dict[str, List[str]]]:
+    """
+    Gets all shifted training states for all games.
+
+    Args:
+        parameters (dict, optional): Additional parameters for error logging.
+
+    Returns:
+        Dict[str, Dict[str, List[str]]]: A nested dictionary containing {game: {other_game: shifted_training_states}} entries for all games for which shifted training states are specified in the benchmark tasks.
+    """
+    parameters = load_parameters(parameters)
+    tasks_dfs = get_benchmark_tasks_dfs(parameters)
+    all_games = set()
+    for df in tasks_dfs.values():
+        all_games.update(df["game"].unique())
+    all_shifted_training_states = {}
+    for game in all_games:
+        shifted_states = get_shifted_training_states(game, parameters)
+        all_shifted_training_states[game] = shifted_states
+    return all_shifted_training_states
+
+
 class _Profiler:
     """
     A simple profiler class to track the time taken by different events in the code. It can also group events together and show the percentage of time taken by each event in the group.
