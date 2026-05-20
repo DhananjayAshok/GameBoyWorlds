@@ -35,6 +35,8 @@ from gameboy_worlds.emulation.bomberman.trackers import (
     BombermanQuestBombSelectTestTracker,
     BombermanQuestBombComponentSelectTestTracker,
     BombermanQuestBoxPickedUpTestTracker,
+    BombermanQuestCliffBoxPickedUpTestTracker,
+    BombermanQuestHardSwitchActivatedTestTracker,
     BombermanQuestSaveNpcTestTracker,
     BombermanQuestButtonRegionChangedTestTracker,
     BombermanQuestSwitchActivatedTestTracker,
@@ -114,6 +116,8 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "button_region_changed_test": BombermanQuestButtonRegionChangedTestTracker,
         "switch_activated_test": BombermanQuestSwitchActivatedTestTracker,
         "box_picked_up_test": BombermanQuestBoxPickedUpTestTracker,
+        "cliff_box_picked_up_test": BombermanQuestCliffBoxPickedUpTestTracker,
+        "hard_switch_activated_test": BombermanQuestHardSwitchActivatedTestTracker,
         "save_npc_test": BombermanQuestSaveNpcTestTracker,
 
         "enter_camp_test": BombermanQuestEnterCampTestTracker,

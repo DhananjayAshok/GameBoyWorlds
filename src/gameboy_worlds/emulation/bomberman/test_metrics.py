@@ -250,6 +250,18 @@ class BoxPickedUpTerminateMetric(RegionChangedTerminationMetric, TerminationMetr
     _CHANGE_MAE_THRESHOLD = 10
 
 
+class CliffBoxPickedUpTerminateMetric(RegionChangedTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+    _CHANGED_NAMED_REGION = "cliff_box_detector"
+    _CHANGE_MAE_THRESHOLD = 10
+
+
+class HardSwitchActivatedTerminateMetric(RegionChangedTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+    _CHANGED_NAMED_REGION = "hard_switch_detector"
+    _CHANGE_MAE_THRESHOLD = 10
+
+
 class SwitchActivatedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BombermanQuestParser
     _TERMINATION_NAMED_REGION = "switch_detector"

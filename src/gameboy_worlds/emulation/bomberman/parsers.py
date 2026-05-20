@@ -187,6 +187,8 @@ class BombermanQuestParser(BombermanParser):
         ("button_region", 80, 80, 16, 16),
         ("switch_detector", 64, 64, 16, 16),
         ("box_detector", 80, 64, 16, 16),
+        ("cliff_box_detector", 32, 32, 16, 16),
+        ("hard_switch_detector", 16, 16, 16, 16),
     ]
 
     MULTI_TARGETS = {
@@ -211,6 +213,8 @@ class BombermanQuestParser(BombermanParser):
         "button_region": [],
         "switch_detector": ["switch_activated"],
         "box_detector": [],
+        "cliff_box_detector": [],
+        "hard_switch_detector": [],
     }
 
     def is_in_menu(self, current_screen: np.ndarray) -> bool:
