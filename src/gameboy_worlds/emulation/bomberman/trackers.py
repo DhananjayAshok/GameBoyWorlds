@@ -32,7 +32,7 @@ from gameboy_worlds.emulation.bomberman.test_metrics import (
     HudBombCountChangedTerminateMetric,
     HudBottomRightChangedTerminateMetric,
     HudChangedTerminateMetric,
-    HudPocketEnemyCountChangedTerminateMetric,
+    HudPocketEnemyKillTerminateMetric,
     HudEnemyCountChangedTerminateMetric,
     HudFireChangedTerminateMetric,
     HudHeartChangedTerminateMetric,
@@ -170,7 +170,7 @@ class BombermanPocketHudChangedTestTracker(BombermanPocketBaseTestTracker):
 
 
 class BombermanPocketHudEnemyCountChangedTestTracker(BombermanPocketBaseTestTracker):
-    TERMINATION_TRUNCATION_METRIC = HudPocketEnemyCountChangedTerminateMetric
+    TERMINATION_TRUNCATION_METRIC = HudPocketEnemyKillTerminateMetric
 
 
 class BombermanPocketHudBottomRightChangedTestTracker(
