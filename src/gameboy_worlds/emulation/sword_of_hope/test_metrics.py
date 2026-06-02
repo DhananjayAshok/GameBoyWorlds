@@ -190,13 +190,6 @@ class LookPathTargetSubGoal(RegionMatchSubGoal):
     _TARGET_NAME = "look_path_target"
 
 
-class TrtFruitReceivedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = SwordOfHope1Parser
-
-    _TERMINATION_NAMED_REGION = "battle_full"
-    _TERMINATION_TARGET_NAME = "trtfruit_received"
-
-
 class HitTargetShownSubGoal(RegionMatchSubGoal):
     NAME = "hit_target_shown"
     _NAMED_REGION = "battle_full"
@@ -208,13 +201,6 @@ class TreantDefeatedTerminateMetric(RegionMatchTerminationMetric, TerminationMet
 
     _TERMINATION_NAMED_REGION = "battle_full"
     _TERMINATION_TARGET_NAME = "treant_defeated"
-
-
-class PassageRevealedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = SwordOfHope1Parser
-
-    _TERMINATION_NAMED_REGION = "battle_full"
-    _TERMINATION_TARGET_NAME = "passage_revealed"
 
 
 class HitWallTargetSubGoal(RegionMatchSubGoal):
@@ -372,13 +358,6 @@ class PowerStatsFirstPageTerminateMetric(RegionMatchTerminationMetric, Terminati
 
     _TERMINATION_NAMED_REGION = "status_command"
     _TERMINATION_TARGET_NAME = "power_stats_first_page"
-
-
-class UseMenuOpenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = SwordOfHope1Parser
-
-    _TERMINATION_NAMED_REGION = "full_screen"
-    _TERMINATION_TARGET_NAME = "use_menu_open"
 
 
 class CursorOnAutoTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
@@ -551,13 +530,6 @@ class SoH2MagicMenuOpenSubGoal(RegionMatchSubGoal):
     NAME = "magic_menu_open"
     _NAMED_REGION = "full_screen"
     _TARGET_NAME = "magic_menu_open"
-
-
-class SoH2ItemFoundTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = SwordOfHope2Parser
-
-    _TERMINATION_NAMED_REGION = "status_command"
-    _TERMINATION_TARGET_NAME = "item_found"
 
 
 class SoH2LookTargetSubGoal(RegionMatchSubGoal):
@@ -1034,13 +1006,6 @@ class SoH2LookTreeTargetTerminateMetric(RegionMatchTerminationMetric, Terminatio
 
     _TERMINATION_NAMED_REGION = "full_screen"
     _TERMINATION_TARGET_NAME = "look_tree_target"
-
-
-class SoH2InUndergroundTempleTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = SwordOfHope2Parser
-
-    _TERMINATION_NAMED_REGION = "soh2_room_label"
-    _TERMINATION_TARGET_NAME = "in_underground_temple"
 
 
 class SoH2BattleMagicMenuSubGoal(RegionMatchSubGoal):

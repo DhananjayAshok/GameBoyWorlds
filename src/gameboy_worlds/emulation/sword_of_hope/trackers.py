@@ -21,7 +21,6 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     SoH2BattleMagicMenuTerminateMetric,
     SoH2MotionResultTerminateMetric,
     SoH2MagicMenuOpenSubGoal,
-    SoH2ItemFoundTerminateMetric,
     SoH2LookTargetSubGoal,
     SoH2CprSwordPurchasedTerminateMetric,
     SoH2WeaponsShopMenuOpenSubGoal,
@@ -77,9 +76,7 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     MistressSecondDialogueTerminateMetric,
     SaveConfirmedTerminateMetric,
     HerbReceivedTerminateMetric,
-    TrtFruitReceivedTerminateMetric,
     TreantDefeatedTerminateMetric,
-    PassageRevealedTerminateMetric,
     GateOpenedTerminateMetric,
     ScrollReceivedTerminateMetric,
     CharmReceivedTerminateMetric,
@@ -92,7 +89,6 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     CursorOnHitTerminateMetric,
     CursorOnPowerTerminateMetric,
     PowerStatsFirstPageTerminateMetric,
-    UseMenuOpenTerminateMetric,
     CursorOnAutoTerminateMetric,
     ShopMenuOpenTerminateMetric,
     LookSelectedTerminateMetric,
@@ -129,7 +125,6 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     SoH2CursorOnSecondWeaponSubGoal,
     SoH2CursorOnThirdWeaponTerminateMetric,
     SoH2LookTreeTargetTerminateMetric,
-    SoH2InUndergroundTempleTerminateMetric,
     SoH2BattleMagicMenuSubGoal,
     SoH2CursorOnAutoSubGoal,
     SoH2CursorOnClashSubGoal,
@@ -416,17 +411,6 @@ class SwordOfHope2CastMotionTestTracker(SwordOfHope2TestTracker):
 
     TERMINATION_TRUNCATION_METRIC = SoH2MotionResultTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([SoH2MagicMenuOpenSubGoal])
-
-
-class SwordOfHope2LookItemTestTracker(SwordOfHope2TestTracker):
-    """
-    Terminates when the agent uses Look on an object and discovers an item.
-    Starts at look_example.state (player adjacent to a Lookable object).
-    Subgoals: look_target -> (termination) item_found.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = SoH2ItemFoundTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2LookTargetSubGoal])
 
 
 class SwordOfHope2BuyWheatTestTracker(SwordOfHope2TestTracker):
@@ -767,18 +751,6 @@ class SwordOfHope1LookSurroundHerbTestTracker(SwordOfHope1TestTracker):
     SUBGOAL_METRIC = make_subgoal_metric_class([LookPathTargetSubGoal])
 
 
-class SwordOfHope1HitTreantItemTestTracker(SwordOfHope1TestTracker):
-    """
-    Terminates when the agent Hits the Treant area (post-kill) at Old Man's Forest
-    [H2] and receives a TrtFruit (walkthrough event #19).
-    Starts at near_treant_postkill.state (player at [H2] with Treant defeated).
-    Subgoals: hit_target_shown -> (termination) trtfruit_received.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = TrtFruitReceivedTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([HitTargetShownSubGoal])
-
-
 class SwordOfHope1DefeatTreantTestTracker(SwordOfHope1TestTracker):
     """
     Terminates when the agent defeats Treant in battle (walkthrough event #2),
@@ -789,18 +761,6 @@ class SwordOfHope1DefeatTreantTestTracker(SwordOfHope1TestTracker):
 
     TERMINATION_TRUNCATION_METRIC = TreantDefeatedTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([BattleActiveSubGoal])
-
-
-class SwordOfHope1HitWallPassageTestTracker(SwordOfHope1TestTracker):
-    """
-    Terminates when the agent Hits the wall at Martel's [B3] doll area and
-    reveals an ivy vine passage (walkthrough: 'HIT the wall to reveal a vine').
-    Starts at martel_b3.state (player in Martel's Domain at [B3]).
-    Subgoals: hit_wall_target -> (termination) passage_revealed.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = PassageRevealedTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([HitWallTargetSubGoal])
 
 
 class SwordOfHope1UseKeyUnlockTestTracker(SwordOfHope1TestTracker):
@@ -933,19 +893,6 @@ class SwordOfHope1OpenStatusViewTestTracker(SwordOfHope1TestTracker):
 
     TERMINATION_TRUNCATION_METRIC = PowerStatsFirstPageTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([CursorOnPowerSubGoal])
-
-
-class SwordOfHope1OpenUseMenuTestTracker(SwordOfHope1TestTracker):
-    """
-    Terminates when the agent opens the Use submenu (inventory selection).
-    Full chain: navigate cursor to Use in command grid -> press A to open
-    Use submenu (inventory list visible).
-    Starts at default.state (assuming Theo has at least one usable item).
-    Subgoals: cursor_on_use -> (termination) use_menu_open.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = UseMenuOpenTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([CursorOnUseSubGoal])
 
 
 class SwordOfHope1AutoBattleTestTracker(SwordOfHope1TestTracker):
@@ -1468,15 +1415,3 @@ class SwordOfHope2ViewPowerThenCastMotionTestTracker(SwordOfHope2TestTracker):
     )
 
 
-class SwordOfHope2EnterUndergroundTempleTestTracker(SwordOfHope2TestTracker):
-    """
-    Use Sanddrop at the Underground Temple entrance to enter the dungeon.
-    Story event #6 - requires Sanddrop in inventory (post-Sandworm).
-    Progression-gated.
-    Init: NEEDS NEW STATE (post-Sandworm-defeated, at Underground Temple
-    entrance in the Desert region).
-    Subgoal: dialogue_visible -> (term) in_underground_temple.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = SoH2InUndergroundTempleTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2DialogueVisibleSubGoal])

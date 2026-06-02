@@ -229,7 +229,6 @@ class SwordOfHope2Parser(_BaseSwordOfHopeParser):
             "riccar_castle",
             "temple_1f",
             "outside_temple",
-            "in_underground_temple",
         ],
         "soh2_battle_command": [
             "battle_active",
