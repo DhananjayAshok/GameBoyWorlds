@@ -194,7 +194,9 @@ class LegendOfZeldaLinksAwakeningParser(BaseLegendOfZeldaParser):
             ("palmt", 76, 53, 11, 9),
             ("gameover", 46, 38, 67, 19),
             ("tileslong", 128, 18, 15, 108),
-            ("boardsign", 45, 14, 19, 18)
+            ("boardsign", 45, 14, 19, 18),
+            ("potsbelow", 14, 94, 35, 19),
+            ("go_out_dialogue", 8, 10, 136, 34),
         ]
 
         """
