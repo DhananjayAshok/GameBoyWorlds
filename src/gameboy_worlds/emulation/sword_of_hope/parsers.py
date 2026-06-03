@@ -127,6 +127,9 @@ class SwordOfHope1Parser(_BaseSwordOfHopeParser):
             "battle_magic_menu",
             "escape_confirmed",
             "cursor_on_auto",
+            "cursor_on_firebal",
+            "cursor_on_firebal2",
+            "cursor_on_stripall",
         ],
         "status_command": [
             "look_target_options",
@@ -147,6 +150,10 @@ class SwordOfHope1Parser(_BaseSwordOfHopeParser):
             "cursor_on_hit",
             "cursor_on_power",
             "power_stats_first_page",
+            "cursor_on_teleport_oldman",
+            "cursor_on_herb_use",
+            "cursor_on_keym_use",
+            "power_stats_last_page",
         ],
         "battle_full": [
             "mistress_first_dialogue",
@@ -192,6 +199,8 @@ class SwordOfHope2Parser(_BaseSwordOfHopeParser):
             "cursor_on_open",
             "cursor_on_magic",
             "cursor_on_hit",
+            "cursor_on_motion",
+            "cursor_on_theo",
         ],
         "full_screen": [
             "shop_menu_open",
@@ -204,6 +213,12 @@ class SwordOfHope2Parser(_BaseSwordOfHopeParser):
             "item_menu_open",
             "use_menu_open",
             "cursor_on_wheat",
+            "cursor_on_shop_first_item",
+            "cursor_on_shop_third_item",
+            "cursor_on_first_weapon",
+            "cursor_on_second_weapon",
+            "cursor_on_third_weapon",
+            "look_tree_target",
         ],
         "command_area": [
             "exploration_menu",

@@ -1053,6 +1053,40 @@ class RegionMatchTerminationOnlyMetric(TerminationMetric, ABC):
                 return True
         return False
 
+class AnyRegionMatchTerminationMetric(TerminationMetric, ABC):
+    """
+    Terminates the episode if any of a list of specific regions matches their targets.
+    No truncation.
+    """
+
+    _NAMED_REGIONS: List[str] = None
+    _TARGET_NAMES: List[str] = None
+
+    def __init__(self):
+        super().__init__()
+        if (
+            self._NAMED_REGIONS is None
+            or self._TARGET_NAMES is None
+            or len(self._NAMED_REGIONS) != len(self._TARGET_NAMES)
+            or len(self._NAMED_REGIONS) == 0
+        ):
+            log_error(
+                "Subclasses of AnyRegionMatchTerminationMetric must set _NAMED_REGIONS and _TARGET_NAMES class variables, and they must be of the same length non zero.",
+            )
+
+    def determine_terminated(self, current_frame, recent_frames):
+        all_frames = [current_frame]
+        if recent_frames is not None:
+            all_frames = recent_frames
+        for frame in all_frames:
+            for named_region, target_name in zip(self._NAMED_REGIONS, self._TARGET_NAMES):
+                if self.state_parser.named_region_matches_multi_target(
+                    frame, named_region, target_name
+                ):
+                    return True
+        return False
+
+
 class RegionChangedTerminationMetric(TerminationTruncationMetric, ABC):
     """
     Terminates the episode if a specific named region changes significantly

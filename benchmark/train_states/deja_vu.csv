@@ -1,0 +1,34 @@
+game,name,description,states
+deja_vu_1,location_sherman,locations at sherman,"at_sherman, in_sherman_lobby, at_sherman_1, at_sherman_2, at_sherman_3, in_sherman_lobby_1, in_sherman_lobby_2, in_sherman_lobby_3, in_sherman_lobby_4"
+deja_vu_1,location_westend,locations atwestedn,"arrived_westend, at_westend, in_westend_lobby, arrived_westend_1, arrived_westend_2, arrived_westend_3, at_westend_1, at_westend_2, at_westend_3, in_westend_lobby_1, in_westend_lobby_2, in_westend_lobby_3,  in_westend_lobby_4"
+deja_vu_1,location_cellar,locations atcellar,"in_cellar, back_to_cellar, in_cellar_1, in_cellar_2, in_cellar_3"
+deja_vu_1,location_empty_restaurant,locations at empty restaurant,"in_empty_restaurant, back_to_empty_restaurant, in_empty_restaurant_1, in_empty_restaurant_2"
+deja_vu_1,location_street,location at street,"in_street, back_to_street, in_street_1, in_street_2, in_street_3, in_street_4"
+deja_vu_1,close_cabinet_done,close the cabinet,"closed_cabinet, closed_cabinet_1, closed_cabinet_2, closed_cabinet_3"
+deja_vu_1,close_dashbrd_done,close the dashbrd,"closed_dashbrd, closed_dashbrd_1, closed_dashbrd_2, closed_dashbrd_3"
+deja_vu_1,location_elevator,enter the elevator,"entered_elevator, entered_elevator_1, entered_elevator_2"
+deja_vu_1,hit_bottle_done,hit the bottle at the left in cellar,"hit_bottle, hit_bottle_1, hit_bottle_2, hit_bottle_3"
+deja_vu_1,location_bungalow,location in the bungalow,"in_bungalow, in_bungalow_1, in_bungalow_2, in_bungalow_3"
+deja_vu_1,location_car,locations at car,"in_front_of_car_trunk, in_car, in_front_of_car_trunk_1, in_car_1, in_car_2"
+deja_vu_1,location_grimy_office,locations at grimy office,"in_front_of_grimy_office, in_grimy_office, in_front_of_grimy_office_1, in_front_of_grimy_office_2, in_grimy_office_1, in_grimy_office_2"
+deja_vu_1,location_kedzie,location in a street named kedzie,"in_kedzie, in_kedzie_1, in_kedzie_2, in_kedzie_3"
+deja_vu_1,location_dead_man_office,location in the office that has a dead man inside,"in_office_with_dead_man, in_office_with_dead_man_1, in_office_with_dead_man_2, in_office_with_dead_man_3"
+deja_vu_1,location_penthouse,location in the penthouse,"in_penthouse, in_penthouse_1, in_penthouse_2, in_penthouse_3, in_penthouse_4"
+deja_vu_1,inside_taxi,in a taxi,"in_taxi, in_taxi_1, in_taxi_2, in_taxi_3, in_taxi_4"
+deja_vu_1,make_medicine_done,make a medicine with meds6 and a capsule,made_medicine
+deja_vu_1,meet_mugger_done,meet a mugger,"met_mugger, met_mugger_1, met_mugger_2, met_mugger_3"
+deja_vu_1,open_dashbrd_done,open the dashbrd in the car,opened_dashbrd
+deja_vu_1,open_door_done,open the door at the beginning,"opened_door, opened_door_1, opened_door_2, opened_door_3, opened_door_4"
+deja_vu_1,open_elevator_door_done,open the door of the elevator,"opened_elevator_door, opened_elevator_door_1, opened_elevator_door_2, opened_elevator_door_3, opened_elevator_door_4"
+deja_vu_1,open_menu_done,open the menus,"opened_pocket_in_menu, opened_wallet_in_menu"
+deja_vu_1,location_office,go back outside the office,"outside_office, outside_office_1, outside_office_2, outside_office_3, outside_office_4"
+deja_vu_1,pay_taxi_done,pay for the taxi fee,"paid_taxi, paid_taxi_1, paid_taxi_2, paid_taxi_3"
+deja_vu_1,location_peoria_st_done,at the peoria street,"peoria_st, peoria_st_1, peoria_st_2, peoria_st_3, peoria_st_4"
+deja_vu_1,read_diary_done,read the diary,read_diary
+deja_vu_1,selected_address_done,choose a address for the destination of the taxi,selected_address
+deja_vu_1,watch_action_selected,select the watch action at the front door,"selected_watch_action_in_front_door, selected_watch_action_in_front_door_1, selected_watch_action_in_front_door_2, selected_watch_action_in_front_door_3, selected_watch_action_in_front_door_4"
+deja_vu_1,take_meds_done,take out all meds in the room,taken_all_meds
+deja_vu_1,take_coat_done,take the coat hanging on the front door,taken_coat_in_front_door
+deja_vu_1,take_gun_done,take the gun hanging on the front door,taken_gun_in_front_door
+deja_vu_1,take_medicine_done,take the medicine ,"taken_medicine, taken_medicine_1, taken_medicine_2, taken_medicine_3, taken_medicine_4"
+deja_vu_1,unlock_front_door_done,unlock the front door,"unlocked_front_door, unlocked_front_door_1, unlocked_front_door_2, unlocked_front_door_3"

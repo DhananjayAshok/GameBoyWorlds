@@ -16,19 +16,6 @@ from gameboy_worlds.emulation.parser import (
 from gameboy_worlds.utils import log_error, verify_parameters
 
 
-def _merge_multi_targets(
-    *multi_targets: Dict[str, List[str]],
-) -> Dict[str, List[str]]:
-    merged: Dict[str, List[str]] = {}
-    for targets in multi_targets:
-        for region_name, target_names in targets.items():
-            region_targets = merged.setdefault(region_name, [])
-            for target_name in target_names:
-                if target_name not in region_targets:
-                    region_targets.append(target_name)
-    return merged
-
-
 class AgentState(Enum):
     FREE_ROAM = 0
     IN_DIALOGUE = 1
@@ -80,7 +67,6 @@ class SurvivalKidsParser(StateParser):
             "got_the_stick",
             "got_the_tree_bark",
             "got_the_water",
-            "inventory_select_item",
             "night_reference",
             "water_menu_open",
         ],

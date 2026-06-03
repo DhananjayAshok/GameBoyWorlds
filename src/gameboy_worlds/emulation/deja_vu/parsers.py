@@ -321,6 +321,8 @@ class DejaVu1StateParser(DejaVuStateParser):
             ("using_key2_item", 0, 128, 160, 8),
             ("selected_westend_address", 0, 88, 160, 8),
             ("using_bullet_item", 0, 88, 160, 8),
+            ("using_note3_item", 0, 88, 160, 8),
+            ("using_key4_item", 0, 128, 160, 8),
         ]
         override_multi_target_regions = []
         override_multi_targets = {
@@ -365,6 +367,14 @@ class DejaVu1StateParser(DejaVuStateParser):
                 "unlocked_office_door",
                 "opened_westend_door",
                 "opened_sherman_door",
+                "made_medicine",
+                "taken_medicine",
+                "opened_diary",
+                "checked_dead_man",
+                "opened_cabinet",
+                "exited_grimy_office",
+                "opened_wall_safe",
+                "opened_car_trunk",
             ],
             "menu_title_area": [
                 "coat_pocket_menu",
@@ -373,6 +383,7 @@ class DejaVu1StateParser(DejaVuStateParser):
             "game_screen_area": [
                 "opened_cellar_door",
                 "shot_door",
+                "shot_lock",
             ],
             "no_action": [
                 "in_cellar",
@@ -380,6 +391,7 @@ class DejaVu1StateParser(DejaVuStateParser):
                 "on_peoria_st",
                 "in_sherman_lobby",
                 "in_westend_lobby",
+                "in_grimy_office",
             ],
         }
 
@@ -408,6 +420,9 @@ class DejaVu2StateParser(DejaVuStateParser):
             ("selected_newsclip1_item", 0, 79, 160, 8),
             ("selected_license1_item", 0, 79, 160, 8),
             ("using_cash_item", 0, 79, 160, 8),
+            ("using_key1_item", 0, 104, 160, 8),
+            ("using_key2_item", 0, 79, 160, 8),
+            ("using_knife_item", 0, 128, 160, 8),
         ]
         override_multi_target_regions = []
         override_multi_targets = {
@@ -451,9 +466,18 @@ class DejaVu2StateParser(DejaVuStateParser):
                 "taken_newsclip4",
                 "entered_chicago_taxi",
                 "chatted_taxi_driver",
+                "unlocked_middle_door",
+                "entered_middle_room",
+                "loaded_gun",
+                "opened_lock",
+                "hit_board",
+                "opened_telephone",
+                "opened_box",
+                "opened_pocket_knife",
+                "opened_door_by_knife",
             ],
             "menu_title_area": [
-                "trench_coat_pocket_menu",
+                "trench_coat_pocket_menu", 
                 "wallet1_menu",
             ],
             "game_screen_area": [

@@ -235,20 +235,20 @@ class SurvivalKidsHudMetrics(MetricGroup):
 
 
 class SurvivalKidsOCRMetric(OCRegionMetric):
-    """Expose OCR regions only when Survival Kids shows readable UI text."""
-
     REQUIRED_PARSER = SurvivalKidsParser
 
     def start(self):
         self.kinds = {
+            "full_screen": "screen",
             "dialogue": "dialogue_area",
-            "dialogue_bottom": "screen_bottom",
             "menu": "menu_area",
         }
         super().start()
 
     def can_read_kind(self, current_frame: np.ndarray, kind: str) -> bool:
-        if kind in {"dialogue", "dialogue_bottom"}:
+        if kind == "full_screen":
+            return True
+        if kind == "dialogue":
             return self.state_parser.is_in_dialogue(current_frame)
         if kind == "menu":
             return self.state_parser.is_in_menu(current_frame)

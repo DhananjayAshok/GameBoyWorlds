@@ -42,3 +42,60 @@ sword_of_hope_2,"menu, navigation",Navigate cursor onto OPEN in command grid,def
 sword_of_hope_2,"menu, navigation",Navigate cursor onto MAGIC in command grid,default,cursor_on_magic_test,sword_of_hope_1,True
 sword_of_hope_2,"menu, navigation",Navigate cursor onto HIT in command grid,default,cursor_on_hit_test,sword_of_hope_1,True
 sword_of_hope_2,"menu, navigation",Cycle cursor through all 6 commands in order,default,cycle_through_commands_test,sword_of_hope_1,True
+sword_of_hope_1,"menu, interaction",Open the shop buy menu (shorter scope than purchase),shop_forest,shop_menu_open_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation",Select the LOOK command in the command grid,default,look_command_select_test,sword_of_hope_2,True
+sword_of_hope_1,menu,Open the command menu from exploration,default,menu_open_test,sword_of_hope_2,True
+sword_of_hope_1,menu,Open the Magic spell list from the overworld,default,magic_menu_open_test,sword_of_hope_2,True
+sword_of_hope_1,interaction,Initiate an NPC dialogue (shorter scope than advancing),default,dialogue_initiated_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation",Navigate cursor onto LOOK in command grid,default,cursor_on_look_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation",Navigate cursor onto OPEN in command grid,default,cursor_on_open_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation",Navigate cursor onto USE in command grid,default,cursor_on_use_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation",Navigate cursor onto MAGIC in command grid,default,cursor_on_magic_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation",Navigate cursor onto HIT in command grid,default,cursor_on_hit_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation",Navigate cursor onto POWER in command grid,default,cursor_on_power_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation",Cycle cursor through all 6 commands in order (LOOK->OPEN->USE->MAGIC->HIT->POWER),default,cycle_through_commands_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, interaction",Open Power stats menu to first stats page (HP/MP/etc),default,open_status_view_test,sword_of_hope_2,True
+sword_of_hope_1,"combat, menu",Navigate cursor to AUTO command in battle row,battle_example,auto_battle_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, reasoning",Open Magic submenu and back out without casting (menu-cancel reasoning),default,cancel_magic_menu_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, reasoning",Open Power menu first stats page and close back to exploration,default,cancel_power_menu_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, reasoning",Open Teleport destination list and cancel back to exploration,default,cancel_teleport_menu_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, reasoning",Open shop buy menu and exit without purchasing,shop_forest,cancel_shop_menu_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, reasoning",Look at target options and back out without choosing,default,cancel_look_options_test,sword_of_hope_2,True
+sword_of_hope_1,"combat, reasoning",Open battle Magic submenu and cancel back to battle command,battle_example,battle_magic_cancel_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation",Cycle cursor all the way around back to LOOK via POWER (wrap-around),default,cycle_back_to_look_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation",Navigate cursor to POWER via MAGIC (lower-row constrained path),default,cycle_to_power_via_magic_test,sword_of_hope_2,True
+sword_of_hope_1,"combat, menu",In battle Magic submenu cursor on Firebal spell specifically (battle-only spell),pre_treant_engage,cursor_on_firebal_test,sword_of_hope_2,True
+sword_of_hope_1,"combat, menu",In battle Magic submenu cursor on Firebal2 spell specifically (battle-only spell),pre_treant_engage,cursor_on_firebal2_test,sword_of_hope_2,True
+sword_of_hope_1,"combat, menu",In battle Magic submenu cursor on Stripall debuff spell specifically,pre_treant_engage,cursor_on_stripall_test,sword_of_hope_2,True
+sword_of_hope_1,"combat, reasoning",In battle Magic submenu navigate cursor to Stripall then back out without casting,pre_treant_engage,battle_stripall_cancel_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, interaction",In Teleport destination list cursor on Old Man's House specifically,near_treant_postkill,cursor_on_teleport_oldman_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, interaction",In Use submenu cursor on Herb inventory item specifically,mistress_backroom_access_collected,cursor_on_herb_use_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, interaction",In Use submenu cursor on Key M inventory item specifically,at_martel_gate,cursor_on_keym_use_test,sword_of_hope_2,True
+sword_of_hope_1,"menu, navigation, reasoning",View Power stats last page then Teleport to Old Man's House (3-subgoal composite),lvl5_overworld,view_power_then_teleport_oldman_test,sword_of_hope_2,True
+sword_of_hope_2,"menu, navigation",Navigate cursor onto POWER in command grid,default,cursor_on_power_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction",Open Power stats menu to first stats page (HP/MP),default,power_first_page_test,sword_of_hope_1,True
+sword_of_hope_2,menu,Open the Magic submenu from exploration,default,open_magic_menu_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction",Open the Item submenu (inventory view) from exploration,default,open_item_view_test,sword_of_hope_1,True
+sword_of_hope_2,"interaction, menu",Look at the weapons-shop shopkeeper to engage interaction,weapons_shop_example,look_shopkeeper_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction",Reach the weapons shop BUY item list from the shopkeeper interaction,weapons_shop_example,open_weapons_shop_buy_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, navigation",Navigate the cursor onto CPR Sword in the weapons shop item list,weapons_shop_example,cursor_on_cpr_sword_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction",Open the Use submenu after selecting Wheat in inventory,hit_tree_example,open_use_menu_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction",Reach the BUY/SELL choice menu after engaging the weapons shopkeeper,weapons_shop_example,open_shop_buy_sell_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, navigation",Navigate the cursor onto Wheat in the Item submenu,hit_tree_example,cursor_on_wheat_test,sword_of_hope_1,True
+sword_of_hope_2,"combat, menu",Navigate the cursor onto CLASH in the battle command row,battle_example,battle_clash_test,sword_of_hope_1,True
+sword_of_hope_2,navigation,Reach Ancient Temple 1F from outside the temple entrance (story event #1),outside_temple,enter_temple_first_floor_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, reasoning",Open Magic submenu and cancel back to exploration without casting,lvl2_overworld,cancel_magic_menu_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, reasoning",Open Item inventory submenu and cancel back to exploration,hit_tree_example,cancel_item_menu_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, reasoning",Open shop buy menu and exit without purchasing,shop_example,cancel_shop_menu_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, reasoning",Reach weapons shop BUY item list then cancel back to exploration,weapons_shop_example,cancel_weapons_shop_buy_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, reasoning",Look at the weapons-shop shopkeeper then back out without engaging,weapons_shop_example,cancel_look_shopkeeper_test,sword_of_hope_1,True
+sword_of_hope_2,"combat, navigation",In battle navigate cursor AUTO -> CLASH (reverse selection),battle_example,auto_to_clash_battle_test,sword_of_hope_1,True
+sword_of_hope_2,"combat, navigation",In battle navigate cursor CLASH -> AUTO (forward selection),battle_example,clash_to_auto_battle_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction, hard",In Magic submenu choose Theo then cursor on Motion spell (lvl-2 overworld spell),lvl2_overworld,cursor_on_motion_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction, hard",In shop buy list cursor on first item entry (full_screen capture),shop_example,cursor_on_shop_first_item_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction, hard",In shop buy list cursor on third item entry (must traverse from first),shop_example,cursor_on_shop_third_item_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction, hard",In weapons shop cursor on first weapon (Knife),weapons_shop_example,cursor_on_first_weapon_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction, hard",In weapons shop cursor on second weapon (Rapier) - single step from first,weapons_shop_example,cursor_on_second_weapon_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, interaction, hard",In weapons shop cursor on third weapon (CPR Sword) - traverse first and second,weapons_shop_example,cursor_on_third_weapon_test,sword_of_hope_1,True
+sword_of_hope_2,"interaction, menu, hard",Use LOOK then cursor on TREE target in target list,hit_tree_example,look_tree_target_test,sword_of_hope_1,True
+sword_of_hope_2,"menu, navigation, reasoning, hard",View Power stats first then exp page then cast Motion (3-subgoal composite),lvl2_overworld,view_power_then_cast_motion_test,sword_of_hope_1,True

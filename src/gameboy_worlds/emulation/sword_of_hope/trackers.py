@@ -21,7 +21,6 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     SoH2BattleMagicMenuTerminateMetric,
     SoH2MotionResultTerminateMetric,
     SoH2MagicMenuOpenSubGoal,
-    SoH2ItemFoundTerminateMetric,
     SoH2LookTargetSubGoal,
     SoH2CprSwordPurchasedTerminateMetric,
     SoH2WeaponsShopMenuOpenSubGoal,
@@ -77,9 +76,7 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     MistressSecondDialogueTerminateMetric,
     SaveConfirmedTerminateMetric,
     HerbReceivedTerminateMetric,
-    TrtFruitReceivedTerminateMetric,
     TreantDefeatedTerminateMetric,
-    PassageRevealedTerminateMetric,
     GateOpenedTerminateMetric,
     ScrollReceivedTerminateMetric,
     CharmReceivedTerminateMetric,
@@ -92,13 +89,45 @@ from gameboy_worlds.emulation.sword_of_hope.test_metrics import (
     CursorOnHitTerminateMetric,
     CursorOnPowerTerminateMetric,
     PowerStatsFirstPageTerminateMetric,
-    UseMenuOpenTerminateMetric,
     CursorOnAutoTerminateMetric,
     ShopMenuOpenTerminateMetric,
     LookSelectedTerminateMetric,
     MenuOpenTerminateMetric,
     MagicMenuOpenTerminateMetric,
     DialogueInitiatedTerminateMetric,
+    BattleActiveTerminateMetric,
+    TeleportDestCursorTerminateMetric,
+    LookTargetOptionsTerminateMetric,
+    CursorOnFirebalTerminateMetric,
+    CursorOnFirebal2TerminateMetric,
+    CursorOnStripallTerminateMetric,
+    CursorOnFirebalSubGoal,
+    CursorOnFirebal2SubGoal,
+    CursorOnStripallSubGoal,
+    CursorOnTeleportOldmanTerminateMetric,
+    CursorOnHerbUseTerminateMetric,
+    CursorOnKeymUseTerminateMetric,
+    OldmanHouseTerminateMetric,
+    PowerStatsLastPageSubGoal,
+    CursorOnTeleportOldmanSubGoal,
+    PowerStatsFirstPageSubGoal,
+    BattleMagicMenuSubGoal,
+    SoH2BattleActiveTerminateMetric,
+    SoH2CursorOnMotionTerminateMetric,
+    SoH2CursorOnTheoSubGoal,
+    SoH2PowerStatsExpPageSubGoal,
+    SoH2CursorOnShopFirstItemTerminateMetric,
+    SoH2CursorOnShopFirstItemSubGoal,
+    SoH2CursorOnShopThirdItemTerminateMetric,
+    SoH2CursorOnFirstWeaponTerminateMetric,
+    SoH2CursorOnFirstWeaponSubGoal,
+    SoH2CursorOnSecondWeaponTerminateMetric,
+    SoH2CursorOnSecondWeaponSubGoal,
+    SoH2CursorOnThirdWeaponTerminateMetric,
+    SoH2LookTreeTargetTerminateMetric,
+    SoH2BattleMagicMenuSubGoal,
+    SoH2CursorOnAutoSubGoal,
+    SoH2CursorOnClashSubGoal,
     OldmanHouseSubGoal,
     InForestSubGoal,
     ShamanHouseSubGoal,
@@ -382,17 +411,6 @@ class SwordOfHope2CastMotionTestTracker(SwordOfHope2TestTracker):
 
     TERMINATION_TRUNCATION_METRIC = SoH2MotionResultTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([SoH2MagicMenuOpenSubGoal])
-
-
-class SwordOfHope2LookItemTestTracker(SwordOfHope2TestTracker):
-    """
-    Terminates when the agent uses Look on an object and discovers an item.
-    Starts at look_example.state (player adjacent to a Lookable object).
-    Subgoals: look_target -> (termination) item_found.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = SoH2ItemFoundTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2LookTargetSubGoal])
 
 
 class SwordOfHope2BuyWheatTestTracker(SwordOfHope2TestTracker):
@@ -733,18 +751,6 @@ class SwordOfHope1LookSurroundHerbTestTracker(SwordOfHope1TestTracker):
     SUBGOAL_METRIC = make_subgoal_metric_class([LookPathTargetSubGoal])
 
 
-class SwordOfHope1HitTreantItemTestTracker(SwordOfHope1TestTracker):
-    """
-    Terminates when the agent Hits the Treant area (post-kill) at Old Man's Forest
-    [H2] and receives a TrtFruit (walkthrough event #19).
-    Starts at near_treant_postkill.state (player at [H2] with Treant defeated).
-    Subgoals: hit_target_shown -> (termination) trtfruit_received.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = TrtFruitReceivedTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([HitTargetShownSubGoal])
-
-
 class SwordOfHope1DefeatTreantTestTracker(SwordOfHope1TestTracker):
     """
     Terminates when the agent defeats Treant in battle (walkthrough event #2),
@@ -755,18 +761,6 @@ class SwordOfHope1DefeatTreantTestTracker(SwordOfHope1TestTracker):
 
     TERMINATION_TRUNCATION_METRIC = TreantDefeatedTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([BattleActiveSubGoal])
-
-
-class SwordOfHope1HitWallPassageTestTracker(SwordOfHope1TestTracker):
-    """
-    Terminates when the agent Hits the wall at Martel's [B3] doll area and
-    reveals an ivy vine passage (walkthrough: 'HIT the wall to reveal a vine').
-    Starts at martel_b3.state (player in Martel's Domain at [B3]).
-    Subgoals: hit_wall_target -> (termination) passage_revealed.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = PassageRevealedTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([HitWallTargetSubGoal])
 
 
 class SwordOfHope1UseKeyUnlockTestTracker(SwordOfHope1TestTracker):
@@ -901,19 +895,6 @@ class SwordOfHope1OpenStatusViewTestTracker(SwordOfHope1TestTracker):
     SUBGOAL_METRIC = make_subgoal_metric_class([CursorOnPowerSubGoal])
 
 
-class SwordOfHope1OpenUseMenuTestTracker(SwordOfHope1TestTracker):
-    """
-    Terminates when the agent opens the Use submenu (inventory selection).
-    Full chain: navigate cursor to Use in command grid -> press A to open
-    Use submenu (inventory list visible).
-    Starts at default.state (assuming Theo has at least one usable item).
-    Subgoals: cursor_on_use -> (termination) use_menu_open.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = UseMenuOpenTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([CursorOnUseSubGoal])
-
-
 class SwordOfHope1AutoBattleTestTracker(SwordOfHope1TestTracker):
     """
     Terminates when the agent navigates the cursor onto the AUTO command in
@@ -984,3 +965,453 @@ class SwordOfHope1DialogueInitiatedTestTracker(SwordOfHope1TestTracker):
 
     TERMINATION_TRUNCATION_METRIC = DialogueInitiatedTerminateMetric
     SUBGOAL_METRIC = DummySubGoalMetric
+
+
+# ---------------------------------------------------------------------------
+# SoH1 — 50-task push: reasoning-hard trackers
+# Zero-capture set: each task reuses existing termination .npy but enforces a
+# non-trivial subgoal sequence the agent must satisfy (open-then-cancel,
+# constrained cycle paths, in-battle menu-cancel reasoning).
+# Capture-pending set: each task terminates on a "cursor on a specific list
+# entry" target the user will capture in dev_play.
+# ---------------------------------------------------------------------------
+
+
+class SwordOfHope1CancelMagicMenuTestTracker(SwordOfHope1TestTracker):
+    """
+    Open the Magic submenu from exploration, then back out without casting.
+    Tests menu-cancel reasoning: agent must understand the B-button semantics
+    and recognize the difference between "open menu" and "commit to action".
+    Init: default.state. Subgoal: magic_menu_open -> (term) exploration_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = ExplorationMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([MagicMenuOpenSubGoal])
+
+
+class SwordOfHope1CancelPowerMenuTestTracker(SwordOfHope1TestTracker):
+    """
+    Open the Power stats menu, view first stats page, then close back to
+    exploration. Multi-step menu navigation with a deliberate exit.
+    Init: default.state. Subgoal: power_stats_first_page -> (term) exploration_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = ExplorationMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([PowerStatsFirstPageSubGoal])
+
+
+class SwordOfHope1CancelTeleportMenuTestTracker(SwordOfHope1TestTracker):
+    """
+    Open Magic -> Teleport -> destination list, then cancel back to
+    exploration without teleporting. Tests cancellation of nested menus.
+    Init: default.state. Subgoal: teleport_dest_cursor -> (term) exploration_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = ExplorationMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([TeleportDestCursorSubGoal])
+
+
+class SwordOfHope1CancelShopMenuTestTracker(SwordOfHope1TestTracker):
+    """
+    Open the shop's buy menu, then exit without purchasing. Distinguishes
+    "browse the inventory" from "commit to a purchase".
+    Init: shop_forest.state. Subgoal: shop_menu_open -> (term) exploration_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = ExplorationMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([ShopMenuOpenSubGoal])
+
+
+class SwordOfHope1CancelLookOptionsTestTracker(SwordOfHope1TestTracker):
+    """
+    Select LOOK and view the target options, then back out without choosing.
+    Pure inspection task: information-gather without committing.
+    Init: default.state. Subgoal: look_target_options -> (term) exploration_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = ExplorationMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([LookTargetOptionsSubGoal])
+
+
+class SwordOfHope1BattleMagicCancelTestTracker(SwordOfHope1TestTracker):
+    """
+    In battle, open the Magic submenu, then back out without casting. Battle
+    contexts have a different default cursor; agent must learn the in-battle
+    cancel pattern is symmetric to the overworld one.
+    Init: battle_example.state. Subgoal: battle_magic_menu -> (term) battle_active.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = BattleActiveTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([BattleMagicMenuSubGoal])
+
+
+class SwordOfHope1CycleBackToLookTestTracker(SwordOfHope1TestTracker):
+    """
+    Starting from cursor on LOOK, the agent must cycle the cursor through the
+    command grid all the way around (LOOK -> ... -> POWER -> wrap -> LOOK).
+    Termination matches the original LOOK position but the SUBGOAL forces the
+    agent to have actually visited POWER en route - otherwise it would just
+    stay in place. Tests cyclic navigation understanding.
+    Init: default.state. Subgoal: cursor_on_power -> (term) cursor_on_look.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CursorOnLookTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([CursorOnPowerSubGoal])
+
+
+class SwordOfHope1CycleToPowerViaMagicTestTracker(SwordOfHope1TestTracker):
+    """
+    Navigate cursor to POWER, but only via MAGIC (constrained path). Forces the
+    agent to take the lower-row route rather than the shortest L->R top-row
+    route. Tests constrained-path reasoning.
+    Init: default.state. Subgoal: cursor_on_magic -> (term) cursor_on_power.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CursorOnPowerTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([CursorOnMagicSubGoal])
+
+
+class SwordOfHope1CursorOnFirebalTestTracker(SwordOfHope1TestTracker):
+    """
+    In battle, open the Magic submenu and navigate the cursor to the FIREBAL
+    spell specifically (not Firebal2, not other spells). Firebal is a
+    battle-only spell in SoH1. Tests spell selection under list ambiguity.
+    Init: pre_treant_engage.state (lvl 4 Theo with Firebal learned, in battle).
+    Subgoal: battle_magic_menu -> (term) cursor_on_firebal.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CursorOnFirebalTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([BattleMagicMenuSubGoal])
+
+
+class SwordOfHope1CursorOnFirebal2TestTracker(SwordOfHope1TestTracker):
+    """
+    In battle, open the Magic submenu and cursor on FIREBAL2 specifically
+    (the upgraded variant). Battle-only spell. Tests fine-grained spell
+    distinction in the battle Magic list.
+    Init: pre_treant_engage.state (verify Firebal2 is in spell list at lvl 4).
+    Subgoal: battle_magic_menu -> (term) cursor_on_firebal2.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CursorOnFirebal2TerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([BattleMagicMenuSubGoal])
+
+
+class SwordOfHope1CursorOnStripallTestTracker(SwordOfHope1TestTracker):
+    """
+    In battle, open the Magic submenu and cursor on STRIPALL specifically.
+    Stripall is a battle-only debuff spell that strips enemy buffs/defense.
+    Tests spell-purpose disambiguation: agent must distinguish damage spells
+    (Firebal/Firebal2) from utility spells (Stripall) in the same list.
+    Init: pre_treant_engage.state.
+    Subgoal: battle_magic_menu -> (term) cursor_on_stripall.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CursorOnStripallTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([BattleMagicMenuSubGoal])
+
+
+class SwordOfHope1CursorOnTeleportOldmanTestTracker(SwordOfHope1TestTracker):
+    """
+    Cast Teleport and navigate the destination cursor onto OLD MAN'S HOUSE
+    specifically (not Shaman's, not Forest). Tests destination disambiguation.
+    Init: near_treant_postkill.state (multiple teleport destinations available).
+    Subgoal: teleport_dest_cursor -> (term) cursor_on_teleport_oldman.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CursorOnTeleportOldmanTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([TeleportDestCursorSubGoal])
+
+
+class SwordOfHope1CursorOnHerbUseTestTracker(SwordOfHope1TestTracker):
+    """
+    Open the Use submenu and navigate cursor to HERB specifically (not Key M,
+    not Scroll, not other items). Tests inventory item disambiguation.
+    Init: mistress_backroom_access_collected.state (has Scroll + Herb).
+    Subgoal: cursor_on_use -> (term) cursor_on_herb_use.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CursorOnHerbUseTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([CursorOnUseSubGoal])
+
+
+class SwordOfHope1CursorOnKeymUseTestTracker(SwordOfHope1TestTracker):
+    """
+    Open the Use submenu and navigate cursor to KEY M specifically. Tests
+    inventory disambiguation in the at_martel_gate context where Key M is
+    the correct (quest-required) item among other inventory entries.
+    Init: at_martel_gate.state. Subgoal: cursor_on_use -> (term) cursor_on_keym_use.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CursorOnKeymUseTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([CursorOnUseSubGoal])
+
+
+class SwordOfHope1BattleStripallCancelTestTracker(SwordOfHope1TestTracker):
+    """
+    In battle, navigate to STRIPALL in the Magic submenu (cursor on Stripall),
+    then back out without casting it. Tests inspect-without-commit reasoning
+    in a battle context with a non-default spell choice.
+    Init: pre_treant_engage.state (battle active, Theo at lvl 4+).
+    Subgoals (2):
+        battle_magic_menu -> cursor_on_stripall -> (term) battle_active.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = BattleActiveTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [BattleMagicMenuSubGoal, CursorOnStripallSubGoal]
+    )
+
+
+class SwordOfHope1ViewPowerThenTeleportOldmanTestTracker(SwordOfHope1TestTracker):
+    """
+    Long-horizon composite reasoning task: agent must inspect player stats
+    THEN travel via Teleport. Full chain:
+      1. Navigate command cursor to POWER, press A to open Power stats
+      2. Scroll through the Power stat slides to the LAST page
+      3. Press B to close back to exploration
+      4. Open Magic submenu -> select TELEPORT
+      5. In destination list, navigate cursor to OLD MAN'S HOUSE
+      6. Press A to confirm; agent lands at Old Man's House
+    Termination: room_label shows oldman_house.
+    Init: lvl5_overworld.state (player at lvl 5+, Teleport unlocked, Old Man's
+    House available as a teleport destination).
+    Subgoals (3, in order):
+        cursor_on_power -> power_stats_last_page -> cursor_on_teleport_oldman
+        -> (term) oldman_house.
+    Tests: long-horizon planning with menu-inspect-then-act reasoning across
+    three distinct UI contexts (command grid, Power stats menu, Teleport
+    destination list) before the agent commits to the travel action.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OldmanHouseTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [
+            CursorOnPowerSubGoal,
+            PowerStatsLastPageSubGoal,
+            CursorOnTeleportOldmanSubGoal,
+        ]
+    )
+
+
+# ---------------------------------------------------------------------------
+# SoH2 — 50-task push: reasoning-hard trackers
+# ---------------------------------------------------------------------------
+
+
+class SwordOfHope2CancelMagicMenuTestTracker(SwordOfHope2TestTracker):
+    """
+    Open the Magic submenu from exploration, then back out without casting.
+    Mirror of SoH1 variant. Tests menu-cancel reasoning.
+    Init: lvl2_overworld.state (Theo has Motion spell available).
+    Subgoal: magic_menu_open -> (term) exploration_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2ExplorationMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2MagicMenuOpenSubGoal])
+
+
+class SwordOfHope2CancelItemMenuTestTracker(SwordOfHope2TestTracker):
+    """
+    Open the Item submenu (inventory list), then back out without using
+    anything. Tests inventory-browse vs commit-to-use distinction.
+    Init: hit_tree_example.state (Wheat in inventory).
+    Subgoal: item_menu_open -> (term) exploration_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2ExplorationMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2ItemMenuOpenSubGoal])
+
+
+class SwordOfHope2CancelShopMenuTestTracker(SwordOfHope2TestTracker):
+    """
+    Open a shop's buy menu, then exit without purchasing.
+    Init: shop_example.state. Subgoal: shop_menu_open -> (term) exploration_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2ExplorationMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2ShopMenuOpenSubGoal])
+
+
+class SwordOfHope2CancelWeaponsShopBuyTestTracker(SwordOfHope2TestTracker):
+    """
+    Navigate into the weapons shop BUY item list, then exit without buying.
+    Init: weapons_shop_example.state.
+    Subgoal: weapons_shop_menu_open -> (term) exploration_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2ExplorationMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2WeaponsShopMenuOpenSubGoal])
+
+
+class SwordOfHope2CancelLookShopkeeperTestTracker(SwordOfHope2TestTracker):
+    """
+    Look at the weapons-shop shopkeeper, then back out without engaging.
+    Tests Look-without-interact distinction.
+    Init: weapons_shop_example.state.
+    Subgoal: look_shopkeeper -> (term) exploration_menu.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2ExplorationMenuTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2LookShopkeeperSubGoal])
+
+
+class SwordOfHope2AutoToClashBattleTestTracker(SwordOfHope2TestTracker):
+    """
+    Starting in battle, navigate cursor to AUTO first, then move it back to
+    CLASH (reverse selection). Tests reversible cursor reasoning in battle.
+    Init: battle_example.state.
+    Subgoal: cursor_on_auto -> (term) cursor_on_clash.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnClashTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2CursorOnAutoSubGoal])
+
+
+class SwordOfHope2ClashToAutoBattleTestTracker(SwordOfHope2TestTracker):
+    """
+    Starting in battle, cursor on CLASH (default), navigate to AUTO.
+    Mirror of the AUTO->CLASH variant. Tests reverse-direction cursor.
+    Init: battle_example.state.
+    Subgoal: cursor_on_clash -> (term) cursor_on_auto.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnAutoTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2CursorOnClashSubGoal])
+
+
+class SwordOfHope2CursorOnMotionTestTracker(SwordOfHope2TestTracker):
+    """
+    Open the Magic submenu and navigate the cursor to MOTION (the lvl-2
+    overworld spell). SoH2's party system requires an extra step compared to
+    SoH1: agent must first pick the party member (Theo) before their spell
+    list is shown.
+    Init: lvl2_overworld.state.
+    Subgoals (2, in order):
+        magic_menu_open (party member list visible)
+        -> cursor_on_theo (cursor on Theo in party list, about to confirm)
+        -> (term) cursor_on_motion (cursor on Motion in Theo's spell list).
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnMotionTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [SoH2MagicMenuOpenSubGoal, SoH2CursorOnTheoSubGoal]
+    )
+
+
+class SwordOfHope2CursorOnShopFirstItemTestTracker(SwordOfHope2TestTracker):
+    """
+    In a generic shop's buy list, cursor on the FIRST item entry. Tests "go
+    to top of list" reasoning - distinguished from "cursor on Wheat" which is
+    a different shop layout.
+    Init: shop_example.state.
+    Subgoal: shop_menu_open -> (term) cursor_on_shop_first_item.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnShopFirstItemTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2ShopMenuOpenSubGoal])
+
+
+class SwordOfHope2CursorOnShopThirdItemTestTracker(SwordOfHope2TestTracker):
+    """
+    Same shop as cursor_on_shop_first_item_test, but cursor on the THIRD item
+    entry. Tests bounded list navigation — agent must traverse from the
+    default cursor position (first item) down to the third.
+    Init: shop_example.state.
+    Subgoals (2): shop_menu_open -> cursor_on_shop_first_item ->
+        (term) cursor_on_shop_third_item.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnShopThirdItemTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [SoH2ShopMenuOpenSubGoal, SoH2CursorOnShopFirstItemSubGoal]
+    )
+
+
+class SwordOfHope2CursorOnFirstWeaponTestTracker(SwordOfHope2TestTracker):
+    """
+    In the weapons shop, cursor on the FIRST weapon entry. Distinguished from
+    cursor_on_cpr_sword_test (3rd entry) - tests "top of list" navigation.
+    Init: weapons_shop_example.state.
+    Subgoal: weapons_shop_menu_open -> (term) cursor_on_first_weapon.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnFirstWeaponTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2WeaponsShopMenuOpenSubGoal])
+
+
+class SwordOfHope2CursorOnSecondWeaponTestTracker(SwordOfHope2TestTracker):
+    """
+    Weapons shop, cursor on the SECOND weapon entry. Tests single-step
+    navigation from the first item position.
+    Init: weapons_shop_example.state.
+    Subgoals (2): weapons_shop_menu_open -> cursor_on_first_weapon ->
+        (term) cursor_on_second_weapon.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnSecondWeaponTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [SoH2WeaponsShopMenuOpenSubGoal, SoH2CursorOnFirstWeaponSubGoal]
+    )
+
+
+class SwordOfHope2CursorOnThirdWeaponTestTracker(SwordOfHope2TestTracker):
+    """
+    Weapons shop, cursor on the THIRD weapon entry (CPR Sword in current
+    shop layout). Distinguished from cursor_on_cpr_sword_test by framing:
+    this tests bounded-list navigation by position, not by name.
+    Init: weapons_shop_example.state.
+    Subgoals (3): weapons_shop_menu_open -> cursor_on_first_weapon ->
+        cursor_on_second_weapon -> (term) cursor_on_third_weapon.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2CursorOnThirdWeaponTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [
+            SoH2WeaponsShopMenuOpenSubGoal,
+            SoH2CursorOnFirstWeaponSubGoal,
+            SoH2CursorOnSecondWeaponSubGoal,
+        ]
+    )
+
+
+class SwordOfHope2LookTreeTargetTestTracker(SwordOfHope2TestTracker):
+    """
+    Use LOOK on a grass tile (not the shopkeeper, not the tree). Tests
+    target disambiguation in the Look menu where multiple visible targets
+    are available.
+    Init: hit_tree_example.state (grass tiles nearby).
+    Subgoal: cursor_on_look -> (term) look_tree_target.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2LookTreeTargetTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SoH2CursorOnLookSubGoal])
+
+
+class SwordOfHope2ViewPowerThenCastMotionTestTracker(SwordOfHope2TestTracker):
+    """
+    Long-horizon composite reasoning task (SoH2 mirror of SoH1's
+    view_power_then_teleport_oldman_test):
+      1. Navigate command cursor to POWER, press A
+      2. Scroll through Power stats first page to the exp/level page
+      3. Press B to close Power back to exploration
+      4. Open Magic submenu, choose Theo, choose Motion, confirm cast
+    Termination: motion_result (Motion cast confirmation dialogue).
+    Init: lvl2_overworld.state.
+    Subgoals (3, in order):
+        cursor_on_power -> power_stats_first_page -> power_stats_exp_page
+        -> (term) motion_result.
+    Tests: inspect-then-act long-horizon planning across Power menu and
+    party-magic chain.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SoH2MotionResultTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [
+            SoH2CursorOnPowerSubGoal,
+            SoH2PowerStatsFirstPageSubGoal,
+            SoH2PowerStatsExpPageSubGoal,
+        ]
+    )
+
+

@@ -11,143 +11,169 @@ from gameboy_worlds.emulation.deja_vu.base_metrics import (
     CoreDejaVuMetrics,
     DejaVuOCRMetric,
 )
-# import metrics for the test trackers
-from gameboy_worlds.emulation.deja_vu.test_metrics import (
-    Bought2ChipsTerminationMetric,
-    BoughtNewspaperTerminationMetric,
-    BoughtTicketTerminationMetric,
-    CashedOutTerminationMetric,
-    ChattedSellerTerminationMetric,
-    ChattedTaxiDriverTerminationMetric,
-    CheckedCoatTerminationMetric,
-    CheckedGirlTerminationMetric,
-    CheckedGunTerminationMetric,
-    CheckedMapTerminationMetric,
-    CheckedNewsclip1TerminationMetric,
-    CheckedNote2TerminationMetric,
-    CheckedPhotoTerminationMetric,
-    CheckedSignTerminationMetric,
-    CheckedSnapshotTerminationMetric,
-    CheckedTimetableTerminationMetric,
-    ClosedColdTapTerminationMetric,
-    ClosedDashbrdTerminationMetric,
-    ClosedDoorFromMapTerminationMetric,
-    ClosedElevatorDoorTerminationMetric,
-    ClosedPantsPocketTerminationMetric,
-    ClosedPocketTerminationMetric,
-    ClosedWallet1TerminationMetric,
-    ClosedWalletTerminationMetric,
-    EnteredCellarTerminationMetric,
-    EnteredChicagoTaxiTerminationMetric,
-    EnteredConnectingRoomTerminationMetric,
-    EnteredElevatorTerminationMetric,
-    EnteredEmptyRoomFromMapTerminationMetric,
-    EnteredHallwayTerminationMetric,
-    EnteredPlatformTerminationMetric,
-    EnteredShermanTerminationMetric,
-    EnteredTaxiTerminationMetric,
-    EnteredTrainTerminationMetric,
-    EnteredWestendTerminationMetric,
-    ExitedCasinoTerminationMetric,
-    GoNewsstandTerminationMetric,
-    OpenedDeskTerminationMetric,
-    OpenedElevatorDoorTerminationMetric,
-    OpenedLobbyDoorTerminationMetric,
-    OutsideApartmentTerminationMetric,
-    PaidTaxiTerminationMetric,
-    ReturnedToCashierTerminationMetric,
-    ShotDoorTerminationMetric,
-    TakenNewsclip4TerminationMetric,
-    TakenPamphletTerminationMetric,
-    TalkedInTrainStationTerminationMetric,
-    UnlockedOfficeDoorTerminationMetric,
-    VisitedCounterTerminationMetric,
-    WenttoOfficeTerminationMetric,
-    WenttoWestendTerminationMetric,
-    HitBottleTerminationMetric,
-    HitMuggerTerminationMetric,
-    MadeBetTerminationMetric,
-    MeetMuggerTerminationMetric,
-    OpenedBathroomDoorTerminationMetric,
-    OpenedColdTapTerminationMetric,
-    OpenedDashbrdTerminationMetric,
-    OpenedDoorFromMapTerminationMetric,
-    OpenedDoorTerminationMetric,
-    OpenedPantsPocketTerminationMetric,
-    OpenedPocketTerminationMetric,
-    OpenedSpigotTerminationMetric,
-    OpenedTrenchCoatPocketTerminationMetric,
-    OpenedWallet1TerminationMetric,
-    OpenedWalletTerminationMetric,
-    PutOnPantsTerminationMetric,
-    PutOnTrenchCoatTerminationMetric,
-    TakenCoatTerminationMetric,
-    TakenGumTerminationMetric,
-    TakenGunTerminationMetric,
-    ClosedDoorTerminationMetric,
-    TakenLicense1TerminationMetric,
-    TakenNewsclip1TerminationMetric,
-    TakenPantsTerminationMetric,
-    TakenRing1TerminationMetric,
-    TalkedToTaxiDriverTerminationMetric,
-    UnlockedCarDoorTerminationMetric,
-    UnlockedFrontDoorTerminationMetric,
-)
-# import subgoal classes for the subgoal metrics
-from gameboy_worlds.emulation.deja_vu.test_metrics import (
-    InWallet1MenuSubGoal,
-    PointedAtPantsSubGoal,
-    SelectedOpenActionInMenuSubGoal,
-    SelectedOpenActionInNormalSubGoal,
-    SelectedTakeActionInNormalSubGoal,
-    SelectedCloseActionInNormalSubGoal,
-    SelectedCloseActionInMenuSubGoal,
-    InCoatPocketMenuSubGoal,
-    InWalletMenuSubGoal,
-    PointedAtCoatSubGoal,
-    PointedAtWalletSubGoal,
-    InGoodsMenuSubGoal,
-    SelectedHitActionInNormalSubGoal,
-    SockoOnScreenSubGoal,
-    OpenedCellarDoorOnScreenSubGoal,
-    PointedAtGumSubGoal,
-    SelectedTakeActionInMenuSubGoal,
-    InTrenchCoatPocketMenuSubGoal,
-    SelectedOutfitButtonSubGoal,
-    SelectedUseActionInMenuSubGoal,
-    PointedAtTrenchCoatSubGoal,
-    PointedAtWallet1SubGoal,
-    PointedAtNewsclip1SubGoal,
-    PointedAtLicense1SubGoal,
-    SelectedWatchActionInMenuSubGoal,
-    PointedAt21OnMapSubGoal,
-    Selected2ChipsSubGoal,
-    PointedAtCoinSubGoal,
-    UsingCoinSubGoal,
-    PointedAt13OnMapSubGoal,
-    UsingKey3SubGoal,
-    UsingKey2SubGoal,
-    PointedAt11OnMapSubGoal,
-    SelectedTalkActionInNormalSubGoal,
-    PointedAtWestendAddressSubGoal,
-    NoActionInCellarSubGoal,
-    NoActionInEmptyRestaurantSubGoal,
-    NoActionOnPeoriaStSubGoal,
-    PointedAt25OnMapSubGoal,
-    PointedAt35OnMapSubGoal,
-    NoActionInLobbySubGoal,
-    SelectedWatchActionInNormalSubGoal,
-    PointedAt45OnMapSubGoal,
-    PointedAt52OnMapSubGoal,
-    PointedAt41OnMapSubGoal,
-    OpenedWestendDoorSubGoal,
-    NoActionInShermanLobbySubGoal,
-    NoActionInWestendLobbySubGoal,
-    UsingBulletSubGoal,
-    OpenedShermanDoorSubGoal,
-    UsingCashSubGoal,
-    PointedAt24OnMapSubGoal,
-)
+from gameboy_worlds.emulation.deja_vu.test_metrics import *
+# # import metrics for the test trackers
+# from gameboy_worlds.emulation.deja_vu.test_metrics import (
+#     Bought2ChipsTerminationMetric,
+#     BoughtNewspaperTerminationMetric,
+#     BoughtTicketTerminationMetric,
+#     CashedOutTerminationMetric,
+#     ChattedSellerTerminationMetric,
+#     ChattedTaxiDriverTerminationMetric,
+#     CheckedCoatTerminationMetric,
+#     CheckedDeadManTerminationMetric,
+#     CheckedGirlTerminationMetric,
+#     CheckedGunTerminationMetric,
+#     CheckedMapTerminationMetric,
+#     CheckedNewsclip1TerminationMetric,
+#     CheckedNote2TerminationMetric,
+#     CheckedPhotoTerminationMetric,
+#     CheckedSignTerminationMetric,
+#     CheckedSnapshotTerminationMetric,
+#     CheckedTimetableTerminationMetric,
+#     ClosedColdTapTerminationMetric,
+#     ClosedDashbrdTerminationMetric,
+#     ClosedDoorFromMapTerminationMetric,
+#     ClosedElevatorDoorTerminationMetric,
+#     ClosedPantsPocketTerminationMetric,
+#     ClosedPocketTerminationMetric,
+#     ClosedWallet1TerminationMetric,
+#     ClosedWalletTerminationMetric,
+#     EnteredCellarTerminationMetric,
+#     EnteredChicagoTaxiTerminationMetric,
+#     EnteredConnectingRoomTerminationMetric,
+#     EnteredElevatorTerminationMetric,
+#     EnteredEmptyRoomFromMapTerminationMetric,
+#     EnteredHallwayTerminationMetric,
+#     EnteredMiddleRoomTerminationMetric,
+#     EnteredPlatformTerminationMetric,
+#     EnteredShermanTerminationMetric,
+#     EnteredTaxiTerminationMetric,
+#     EnteredTrainTerminationMetric,
+#     EnteredWestendTerminationMetric,
+#     ExitedCasinoTerminationMetric,
+#     ExitedGrimyOfficeTerminationMetric,
+#     GoNewsstandTerminationMetric,
+#     HitBoardTerminationMetric,
+#     LoadedGunTerminationMetric,
+#     MadeMedicineTerminationMetric,
+#     OpenedBoxTerminationMetric,
+#     OpenedCabinetTerminationMetric,
+#     OpenedCarTrunkTerminationMetric,
+#     OpenedDeskTerminationMetric,
+#     OpenedDiaryTerminationMetric,
+#     OpenedDoorByKnifeTerminationMetric,
+#     OpenedElevatorDoorTerminationMetric,
+#     OpenedLobbyDoorTerminationMetric,
+#     OpenedLockTerminationMetric,
+#     OpenedPocketKnifeTerminationMetric,
+#     OpenedTelephoneTerminationMetric,
+#     OpenedWallSafeTerminationMetric,
+#     OutsideApartmentTerminationMetric,
+#     PaidTaxiTerminationMetric,
+#     ReturnedToCashierTerminationMetric,
+#     ShotDoorTerminationMetric,
+#     ShotGrimyOfficeDoorTerminationMetric,
+#     ShotLockTerminationMetric,
+#     TakenMedicineTerminationMetric,
+#     TakenNewsclip4TerminationMetric,
+#     TakenPamphletTerminationMetric,
+#     TalkedInTrainStationTerminationMetric,
+#     UnlockedOfficeDoorTerminationMetric,
+#     VisitedCounterTerminationMetric,
+#     WenttoOfficeTerminationMetric,
+#     WenttoWestendTerminationMetric,
+#     HitBottleTerminationMetric,
+#     HitMuggerTerminationMetric,
+#     MadeBetTerminationMetric,
+#     MeetMuggerTerminationMetric,
+#     OpenedBathroomDoorTerminationMetric,
+#     OpenedColdTapTerminationMetric,
+#     OpenedDashbrdTerminationMetric,
+#     OpenedDoorFromMapTerminationMetric,
+#     OpenedDoorTerminationMetric,
+#     OpenedPantsPocketTerminationMetric,
+#     OpenedPocketTerminationMetric,
+#     OpenedSpigotTerminationMetric,
+#     OpenedTrenchCoatPocketTerminationMetric,
+#     OpenedWallet1TerminationMetric,
+#     OpenedWalletTerminationMetric,
+#     PutOnPantsTerminationMetric,
+#     PutOnTrenchCoatTerminationMetric,
+#     TakenCoatTerminationMetric,
+#     TakenGumTerminationMetric,
+#     TakenGunTerminationMetric,
+#     ClosedDoorTerminationMetric,
+#     TakenLicense1TerminationMetric,
+#     TakenNewsclip1TerminationMetric,
+#     TakenPantsTerminationMetric,
+#     TakenRing1TerminationMetric,
+#     TalkedToTaxiDriverTerminationMetric,
+#     UnlockedCarDoorTerminationMetric,
+#     UnlockedFrontDoorTerminationMetric,
+# )
+# # import subgoal classes for the subgoal metrics
+# from gameboy_worlds.emulation.deja_vu.test_metrics import (
+#     InWallet1MenuSubGoal,
+#     PointedAtPantsSubGoal,
+#     SelectedOpenActionInMenuSubGoal,
+#     SelectedOpenActionInNormalSubGoal,
+#     SelectedTakeActionInNormalSubGoal,
+#     SelectedCloseActionInNormalSubGoal,
+#     SelectedCloseActionInMenuSubGoal,
+#     InCoatPocketMenuSubGoal,
+#     InWalletMenuSubGoal,
+#     PointedAtCoatSubGoal,
+#     PointedAtWalletSubGoal,
+#     InGoodsMenuSubGoal,
+#     SelectedHitActionInNormalSubGoal,
+#     SockoOnScreenSubGoal,
+#     OpenedCellarDoorOnScreenSubGoal,
+#     PointedAtGumSubGoal,
+#     SelectedTakeActionInMenuSubGoal,
+#     InTrenchCoatPocketMenuSubGoal,
+#     SelectedOutfitButtonSubGoal,
+#     SelectedUseActionInMenuSubGoal,
+#     PointedAtTrenchCoatSubGoal,
+#     PointedAtWallet1SubGoal,
+#     PointedAtNewsclip1SubGoal,
+#     PointedAtLicense1SubGoal,
+#     SelectedWatchActionInMenuSubGoal,
+#     PointedAt21OnMapSubGoal,
+#     Selected2ChipsSubGoal,
+#     PointedAtCoinSubGoal,
+#     UsingCoinSubGoal,
+#     PointedAt13OnMapSubGoal,
+#     UsingKey3SubGoal,
+#     UsingKey2SubGoal,
+#     PointedAt11OnMapSubGoal,
+#     SelectedTalkActionInNormalSubGoal,
+#     PointedAtWestendAddressSubGoal,
+#     NoActionInCellarSubGoal,
+#     NoActionInEmptyRestaurantSubGoal,
+#     NoActionOnPeoriaStSubGoal,
+#     PointedAt25OnMapSubGoal,
+#     PointedAt35OnMapSubGoal,
+#     NoActionInLobbySubGoal,
+#     SelectedWatchActionInNormalSubGoal,
+#     PointedAt45OnMapSubGoal,
+#     PointedAt52OnMapSubGoal,
+#     PointedAt41OnMapSubGoal,
+#     OpenedWestendDoorSubGoal,
+#     NoActionInShermanLobbySubGoal,
+#     NoActionInWestendLobbySubGoal,
+#     UsingBulletSubGoal,
+#     OpenedShermanDoorSubGoal,
+#     UsingCashSubGoal,
+#     PointedAt24OnMapSubGoal,
+#     UnlockedMiddleRoomDoorSubGoal,
+#     UsingKey1SubGoal,
+#     UsingKey2SubGoal,
+#     NoActionInGrimyOfficeSubGoal,
+#     UsingNote3SubGoal,
+#     UsingKey4SubGoal,
+#     UsingKnifeSubGoal,
+# )
 
 
 class CoreDejaVuTracker(StateTracker):
@@ -551,6 +577,92 @@ class DejaVu1UnlockOfficeDoorTestTracker(DejaVuTestTracker):
     TERMINATION_TRUNCATION_METRIC = UnlockedOfficeDoorTerminationMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([SelectedUseActionInMenuSubGoal])
 
+class DejaVu1MakeMedicineTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent makes the medicine.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = MadeMedicineTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedUseActionInMenuSubGoal])
+
+class DejaVu1TakeMedicineTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent takes the medicine.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = TakenMedicineTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedUseActionInMenuSubGoal])
+
+class DejaVu1ShootLockTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent shoots the lock.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = ShotLockTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([
+        UsingBulletSubGoal,
+        SelectedUseActionInMenuSubGoal,
+    ])
+
+class DejaVu1OpenDiaryTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent opens the diary.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OpenedDiaryTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedOpenActionInMenuSubGoal])
+
+class DejaVu1ShootGrimyOfficeDoorTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent shoots the grimy office door.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = ShotGrimyOfficeDoorTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([UsingBulletSubGoal])
+
+class DejaVu1CheckDeadManTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent checks the dead man.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = CheckedDeadManTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedWatchActionInNormalSubGoal])
+
+class DejaVu1OpenCabinetTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent opens the cabinet.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OpenedCabinetTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedOpenActionInNormalSubGoal])
+
+class DejaVu1ExitGrimyOfficeTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent exits the grimy office.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = ExitedGrimyOfficeTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([
+        NoActionInGrimyOfficeSubGoal,
+        PointedAt13OnMapSubGoal,
+    ])
+
+class DejaVu1OpenWallSafeTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent opens the wall safe.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OpenedWallSafeTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([UsingNote3SubGoal])
+
+class DejaVu1OpenCarTrunkTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu games that terminates when the agent opens the car trunk.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OpenedCarTrunkTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([UsingKey4SubGoal])
+
 
 # deja_vu_2 test trackers
 class DejaVu2OpenTrenchCoatTestTracker(DejaVuTestTracker):
@@ -897,3 +1009,70 @@ class DejaVu2ChatTaxiDriverTestTracker(DejaVuTestTracker):
 
     TERMINATION_TRUNCATION_METRIC = ChattedTaxiDriverTerminationMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([SelectedTalkActionInNormalSubGoal])
+
+class DejaVu2EnterMiddleRoomTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent enters the middle room in the apartment.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = EnteredMiddleRoomTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([
+        UnlockedMiddleRoomDoorSubGoal,
+        UsingKey1SubGoal,
+    ])
+
+class DejaVu2LoadGunTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent loads the gun.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = LoadedGunTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedUseActionInMenuSubGoal])
+
+class DejaVu2OpenLockTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent opens the lock in the middle room.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OpenedLockTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedUseActionInMenuSubGoal])
+
+class DejaVu2HitBoardTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent hits the board in the middle room.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = HitBoardTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedHitActionInNormalSubGoal])
+
+class DejaVu2OpenTelephoneTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent opens the telephone in the middle room.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OpenedTelephoneTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedOpenActionInNormalSubGoal])
+
+class DejaVu2OpenBoxTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent opens the box in the middle room.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OpenedBoxTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedOpenActionInNormalSubGoal])
+
+class DejaVu2OpenPocketKnifeTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent opens the pocket knife
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OpenedPocketKnifeTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedOpenActionInMenuSubGoal])
+
+class DejaVu2OpenDoorByKnifeTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent use the knife to open the door
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OpenedDoorByKnifeTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([UsingKnifeSubGoal])

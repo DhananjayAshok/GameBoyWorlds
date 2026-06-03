@@ -8,17 +8,12 @@ bomberman_quest,"navigation, interaction",Talk to the Man,in_room_next_to_bomb_w
 bomberman_quest,"navigation, interaction",Talk to the Guide,next_to_guide_bottom,npc_dialogue_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Read the House Sign,next_to_house_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Read the Danger Sign,next_to_danger_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
-bomberman_quest,"navigation, interaction",Read the Cave Sign,next_to_cave_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,interaction,Activate the switch,next_to_cave_sign,button_region_changed_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,navigation,Enter the House,next_to_house_sign,enter_house_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Read the sign,starter,sign_read_test,"bomberman_pocket, bomberman_max",True
-bomberman_quest,"navigation, interaction",Read the Peace Town sign,next_to_peace_town_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,combat,Get a Game Over,near_charabom,game_over_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,combat,Start a Charabom battle,near_charabom,charabom_battle_test,"bomberman_pocket, bomberman_max",True
-bomberman_quest,menu,Open the shield select screen,pause_menu,shield_select_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,menu,Open the bomb component screen,pause_menu,bomb_component_select_test,"bomberman_pocket, bomberman_max",True
-bomberman_quest,navigation,Enter the camp,starter,enter_camp_test,"bomberman_pocket, bomberman_max",True
-bomberman_quest,interaction,Read a book on the bookshelf,near_book,book_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Read the sign next to the entrance,entrance_next_to_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Read the box sign,next_to_box_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,navigation,Enter the green cave,next_to_green_cave_entrance,enter_cave_test,"bomberman_pocket, bomberman_max",True
@@ -34,15 +29,10 @@ bomberman_quest,"navigation, interaction",Read the Sign near the Forest Entrance
 bomberman_quest,"navigation, interaction",Read the Sign in the Middle of the Forest,next_to_forest_middle_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Read the Cloud Sign,next_to_cloud_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,navigation,Enter the Room,near_room_entrance,enter_room_test,"bomberman_pocket, bomberman_max",True
-bomberman_quest,"navigation, interaction",Read the Room Sign,next_to_room_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
-bomberman_quest,"navigation, interaction",Read the Cellar Sign,next_to_cellar_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Read the Ruins Sign,next_to_ruins_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,navigation,Enter the Ancient Ruins,near_acient_ruins,enter_ruins_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Read the Ruins Puzzle Sign,next_to_ruins_puzzle_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Jump to the Cliff and Open the Box,next_to_red_box_1,cliff_box_picked_up_test,"bomberman_pocket, bomberman_max",True
-bomberman_quest,"navigation, interaction",Walk Up to Start a Battle,near_forest_enemy,charabom_battle_test,"bomberman_pocket, bomberman_max",True
-bomberman_quest,"navigation, interaction",Read the Electro Sign,next_to_electro_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
-bomberman_quest,"navigation, interaction",Read the Electro Room Sign,next_to_electro_room_sign,sign_read_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Dodge the Arrows and Enter Combat,next_to_traps,charabom_battle_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,interaction,Use the Power Glove to Activate the Switch,next_to_hard_switch,hard_switch_activated_test,"bomberman_pocket, bomberman_max",True
 bomberman_quest,"navigation, interaction",Navigate Down to Enter Combat with the Boss,near_electro_boss,charabom_battle_test,"bomberman_pocket, bomberman_max",True
@@ -149,3 +139,13 @@ bomberman_max,combat,Stage 2-10 Defeat the Fire Ninja Using a Bomb,stage_2-10_ne
 bomberman_max,navigation,Stage 2-5 Jump to the Left and Find the Blue Exit,stage_2-5_next_to_exit,stage_briefing_test,"bomberman_quest, bomberman_pocket",True
 bomberman_max,navigation,Stage 2-7 Go to the Stage Exit,stage_2-7_next_to_exit,stage_briefing_test,"bomberman_quest, bomberman_pocket",True
 bomberman_max,combat,Stage 2-8 Break the Block and Defeat the Enemy,stage_2-8_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_pocket",True
+bomberman_quest,navigation,Navigate from the Start to Find the Cave and Enter It,starter,enter_cave_test,"bomberman_pocket, bomberman_max",True
+bomberman_quest,navigation,Navigate from the Forest Entrance to Enter the Ancient Ruins,forest_entrance_near_sign,enter_ruins_test,"bomberman_pocket, bomberman_max",True
+bomberman_quest,navigation,Navigate from the Ruins Back to the House,near_acient_ruins,enter_house_test,"bomberman_pocket, bomberman_max",True
+bomberman_quest,navigation,Navigate from the Cloud Sign Area to Find and Save the Game,next_to_cloud_sign,save_npc_test,"bomberman_pocket, bomberman_max",True
+bomberman_quest,navigation,Navigate from the Traps Area to Enter the Ancient Ruins,next_to_traps,enter_ruins_test,"bomberman_pocket, bomberman_max",True
+bomberman_quest,navigation,Navigate from the Ruins Puzzle Area to Find and Enter the Room,next_to_ruins_puzzle_sign,enter_room_test,"bomberman_pocket, bomberman_max",True
+bomberman_quest,navigation,Navigate from the Electro Boss Area to Find and Enter the Cave,near_electro_boss,enter_cave_test,"bomberman_pocket, bomberman_max",True
+bomberman_quest,navigation,Navigate from the Snow Cave Area to Find and Enter the House,next_to_snow_cave_sign,enter_house_test,"bomberman_pocket, bomberman_max",True
+bomberman_quest,navigation,Navigate from the Electro Sign to Find and Save the Game,next_to_electro_sign,save_npc_test,"bomberman_pocket, bomberman_max",True
+bomberman_quest,navigation,Navigate from the Under Cliff Area Back to the Camp,near_under_cliff_enemy,enter_camp_test,"bomberman_pocket, bomberman_max",True

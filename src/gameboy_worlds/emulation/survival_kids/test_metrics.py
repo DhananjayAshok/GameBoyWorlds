@@ -106,14 +106,6 @@ class DayReferenceTerminateMetric(RegionMatchTerminationMetric, TerminationMetri
     _TERMINATION_TARGET_NAME = "day_reference"
 
 
-class AfternoonReferenceTerminateMetric(
-    RegionMatchTerminationMetric, TerminationMetric
-):
-    REQUIRED_PARSER = SurvivalKidsParser
-    _TERMINATION_NAMED_REGION = "screen"
-    _TERMINATION_TARGET_NAME = "afternoon_reference"
-
-
 class NightReferenceTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = SurvivalKidsParser
     _TERMINATION_NAMED_REGION = "screen"
@@ -164,24 +156,6 @@ class GotTheTreeBarkTerminateMetric(RegionMatchTerminationMetric, TerminationMet
     _TERMINATION_TARGET_NAME = "got_the_tree_bark"
 
 
-class GotTheSharpStoneTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = SurvivalKidsParser
-    _TERMINATION_NAMED_REGION = "screen"
-    _TERMINATION_TARGET_NAME = "got_the_sharp_stone"
-
-
-class GotTheStoneTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = SurvivalKidsParser
-    _TERMINATION_NAMED_REGION = "screen"
-    _TERMINATION_TARGET_NAME = "got_the_stone"
-
-
-class GotTheVineTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = SurvivalKidsParser
-    _TERMINATION_NAMED_REGION = "screen"
-    _TERMINATION_TARGET_NAME = "got_the_vine"
-
-
 class GotTheBrdfeatherTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = SurvivalKidsParser
     _TERMINATION_NAMED_REGION = "screen"
@@ -213,12 +187,6 @@ class CanteenPickupDialogueTerminateMetric(
 class BagIconTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = SurvivalKidsParser
     _TERMINATION_NAMED_REGION = "bag_icon_area"
-    _TERMINATION_TARGET_NAME = "bag_icon"
-
-
-class ObjectTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
-    REQUIRED_PARSER = SurvivalKidsParser
-    _TERMINATION_NAMED_REGION = "object_area"
     _TERMINATION_TARGET_NAME = "bag_icon"
 
 

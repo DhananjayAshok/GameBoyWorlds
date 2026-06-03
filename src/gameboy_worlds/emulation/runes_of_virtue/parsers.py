@@ -177,6 +177,28 @@ class RunesOfVirtueStateParser(StateParser, ABC):
             return AgentState.IN_DIALOGUE
         return AgentState.FREE_ROAM
 
+    def dialogue_box_open(self, current_screen: np.ndarray) -> bool:
+        """
+        Determines if a dialogue box is currently open.
+        """
+        box = self.capture_named_region(
+            current_frame=current_screen, name=self.get_dialogue_ocr_region_name()
+        )
+        white_rows = np.mean(box == 255, axis=(1, 2))
+        return np.count_nonzero(white_rows > 0.98) >= 10
+
+    def dialogue_box_empty(self, current_screen: np.ndarray) -> bool:
+        """
+        Determines if the dialogue OCR region has no meaningful text content.
+        """
+        box = self.capture_named_region(
+            current_frame=current_screen, name=self.get_dialogue_ocr_region_name()
+        )
+        return np.mean(box < 255) < 0.05
+
+    def get_dialogue_ocr_region_name(self) -> str:
+        return "dialogue_ocr_region"
+
     def __repr__(self) -> str:
         return f"<RunesOfVirtueParser(variant={self.variant})>"
 
@@ -191,6 +213,7 @@ class RunesOfVirtue1StateParser(RunesOfVirtueStateParser):
       content during normal gameplay.
     - dialog_indicator: A multi-target dialogue box region shared by NPC dialogue
       targets with the same screen coordinates.
+    - dialogue_ocr_region: Dialogue text area captured for OCR.
     """
 
     REGIONS = [
@@ -203,9 +226,12 @@ class RunesOfVirtue1StateParser(RunesOfVirtueStateParser):
     MULTI_TARGET_REGIONS = [
         ("king_dialog_indicator", 5, 100, 115, 40),
         ("dialog_indicator", 5, 90, 115, 40),
-        ("cave_of_deceit_indicator", 0, 0, 100, 70),
+        ("cave_indicator", 0, 0, 100, 70),
+        ("playfield_indicator", 0, 0, 144, 144),
+        ("top_playfield_indicator", 0, 0, 144, 24),
         ("telescope_view_indicator", 40, 40, 80, 60),
         ("death_screen_indicator", 60, 100, 30, 30),
+        ("dialogue_ocr_region", 5, 90, 135, 54),
     ]
     """ Additional multi-target named screen regions specific to Runes of Virtue 1. """
 
@@ -216,8 +242,42 @@ class RunesOfVirtue1StateParser(RunesOfVirtueStateParser):
             "gnu_gnu_1_dialog",
             "gnu_gnu_2_dialog",
             "sherry_dialog",
+            "dr_cat_cats_lair_dialog",
+            "cavern_of_cowardice_sherry_floor_4_dialog",
         ],
-        "cave_of_deceit_indicator": ["cave_of_deceit"],
+        "cave_indicator": [
+            "cavern_of_hatred",
+            "cavern_of_deceit",
+            "cavern_of_cowardice",
+        ],
+        "playfield_indicator": [
+            "king_dialog",
+            "chuckles_dialog",
+            "gnu_gnu_1_dialog",
+            "gnu_gnu_2_dialog",
+            "sherry_dialog",
+            "dr_cat_cats_lair_dialog",
+            "cavern_of_cowardice_sherry_floor_4_dialog",
+            "cavern_of_hatred_chest_floor_1_opened",
+            "dr_cat_dialog",
+            "ship_ridden",
+            "basement_ladder_unlocked",
+            "basement_chest_opened",
+            "cavern_of_cowardice_enter_floor_2",
+            "cavern_of_cowardice_enter_floor_3",
+            "cavern_of_cowardice_floor_3_chest_opened",
+            "cavern_of_cowardice_take_stew_floor_4",
+            "cavern_of_cowardice_obtain_coin_floor_4",
+            "cavern_of_hatred_enter_floor_2",
+            "cavern_of_hatred_sherry_floor_2_dialog",
+            "cavern_of_hatred_choose_door_with_sherry",
+            "cavern_of_hatred_choose_right_door_melissa_dialog",
+            "cavern_of_hatred_enter_floor_3",
+        ],
+        "top_playfield_indicator": [
+            "cavern_of_hatred_enter_floor_4",
+            "cavern_of_cowardice_enter_floor_4",
+        ],
         "telescope_view_indicator": ["telescope_view"],
         "death_screen_indicator": ["death_screen"],
     }
@@ -259,6 +319,8 @@ class RunesOfVirtue1StateParser(RunesOfVirtueStateParser):
         ("dialog_indicator", "gnu_gnu_1_dialog"),
         ("dialog_indicator", "gnu_gnu_2_dialog"),
         ("dialog_indicator", "sherry_dialog"),
+        ("dialog_indicator", "dr_cat_cats_lair_dialog"),
+        ("dialog_indicator", "cavern_of_cowardice_sherry_floor_4_dialog"),
     )
     """ Multi-target screen regions that indicate an NPC dialogue overlay is visible. """
 
@@ -279,9 +341,11 @@ class RunesOfVirtue2StateParser(RunesOfVirtueStateParser):
     Screen regions:
     - menu_indicator: A first-pass region matching the RoV1 menu detector. Recapture
       this for RoV2 before relying on the task.
-    - book_open_indicator: Full-screen multi-target for the opened-book screen. This can be
-      narrowed after the capture is verified against the ROM.
-    - nystul_dialog_indicator: The left multi-target dialogue panel when speaking to Nystul.
+    - playfield_indicator: Playfield multi-target for opened-book and location screens,
+      excluding the right HUD strip.
+    - dialog_indicator: The left multi-target dialogue panel used for NPC dialogue.
+    - death_screen_indicator: Small death/game-over screen indicator matching RoV1's
+      task region.
     """
 
     REGIONS: List[Tuple[str, int, int, int, int]] = [
@@ -290,14 +354,47 @@ class RunesOfVirtue2StateParser(RunesOfVirtueStateParser):
     """ Additional named screen regions specific to Runes of Virtue 2. """
 
     MULTI_TARGET_REGIONS: List[Tuple[str, int, int, int, int]] = [
-        ("book_open_indicator", 0, 0, 160, 144),
-        ("nystul_dialog_indicator", 5, 5, 135, 136),
+        ("playfield_indicator", 0, 0, 144, 144),
+        ("left_playfield_indicator", 0, 0, 56, 144),
+        ("dialog_indicator", 5, 5, 135, 136),
+        ("death_screen_indicator", 60, 100, 30, 30),
     ]
     """ Additional multi-target named screen regions specific to Runes of Virtue 2. """
 
     MULTI_TARGETS = {
-        "book_open_indicator": ["book_open"],
-        "nystul_dialog_indicator": ["nystul_dialog"],
+        "playfield_indicator": [
+            "book_open",
+            "cave_of_dishonour",
+            "cavern_of_hatred",
+            "cave_of_dishonour_enter_floor_2",
+            "cave_of_dishonour_enter_floor_3",
+            "kitchen_cheese_grabbed",
+            "cheese_given_to_sherry",
+            "ladder_behind_locked_door_climbed",
+            "table_map_interacted",
+            "castle_ladder_back_found",
+            "cavern_of_hatred_gate_1_unlocked",
+            "blocked_room_entered",
+            "cavern_of_hatred_ladder_room_2",
+            "cavern_of_hatred_ladder_2",
+            "cavern_of_hatred_grab_key",
+            "cavern_of_hatred_enter_floor_4",
+            "cavern_of_hatred_enter_floor_5",
+            "cavern_of_hatred_enter_floor_6",
+            "cavern_of_hatred_enter_floor_7",
+        ],
+        "left_playfield_indicator": ["cavern_of_hatred_ladder_out_found"],
+        "dialog_indicator": [
+            "nystul_dialog",
+            "blacksmith_fail_buy_shield",
+            "sherry_mouse_dialog",
+            "sandy_cook_dialog",
+            "lord_whitsaber_dialog",
+            "tholden_saved",
+            "tholden_brought_back_to_king",
+            "castle_ceremony_attended",
+        ],
+        "death_screen_indicator": ["death_screen"],
     }
     """ Multi-target names for Runes of Virtue 2 regions. """
 
@@ -331,7 +428,16 @@ class RunesOfVirtue2StateParser(RunesOfVirtueStateParser):
             override_multi_targets=multi_targets,
         )
 
-    _DIALOG_TARGETS = (("nystul_dialog_indicator", "nystul_dialog"),)
+    _DIALOG_TARGETS = (
+        ("dialog_indicator", "nystul_dialog"),
+        ("dialog_indicator", "blacksmith_fail_buy_shield"),
+        ("dialog_indicator", "sherry_mouse_dialog"),
+        ("dialog_indicator", "sandy_cook_dialog"),
+        ("dialog_indicator", "lord_whitsaber_dialog"),
+        ("dialog_indicator", "tholden_saved"),
+        ("dialog_indicator", "tholden_brought_back_to_king"),
+        ("dialog_indicator", "castle_ceremony_attended"),
+    )
     """ Multi-target screen regions that indicate an NPC dialogue overlay is visible. """
 
     def is_in_menu(self, current_screen: np.ndarray) -> bool:
@@ -344,3 +450,6 @@ class RunesOfVirtue2StateParser(RunesOfVirtueStateParser):
             self.named_region_matches_multi_target(current_screen, name, target_name)
             for name, target_name in self._DIALOG_TARGETS
         )
+
+    def get_dialogue_ocr_region_name(self) -> str:
+        return "dialog_indicator"

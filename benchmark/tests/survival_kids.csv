@@ -32,23 +32,3 @@ survival_kids_1,survival,Get water from the water menu,water_menu_open,got_the_w
 survival_kids_1,"interaction, menu",Select Take from the feather menu,before_feather_pickup,select_take_test,,survival_kids_1
 survival_kids_1,"menu, survival",Open the meat action menu,before_eat_meat,meat_action_menu_test,,survival_kids_1
 survival_kids_1,combat,Hunt the animal,before_hunt_animal,animal_killed_test,,survival_kids_1
-survival_kids_2,interaction,Find the hidden bag,near_hidden_bag,object_test,,survival_kids_1
-survival_kids_2,menu,Open the inventory,has_bag_before_inventory,inventory_open_test,,survival_kids_1
-survival_kids_2,"menu, interaction",Choose the knife,before_choose_knife,knife_chosen_test,,survival_kids_1
-survival_kids_2,"menu, interaction",Equip the knife,before_equip_knife,knife_equipped_test,,survival_kids_1
-survival_kids_2,interaction,Pick up the stick,before_pickup_stick,got_the_stick_test,,survival_kids_1
-survival_kids_2,interaction,Cut grass,near_grass,game_viewport_changed_test,,survival_kids_1
-survival_kids_2,interaction,Cut grass before the sharp stone,near_grass_sharp_stone,game_viewport_changed_test,,survival_kids_1
-survival_kids_2,navigation,Find the sharp stone,near_grass_sharp_stone,sharp_stone_found_test,,survival_kids_1
-survival_kids_2,interaction,Pick up the sharp stone,near_grass_sharp_stone,got_the_sharp_stone_test,,survival_kids_1
-survival_kids_2,interaction,Pick up the stone,before_pickup_stone,got_the_stone_test,,survival_kids_1
-survival_kids_2,interaction,Pick up the vine,before_pickup_vine,got_the_vine_test,,survival_kids_1
-survival_kids_2,navigation,Clear the first blocked path,before_chapter1_path,chapter1_path_cleared_test,,survival_kids_1
-survival_kids_2,navigation,Move past the cleared grass,before_chapter1_path,path_after_blocking_grass_test,,survival_kids_1
-survival_kids_2,navigation,Find the first new path,c1_path,new_path_1_found_test,,survival_kids_1
-survival_kids_2,navigation,Find the second new path,before_new_path_c2,new_path_2_found_test,,survival_kids_1
-survival_kids_2,navigation,Find the river,before_find_river,found_river_test,,survival_kids_1
-survival_kids_2,navigation,Enter the shelter,before_enter_shelter,entered_shelter_test,,survival_kids_1
-survival_kids_2,survival,Reach afternoon,daytime,afternoon_reference_test,,survival_kids_1
-survival_kids_2,survival,Reach daytime,daytime,day_reference_test,,survival_kids_1
-survival_kids_2,survival,Reach nighttime,save_1,night_reference_test,,survival_kids_1
