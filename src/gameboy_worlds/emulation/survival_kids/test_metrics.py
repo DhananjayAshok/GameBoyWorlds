@@ -76,6 +76,12 @@ class PathAfterBlockingGrassTerminateMetric(
     _TERMINATION_TARGET_NAME = "path_after_blocking_grass"
 
 
+class InTheShelterTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SurvivalKidsParser
+    _TERMINATION_NAMED_REGION = "game_viewport"
+    _TERMINATION_TARGET_NAME = "in_the_shelter"
+
+
 class NewPath1FoundTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = SurvivalKidsParser
     _TERMINATION_NAMED_REGION = "game_viewport"
@@ -218,15 +224,15 @@ class ObjectTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
 
 class KnifeEquippedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = SurvivalKidsParser
-    _TERMINATION_NAMED_REGION = "equipped_items_area"
+    _TERMINATION_NAMED_REGION = "equipped_item_area"
     _TERMINATION_TARGET_NAME = "knife_equipped"
 
 
-class KnifeEquippedPromptTerminateMetric(
+class KnifeEquippedScreenTerminateMetric(
     RegionMatchTerminationMetric, TerminationMetric
 ):
     REQUIRED_PARSER = SurvivalKidsParser
-    _TERMINATION_NAMED_REGION = "equipped_item_prompt_area"
+    _TERMINATION_NAMED_REGION = "screen"
     _TERMINATION_TARGET_NAME = "knife_equipped"
 
 
@@ -262,7 +268,7 @@ class CanteenChosenTerminateMetric(RegionMatchTerminationMetric, TerminationMetr
 
 class KindlingMergedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = SurvivalKidsParser
-    _TERMINATION_NAMED_REGION = "choose_item_area"
+    _TERMINATION_NAMED_REGION = "inventory_select_area"
     _TERMINATION_TARGET_NAME = "kindling_merged"
 
 
@@ -272,9 +278,15 @@ class SelectKindlingTerminateMetric(RegionMatchTerminationMetric, TerminationMet
     _TERMINATION_TARGET_NAME = "select_kindling"
 
 
+class UseKindlingTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SurvivalKidsParser
+    _TERMINATION_NAMED_REGION = "equipped_item_area"
+    _TERMINATION_TARGET_NAME = "use_kindling"
+
+
 class FireLitTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = SurvivalKidsParser
-    _TERMINATION_NAMED_REGION = "choose_item_area"
+    _TERMINATION_NAMED_REGION = "game_viewport"
     _TERMINATION_TARGET_NAME = "fire_lit"
 
 
@@ -294,7 +306,7 @@ class CanteenTakeLeaveMenuTerminateMetric(
     RegionMatchTerminationMetric, TerminationMetric
 ):
     REQUIRED_PARSER = SurvivalKidsParser
-    _TERMINATION_NAMED_REGION = "item_action_menu_two_options"
+    _TERMINATION_NAMED_REGION = "item_action_menu"
     _TERMINATION_TARGET_NAME = "canteen_take_leave_menu"
 
 
