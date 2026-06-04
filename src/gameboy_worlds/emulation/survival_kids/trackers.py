@@ -33,8 +33,10 @@ from gameboy_worlds.emulation.survival_kids.test_metrics import (
     GotTheWaterTerminateMetric,
     HpChangedTerminateMetric,
     HungerChangedTerminateMetric,
+    InTheShelterTerminateMetric,
     InventoryOpenTerminateMetric,
     KindlingMergedTerminateMetric,
+    KnifeEquippedScreenTerminateMetric,
     KnifeChosenTerminateMetric,
     KnifeEquippedTerminateMetric,
     MergeConfirmTerminateMetric,
@@ -52,6 +54,7 @@ from gameboy_worlds.emulation.survival_kids.test_metrics import (
     StatusBarChangedTerminateMetric,
     TakeLeaveMenuTerminateMetric,
     ThirstChangedTerminateMetric,
+    UseKindlingTerminateMetric,
     WaterMenuOpenTerminateMetric,
 )
 
@@ -137,6 +140,10 @@ class SurvivalKidsKnifeEquippedTracker(SurvivalKidsTestTracker):
     TERMINATION_TRUNCATION_METRIC = KnifeEquippedTerminateMetric
 
 
+class SurvivalKidsKnifeEquippedScreenTracker(SurvivalKidsTestTracker):
+    TERMINATION_TRUNCATION_METRIC = KnifeEquippedScreenTerminateMetric
+
+
 class SurvivalKidsKnifeChosenTracker(SurvivalKidsTestTracker):
     TERMINATION_TRUNCATION_METRIC = KnifeChosenTerminateMetric
 
@@ -193,6 +200,22 @@ class SurvivalKidsPathAfterBlockingGrassTracker(SurvivalKidsTestTracker):
     TERMINATION_TRUNCATION_METRIC = PathAfterBlockingGrassTerminateMetric
 
 
+class SurvivalKidsInTheShelterTracker(SurvivalKidsTestTracker):
+    TERMINATION_TRUNCATION_METRIC = InTheShelterTerminateMetric
+
+
+class SurvivalKidsNewPath1FoundTracker(SurvivalKidsTestTracker):
+    TERMINATION_TRUNCATION_METRIC = NewPath1FoundTerminateMetric
+
+
+class SurvivalKidsNewPath2FoundTracker(SurvivalKidsTestTracker):
+    TERMINATION_TRUNCATION_METRIC = NewPath2FoundTerminateMetric
+
+
+class SurvivalKidsSharpStoneFoundTracker(SurvivalKidsTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SharpStoneFoundTerminateMetric
+
+
 class SurvivalKidsDayReferenceTracker(SurvivalKidsTestTracker):
     TERMINATION_TRUNCATION_METRIC = DayReferenceTerminateMetric
 
@@ -235,6 +258,10 @@ class SurvivalKidsGotTheBrdfeatherTracker(SurvivalKidsTestTracker):
 
 class SurvivalKidsSelectKindlingTracker(SurvivalKidsTestTracker):
     TERMINATION_TRUNCATION_METRIC = SelectKindlingTerminateMetric
+
+
+class SurvivalKidsUseKindlingTracker(SurvivalKidsTestTracker):
+    TERMINATION_TRUNCATION_METRIC = UseKindlingTerminateMetric
 
 
 class SurvivalKidsFireLitTracker(SurvivalKidsTestTracker):

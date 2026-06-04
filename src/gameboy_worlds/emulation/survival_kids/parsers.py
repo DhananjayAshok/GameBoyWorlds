@@ -26,6 +26,8 @@ class SurvivalKidsParser(StateParser):
     """Game state parser for Survival Kids 1 (GBC)."""
 
     VARIANT = "survival_kids_1"
+    LOAD_ONLY_EXISTING_MULTI_TARGETS = False
+    FORCE_LOAD_MISSING_MULTI_TARGETS: Dict[str, List[str]] = {}
 
     MULTI_TARGET_REGIONS: List[Tuple[str, int, int, int, int]] = [
         ("screen", 0, 0, 160, 144),
@@ -37,9 +39,11 @@ class SurvivalKidsParser(StateParser):
         ("thirst_area", 42, 136, 42, 8),
         ("stamina_area", 84, 136, 42, 8),
         ("equipped_items_area", 20, 128, 24, 8),
+        ("equipped_item_area", 0, 105, 160, 39),
         ("pack_icon_area", 144, 128, 16, 16),
         ("bag_icon_area", 64, 32, 48, 48),
-        ("choose_item_area", 0, 0, 160, 128),
+        ("object_area", 64, 32, 48, 48),
+        ("choose_item_area", 0, 20, 160, 80),
         ("dialogue_area", 8, 112, 144, 28),
         ("inventory_select_area", 0, 0, 88, 72),
         ("item_action_menu", 0, 0, 64, 56),
@@ -79,7 +83,6 @@ class SurvivalKidsParser(StateParser):
         "item_action_menu_two_options": [
             "select_take",
             "take_leave_menu",
-            "canteen_take_leave_menu",
             "feather_take_leave_menu",
         ],
         "dialogue_area": [
@@ -89,15 +92,17 @@ class SurvivalKidsParser(StateParser):
         "bag_icon_area": [
             "bag_icon",
         ],
-        "equipped_items_area": [
+        "equipped_item_area": [
             "knife_equipped",
+            "use_kindling",
         ],
         "choose_item_area": [
-            "fire_lit",
-            "kindling_merged",
-            "knife_chosen",
             "canteen_chosen",
+            "knife_chosen",
             "select_kindling",
+        ],
+        "inventory_select_area": [
+            "kindling_merged",
         ],
         "item_use_menu_area": [
             "canteen_action_menu",
@@ -105,11 +110,14 @@ class SurvivalKidsParser(StateParser):
             "canteen_use_selected",
         ],
         "item_action_menu": [
+            "canteen_take_leave_menu",
             "meat_take_eat_leave_menu",
         ],
         "game_viewport": [
             "animal_killed",
             "chapter1_path_cleared",
+            "fire_lit",
+            "in_the_shelter",
             "path_after_blocking_grass",
         ],
     }
@@ -162,7 +170,17 @@ class SurvivalKidsParser(StateParser):
             target_paths: Dict[str, str] = {}
             subdir = os.path.join(captures_dir, region_name)
             for target_name in multi_targets.get(region_name, []):
-                target_paths[target_name] = os.path.join(subdir, target_name)
+                target_path = os.path.join(subdir, target_name)
+                force_load_missing = target_name in self.FORCE_LOAD_MISSING_MULTI_TARGETS.get(
+                    region_name, []
+                )
+                if (
+                    self.LOAD_ONLY_EXISTING_MULTI_TARGETS
+                    and not force_load_missing
+                    and not os.path.exists(f"{target_path}.npy")
+                ):
+                    continue
+                target_paths[target_name] = target_path
             region = NamedScreenRegion(
                 region_name,
                 x,
@@ -230,11 +248,64 @@ class SurvivalKids2Parser(SurvivalKidsParser):
     """Game state parser for Survival Kids 2 (GBC)."""
 
     VARIANT = "survival_kids_2"
-    MULTI_TARGETS: Dict[str, List[str]] = {
-        "screen": [
-            "night_reference",
-        ],
+    LOAD_ONLY_EXISTING_MULTI_TARGETS = True
+    FORCE_LOAD_MISSING_MULTI_TARGETS = {
+        "screen": ["knife_equipped"],
     }
+    MULTI_TARGET_REGIONS = _get_proper_regions(
+        override_regions=[
+            ("dialogue_area", 0, 104, 160, 40),
+            ("merge_confirm_area", 0, 104, 160, 40),
+        ],
+        base_regions=SurvivalKidsParser.MULTI_TARGET_REGIONS,
+    )
+    MULTI_TARGETS: Dict[str, List[str]] = _merge_multi_targets(
+        SurvivalKidsParser.MULTI_TARGETS,
+        {
+            "dialogue_area": [
+                "fruit_found_dialogue",
+                "fruit_taken_dialogue",
+                "fruit_eaten_dialogue",
+                "tree_bark_pickup_dialogue",
+            ],
+            "game_viewport": [
+                "fruit_eaten",
+                "new_path_1_found",
+                "new_path_2_found",
+                "sharp_stone_found",
+            ],
+            "hunger_area": [
+                "fruit_eaten",
+            ],
+            "item_action_menu": [
+                "fruit_action_menu",
+                "fruit_eat_selected",
+            ],
+            "item_action_menu_two_options": [
+                "fruit_action_menu",
+                "fruit_eat_selected",
+            ],
+            "menu_area": [
+                "inventory_select_item",
+            ],
+            "object_area": [
+                "bag_icon",
+            ],
+            "equipped_item_area": [
+                "knife_equipped",
+            ],
+            "screen": [
+                "afternoon_reference",
+                "day_reference",
+                "fruit_eaten",
+                "got_the_sharp_stone",
+                "got_the_stone",
+                "got_the_vine",
+                "knife_equipped",
+                "night_reference",
+            ],
+        },
+    )
 
     def __repr__(self) -> str:
         return f"<SurvivalKids2Parser(variant={self.VARIANT})>"

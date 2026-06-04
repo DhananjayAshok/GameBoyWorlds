@@ -9,7 +9,8 @@ survival_kids_1,"menu, interaction",Choose the knife,before_choose_knife,knife_c
 survival_kids_1,"menu, interaction",Equip the knife,before_equip_knife,knife_equipped_test,,survival_kids_1
 survival_kids_1,"menu, survival",Make kindling from the inventory,inventory_open,kindling_merged_test,,survival_kids_1
 survival_kids_1,"menu, survival",Select kindling from the inventory,before_use_kindling,select_kindling_test,,survival_kids_1
-survival_kids_1,survival,Light a fire with kindling,before_use_kindling,fire_lit_test,,survival_kids_1
+survival_kids_1,"menu, survival",Use kindling,before_use_kindling,use_kindling_test,,survival_kids_1
+survival_kids_1,survival,Light a fire with kindling,use_kindling,fire_lit_test,,survival_kids_1
 survival_kids_1,interaction,Cut grass,near_grass,game_viewport_changed_test,,survival_kids_1
 survival_kids_1,"interaction, menu",Select Take from the item menu,item_take_leave_menu,select_take_test,,survival_kids_1
 survival_kids_1,interaction,Pick up the canteen,before_canteen_pickup,canteen_pickup_dialogue_test,,survival_kids_1
@@ -19,7 +20,7 @@ survival_kids_1,"menu, survival",Open the canteen action menu,has_canteen_near_w
 survival_kids_1,"menu, survival",Select Use on the canteen,canteen_action_menu,canteen_use_selected_test,,survival_kids_1
 survival_kids_1,"menu, survival",Select Drink on the canteen,canteen_action_menu,canteen_drink_selected_test,,survival_kids_1
 survival_kids_1,navigation,Clear the first blocked path,before_blocking_grass,chapter1_path_cleared_test,,survival_kids_1
-survival_kids_1,navigation,Move past the cleared grass,before_blocking_grass,path_after_blocking_grass_test,,survival_kids_1
+survival_kids_1,navigation,Enter the shelter after clearing grass,before_blocking_grass,in_the_shelter_test,,survival_kids_1
 survival_kids_1,navigation,Find the river,chapter1_near_river,found_river_test,,survival_kids_1
 survival_kids_1,navigation,Enter the shelter,before_enter_shelter,entered_shelter_test,,survival_kids_1
 survival_kids_1,survival,Reach daytime,time_day,day_reference_test,,survival_kids_1

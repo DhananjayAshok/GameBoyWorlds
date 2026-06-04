@@ -190,6 +190,7 @@ class SurvivalKidsHudMetrics(MetricGroup):
         "thirst_area",
         "stamina_area",
         "equipped_items_area",
+        "equipped_item_area",
         "pack_icon_area",
     ]
     _CHANGE_MAE_THRESHOLD = 10
