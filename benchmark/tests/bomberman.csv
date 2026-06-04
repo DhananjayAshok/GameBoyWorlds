@@ -45,49 +45,49 @@ bomberman_pocket,combat,Get a Game Over,forest_stage1,game_over_test,"bomberman_
 bomberman_pocket,interaction,Pick up a Bomb Up,next_to_bomb_up,pickup_bomb_up_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Area 2 Pick up a Bomb Up,area_2_next_to_bomb_up,pickup_bomb_up_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Area 3 Pick up a Bomb Up,area_3_next_to_bomb_up,pickup_bomb_up_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Area 1 Kill the Enemy Using a Bomb,area_1_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,navigation,Take the Exit to Stage 2,area_1_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,navigation,Take the Exit to Stage 3,area_2_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,navigation,Take the Exit to Stage 4,area_3_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Forest Area 1 to Find and Kill the Enemy,area_1_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Forest Area 1 Navigate to Find and Take the Exit,area_1_exit_far,stage_clear_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Forest Area 2 Navigate to Find and Take the Exit,area_2_exit_far,stage_clear_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Forest Area 3 Navigate to Find and Take the Exit,area_3_exit_far,stage_clear_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,combat,Area 2 Kill the Enemy Using a Bomb,area_2_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Area 3 Kill the Enemy Using a Bomb,area_3_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Kill the Strong Enemy Using a Bomb,next_to_strong_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Kill the Shell Using a Bomb,next_to_shell,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Area 4 Kill the Enemy Using a Bomb,stage_4_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Forest Area 3 to Find and Kill the Enemy,area_3_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate to Find and Kill the Strong Enemy,strong_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate to Find and Kill the Shell,shell_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Forest Area 4 to Find and Kill the Enemy,area_4_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Pick up a Bomb Range Up,next_to_bomb_range_up,pickup_bomb_range_up_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Ocean Area 1 Pick up a Fire Up,ocean_area_1_next_to_fire_up,pickup_bomb_range_up_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,navigation,Enter Jump Game,title_screen,jump_level_select_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,combat,Complete a Jump Game round,in_jump_game,jump_results_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Pick up a heart,next_to_heart,pickup_heart_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Ocean Area 1 Kill the Enemy Using a Bomb,ocean_area_1_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Kill the Strong Enemy (Green Fish) Using a Bomb,ocean_area_1_next_to_strong_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Ocean Area 1 to Find and Kill the Enemy,ocean_area_1_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Ocean Area 1 to Find and Kill the Strong Green Fish,ocean_area_1_strong_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,navigation,Ocean Area 1 Take the Exit,ocean_area_1_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Ocean Area 2 Kill the Enemy Using a Bomb,ocean_area_2_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Ocean Area 2 to Find and Kill the Enemy,ocean_area_2_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Ocean Area 2 Pick up a Bomb Up,ocean_area_2_next_to_bomb_up,pickup_bomb_up_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,navigation,Ocean Area 2 Take the Exit,ocean_area_2_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Ocean Area 2 Navigate to Find and Take the Exit,ocean_area_2_exit_far,stage_clear_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Ocean Area 3 Pick up a Bomb Up,ocean_area_3_next_to_bomb_up,pickup_bomb_up_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Ocean Area 3 Kill the Enemy Using a Bomb,ocean_area_3_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,navigation,Jump to find and take the hidden exit,ocean_area_3_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Ocean Area 3 to Find and Kill the Enemy,ocean_area_3_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Ocean Area 3 Navigate to Find the Hidden Exit,ocean_area_3_exit_far,stage_clear_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Ocean Area 4 Pick up a Bomb Up,ocean_area_4_next_to_bomb_up,pickup_bomb_up_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Ocean Area 3 Pick up a Heart,ocean_area_3_next_to_heart,pickup_heart_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Ocean Area 4 Kill the Enemy Using a Bomb,ocean_area_4_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Ocean Area 4 to Find and Kill the Enemy,ocean_area_4_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Ocean Area 4 Pick up a Heart,ocean_area_4_next_to_heart,pickup_heart_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Ocean Area 4 Kill the Strong Enemy Using a Bomb,ocean_area_4_next_to_strong_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,navigation,Ocean Area 4 Take the Exit,ocean_area_4_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Ocean Area 4 to Find and Kill the Strong Enemy,ocean_area_4_strong_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Ocean Area 4 Navigate to Find and Take the Exit,ocean_area_4_exit_far,stage_clear_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,combat,Ocean Area 5 Defeat the Boss Using a Bomb,ocean_area_5_next_to_boss,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Wind Area 1 Kill the Enemy Using a Bomb,wind_area_1_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Wind Area 1 Kill the Strong Enemy Using a Bomb,wind_area_1_next_to_strong_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,navigation,Wind Area 1 Take the Exit,wind_area_1_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Wind Area 2 Kill the Enemy Using a Bomb,wind_area_2_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Wind Area 1 to Find and Kill the Enemy,wind_area_1_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Wind Area 1 to Find and Kill the Strong Enemy,wind_area_1_strong_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Wind Area 1 Navigate to Find and Take the Exit,wind_area_1_exit_far,stage_clear_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Wind Area 2 to Find and Kill the Enemy,wind_area_2_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,interaction,Wind Area 2 Pick up a Heart,wind_area_2_next_to_heart,pickup_heart_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,navigation,Wind Area 2 Navigate Up and Take the Exit,wind_area_2_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Wind Area 3 Kill the Blue Fish Using a Bomb,wind_area_3_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,navigation,Wind Area 3 Break the Block then Avoid the Laser and Take the Exit,wind_area_3_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Wind Area 4 Kill the Blue Fish on the Right Without Dying,wind_area_4_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,navigation,Wind Area 4 Take the Exit,wind_area_4_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Wind Area 2 Navigate Up to Find and Take the Exit,wind_area_2_exit_far,stage_clear_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Wind Area 3 to Find and Kill the Blue Fish,wind_area_3_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Wind Area 3 Navigate to Break the Block and Avoid the Laser to Take the Exit,wind_area_3_exit_far,stage_clear_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Wind Area 4 to Find and Kill the Blue Fish,wind_area_4_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Wind Area 4 Navigate to Find and Take the Exit,wind_area_4_exit_far,stage_clear_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,combat,Wind Area 5 Defeat the Boss Using a Bomb,wind_area_5_next_to_boss,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,combat,Cloud Area 1 Kill the Enemy Using a Bomb,cloud_area_1_next_to_enemy,defeat_enemy_test,"bomberman_quest, bomberman_max",True
-bomberman_pocket,"navigation, combat",Wind Area 1 Navigate the Cloud and Find and Kill an Enemy,wind_area_1_on_cloud,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate Cloud Area 1 to Find and Kill the Enemy,cloud_area_1_enemy_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
+bomberman_pocket,"""navigation, combat""",Navigate the Wind Area 1 Clouds to Find and Kill an Enemy,wind_area_1_on_cloud_far,defeat_enemy_test,"bomberman_quest, bomberman_max",True
 bomberman_pocket,navigation,Cloud Area 1 Navigate Up and Take the Exit,cloud_area_1_next_to_exit,stage_clear_test,"bomberman_quest, bomberman_max",True
 bomberman_max,menu,Open the pause menu,starter,pause_menu_open_test,"bomberman_quest, bomberman_pocket",True
 bomberman_max,menu,Open the Charabom select screen,starter,charabom_select_test,"bomberman_quest, bomberman_pocket",True
