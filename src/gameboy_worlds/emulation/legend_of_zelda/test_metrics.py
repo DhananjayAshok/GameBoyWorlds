@@ -264,7 +264,7 @@ class CallBoothApproachTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
 
 
 class GrannyCornerTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "granny"
+    _TERMINATION_NAMED_REGION = "onewood"
 
 
 class LeaveBaldStoreCarpetTerminateMetric(ZeldaAnyRegionTerminationOnlyMetric):
@@ -280,7 +280,7 @@ class ExitFatHouseTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
 
 
 class BoothHouseUpTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "wood2"
+    _TERMINATION_NAMED_REGION = "chunkgrass"
 
 
 class ChickHouseBlockTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
@@ -308,7 +308,7 @@ class DirtPatchTwoTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
 
 
 class StonehouseRightTreeTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "tree"
+    _TERMINATION_NAMED_REGION = "twopurple"
 
 
 class SecondBoyDialogueExitTerminateMetric(ZeldaStateTerminationMetric):
@@ -328,11 +328,11 @@ class MonsterDeathTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
 
 
 class TileslongEscapeTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "tileslong"
+    _TERMINATION_NAMED_REGION = "treerighthouse"
 
 
 class BoardSignApproachTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "boardsign"
+    _TERMINATION_NAMED_REGION = "treestopr"
 
 #oracle
 class OracleRegionMatchTerminationOnlyMetric(ZeldaRegionMatchTerminationOnlyMetric):
@@ -523,7 +523,7 @@ class OracleShopSignPathTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
 
 
 class OracleClocksUpTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "clocks"
+    _TERMINATION_NAMED_REGION = "mickeynoddy"
 
 
 class OracleJoystickRightTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
@@ -563,7 +563,7 @@ class OracleLavaFloorTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
 
 
 class OracleStepOffTrackTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "trackempty"
+    _TERMINATION_NAMED_REGION = "mickeynoddy"
 
 
 class OracleGloomyPlaceLeftTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
@@ -579,11 +579,11 @@ class OracleLeaveGreenCarpetTerminateMetric(OracleRegionMatchTerminationOnlyMetr
 
 
 class OracleHolesToTrunkTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "trunk"
+    _TERMINATION_NAMED_REGION = "alleytunnel"
 
 
 class OracleTrunkToHolesTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "holes"
+    _TERMINATION_NAMED_REGION = "emptybeforehole"
 
 
 class OracleLeftOfTrunkTerminateMetric(OracleRegionMatchTerminationOnlyMetric):

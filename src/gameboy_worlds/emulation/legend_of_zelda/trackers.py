@@ -426,6 +426,61 @@ class PotholesSignboardSubGoalMetric(SubGoalMetric):
     SUBGOALS = [PotholesSignboardSubGoal]
 
 
+class GrannySubGoal(SubGoal):
+    NAME = "granny"
+
+    def _check_completed(self, frame, parser) -> bool:
+        return parser.named_region_matches_target(frame, "granny")
+
+
+class GrannySubGoalMetric(SubGoalMetric):
+    SUBGOALS = [GrannySubGoal]
+
+
+class Wood2SubGoal(SubGoal):
+    NAME = "wood2"
+
+    def _check_completed(self, frame, parser) -> bool:
+        return parser.named_region_matches_target(frame, "wood2")
+
+
+class Wood2SubGoalMetric(SubGoalMetric):
+    SUBGOALS = [Wood2SubGoal]
+
+
+class TreeSubGoal(SubGoal):
+    NAME = "tree"
+
+    def _check_completed(self, frame, parser) -> bool:
+        return parser.named_region_matches_target(frame, "tree")
+
+
+class TreeSubGoalMetric(SubGoalMetric):
+    SUBGOALS = [TreeSubGoal]
+
+
+class TileslongSubGoal(SubGoal):
+    NAME = "tileslong"
+
+    def _check_completed(self, frame, parser) -> bool:
+        return parser.named_region_matches_target(frame, "tileslong")
+
+
+class TileslongSubGoalMetric(SubGoalMetric):
+    SUBGOALS = [TileslongSubGoal]
+
+
+class BoardsignSubGoal(SubGoal):
+    NAME = "boardsign"
+
+    def _check_completed(self, frame, parser) -> bool:
+        return parser.named_region_matches_target(frame, "boardsign")
+
+
+class BoardsignSubGoalMetric(SubGoalMetric):
+    SUBGOALS = [BoardsignSubGoal]
+
+
 class Boy2ndSubGoal(SubGoal):
     NAME = "boy2nd"
 
@@ -510,7 +565,7 @@ class ZeldaLinksAwakeningCallBoothApproachTracker(TestTrackerMixin, CoreLegendOf
 
 class ZeldaLinksAwakeningGrannyCornerTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
     TERMINATION_TRUNCATION_METRIC = GrannyCornerTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = GrannySubGoalMetric
 
 
 class ZeldaLinksAwakeningLeaveBaldStoreCarpetTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
@@ -530,7 +585,7 @@ class ZeldaLinksAwakeningExitFatHouseTracker(TestTrackerMixin, CoreLegendOfZelda
 
 class ZeldaLinksAwakeningBoothHouseUpTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
     TERMINATION_TRUNCATION_METRIC = BoothHouseUpTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = Wood2SubGoalMetric
 
 
 class ZeldaLinksAwakeningChickHouseBlockTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
@@ -565,7 +620,7 @@ class ZeldaLinksAwakeningDirtPatchTwoTracker(TestTrackerMixin, CoreLegendOfZelda
 
 class ZeldaLinksAwakeningStonehouseRightTreeTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
     TERMINATION_TRUNCATION_METRIC = StonehouseRightTreeTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = TreeSubGoalMetric
 
 
 class ZeldaLinksAwakeningSecondBoyDialogueExitTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
@@ -590,12 +645,12 @@ class ZeldaLinksAwakeningMonsterDeathTracker(TestTrackerMixin, CoreLegendOfZelda
 
 class ZeldaLinksAwakeningTileslongEscapeTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
     TERMINATION_TRUNCATION_METRIC = TileslongEscapeTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = TileslongSubGoalMetric
 
 
 class ZeldaLinksAwakeningBoardSignApproachTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
     TERMINATION_TRUNCATION_METRIC = BoardSignApproachTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = BoardsignSubGoalMetric
 
 #oracle
 
@@ -627,6 +682,26 @@ class OracleClocksSubGoal(OracleRegionSubGoal):
     _NAMED_REGION = "clocks"
 
 
+class OracleTrackemptySubGoal(OracleRegionSubGoal):
+    NAME = "trackempty"
+    _NAMED_REGION = "trackempty"
+
+
+class OracleTrunkSubGoal(OracleRegionSubGoal):
+    NAME = "trunk"
+    _NAMED_REGION = "trunk"
+
+
+class OracleHolesSubGoal(OracleRegionSubGoal):
+    NAME = "holes"
+    _NAMED_REGION = "holes"
+
+
+class OracleFourCySubGoal(OracleRegionSubGoal):
+    NAME = "4cy"
+    _NAMED_REGION = "4cy"
+
+
 class OracleFireplaceSubGoal(OracleRegionSubGoal):
     NAME = "fireplace"
     _NAMED_REGION = "fireplace"
@@ -646,6 +721,22 @@ class OracleBottomRightShoreSubGoalMetric(SubGoalMetric):
 
 class OracleClocksSubGoalMetric(SubGoalMetric):
     SUBGOALS = [OracleClocksSubGoal]
+
+
+class OracleTrackemptySubGoalMetric(SubGoalMetric):
+    SUBGOALS = [OracleTrackemptySubGoal]
+
+
+class OracleTrunkSubGoalMetric(SubGoalMetric):
+    SUBGOALS = [OracleTrunkSubGoal]
+
+
+class OracleHolesSubGoalMetric(SubGoalMetric):
+    SUBGOALS = [OracleHolesSubGoal]
+
+
+class OracleFourCySubGoalMetric(SubGoalMetric):
+    SUBGOALS = [OracleFourCySubGoal]
 
 
 class OracleFireplaceSubGoalMetric(SubGoalMetric):
@@ -828,7 +919,7 @@ class ZeldaOracleOfSeasonsShopSignPathTracker(TestTrackerMixin, CoreLegendOfZeld
 
 class ZeldaOracleOfSeasonsClocksUpTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
     TERMINATION_TRUNCATION_METRIC = OracleClocksUpTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = OracleClocksSubGoalMetric
 
 
 class ZeldaOracleOfSeasonsJoystickRightTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
@@ -878,7 +969,7 @@ class ZeldaOracleOfSeasonsLavaFloorTracker(TestTrackerMixin, CoreLegendOfZeldaTr
 
 class ZeldaOracleOfSeasonsStepOffTrackTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
     TERMINATION_TRUNCATION_METRIC = OracleStepOffTrackTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = OracleTrackemptySubGoalMetric
 
 
 class ZeldaOracleOfSeasonsGloomyPlaceLeftTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
@@ -898,14 +989,14 @@ class ZeldaOracleOfSeasonsLeaveGreenCarpetTracker(TestTrackerMixin, CoreLegendOf
 
 class ZeldaOracleOfSeasonsHolesToTrunkTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
     TERMINATION_TRUNCATION_METRIC = OracleHolesToTrunkTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = OracleTrunkSubGoalMetric
 
 
 class ZeldaOracleOfSeasonsTrunkToHolesTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
     TERMINATION_TRUNCATION_METRIC = OracleTrunkToHolesTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = OracleHolesSubGoalMetric
 
 
 class ZeldaOracleOfSeasonsLeftOfTrunkTracker(TestTrackerMixin, CoreLegendOfZeldaTracker):
     TERMINATION_TRUNCATION_METRIC = OracleLeftOfTrunkTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = OracleFourCySubGoalMetric

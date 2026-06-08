@@ -197,6 +197,11 @@ class LegendOfZeldaLinksAwakeningParser(BaseLegendOfZeldaParser):
             ("boardsign", 45, 14, 19, 18),
             ("potsbelow", 14, 94, 35, 19),
             ("go_out_dialogue", 8, 10, 136, 34),
+            ("twopurple", 78, 14, 19, 35),
+            ("treerighthouse", 109, 32, 36, 26),
+            ("treestopr", 64, 2, 61, 37),
+            ("onewood", 69, 65, 13, 13),
+            ("chunkgrass", 31, 32, 64, 47),
         ]
 
         """
@@ -285,13 +290,17 @@ class LegendOfZeldaTheOracleOfSeasonsParser(BaseLegendOfZeldaParser):
             ("bluetext", 6, 96, 95, 37),
             ("redtext", 9, 96, 118, 37),
             ("guyonlava", 0, 111, 159, 30),
-            ("trackempty", 0, 47, 159, 31),
+            ("trackempty", 0, 49, 159, 11),
             ("boundaryred", 0, 129, 159, 12),
             ("gameover", 41, 7, 77, 16),
             ("greencarpet", 16, 72, 46, 57),
             ("holes", 111, 62, 34, 16),
             ("trunk", 56, 31, 30, 26),
-            ("4cy", 79, 17, 16, 29)
+            ("4cy", 79, 17, 16, 29),
+            ("gobridge", 66, 0, 93, 143),
+            ("emptybeforehole", 1, 18, 158, 27),
+            ("alleytunnel", 32, 18, 45, 27),
+            ("mickeynoddy", 29, 62, 22, 18)
         ]
         """
         - bricks: bricks on the right side of the screen, signifying that the inventory is open.
