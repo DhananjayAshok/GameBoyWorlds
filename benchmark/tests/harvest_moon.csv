@@ -22,7 +22,7 @@ harvest_moon_1,"navigation, interaction",pull out the bottommost weed while stan
 harvest_moon_1,"navigation, interaction",cut the bottommost weed with the sickle while standing above it,next_to_weeds,cut_lowest_weed_test,"harvest_moon_2, harvest_moon_3",True
 harvest_moon_1,"navigation, interaction",pull out the topmost weed along the left fence by hand,next_to_top_left_weed,remove_top_left_weed_test,"harvest_moon_2, harvest_moon_3",True
 harvest_moon_1,"navigation, interaction",cut the topmost weed along the left fence with the sickle,next_to_top_left_weed,cut_top_left_weed_test,"harvest_moon_2, harvest_moon_3",True
-harvest_moon_1,"navigation, interaction",harvest the center row of grass from right to left without disturbing the other rows, stopping next to the center potato,near_grassland,,True
+harvest_moon_1,"navigation, interaction","harvest the center row of grass from right to left without disturbing the other rows, stopping next to the center potato",near_grassland,harvest_center_grassline_test,"harvest_moon_2, harvest_moon_3",True
 harvest_moon_1,"navigation, interaction",pick up the broken fence piece and slot it back into the fence while staying next to the wall,near_broken_fence,restore_fence_test,"harvest_moon_2, harvest_moon_3",True
 harvest_moon_1,"navigation, menu, interaction",buy material at the carpenter,shopping_area,buy_material_test,"harvest_moon_2, harvest_moon_3",True
 harvest_moon_1,"navigation, menu, interaction",get an estimate for a home expansion at the carpenter,shopping_area,get_home_expansion_estimate_test,"harvest_moon_2, harvest_moon_3",True
