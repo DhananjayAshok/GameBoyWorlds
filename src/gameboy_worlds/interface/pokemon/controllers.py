@@ -120,7 +120,7 @@ class PokemonStateWiseController(Controller):
             MoveStepsAction: "move(<up, down, right or left> <steps: int>): Move in a particular direction by a specified number of grid steps.",
             InteractAction: "interact(): Interact with cell directly in front of you. Only works if there is something to interact with.",
             OpenMenuAction: "openmenu(<pokedex, pokemon, bag, trainer>): Open a specific player menu option.",
-            GetTeamInfoAction: "getteaminfo(): Open POKéMON from the START menu and return the visible team screen.",
+            GetTeamInfoAction: "getteaminfo(): Open POKéMON from the START menu and return live name/HP image crops for its six team slots.",
         }
         dialogue_action_strings = {
             PassDialogueAction: "passdialogue(): Advance the dialogue by one step.",

@@ -1,6 +1,7 @@
 from gameboy_worlds.emulation.pokemon.base_metrics import (
     CorePokemonMetrics,
     PokemonOCRMetric,
+    PokemonRedTeamInfoMetric,
     PokemonRedLocation,
     PokemonRedStarter,
 )
@@ -190,7 +191,7 @@ class CorePokemonTracker(StateTracker):
 class PokemonOCRTracker(CorePokemonTracker):
     def start(self):
         super().start()
-        self.metric_classes.extend([PokemonOCRMetric])
+        self.metric_classes.extend([PokemonOCRMetric, PokemonRedTeamInfoMetric])
 
 
 class PokemonRedStarterTracker(PokemonOCRTracker):

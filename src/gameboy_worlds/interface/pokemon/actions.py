@@ -709,20 +709,21 @@ class OpenMenuAction(HighLevelAction):
 
 
 class GetTeamInfoAction(SingleHighLevelAction):
-    """Opens the Pokémon Red party screen and returns its visible screen pixels.
+    """Opens the Pokémon Red party screen and returns its live slot captures.
 
     Is Valid When:
     - In Free Roam State
 
     Action Success Interpretation:
     - -1: The START menu or one of its expected visual states was not found.
-    - 0: The Pokémon party screen opened; ``team_screen`` contains its frame.
+    - 0: The Pokémon party screen opened; ``team_info`` contains its live crops.
     - 1: The START menu remained open after selecting POKéMON, indicating no party.
 
     Action Returns:
     - ``team_present`` (bool): Whether the party screen opened.
-    - ``team_screen`` (np.ndarray | None): The live full-screen party frame, or None
-      when no Pokémon are present.
+    - ``team_info`` (dict | None): Six live party-slot dictionaries.  Each
+      occupied slot contains ``name_image`` and ``hp_image`` numpy arrays.
+      None when no Pokémon are present.
     """
 
     # PokemonStateWiseController is shared by several Pokémon variants. Keep its
@@ -752,7 +753,7 @@ class GetTeamInfoAction(SingleHighLevelAction):
         self._set_action_return(
             transition_states,
             team_present=None,
-            team_screen=None,
+            team_info=None,
             reason=reason,
         )
         return transition_states, -1
@@ -826,14 +827,18 @@ class GetTeamInfoAction(SingleHighLevelAction):
             self._set_action_return(
                 transition_states,
                 team_present=False,
-                team_screen=None,
+                team_info=None,
             )
             return transition_states, 1
 
+        # The metric updates its live image-array dictionary on every emulator
+        # step.  Keep those arrays out of ordinary state logs, then attach the
+        # final party-screen capture only to this action's return value.
+        team_info = self._state_tracker.metrics["pokemon_team_info"].team_info
         self._set_action_return(
             transition_states,
             team_present=True,
-            team_screen=self._emulator.get_current_frame().copy(),
+            team_info=team_info,
         )
         return transition_states, 0
 
