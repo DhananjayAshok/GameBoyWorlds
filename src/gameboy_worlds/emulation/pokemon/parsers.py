@@ -670,6 +670,13 @@ class BasePokemonCrystalStateParser(PokemonStateParser, ABC):
 
 
 class PokemonRedStateParser(BasePokemonRedStateParser):
+    _START_MENU_FIRST_OPTION_TARGETS = (
+        "pokedex_cursor",
+        "pokedex_no_cursor",
+        "pokemon_cursor",
+        "pokemon_no_cursor",
+    )
+
     def __init__(self, pyboy, parameters):
         override_multi_targets = {
             "dialogue_box_middle": [
@@ -739,6 +746,21 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
             parameters=parameters,
             override_multi_targets=override_multi_targets,
         )
+
+    def is_start_menu_open(self, current_screen: np.ndarray) -> bool:
+        """Returns whether the Pokémon Red START menu is visibly open."""
+        return self.named_region_matches_target(
+            current_screen, "start_menu_top_right"
+        )
+
+    def get_start_menu_first_option(self, current_screen: np.ndarray) -> Optional[str]:
+        """Classifies the first START-menu row from its captured visual targets."""
+        for target_name in self._START_MENU_FIRST_OPTION_TARGETS:
+            if self.named_region_matches_multi_target(
+                current_screen, "start_menu_first_option", target_name
+            ):
+                return target_name
+        return None
 
 
 class PokemonBrownStateParser(BasePokemonRedStateParser):
