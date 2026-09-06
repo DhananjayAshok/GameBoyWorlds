@@ -494,6 +494,7 @@ class BasePokemonRedStateParser(PokemonStateParser, ABC):
         ("pokemon_list_hp_text", 32, 9, 10, 5),
         ("pokemon_stats_line", 66, 55, 5, 5),
         ("battle_bag_options_bottom_left", 32, 96, 5, 5),
+        ("start_menu_top_right", 150, 1, 8, 6),
     ]
     """ Additional named screen regions specific to Pokemon Red games.
     - pokedex_top_left: Top left of the screen when the Pokedex is open. Open the Pokedex to capture this.
@@ -505,6 +506,7 @@ class BasePokemonRedStateParser(PokemonStateParser, ABC):
 
     MULTI_TARGET_REGIONS = [
         ("menu_box_strip", 89, 13, 5, 100),
+        ("start_menu_first_option", 86, 13, 66, 12),
     ]
     """ Additional multi-target named screen regions specific to Pokemon Red games. 
     - menu_box_strip: Strip of the menu box when the start menu is open. Open the start menu to capture this. The margins are adjusted to avoiding capturing the player name, as this may change across sav files and states. 
@@ -724,6 +726,12 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
                 "reach_giovanni_area"
             ],
             "screen_quadrant_2": ["opened_squirtle_pokedex", "opened_blastoise_status"],
+            "start_menu_first_option": [
+                "pokedex_cursor",
+                "pokedex_no_cursor",
+                "pokemon_cursor",
+                "pokemon_no_cursor",
+            ],
         }
         super().__init__(
             pyboy,
