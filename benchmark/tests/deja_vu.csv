@@ -74,7 +74,7 @@ deja_vu_2,Navigation,exit the casino,opened_lobby_door,exit_casino_test,deja_vu_
 deja_vu_2,Interact,talk in train station,in_train_station,talk_in_train_station_test,deja_vu_1,FALSE
 deja_vu_2,Navigation,visit counter,talked_in_train_station,visit_counter_test,deja_vu_1,FALSE
 deja_vu_2,Inspect,check the timetable,taken_pamphlet,check_timetable_test,deja_vu_1,FALSE
-deja_vu_2,Navigation,enter the platform on track9,back_to_train_station,enter_platform_track9_test,deja_vu_1,FALSE
+deja_vu_2,Navigation,enter the platform on track6,back_to_train_station,enter_platform_track6_test,deja_vu_1,FALSE
 deja_vu_2,Navigation,enter the train,on_track6,enter_train_test,deja_vu_1,FALSE
 deja_vu_2,Interact,buy a train ticket,ticket_seller,buy_ticket_test,deja_vu_1,FALSE
 deja_vu_2,Inspect,check the girl in the train,in_train,check_girl_test,deja_vu_1,FALSE
