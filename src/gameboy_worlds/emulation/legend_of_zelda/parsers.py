@@ -271,7 +271,7 @@ class LegendOfZeldaTheOracleOfSeasonsParser(BaseLegendOfZeldaParser):
             ("almirah", 80, 17, 31, 12),
             ("signboard_entry", 27, 29, 19, 16),
             ("grass_right", 118, 79, 18, 14),
-            ("open_gate", 70, 51, 16, 18),
+            ("open_gate", 102, 51, 4, 7),
             ("sign_dialogue", 0, 80, 122, 38),
             ("left_screen", 0, 16, 108, 128),
             ("right_screent", 107, 46, 49, 47),
@@ -306,7 +306,7 @@ class LegendOfZeldaTheOracleOfSeasonsParser(BaseLegendOfZeldaParser):
             ("gobridge", 66, 0, 93, 143),
             ("emptybeforehole", 1, 18, 158, 27),
             ("alleytunnel", 32, 18, 45, 27),
-            ("mickeynoddy", 29, 62, 22, 18)
+            ("mickeynoddy", 36, 67, 7, 9),
         ]
         """
         - bricks: bricks on the right side of the screen, signifying that the inventory is open.
