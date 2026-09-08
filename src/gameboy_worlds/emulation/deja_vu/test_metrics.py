@@ -604,9 +604,62 @@ class OpenedDoorByKnifeTerminationMetric(RegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "dialogue_box_area"
     _TERMINATION_TARGET_NAME = "opened_door_by_knife"
 
+class PutOnFlashlightTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "put_on_flashlight"
+
+class EnteredJoePlaceTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "entered_joe_place"
+
+class OpenedSlotLockTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "opened_slot_lock"
+
+class TurnOffFlashlightTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "turned_off_flashlight"
+
+class GotLocationFromCardTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "got_location_from_card"
+
+class OpenedBagWithKnifeTerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "opened_bag_with_knife"
+
+class AskedAboutNametag2TerminationMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = DejaVu2StateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_area"
+    _TERMINATION_TARGET_NAME = "asked_about_nametage2"
+
+
 
 # subgoal classes
 # subgoal classes with multiple region match requirements
+class InVacuumMenuSubGoal(AnyRegionMatchSubGoal):
+    NAME = "in_vacuum_menu"
+    _NAMED_REGIONS = ["menu_title_area"]
+    _TARGET_NAMES = ["vacuum_menu"]
+
+class OpenedJoePlaceDoorSubGoal(AnyRegionMatchSubGoal):
+    NAME = "opened_joe_place_door"
+    _NAMED_REGIONS = ["dialogue_box_area"]
+    _TARGET_NAMES = ["opened_joe_place_door"]
+
 class UnlockedMiddleRoomDoorSubGoal(AnyRegionMatchSubGoal):
     NAME = "unlocked_middle_room_door"
     _NAMED_REGIONS = ["dialogue_box_area"]
@@ -699,6 +752,18 @@ class NoActionInGrimyOfficeSubGoal(AnyRegionMatchSubGoal):
     _TARGET_NAMES = ["in_grimy_office"]
 
 # subgoal classes with single region match requirement
+class UsingNametag2SubGoal(SingleRegionMatchSubGoal):
+    NAME = "using_nametag2"
+    _NAMED_REGION = "using_nametag2_item"
+
+class UsingFlashlightSubGoal(SingleRegionMatchSubGoal):
+    NAME = "using_flashlight"
+    _NAMED_REGION = "using_flashlight_item"
+
+class UsingKey4SubGoal(SingleRegionMatchSubGoal):
+    NAME = "using_key4"
+    _NAMED_REGION = "using_key4_item"
+
 class UsingKnifeSubGoal(SingleRegionMatchSubGoal):
     NAME = "using_knife"
     _NAMED_REGION = "using_knife_item"
@@ -818,6 +883,10 @@ class PointedAt52OnMapSubGoal(SingleRegionMatchSubGoal):
 class PointedAt24OnMapSubGoal(SingleRegionMatchSubGoal):
     NAME = "pointed_at_24_on_map"
     _NAMED_REGION = "pointed_at_24_on_map"
+
+class PointedAt54OnMapSubGoal(SingleRegionMatchSubGoal):
+    NAME = "pointed_at_54_on_map"
+    _NAMED_REGION = "pointed_at_54_on_map"
 
 
 # Action selection subgoals in menu and normal have the same target names

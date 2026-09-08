@@ -121,6 +121,16 @@ class RunesOfVirtue2LordWhitsaberDialogTerminateMetric(
     _TERMINATION_TARGET_NAME = "lord_whitsaber_dialog"
 
 
+class RunesOfVirtue2CaveOfDishonourLordWhitsaberFloor4TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Lord Whitsaber's floor 4 dialog is on screen in the Cave of Dishonour."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "cave_of_dishonour_lord_whitsaber_floor_4"
+
+
 class RunesOfVirtue2CaveOfDishonourTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when the player has entered the Cave of Dishonour."""
 
@@ -155,6 +165,186 @@ class RunesOfVirtue2CaveOfDishonourEnterFloor3TerminateMetric(
     REQUIRED_PARSER = RunesOfVirtueStateParser
     _TERMINATION_NAMED_REGION = "playfield_indicator"
     _TERMINATION_TARGET_NAME = "cave_of_dishonour_enter_floor_3"
+
+
+class RunesOfVirtue2CaveOfDishonourEquipRodFloor3TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player equips the rod on floor 3 in the Cave of Dishonour."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_25_ui_indicator"
+    _TERMINATION_TARGET_NAME = "cave_of_dishonour_equip_rod_floor_3"
+
+
+class RunesOfVirtue2CaveOfDishonourEnterFloor3BlockedTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player reaches the blocked path on floor 3 in the Cave of Dishonour."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cave_of_dishonour_enter_floor_3_blocked"
+
+
+class RunesOfVirtue2CaveOfDishonourEnterFloor4TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 4 in the Cave of Dishonour."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cave_of_dishonour_enter_floor_4"
+
+
+class RunesOfVirtue2CaveOfDishonourExitedTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player exits the Cave of Dishonour."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cave_of_dishonour_exited"
+
+
+class RunesOfVirtue2CityOfYewEnteredTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters the city of Yew."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "city_of_yew_entered"
+
+
+class RunesOfVirtue2CityOfYewWelcomeSignReadTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player reads the welcome sign in the city of Yew."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "city_of_yew_welcome_sign_read"
+
+
+class RunesOfVirtue2MandrakeBardDialogTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Mandrake the Bard's dialog is on screen."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "mandrake_bard_dialog"
+
+
+class RunesOfVirtue2CavernOfInjusticeTalkToZoltanFloor4TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Zoltan's floor 4 dialog is on screen in the Cavern of Injustice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_talk_to_zoltan_floor_4"
+
+
+class RunesOfVirtue2CavernOfInjusticeReadHintFloor5TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player reads the floor 5 hint in the Cavern of Injustice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_read_hint_floor_5"
+
+
+class RunesOfVirtue2CavernOfInjusticeTalkToTerryFloor5TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Terry's floor 5 dialog is on screen in the Cavern of Injustice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_talk_to_terry_floor_5"
+
+
+class RunesOfVirtue2CavernOfInjusticeEnteredTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters the Cavern of Injustice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_entered"
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor2TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 2 of the Cavern of Injustice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_enter_floor_2"
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor3TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 3 of the Cavern of Injustice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_enter_floor_3"
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor4TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 4 of the Cavern of Injustice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_enter_floor_4"
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor5TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 5 of the Cavern of Injustice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_enter_floor_5"
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor6TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 6 of the Cavern of Injustice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_enter_floor_6"
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor7TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 7 of the Cavern of Injustice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_enter_floor_7"
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterEastPortalFloor3TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters the east portal on floor 3."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_injustice_enter_east_portal_floor_3"
 
 
 class RunesOfVirtue2GrabCheeseFromKitchenTerminateMetric(
@@ -245,6 +435,16 @@ class RunesOfVirtue2AttendCastleCeremonyTerminateMetric(
     REQUIRED_PARSER = RunesOfVirtueStateParser
     _TERMINATION_NAMED_REGION = "dialog_indicator"
     _TERMINATION_TARGET_NAME = "castle_ceremony_attended"
+
+
+class RunesOfVirtue2RuneOfHonourObtainedTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player obtains the Rune of Honour."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "dialog_indicator"
+    _TERMINATION_TARGET_NAME = "rune_of_honour_obtained"
 
 
 class RunesOfVirtue2CavernOfHatredGate1UnlockedTerminateMetric(
@@ -383,6 +583,36 @@ class RunesOfVirtue1CavernOfDeceitTerminateMetric(RegionMatchTerminationOnlyMetr
     _TERMINATION_TARGET_NAME = "cavern_of_deceit"
 
 
+class RunesOfVirtue1CavernOfDeceitEnterFloor2TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 2 of the Cavern of Deceit."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_deceit_enter_floor_2"
+
+
+class RunesOfVirtue1CavernOfDeceitEnterFloor3TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 3 of the Cavern of Deceit."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_deceit_enter_floor_3"
+
+
+class RunesOfVirtue1CavernOfDeceitEnterFloor4TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 4 of the Cavern of Deceit."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_deceit_enter_floor_4"
+
+
 class RunesOfVirtue1CavernOfCowardiceTerminateMetric(
     RegionMatchTerminationOnlyMetric
 ):
@@ -463,12 +693,122 @@ class RunesOfVirtue1CavernOfCowardiceObtainCoinFloor4TerminateMetric(
     _TERMINATION_TARGET_NAME = "cavern_of_cowardice_obtain_coin_floor_4"
 
 
+class RunesOfVirtue1CavernOfCowardiceEnterFloor5TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 5 of the Cavern of Cowardice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_cowardice_enter_floor_5"
+
+
+class RunesOfVirtue1CavernOfCowardiceObtainKeyFromDrCatFloor5TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player obtains the key from Dr. Cat on floor 5 of the Cavern of Cowardice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_cowardice_obtain_key_from_dr_cat_floor_5"
+
+
+class RunesOfVirtue1CavernOfCowardiceEnterFloor6TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 6 of the Cavern of Cowardice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_cowardice_enter_floor_6"
+
+
+class RunesOfVirtue1CavernOfCowardiceEnterSecretDoorFloor6TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters the secret door on floor 6 of the Cavern of Cowardice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_cowardice_enter_secret_door_floor_6"
+
+
+class RunesOfVirtue1CavernOfCowardiceTalkToSherryFloor6TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Sherry's floor 6 dialog is on screen in the Cavern of Cowardice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_cowardice_talk_to_sherry_floor_6"
+
+
+class RunesOfVirtue1CavernOfCowardiceTalkToChucklesFloor6TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Chuckles' floor 6 dialog is on screen in the Cavern of Cowardice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_cowardice_talk_to_chuckles_floor_6"
+
+
+class RunesOfVirtue1CavernOfCowardiceObtainMagicRopeFloor6TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player obtains the magic rope on floor 6 of the Cavern of Cowardice."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_45_ui_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_cowardice_obtain_magic_rope_floor_6"
+
+
 class RunesOfVirtue1DrCatDialogTerminateMetric(RegionMatchTerminationOnlyMetric):
     """Terminates when Dr. Cat's dialog is on screen."""
 
     REQUIRED_PARSER = RunesOfVirtueStateParser
     _TERMINATION_NAMED_REGION = "playfield_indicator"
     _TERMINATION_TARGET_NAME = "dr_cat_dialog"
+
+
+class RunesOfVirtue1CavernOfDeceitTalkToFinnFloor1TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Finn's floor 1 dialog is on screen in the Cavern of Deceit."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_deceit_talk_to_finn_floor_1"
+
+
+class RunesOfVirtue1CavernOfDeceitTalkToKadorFloor3TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Kador's floor 3 dialog is on screen in the Cavern of Deceit."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_deceit_talk_to_kador_floor_3"
+
+
+class RunesOfVirtue1CavernOfDeceitTalkToFinnFloor3TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Finn's floor 3 dialog is on screen in the Cavern of Deceit."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_deceit_talk_to_finn_floor_3"
+
+
+class RunesOfVirtue1CavernOfDeceitEnterEastDoorFloor1TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters the east door on floor 1 of the Cavern of Deceit."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_deceit_enter_east_door_floor_1"
 
 
 class RunesOfVirtue1DrCatCatsLairDialogTerminateMetric(
@@ -479,6 +819,14 @@ class RunesOfVirtue1DrCatCatsLairDialogTerminateMetric(
     REQUIRED_PARSER = RunesOfVirtueStateParser
     _TERMINATION_NAMED_REGION = "playfield_indicator"
     _TERMINATION_TARGET_NAME = "dr_cat_cats_lair_dialog"
+
+
+class RunesOfVirtue1BuyTwoCakesTerminateMetric(RegionMatchTerminationOnlyMetric):
+    """Terminates when the player buys two cakes."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_85_ui_indicator"
+    _TERMINATION_TARGET_NAME = "buy_two_cakes"
 
 
 class RunesOfVirtue1ShipRiddenTerminateMetric(RegionMatchTerminationOnlyMetric):
@@ -567,6 +915,56 @@ class RunesOfVirtue1CavernOfHatredEnterFloor4TerminateMetric(
     REQUIRED_PARSER = RunesOfVirtueStateParser
     _TERMINATION_NAMED_REGION = "top_playfield_indicator"
     _TERMINATION_TARGET_NAME = "cavern_of_hatred_enter_floor_4"
+
+
+class RunesOfVirtue1CavernOfHatredEnterFloor5TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player enters floor 5 of the Cavern of Hatred."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "top_40_playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_hatred_enter_floor_5"
+
+
+class RunesOfVirtue1CavernOfHatredTalkToKlopFloor5TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Klop's floor 5 dialog is on screen in the Cavern of Hatred."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_hatred_talk_to_klop_floor_5"
+
+
+class RunesOfVirtue1CavernOfHatredTalkToKlipFloor5TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when Klip's floor 5 dialog is on screen in the Cavern of Hatred."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_hatred_talk_to_klip_floor_5"
+
+
+class RunesOfVirtue1CavernOfHatredObtainAxeFloor5TerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player obtains the axe on floor 5 of the Cavern of Hatred."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_hatred_obtain_axe_floor_5"
+
+
+class RunesOfVirtue1CavernOfHatredExitedTerminateMetric(
+    RegionMatchTerminationOnlyMetric
+):
+    """Terminates when the player exits the Cavern of Hatred."""
+
+    REQUIRED_PARSER = RunesOfVirtueStateParser
+    _TERMINATION_NAMED_REGION = "playfield_indicator"
+    _TERMINATION_TARGET_NAME = "cavern_of_hatred_exited"
 
 
 class RunesOfVirtue1CavernOfHatredChestFloor1OpenedTerminateMetric(

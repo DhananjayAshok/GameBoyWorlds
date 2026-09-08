@@ -1,54 +1,54 @@
 game,task_category,task,init_state,state_tracker_class,shifted_training_games,can_train_from_init_state
-survival_kids_1,menu,Open the inventory,before_inventory,inventory_open_test,survival_kids_1,True
-survival_kids_1,interaction,Pick up the item,before_pickup_dialogue,pickup_item_dialogue_test,survival_kids_1,True
-survival_kids_1,interaction,Find the bag,before_bag_pickup,bag_icon_test,survival_kids_1,True
-survival_kids_1,interaction,Pick up the stick,before_pickup_stick,got_the_stick_test,survival_kids_1,True
-survival_kids_1,interaction,Pick up the tree bark,before_pickup_tree_bark,got_the_tree_bark_test,survival_kids_1,True
-survival_kids_1,interaction,Pick up the bird feather,before_pickup_brdfeather,got_the_brdfeather_test,survival_kids_1,True
-survival_kids_1,"menu, interaction",Choose the knife,before_choose_knife,knife_chosen_test,survival_kids_1,True
-survival_kids_1,"menu, interaction",Equip the knife,before_equip_knife,knife_equipped_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Make kindling from the inventory,inventory_open,kindling_merged_test,survival_kids_1,True
-survival_kids_1,"menu, interaction",Drop trash from the inventory,inventory_open,select_drop_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Select kindling from the inventory,before_use_kindling,select_kindling_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Use kindling,before_use_kindling,use_kindling_test,survival_kids_1,True
-survival_kids_1,survival,Light a fire with kindling,use_kindling,fire_lit_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Open the inventory after lighting a fire,fire_lit,inventory_after_fire_lit_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Enter Items after lighting a fire,fire_lit,inventory_select_item_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Select meat from the inventory,fire_lit,select_meat_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Select Burn on the meat,fire_lit,meat_burn_selected_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Confirm burning the meat,fire_lit,burn_confirm_test,survival_kids_1,True
-survival_kids_1,survival,Cook the meat over the fire,fire_lit,meat_cooked_dialogue_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Open the cooked meat action menu,fire_lit,cooked_meat_action_menu_test,survival_kids_1,True
-survival_kids_1,survival,Store the cooked meat,fire_lit,cooked_meat_stored_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Select Eat on the cooked meat,fire_lit,cooked_meat_eat_selected_test,survival_kids_1,True
-survival_kids_1,survival,Eat the cooked meat,fire_lit,cooked_meat_eaten_dialogue_test,survival_kids_1,True
-survival_kids_1,interaction,Cut grass,near_grass,grass_cut_test,survival_kids_1,True
-survival_kids_1,"interaction, menu",Select Take from the item menu,item_take_leave_menu,select_take_test,survival_kids_1,True
-survival_kids_1,"interaction, menu",Select Take from the clam menu,before_take_clamp,select_take_test,survival_kids_1,True
-survival_kids_1,interaction,Pick up the clam,before_take_clamp,got_the_clam_test,survival_kids_1,True
-survival_kids_1,interaction,Pick up the canteen,before_canteen_pickup,canteen_pickup_dialogue_test,survival_kids_1,True
-survival_kids_1,"interaction, menu",Select Take from the canteen menu,before_canteen_pickup,select_take_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Choose the canteen,has_canteen_near_water,canteen_chosen_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Open the canteen action menu,has_canteen_near_water,canteen_action_menu_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Select Use on the canteen,canteen_action_menu,canteen_use_selected_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Select Drink on the canteen,canteen_action_menu,canteen_drink_selected_test,survival_kids_1,True
-survival_kids_1,survival,Drink from the canteen,canteen_action_menu,after_drinking_water_test,survival_kids_1,True
-survival_kids_1,navigation,Clear the first blocked path,before_blocking_grass,chapter1_path_cleared_test,survival_kids_1,True
-survival_kids_1,navigation,Enter the shelter after clearing grass,before_blocking_grass,in_the_shelter_test,survival_kids_1,True
-survival_kids_1,navigation,Find the river,chapter1_near_river,found_river_test,survival_kids_1,True
-survival_kids_1,navigation,Enter the shelter,before_enter_shelter,entered_shelter_test,survival_kids_1,True
-survival_kids_1,survival,Reach daytime,time_day,day_reference_test,survival_kids_1,True
-survival_kids_1,survival,Reach nighttime,time_night,night_reference_test,survival_kids_1,True
-survival_kids_1,"interaction, survival",Open the water menu,near_water,water_menu_open_test,survival_kids_1,True
-survival_kids_1,survival,Drink water from the water menu,water_menu_open,drink_water_test,survival_kids_1,True
-survival_kids_1,survival,Start filling water from the water menu,water_menu_open,after_filling_water_test,survival_kids_1,True
-survival_kids_1,survival,Get water from the water menu,water_menu_open,got_the_water_test,survival_kids_1,True
-survival_kids_1,"interaction, menu",Select Take from the feather menu,before_feather_pickup,select_take_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Open the meat action menu,before_eat_meat,meat_action_menu_test,survival_kids_1,True
-survival_kids_1,combat,Hunt the animal,before_hunt_animal,animal_killed_test,survival_kids_1,True
-survival_kids_1,"menu, survival",Open the merge menu,inventory_open,merge_menu_test,survival_kids_1,True
-survival_kids_1,"interaction, menu",Open the canteen take or leave menu,before_canteen_pickup,canteen_take_leave_menu_test,survival_kids_1,True
-survival_kids_1,"interaction, menu",Open the feather take or leave menu,before_feather_pickup,take_leave_menu_test,survival_kids_1,True
+survival_kids_1,menu,Open the inventory,before_inventory,inventory_open_test,survival_kids_2,True
+survival_kids_1,interaction,Pick up the item,before_pickup_dialogue,pickup_item_dialogue_test,survival_kids_2,True
+survival_kids_1,interaction,Find the bag,before_bag_pickup,bag_icon_test,survival_kids_2,True
+survival_kids_1,interaction,Pick up the stick,before_pickup_stick,got_the_stick_test,survival_kids_2,True
+survival_kids_1,interaction,Pick up the tree bark,before_pickup_tree_bark,got_the_tree_bark_test,survival_kids_2,True
+survival_kids_1,interaction,Pick up the bird feather,before_pickup_brdfeather,got_the_brdfeather_test,survival_kids_2,True
+survival_kids_1,"menu, interaction",Choose the knife,before_choose_knife,knife_chosen_test,survival_kids_2,True
+survival_kids_1,"menu, interaction",Equip the knife,before_equip_knife,knife_equipped_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Make kindling from the inventory,inventory_open,kindling_merged_test,survival_kids_2,True
+survival_kids_1,"menu, interaction",Drop trash from the inventory,inventory_open,select_drop_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Select kindling from the inventory,before_use_kindling,select_kindling_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Use kindling,before_use_kindling,use_kindling_test,survival_kids_2,True
+survival_kids_1,survival,Light a fire with kindling,use_kindling,fire_lit_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Open the inventory after lighting a fire,fire_lit,inventory_after_fire_lit_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Enter Items after lighting a fire,fire_lit,inventory_select_item_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Select meat from the inventory,fire_lit,select_meat_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Select Burn on the meat,fire_lit,meat_burn_selected_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Confirm burning the meat,fire_lit,burn_confirm_test,survival_kids_2,True
+survival_kids_1,survival,Cook the meat over the fire,fire_lit,meat_cooked_dialogue_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Open the cooked meat action menu,fire_lit,cooked_meat_action_menu_test,survival_kids_2,True
+survival_kids_1,survival,Store the cooked meat,fire_lit,cooked_meat_stored_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Select Eat on the cooked meat,fire_lit,cooked_meat_eat_selected_test,survival_kids_2,True
+survival_kids_1,survival,Eat the cooked meat,fire_lit,cooked_meat_eaten_dialogue_test,survival_kids_2,True
+survival_kids_1,interaction,Cut grass,near_grass,grass_cut_test,survival_kids_2,True
+survival_kids_1,"interaction, menu",Select Take from the item menu,item_take_leave_menu,select_take_test,survival_kids_2,True
+survival_kids_1,"interaction, menu",Select Take from the clam menu,before_take_clamp,select_take_test,survival_kids_2,True
+survival_kids_1,interaction,Pick up the clam,before_take_clamp,got_the_clam_test,survival_kids_2,True
+survival_kids_1,interaction,Pick up the canteen,before_canteen_pickup,canteen_pickup_dialogue_test,survival_kids_2,True
+survival_kids_1,"interaction, menu",Select Take from the canteen menu,before_canteen_pickup,select_take_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Choose the canteen,has_canteen_near_water,canteen_chosen_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Open the canteen action menu,has_canteen_near_water,canteen_action_menu_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Select Use on the canteen,canteen_action_menu,canteen_use_selected_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Select Drink on the canteen,canteen_action_menu,canteen_drink_selected_test,survival_kids_2,True
+survival_kids_1,survival,Drink from the canteen,canteen_action_menu,after_drinking_water_test,survival_kids_2,True
+survival_kids_1,navigation,Clear the first blocked path,before_blocking_grass,chapter1_path_cleared_test,survival_kids_2,True
+survival_kids_1,navigation,Enter the shelter after clearing grass,before_blocking_grass,in_the_shelter_test,survival_kids_2,True
+survival_kids_1,navigation,Find the river,chapter1_near_river,found_river_test,survival_kids_2,True
+survival_kids_1,navigation,Enter the shelter,before_enter_shelter,entered_shelter_test,survival_kids_2,True
+survival_kids_1,survival,Reach daytime,time_day,day_reference_test,survival_kids_2,True
+survival_kids_1,survival,Reach nighttime,time_night,night_reference_test,survival_kids_2,True
+survival_kids_1,"interaction, survival",Open the water menu,near_water,water_menu_open_test,survival_kids_2,True
+survival_kids_1,survival,Drink water from the water menu,water_menu_open,drink_water_test,survival_kids_2,True
+survival_kids_1,survival,Start filling water from the water menu,water_menu_open,after_filling_water_test,survival_kids_2,True
+survival_kids_1,survival,Get water from the water menu,water_menu_open,got_the_water_test,survival_kids_2,True
+survival_kids_1,"interaction, menu",Select Take from the feather menu,before_feather_pickup,select_take_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Open the meat action menu,before_eat_meat,meat_action_menu_test,survival_kids_2,True
+survival_kids_1,combat,Hunt the animal,before_hunt_animal,animal_killed_test,survival_kids_2,True
+survival_kids_1,"menu, survival",Open the merge menu,inventory_open,merge_menu_test,survival_kids_2,True
+survival_kids_1,"interaction, menu",Open the canteen take or leave menu,before_canteen_pickup,canteen_take_leave_menu_test,survival_kids_2,True
+survival_kids_1,"interaction, menu",Open the feather take or leave menu,before_feather_pickup,take_leave_menu_test,survival_kids_2,True
 survival_kids_2,interaction,Find the hidden bag,near_hidden_bag,object_test,survival_kids_1,False
 survival_kids_2,menu,Open the inventory,has_bag_before_inventory,inventory_open_test,survival_kids_1,False
 survival_kids_2,"menu, interaction",Choose the knife,before_choose_knife,knife_chosen_test,survival_kids_1,False
@@ -96,6 +96,6 @@ survival_kids_2,interaction,Open the second push stone dialogue,near_push_stone_
 survival_kids_2,"menu, interaction",Open inventory near the second push stone with club,push_stone_dialogue_2,inventory_open_with_club_near_push_stone_2_test,survival_kids_1,False
 survival_kids_2,interaction,Push open the second stone,club_equipped_near_push_stone_2,stone_pushed_open_2_test,survival_kids_1,False
 survival_kids_2,navigation,Move to the path after pushing the second stone,stone_pushed_open_2,path_after_pushed_stone_2_test,survival_kids_1,False
-survival_kids_2,interaction,Cut grass before the log,near_grass_before_log,grass_cut_before_pickup_log_test,survival_kids_2,False
-survival_kids_2,interaction,Find the log,near_grass_before_log,log_found_dialogue_test,survival_kids_2,False
-survival_kids_2,interaction,Pick up the log,near_grass_before_log,got_the_log_test,survival_kids_2,False
+survival_kids_2,interaction,Cut grass before the log,near_grass_before_log,grass_cut_before_pickup_log_test,survival_kids_1,False
+survival_kids_2,interaction,Find the log,near_grass_before_log,log_found_dialogue_test,survival_kids_1,False
+survival_kids_2,interaction,Pick up the log,near_grass_before_log,got_the_log_test,survival_kids_1,False

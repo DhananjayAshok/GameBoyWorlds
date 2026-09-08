@@ -277,22 +277,25 @@ class VideoWriter:
         return reduced
 
     def add_video_frames(
-        self, frames: np.ndarray, pressed_button: Optional[LowLevelActions] = None
+        self, frames: np.ndarray, pressed_button: Optional[LowLevelActions] = None, show_button: bool = True
     ):
         """
         Adds a list of frame from the emulator to the video being recorded.
 
         Args:
             frames (np.ndarray): A stack of frames to add to the video. Shape is [n_frames, height, width, channels].
+            pressed_button (LowLevelActions, optional): The button that was pressed during these frames. If None, no button overlay will be added.
+            show_button (bool, optional): Whether to show the button overlay on the video. Defaults to True.
         """
-        button_image = self._button_images[pressed_button]
-        button_size = 50
-        button_offset = 0
-        button_x = self._output_shape[0] - button_size - button_offset
-        button_y = self._output_shape[1] - button_size - button_offset
-        cv2 = import_cv2(self._parameters)
-        button_image = cv2.resize(button_image, (button_size, button_size))
-        alphas = button_image[:, :, 3] / 255.0
+        if show_button:
+            button_image = self._button_images[pressed_button]
+            button_size = 50
+            button_offset = 0
+            button_x = self._output_shape[0] - button_size - button_offset
+            button_y = self._output_shape[1] - button_size - button_offset
+            cv2 = import_cv2(self._parameters)
+            button_image = cv2.resize(button_image, (button_size, button_size))
+            alphas = button_image[:, :, 3] / 255.0
 
         for frame in frames:
             if self._reduce_resolution:
@@ -300,17 +303,20 @@ class VideoWriter:
             # frame_size = (current_frame.shape[1], current_frame.shape[0], 1) # Width, Height, should be equal to self.output_shape
             # expand grayscale frame to 3 channels for video writing
             treated_frame = np.repeat(frame, 3, axis=2)
-            treated_frame[
-                button_y : button_y + button_size, button_x : button_x + button_size
-            ] = (
+            if show_button:
                 treated_frame[
                     button_y : button_y + button_size, button_x : button_x + button_size
-                ]
-                * (1 - alphas[:, :, np.newaxis])
-                + button_image[:, :, :3] * alphas[:, :, np.newaxis]
-            ).astype(
-                np.uint8
-            )
+                ] = (
+                    treated_frame[
+                        button_y : button_y + button_size, button_x : button_x + button_size
+                    ]
+                    * (1 - alphas[:, :, np.newaxis])
+                    + button_image[:, :, :3] * alphas[:, :, np.newaxis]
+                ).astype(
+                    np.uint8
+                )
+            else:
+                pass
             self._frame_writer.write(treated_frame)
         return
 
@@ -827,11 +833,17 @@ class Emulator:
                 f"Unassigned regions (target array not set) are: {unassigned_regions}",
                 self._parameters,
             )
+        if self.save_video:
+            self.video_writer.start_video()
         while True:
             self._parameters = load_parameters()
             if not self._parameters["gameboy_dev_play_stop"]:
                 self._pyboy.tick(1, True)
                 self.state_tracker.step()
+                frames = [self.get_current_frame()]
+                frames = np.array(frames)
+                if self.save_video:
+                    self.video_writer.add_video_frames(frames, show_button=False)
             else:
                 tracker_report = self.state_tracker.report()
                 tracker_report["core"].pop("current_frame", None)
@@ -969,12 +981,24 @@ class Emulator:
                                     )
                                     continue
                         else:
+                            region_name = parts[1].split(",")[0]
+                            region = self.state_parser.named_screen_regions[
+                                region_name
+                            ]
                             save_name = parts[2]
                             if not save_name.endswith(".npy"):
                                 save_name = save_name + ".npy"
+                            if region.multi_targets is None:
                                 save_path = os.path.join(
                                     self.state_parser.rom_data_path,
                                     "captures",
+                                    save_name,
+                                )
+                            else:
+                                save_path = os.path.join(
+                                    self.state_parser.rom_data_path,
+                                    "captures",
+                                    region_name,
                                     save_name,
                                 )
                         file_makedir(save_path)
@@ -1125,7 +1149,7 @@ class Emulator:
                 self._parameters,
             )
         # copy the .sav file to self._gb_path.gb.ram file
-        save_destination = self._gb_path.replace(".gb", ".gb.ram")
+        save_destination = self._gb_path.replace(".gbc", ".gbc.ram").replace(".gb", ".gb.ram")
         shutil.copyfile(expected_sav, save_destination)
         self.close()
         self._pyboy = PyBoy(

@@ -12,3 +12,89 @@ pokemon_red,"catch_pokemon, combat",Catch Pikachu,encounter_pikachu_starting_cha
 pokemon_red,menu,Open the Map,location_viridian_city_starting_charmander,open_map_test,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
 pokemon_red,menu,Use a Potion on Charmander,location_pewter_city_starting_charmander,used_potion_on_charmander_test,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
 pokemon_red,"navigation, menu, interaction",Buy a Potion,location_pewter_pokemart_starting_charmander,bought_potion_at_pewter_pokemart_test,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,combat,Use a not very effective attack on seaking,complete_encounter_seaking,used_not_very_effective_attack,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Try to purchase a bike,in_bike_store,tried_buy_bike,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Discover the secret of the volcanobadge,in_badge_info_man_house,click_volcanobadge,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Open the map on the wall,in_cerulean_map_house,opened_cerulean_house_map,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,combat,Defeat Blue,battle_blue_cerulean_bridge,squirtle_fainted,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Click a secret switch,location_cinnabar_mansion,clicked_switch,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"navigation, menu",Get onto the water,location_cinnabar_facing_water,used_surf_ash,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"navigation, menu, interaction",Sell exactly 1 Psychic TM,location_cinnabar_mart,sold_1_psychic,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,navigation,Encounter a ghost,location_ghost_tower,encountered_ghost,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Get Mew's nickname rated,outside_name_rater,rate_mew_name,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Read the letter,letter_house,read_letter,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Challenge the Elite Four,outside_elite_four,spoke_to_elite_four,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"menu, interaction",Use the Super Rod properly,close_to_pond,used_super_rod,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Look into the binoculars above,border_stop,looked_into_binoculars,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Speak to Pikachu,pokemon_fan_house,spoke_to_pikachu,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,navigation,Exit the building,in_silf_co,outside_silf_co,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,navigation,Go through the backdoor of the house that was robbed,outside_robbed_house,outside_robbed_house_back,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"menu, interaction",Leave Mewtwo in daycare,outside_daycare,gave_mewtwo_to_daycare,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Read about Saffron City,near_saffron_sign,read_saffron_sign,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Play the game above,in_game_house,mario_game_played,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"menu, interaction",Toss an Ultra Ball,in_game_house,tossed_ultraball,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,navigation,Exit Seafoam Islands,inside_seafoam_islands,outside_seafoam_islands,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"navigation, menu",Get to Pallet Town without using Surf,test_cinnabar_monk,fly_to_pallet_town_from_cinnabar,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"menu, interaction",Withdraw Staryu from the box,inside_saffron_pokemon_center,withdrew_staryu,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"navigation, interaction",Read the sign,next_to_sign,read_trainers_tips_sign_test,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"combat, menu",Poison Pidgeotto,pidgeotto_fight,used_toxic_on_pidgeotto,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"combat, menu",Switch to your weakest Pokemon,pidgeotto_fight,switched_to_staryu,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"catch_pokemon, combat",Catch Pidgey,battle_pidgey,caught_pidgey_test,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"catch_pokemon, combat",Catch a Goldeen,bridge_water,caught_goldeen,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,menu,Try to teach Staryu Toxic,bridge_water,tried_to_teach_staryu_toxic,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"menu, interaction",Play the PokeFlute,bridge_water,play_flute,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,menu,Open Squirtle's Pokedex page,bridge_water,opened_squirtle_pokedex,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,menu,Open Blastoise's status page,bridge_water,opened_blastoise_status,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,menu,Open Charizard's move list,bridge_water,charizard_moves,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,interaction,Speak to the gym leader,in_fuschia_gym,spoke_to_leader,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,navigation,Reach the gym leader,in_viridian_gym,reach_giovanni_area,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_crystal,navigation,Enter the Cherrygrove Pokemon Center,route_29,entered_cherrygrove_centre,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Watch TV,in_radio_house,watched_tv,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Look into the mirror,in_radio_house,saw_mirror,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Talk to the child,in_childs_house,spoke_to_child,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Obtain a berry,outside_berry_tree,got_berry,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Take Dragonair's item back,outside_berry_tree,took_dragonair_item,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"menu, interaction",Make Pidgeot hold a Cleanse Tag,outside_berry_tree,gave_pidgeot_cleanse_tag,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,menu,Open Typhlosion's Pokedex entry,outside_berry_tree,opened_typhlosion_entry,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,navigation,Exit the cave,inside_mt_mortar,exited_mt_mortar,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Fish until you catch a Pokemon,by_water,got_bite,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Read Elm's computer,in_elm_lab,read_elm_computer,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Talk to Prof. Elm's aide,in_elm_lab,spoke_to_aide,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"navigation, interaction",Immediately escape the tower,in_sprout_tower,used_escape_rope,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Talk to the gym leader ahead,in_violet_gym,spoke_to_violet_gym_leader,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"navigation, menu, interaction",Buy one Antidote,in_violet_mart,bought_antidote,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"navigation, menu, interaction",Sell one Revive,in_violet_mart,sold_revive,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"menu, interaction",Teach Pidgeot Toxic,in_violet_mart,pidgeot_learned_toxic,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Get the boy's phone number,beside_boy,got_alan_number,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Interact with a tree that can be cut,by_trees,interacted_cut_tree,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Pick up the item,in_park,picked_up_parlz_heal,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Read the book,in_book_house,read_book,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Speak to the gym leader ahead,inside_morty_gym,spoke_to_morty,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,navigation,Enter the burned tower,outside_burned_tower,entered_burned_tower,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Refuse to give the Miltank a berry,in_milktank_room,miltank_sad,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Get a fishing rod,in_fisherman_house,got_good_rod,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,navigation,Enter the lighthouse,outside_lighthouse,entered_lighthouse,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Talk to the red haired girl,by_red_hair_girl,spoke_to_red_hair_girl,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"menu, interaction",Make Pidgeot forget Gust,outside_move_deleter,forgot_gust,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,navigation,Exit via the ice path below,in_ice_path,left_ice_path,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,navigation,Reach the other side of the ice maze,by_ice_maze,ice_maze_other_side,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,combat,Defeat Golbat with a super effective attack,battle_golbat,used_super_effective_attack,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"catch_pokemon, combat",Catch Delibird,battle_delibird,caught_delibird,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,navigation,Encounter a Tangela,outside_silver_cave,encountered_tangela,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Talk to a Slowpoke,location_azalea,spoke_to_slowpoke,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Get some charcoal from the kiln,location_azalea,got_charcoal,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Speak to the gym leader,in_azalea_gym,spoke_to_azalea_gym,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Get a Fast Ball from Kurt,location_azalea,got_fastball,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"menu, interaction",Commission Kurt to make a Poke Ball for you,outside_kurt,gave_kurt_apricot,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"menu, navigation",Try to fly out of the forest,in_ilex_forest,cant_do_that,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"menu, interaction",Headbutt a tree,in_ilex_forest,used_headbutt,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,menu,Take a picture of Suicune,location_cianwood,took_suicune_pic,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"menu, navigation",Surf onto the water,location_cianwood,used_surf,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Visit the Poke Seer and ask her about Alakazam,location_cianwood,seer_saw_alakazam,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"menu, interaction",Open your mailbox through the PC,cianwood_pokecenter,opened_mailbox,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"menu, interaction",Call your mom,cianwood_pokecenter,called_mom,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"catch_pokemon, combat",Catch Ponyta,battle_ponyta,caught_ponyta,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,"menu, interaction",Light up Silver Cave,outside_silver_cave,used_flash,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,interaction,Get an explanation for the Battle Tower,in_battle_tower,battle_tower_explanation,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,combat,Defeat Will,battle_will,defeated_will,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
+pokemon_crystal,combat,Defeat Koga,battle_koga,defeated_koga,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False

@@ -1,0 +1,2 @@
+game,task_category,task,init_state,state_tracker_class,shifted_training_games,can_train_from_init_state
+pokemon_prism,"navigation, combat",Defeat the Elite Four and become the Rijon League Champion,post_intro,collect_championship_test,"pokemon_red, pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold",True

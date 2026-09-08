@@ -47,7 +47,7 @@ def main(
         init_state=init_state,
         state_tracker_class=state_tracker_class,
     )
-    environment.human_step_play(show_obs=False, show_info=True)
+    environment.human_step_play(max_steps=max_steps, show_obs=False, show_info=True)
 
 
 if __name__ == "__main__":

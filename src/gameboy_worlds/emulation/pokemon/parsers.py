@@ -3,7 +3,7 @@ Pokemon specific game state parser implementations for both PokemonRed and Pokem
 While this code base started from: https://github.com/PWhiddy/PokemonRedExperiments/ (v2) and was initially read from memory states https://github.com/thatguy11325/pokemonred_puffer/blob/main/pokemonred_puffer/global_map.py, this is no longer the case as we have moved to visual based state parsing.
 This decision was primarily made to facilitate easier extension to other games and rom hacks in the future, as well as to avoid reliance on specific memory addresses which may vary between different versions of the game.
 
-However, the code base supports reading from memory addresses to extract game state information, which can be useful for incorporating domain knowledge into reward structures or other aspects of the environment. See the MemoryBasedPokemonRedStateParser class for examples of how to read game state information from memory addresses.
+However, the code base supports reading from memory addresses to extract game state information, which can be useful for incorporating domain knowledge into reward structures or other aspects of the environment. See the MemoryBasedPokemonRedStateParser and MemoryBasedPokemonCrystalStateParser classes for examples of how to read game state information from memory addresses.
 
 WARNING: The screen capture mechanisms of the parsers rely on a SPECIFIC FRAME being used in the game. This is not a concern with Gen I games, but Gen II games have options for frames. All states and captures in this repo assume a particular choice of frame, and often it is NOT the default Frame 1.
 Ensure that your agents DO NOT change the frame settings in the game, or the state parsing will fail.
@@ -127,6 +127,8 @@ class PokemonStateParser(StateParser, ABC):
             "cannot_escape",
             "cannot_run_from_trainer",
             "no_pp_for_move",
+            "used_not_very_effective_attack",
+            "used_super_effective_attack",
         ],
         "menu_box_strip": ["cursor_on_options", "cursor_on_pokedex"],
     }
@@ -196,7 +198,9 @@ class PokemonStateParser(StateParser, ABC):
             base_regions=self.COMMON_MULTI_TARGET_REGIONS,
         )
         multi_target_region_names = [region[0] for region in multi_target_regions]
-        multi_targets = self.COMMON_MULTI_TARGETS.copy()
+        multi_targets = {
+            name: targets.copy() for name, targets in self.COMMON_MULTI_TARGETS.items()
+        }
         for key in override_multi_targets:
             if key in multi_targets:
                 multi_targets[key].extend(override_multi_targets[key])
@@ -680,16 +684,46 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
                 "caught_pidgey",
                 "caught_pikachu",
                 "used_potion_on_charmander",
+                "cant_afford",
+                "volcanobadge_info",
+                "opened_cerulean_house_map",
+                "defeated_blue_cerulean_bridge",
+                "clicked_switch",
+                "used_blastoise_surf_ash",
+                "encountered_ghost",
+                "rate_mew_name",
+                "read_letter",
+                "spoke_to_elite_four",
+                "used_super_rod",
+                "looked_into_binoculars",
+                "spoke_to_pikachu",
+                "read_saffron_sign",
+                "gave_mewtwo_to_daycare",
+                "tossed_ultraball",
+                "withdrew_staryu",
+                "used_toxic_on_pidgeotto",
+                "spoke_to_leader",
+                "mario_game_played",
+                "caught_goldeen",
+                "tried_to_teach_staryu_toxic",
+                "play_flute",
             ],
             "screen_bottom_half": [
                 "viridian_pokemon_center_entrance",
                 "mt_moon_entrance",
                 "bought_potion_at_pewter_pokemart",
+                "switched_to_staryu"
             ],
+            "screen": ["sold_1_psychich_at_cinnabar", "fly_to_pallet_town_from_cinnabar", "charizard_moves"], 
             "screen_middle": [
                 "outside_viridian_center_from_left",
                 "outside_viridian_center_from_right",
+                "outside_silf_co",
+                "outside_robbed_house_back",
+                "outside_seafoam_islands",
+                "reach_giovanni_area"
             ],
+            "screen_quadrant_2": ["opened_squirtle_pokedex", "opened_blastoise_status"],
         }
         super().__init__(
             pyboy,
@@ -701,7 +735,25 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
 
 class PokemonBrownStateParser(BasePokemonRedStateParser):
     def __init__(self, pyboy, parameters):
-        super().__init__(pyboy, variant="pokemon_brown", parameters=parameters)
+        override_multi_targets = {
+            "dialogue_box_middle": [
+                "collect_marine_badge",
+                "collect_hail_badge",
+                "collect_sprout_badge",
+                "collect_sparky_badge",
+                "collect_fist_badge",
+                "collect_equity_badge",
+                "collect_star_badge",
+                "collect_psi_badge",
+                "collect_championship",
+            ],
+        }
+        super().__init__(
+            pyboy,
+            variant="pokemon_brown",
+            parameters=parameters,
+            override_multi_targets=override_multi_targets,
+        )
 
 
 class PokemonStarBeastsStateParser(BasePokemonRedStateParser):
@@ -736,17 +788,96 @@ class PokemonStarBeastsCometStateParser(BasePokemonRedStateParser):
 
 class PokemonCrystalStateParser(BasePokemonCrystalStateParser):
     def __init__(self, pyboy, parameters):
-        super().__init__(pyboy, variant="pokemon_crystal", parameters=parameters)
+        override_multi_targets = {
+            "screen": [
+                "exited_mt_mortar",
+                "bought_antidote",
+                "sold_revive",
+                "left_ice_path",
+                "ice_maze_other_side",
+                "suicune_pic",
+            ],
+            "dialogue_box_middle": [
+                "defeated_will",
+                "battle_tower_explanation",
+                "watched_tv",
+                "saw_mirror",
+                "spoke_to_child",
+                "got_berry",
+                "took_dragonair_item",
+                "gave_pidgeot_cleanse_tag",
+                "got_bite",
+                "read_elm_computer",
+                "spoke_to_aide",
+                "used_escape_rope",
+                "spoke_to_violet_gym_leader",
+                "pidgeot_learned_toxic",
+                "got_alan_number",
+                "interacted_cut_tree",
+                "picked_up_parlz_heal",
+                "read_book",
+                "spoke_to_morty",
+                "miltank_sad",
+                "got_good_rod",
+                "spoke_to_red_hair_girl",
+                "forgot_gust",
+                "encountered_tangela",
+                "spoke_to_slowpoke",
+                "got_charcoal",
+                "spoke_to_azalea_gym",
+                "got_fastball",
+                "gave_kurt_apricot",
+                "cant_do_that",
+                "used_headbutt",
+                "used_surf",
+                "seer_saw_alakazam",
+                "opened_mailbox",
+                "called_mom",
+                "caught_delibird",
+                "caught_ponyta",
+                "used_flash",
+                "defeated_koga",
+            ],
+            "screen_middle": [
+                "entered_cherrygrove_centre",
+                "entered_burned_tower",
+                "entered_lighthouse",
+            ],
+            "screen_quadrant_1": [],
+            "screen_quadrant_2": ["opened_typhlosion_entry"],
+            "screen_quadrant_3": [],
+            "screen_quadrant_4": [],
+        }
+        super().__init__(
+            pyboy,
+            variant="pokemon_crystal",
+            parameters=parameters,
+            override_multi_targets=override_multi_targets,
+        )
 
 
 class PokemonPrismStateParser(BasePokemonCrystalStateParser):
     def __init__(self, pyboy, parameters):
         override_regions = [("player_card_middle", 25, 58, 5, 5)]
+        override_multi_targets = {
+            "dialogue_box_middle": [
+                "collect_pyre_badge",
+                "collect_nature_badge",
+                "collect_charm_badge",
+                "collect_midnight_badge",
+                "collect_muscle_badge",
+                "collect_haze_badge",
+                "collect_raucous_badge",
+                "collect_naljo_badge",
+                "collect_championship",
+            ],
+        }
         super().__init__(
             pyboy,
             variant="pokemon_prism",
             parameters=parameters,
             override_regions=override_regions,
+            override_multi_targets=override_multi_targets,
         )
 
 
@@ -778,6 +909,20 @@ class MemoryBasedPokemonRedStateParser(PokemonRedStateParser):
     _GLOBAL_MAP_SHAPE = (444 + _PAD * 2, 436 + _PAD * 2)
     _MAP_ROW_OFFSET = _PAD
     _MAP_COL_OFFSET = _PAD
+
+    BADGE_ADDRESS = 0xD356
+    BADGE_BITS = {
+        "boulder": 0,
+        "cascade": 1,
+        "thunder": 2,
+        "rainbow": 3,
+        "soul": 4,
+        "marsh": 5,
+        "volcano": 6,
+        "earth": 7,
+    }
+    BADGE_ORDER = tuple(BADGE_BITS)
+    CHAMPION_OPPONENT = "Champion Rival"
 
     def __init__(self, pyboy, parameters):
         """
@@ -986,7 +1131,119 @@ class MemoryBasedPokemonRedStateParser(PokemonRedStateParser):
         Returns:
             np.array: Array of 8 binary values representing whether the player has obtained each of the badges.
         """
-        # or  self.bit_count(self.read_m(0xD356))
+        # Keep the existing MSB-first array contract; use has_badge for named reads.
         return np.array(
-            [int(bit) for bit in f"{self.read_m(0xD356):08b}"], dtype=np.int8
+            [int(bit) for bit in f"{self.read_m(self.BADGE_ADDRESS):08b}"],
+            dtype=np.int8,
         )
+
+    def has_badge(self, badge_name: str) -> bool:
+        """
+        Determines whether the player has the named Kanto badge.
+        """
+        normalized_name = badge_name.lower()
+        if normalized_name not in self.BADGE_BITS:
+            log_error(
+                f"Unknown Pokemon Red badge '{badge_name}'. Available badges: {list(self.BADGE_BITS)}",
+                self._parameters,
+            )
+        return self.read_bit(self.BADGE_ADDRESS, self.BADGE_BITS[normalized_name])
+
+    def has_completed_championship(self) -> bool:
+        """
+        Determines whether the player has defeated the Champion Rival.
+        """
+        return self.read_m_bit(
+            self.defeated_opponent_events[self.CHAMPION_OPPONENT]
+        )
+
+
+class MemoryBasedPokemonCrystalStateParser(PokemonCrystalStateParser):
+    """
+    Game state parser for Pokemon Crystal v1.1. Uses WRAM to track the
+    eight Johto badges and Hall of Fame completion.
+    """
+
+    JOHTO_BADGE_ADDRESS = 0xD857
+    STATUS_FLAGS_ADDRESS = 0xD84C
+    HALL_OF_FAME_COUNT_ADDRESS = 0xD95E
+    HALL_OF_FAME_STATUS_BIT = 6
+    BADGE_BITS = {
+        "zephyr": 0,
+        "hive": 1,
+        "plain": 2,
+        "fog": 3,
+        "mineral": 4,
+        "storm": 5,
+        "glacier": 6,
+        "rising": 7,
+    }
+    BADGE_ORDER = (
+        "zephyr",
+        "hive",
+        "plain",
+        "fog",
+        "storm",
+        "mineral",
+        "glacier",
+        "rising",
+    )
+
+    def get_johto_badges(self) -> np.array:
+        """
+        Gets the player's Johto badges in game progression order.
+        Returns:
+            np.array: Zephyr, Hive, Plain, Fog, Storm, Mineral, Glacier,
+                and Rising badge status.
+        """
+        return np.array(
+            [
+                int(
+                    self.read_bit(
+                        self.JOHTO_BADGE_ADDRESS, self.BADGE_BITS[badge]
+                    )
+                )
+                for badge in self.BADGE_ORDER
+            ],
+            dtype=np.int8,
+        )
+
+    def get_badges(self) -> np.array:
+        """
+        Gets the player's Johto badges in game progression order.
+        """
+        return self.get_johto_badges()
+
+    def has_badge(self, badge_name: str) -> bool:
+        """
+        Determines whether the player has the named Johto badge.
+        """
+        normalized_name = badge_name.lower()
+        if normalized_name not in self.BADGE_BITS:
+            log_error(
+                f"Unknown Pokemon Crystal badge '{badge_name}'. Available badges: {list(self.BADGE_BITS)}",
+                self._parameters,
+            )
+        return self.read_bit(
+            self.JOHTO_BADGE_ADDRESS, self.BADGE_BITS[normalized_name]
+        )
+
+    def has_hall_of_fame_status(self) -> bool:
+        """
+        Determines whether Pokemon Crystal's Hall of Fame status flag is set.
+        """
+        return self.read_bit(
+            self.STATUS_FLAGS_ADDRESS, self.HALL_OF_FAME_STATUS_BIT
+        )
+
+    def get_hall_of_fame_count(self) -> int:
+        """
+        Gets the number of Hall of Fame entries recorded by Pokemon Crystal.
+        """
+        return self.read_m(self.HALL_OF_FAME_COUNT_ADDRESS)
+
+    def has_completed_championship(self) -> bool:
+        """
+        Determines whether the player has entered the Hall of Fame.
+        """
+        return self.has_hall_of_fame_status() or self.get_hall_of_fame_count() > 0

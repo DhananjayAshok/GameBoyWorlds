@@ -178,6 +178,26 @@ def show_frames(
             plt.show()
 
 
+def get_train_games(game: str, parameters: dict = None) -> List[str]:
+    """
+    Returns a list of games that can be used for training the specified game variant.
+
+    Args:
+        game (str): The variant of the game to get training games for.
+        parameters (dict, optional): Additional parameters for error logging.
+    """
+    parameters = load_parameters(parameters)
+    tasks_df = get_benchmark_tasks(game, parameters, shifted_included=True)
+    training_rows = tasks_df[tasks_df["can_train_from_init_state"] == True]
+    if len(training_rows) == 0:
+        log_error(
+            f"No training games specified for game variant '{game}' in benchmark tasks. This is an error.",
+            parameters,
+        )
+    training_games = list(set(training_rows["game"].tolist()))
+    return training_games
+
+
 def get_benchmark_tasks_dfs(parameters: dict = None) -> dict[str, pd.DataFrame]:
     """
     Loads the benchmark tasks from the benchmark/tests/tasks.csv file

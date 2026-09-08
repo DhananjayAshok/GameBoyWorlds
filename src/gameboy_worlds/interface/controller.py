@@ -343,7 +343,7 @@ class Controller(ABC):
 
 
 def parse_button_string(input_str: str) -> Optional[LowLevelActions]:
-    string_low = input_str.lower().strip().strip("(").strip(")").replace("_", " ")
+    string_low = input_str.lower().strip().strip("(").strip(")").strip(".").replace("_", " ")
     mapper = {
         "a": LowLevelActions.PRESS_BUTTON_A,
         "up": LowLevelActions.PRESS_ARROW_UP,

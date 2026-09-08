@@ -1076,3 +1076,53 @@ class DejaVu2OpenDoorByKnifeTestTracker(DejaVuTestTracker):
 
     TERMINATION_TRUNCATION_METRIC = OpenedDoorByKnifeTerminationMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([UsingKnifeSubGoal])
+
+class DejaVu2PutOnFlashlightTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent puts on the flashlight.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = PutOnFlashlightTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedUseActionInMenuSubGoal])
+
+class DejaVu2EnterJoePlaceTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent enter joe's place.
+    """
+    TERMINATION_TRUNCATION_METRIC = EnteredJoePlaceTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([OpenedJoePlaceDoorSubGoal])
+
+class DejaVu2OpenSlotLockTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent open the lock of slot.
+    """
+    TERMINATION_TRUNCATION_METRIC = OpenedSlotLockTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([UsingKey4SubGoal])
+    
+class DejaVu2TurnOffFlashlightTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent turn of the flashlight.
+    """
+    TERMINATION_TRUNCATION_METRIC = TurnOffFlashlightTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([UsingFlashlightSubGoal])
+
+class DejaVu2GetLocationFromCardTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent read the card and get the location in it.
+    """
+    TERMINATION_TRUNCATION_METRIC = GotLocationFromCardTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SelectedWatchActionInMenuSubGoal])
+
+class DejaVu2OpenBagWithKnifeTestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent open the bag in vacuum with knife.
+    """
+    TERMINATION_TRUNCATION_METRIC = OpenedBagWithKnifeTerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([InVacuumMenuSubGoal])
+
+class DejaVu2AskAboutNametag2TestTracker(DejaVuTestTracker):
+    """
+    A TestTracker for Deja Vu 2 that terminates when the agent open the bag in vacuum with knife.
+    """
+    TERMINATION_TRUNCATION_METRIC = AskedAboutNametag2TerminationMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([UsingNametag2SubGoal])

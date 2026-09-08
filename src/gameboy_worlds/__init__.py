@@ -22,6 +22,7 @@ There are two ways to navigate the documentation:
 **Utils Submodule:**
 * `get_benchmark_tasks`: Function to get benchmark tasks for evaluating agents in different game variants.
 * `get_benchmark_tasks_dfs`: Function to get benchmark tasks for evaluating agents in different game variants.
+* `get_train_games`: Function to get a list of available game variants for training agents.
 
 **Emulation Submodule:**
 * `AVAILABLE_GAMES`: List of available game variants supported by the package.
@@ -39,6 +40,7 @@ There are two ways to navigate the documentation:
 """
 
 from gameboy_worlds.utils import (
+    get_train_games,
     get_benchmark_tasks_dfs,
     get_benchmark_tasks,
     get_training_states,

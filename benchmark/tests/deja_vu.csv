@@ -1,70 +1,101 @@
 game,task_category,task,init_state,state_tracker_class,shifted_training_games,can_train_from_init_state
-deja_vu_1,item,Take coat from the front door,selected_watch_action_in_front_door,take_coat_test,deja_vu_2,True
-deja_vu_1,item,Take gun from the front door,taken_coat_in_front_door,take_gun_test,deja_vu_2,True
-deja_vu_1,navigation,Open the door,taken_gun_in_front_door,open_door_test,deja_vu_2,True
-deja_vu_1,navigation,Close the door,opened_door,close_door_test,deja_vu_2,True
-deja_vu_1,menu,Open the coat pocket,taken_coat_in_front_door,open_pocket_test,deja_vu_2,True
-deja_vu_1,menu,Open the wallet in the coat pocket,opened_pocket_in_menu,open_wallet_test,deja_vu_2,True
-deja_vu_1,menu,close the pocket,opened_pocket_in_menu,close_pocket_test,deja_vu_2,True
-deja_vu_1,menu,close the wallet,opened_wallet_in_menu,close_wallet_test,deja_vu_2,True
-deja_vu_1,item,check the coat,selected_watch_action_in_front_door,check_coat_test,deja_vu_2,True
-deja_vu_1,item,check the gun,taken_coat_in_front_door,check_gun_test,deja_vu_2,True
-deja_vu_1,action,open the spigot,in_cellar,open_spigot_test,deja_vu_2,True
-deja_vu_1,action,hit the bottle,in_cellar,hit_bottle_test,deja_vu_2,True
-deja_vu_1,navigation,get into cellar,in_empty_restaurant,enter_cellar_test,deja_vu_2,True
-deja_vu_1,navigation,enter connecting room,hit_bottle,enter_connecting_room_test,deja_vu_2,True
-deja_vu_1,navigation,go to empty room from map,back_to_cellar,enter_empty_room_from_map_test,deja_vu_2,True
-deja_vu_1,navigation,unlock the front,back_to_empty_restaurant,unlock_front_door_test,deja_vu_2,True
-deja_vu_1,interaction,meet the mugger,unlocked_front_door,meet_mugger_test,deja_vu_2,True
-deja_vu_1,action,hit the mugger,met_mugger,hit_mugger_test,deja_vu_2,True
-deja_vu_1,"action, navigation",unlock the car door,in_street,unlock_car_door_test,deja_vu_2,True
-deja_vu_1,action,open the dashbrd,in_car,open_dashbrd_test,deja_vu_2,True
-deja_vu_1,action,close the dashbrd,opened_dashbrd,close_dashbrd_test,deja_vu_2,True
-deja_vu_1,item,check the note2,closed_dashbrd,check_note2_test,deja_vu_2,True
-deja_vu_1,item,check the map,closed_dashbrd,check_map_test,deja_vu_2,True
-deja_vu_1,item,check the snapshot,closed_dashbrd,check_snapshot_test,deja_vu_2,True
-deja_vu_1,navigation,go to the newsstand,back_to_street,go_newsstand_test,deja_vu_2,True
-deja_vu_1,interaction,enter taxi,peoria_st,enter_taxi_test,deja_vu_2,True
-deja_vu_1,interaction,talk to the taxi driver,in_taxi,talk_to_taxi_driver_test,deja_vu_2,True
-deja_vu_1,navigation,go to westend,selected_address,goto_westend_test,deja_vu_2,True
-deja_vu_1,interaction,pay for taxi fee,arrived_westend,pay_taxi_test,deja_vu_2,True
-deja_vu_1,navigation,go to apartment,paid_taxi,goto_apartment_test,deja_vu_2,True
-deja_vu_1,navigation,enter the westend lobby,at_westend,enter_westend_test,deja_vu_2,True
-deja_vu_1,"action, navigation",open the elevator door,in_westend_lobby,open_elevator_door_test,deja_vu_2,True
-deja_vu_1,navigation,enter elevator,opened_elevator_door,enter_elevator_test,deja_vu_2,True
-deja_vu_1,"action, navigation",close elevator door,entered_elevator,close_elevator_door_test,deja_vu_2,True
-deja_vu_1,interaction,check the photo,in_penthouse,check_photo_test,deja_vu_2,True
-deja_vu_2,menu,open the trench coat pocket,in_bathroom,open_trench_coat_pocket_test,deja_vu_1,False
-deja_vu_2,navigation,open the bathroom door,taken_pants_pocket,open_bathroom_door_test,deja_vu_1,False
-deja_vu_2,item,take gum from trench coat,opened_trench_coat_pocket,take_gum_test,deja_vu_1,False
-deja_vu_2,menu,open the pants pocket,in_bathroom,open_pants_pocket_test,deja_vu_1,False
-deja_vu_2,item,take the pants,in_bathroom,take_pants_test,deja_vu_1,False
-deja_vu_2,menu,close the pants pocket,taken_pants_pocket,close_pants_pocket_test,deja_vu_1,False
-deja_vu_2,item,put on the trench coat,taken_pants_pocket,put_on_trench_coat_test,deja_vu_1,False
-deja_vu_2,item,put on the pants,put_on_trench_coat,put_on_pants_test,deja_vu_1,False
-deja_vu_2,menu,open wallet1,put_on_pants,open_wallet1_test,deja_vu_1,False
-deja_vu_2,item,take newsclip1,opened_wallet1,take_newsclip1_test,deja_vu_1,False
-deja_vu_2,item,take license1,taken_1_dollar,take_license1_test,deja_vu_1,False
-deja_vu_2,menu,close wallet1,taken_license1,close_wallet1_test,deja_vu_1,False
-deja_vu_2,item,check the newsclip1,closed_wallet1,check_newsclip1_test,deja_vu_1,False
-deja_vu_2,navigation,open the door from map,all_set_in_hotel_room,open_door_from_map_test,deja_vu_1,False
-deja_vu_2,navigation,close the door from map,opened_door_in_hotel_room,close_door_from_map_test,deja_vu_1,False
-deja_vu_2,navigation,enter the hallway,opened_door_in_hotel_room,enter_hallway_test,deja_vu_1,False
-deja_vu_2,interaction,buy 2 chips,in_cashier,buy_2_chips_test,deja_vu_1,False
-deja_vu_2,navigation,return to  cashier,win_blackjack,return_cashier_test,deja_vu_1,False
-deja_vu_2,interaction,cash out,returned_cashier,cash_out_test,deja_vu_1,False
-deja_vu_2,navigation,open the door of lobby,in_lobby,open_lobby_door_test,deja_vu_1,False
-deja_vu_2,navigation,exit the casino,opened_lobby_door,exit_casino_test,deja_vu_1,False
-deja_vu_2,interaction,talk in train station,in_train_station,talk_in_train_station_test,deja_vu_1,False
-deja_vu_2,navigation,visit counter,talked_in_train_station,visit_counter_test,deja_vu_1,False
-deja_vu_2,menu,check the timetable,taken_pamphlet,check_timetable_test,deja_vu_1,False
-deja_vu_2,navigation,enter the platform on track6,back_to_train_station,enter_platform_track6_test,deja_vu_1,False
-deja_vu_2,navigation,enter the train,on_track6,enter_train_test,deja_vu_1,False
-deja_vu_2,interaction,buy a train ticket,ticket_seller,buy_ticket_test,deja_vu_1,False
-deja_vu_2,interaction,check the girl in the train,in_train,check_girl_test,deja_vu_1,False
-deja_vu_2,interaction,check the sign,in_train,check_sign_test,deja_vu_1,False
-deja_vu_2,interaction,chat with newspaper seller,at_chicago_station,chat_seller_test,deja_vu_1,False
-deja_vu_2,action,buy newspaper,at_chicago_station,buy_newspaper_test,deja_vu_1,False
-deja_vu_2,action,take newsclip4,paid_newspaper,take_newsclip4_test,deja_vu_1,False
-deja_vu_2,navigation,enter the taxi,outside_chicago_station,enter_chicago_taxi_test,deja_vu_1,False
-deja_vu_2,interaction,chat with taxi driver,entered_chicago_taxi,chat_taxi_driver_test,deja_vu_1,False
+deja_vu_1,Take,Take coat from the front door,selected_watch_action_in_front_door,take_coat_test,deja_vu_2,TRUE
+deja_vu_1,Take,Take gun from the front door,taken_coat_in_front_door,take_gun_test,deja_vu_2,TRUE
+deja_vu_1,Interact,Open the door,taken_gun_in_front_door,open_door_test,deja_vu_2,TRUE
+deja_vu_1,Interact,Close the door,opened_door,close_door_test,deja_vu_2,TRUE
+deja_vu_1,Interact,Open the coat pocket,taken_coat_in_front_door,open_pocket_test,deja_vu_2,TRUE
+deja_vu_1,Interact,Open the wallet in the coat pocket,opened_pocket_in_menu,open_wallet_test,deja_vu_2,TRUE
+deja_vu_1,Interact,close the pocket,opened_pocket_in_menu,close_pocket_test,deja_vu_2,TRUE
+deja_vu_1,Interact,close the wallet,opened_wallet_in_menu,close_wallet_test,deja_vu_2,TRUE
+deja_vu_1,Inspect,check the coat,selected_watch_action_in_front_door,check_coat_test,deja_vu_2,TRUE
+deja_vu_1,Inspect,check the gun,taken_coat_in_front_door,check_gun_test,deja_vu_2,TRUE
+deja_vu_1,Interact,open the spigot,in_cellar,open_spigot_test,deja_vu_2,TRUE
+deja_vu_1,Combat,hit the bottle,in_cellar,hit_bottle_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,get into cellar,in_empty_restaurant,enter_cellar_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,enter connecting room,hit_bottle,enter_connecting_room_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,go to empty room from map,back_to_cellar,enter_empty_room_from_map_test,deja_vu_2,TRUE
+deja_vu_1,Interact,unlock the front,back_to_empty_restaurant,unlock_front_door_test,deja_vu_2,TRUE
+deja_vu_1,Interact,meet the mugger,unlocked_front_door,meet_mugger_test,deja_vu_2,TRUE
+deja_vu_1,Combat,hit the mugger,met_mugger,hit_mugger_test,deja_vu_2,TRUE
+deja_vu_1,Interact,unlock the car door,in_street,unlock_car_door_test,deja_vu_2,TRUE
+deja_vu_1,Interact,open the dashbrd,in_car,open_dashbrd_test,deja_vu_2,TRUE
+deja_vu_1,Interact,close the dashbrd,opened_dashbrd,close_dashbrd_test,deja_vu_2,TRUE
+deja_vu_1,Inspect,check the note2,closed_dashbrd,check_note2_test,deja_vu_2,TRUE
+deja_vu_1,Inspect,check the map,closed_dashbrd,check_map_test,deja_vu_2,TRUE
+deja_vu_1,Inspect,check the snapshot,closed_dashbrd,check_snapshot_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,go to the newsstand,back_to_street,go_newsstand_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,enter taxi,peoria_st,enter_taxi_test,deja_vu_2,TRUE
+deja_vu_1,Interact,talk to the taxi driver,in_taxi,talk_to_taxi_driver_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,go to westend,selected_address,goto_westend_test,deja_vu_2,TRUE
+deja_vu_1,Interact,pay for taxi fee,arrived_westend,pay_taxi_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,go to apartment,paid_taxi,goto_apartment_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,enter the westend lobby,at_westend,enter_westend_test,deja_vu_2,TRUE
+deja_vu_1,Interact,open the elevator door,in_westend_lobby,open_elevator_door_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,enter elevator,opened_elevator_door,enter_elevator_test,deja_vu_2,TRUE
+deja_vu_1,Interact,close elevator door,entered_elevator,close_elevator_door_test,deja_vu_2,TRUE
+deja_vu_1,Inspect,check the photo,in_penthouse,check_photo_test,deja_vu_2,TRUE
+deja_vu_1,Combat,shoot the door,in_kedzie,shoot_door_test,deja_vu_2,TRUE
+deja_vu_1,Interact,open the desk,in_bungalow,open_desk_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,enter the sherman,at_sherman,enter_sherman_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,go to building office,in_sherman_lobby,goto_office_test,deja_vu_2,TRUE
+deja_vu_1,Interact,unlock the office door in sherman,outside_office,unlock_office_door_test,deja_vu_2,TRUE
+deja_vu_1,Interact,make a medicine,taken_all_meds,make_medicine_test,deja_vu_2,TRUE
+deja_vu_1,Take,take a medicine,made_medicine,take_medicine_test,deja_vu_2,TRUE
+deja_vu_1,Combat,shoot the lock,taken_medicine,shoot_lock_test,deja_vu_2,TRUE
+deja_vu_1,Interact,open the diary to bookmark,read_diary,open_diary_test,deja_vu_2,TRUE
+deja_vu_1,Combat,shoot the door of Grimy office,in_front_of_grimy_office,shoot_grimy_office_door_test,deja_vu_2,TRUE
+deja_vu_1,Inspect,check the dead man on the floor,in_grimy_office,check_dead_man_test,deja_vu_2,TRUE
+deja_vu_1,Interact,open the cabinet,in_grimy_office,open_cabinet_test,deja_vu_2,TRUE
+deja_vu_1,Navigation,exit grimy office,closed_cabinet,exit_grimy_office_test,deja_vu_2,TRUE
+deja_vu_1,Interact,open the wall safe,in_office_with_dead_man,open_wall_safe_test,deja_vu_2,TRUE
+deja_vu_1,Interact,open the trunk of the car,in_front_of_car_trunk,open_car_trunk_test,deja_vu_2,TRUE
+deja_vu_2,Interact,open the trench coat pocket,in_bathroom,open_trench_coat_pocket_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open the bathroom door,taken_pants_pocket,open_bathroom_door_test,deja_vu_1,FALSE
+deja_vu_2,Take,take gum from trench coat,opened_trench_coat_pocket,take_gum_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open the pants pocket,in_bathroom,open_pants_pocket_test,deja_vu_1,FALSE
+deja_vu_2,Take,take the pants,in_bathroom,take_pants_test,deja_vu_1,FALSE
+deja_vu_2,Interact,close the pants pocket,taken_pants_pocket,close_pants_pocket_test,deja_vu_1,FALSE
+deja_vu_2,Use,put on the trench coat,taken_pants,put_on_pants_test,deja_vu_1,FALSE
+deja_vu_2,Use,put on the pants,put_on_trench_coat,put_on_trench_coat_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open wallet1,put_on_pants,open_wallet1_test,deja_vu_1,FALSE
+deja_vu_2,Take,take newsclip1,opened_wallet1,take_newsclip1_test,deja_vu_1,FALSE
+deja_vu_2,Take,take license1,taken_1_dollar,take_license1_test,deja_vu_1,FALSE
+deja_vu_2,Interact,close wallet1,taken_license1,close_wallet1_test,deja_vu_1,FALSE
+deja_vu_2,Inspect,check the newsclip1,closed_wallet1,check_newsclip1_test,deja_vu_1,FALSE
+deja_vu_2,Take,take the ring1,in_hotel_room,take_ring1_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open the door from map,all_set_in_hotel_room,open_door_from_map_test,deja_vu_1,FALSE
+deja_vu_2,Interact,close the door from map,opened_door_in_hotel_room,close_door_from_map_test,deja_vu_1,FALSE
+deja_vu_2,Navigation,enter the hallway,opened_door_in_hotel_room,enter_hallway_test,deja_vu_1,FALSE
+deja_vu_2,Interact,buy 2 chips,in_cashier,buy_2_chips_test,deja_vu_1,FALSE
+deja_vu_2,Navigation,return to  cashier,win_blackjack,return_cashier_test,deja_vu_1,FALSE
+deja_vu_2,Interact,cash out,returned_cashier,cash_out_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open the door of lobby,in_lobby,open_lobby_door_test,deja_vu_1,FALSE
+deja_vu_2,Navigation,exit the casino,opened_lobby_door,exit_casino_test,deja_vu_1,FALSE
+deja_vu_2,Interact,talk in train station,in_train_station,talk_in_train_station_test,deja_vu_1,FALSE
+deja_vu_2,Navigation,visit counter,talked_in_train_station,visit_counter_test,deja_vu_1,FALSE
+deja_vu_2,Inspect,check the timetable,taken_pamphlet,check_timetable_test,deja_vu_1,FALSE
+deja_vu_2,Navigation,enter the platform on track6,back_to_train_station,enter_platform_track6_test,deja_vu_1,FALSE
+deja_vu_2,Navigation,enter the train,on_track6,enter_train_test,deja_vu_1,FALSE
+deja_vu_2,Interact,buy a train ticket,ticket_seller,buy_ticket_test,deja_vu_1,FALSE
+deja_vu_2,Inspect,check the girl in the train,in_train,check_girl_test,deja_vu_1,FALSE
+deja_vu_2,Inspect,check the sign,in_train,check_sign_test,deja_vu_1,FALSE
+deja_vu_2,Interact,chat with newspaper seller,at_chicago_station,chat_seller_test,deja_vu_1,FALSE
+deja_vu_2,Interact,buy newspaper,at_chicago_station,buy_newspaper_test,deja_vu_1,FALSE
+deja_vu_2,Take,take newsclip4,paid_newspaper,take_newsclip4_test,deja_vu_1,FALSE
+deja_vu_2,Navigation,enter the taxi,outside_chicago_station,enter_chicago_taxi_test,deja_vu_1,FALSE
+deja_vu_2,Interact,chat with taxi driver,entered_chicago_taxi,chat_taxi_driver_test,deja_vu_1,FALSE
+deja_vu_2,Navigation,enter the room in the middle,in_hall,enter_middle_room_test,deja_vu_1,FALSE
+deja_vu_2,Interact,load the gun,taken_everything_in_room,load_gun_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open the lock,back_to_hall,open_lock_test,deja_vu_1,FALSE
+deja_vu_2,Combat,hit the board  at fire escape,at_fire_escape,hit_board_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open the telephone,in_office,open_telephone_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open the box at the alleway behind joe,behind_joe,open_box_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open the pocket knife,closed_box,open_pocket_knife_test,deja_vu_1,FALSE
+deja_vu_2,Combat,use the knife to open the door,opened_pocket_knife,open_door_by_knife,deja_vu_1,FALSE
+deja_vu_2,Interact,put on flashlight,in_corridor,put_on_flashlight_test,deja_vu_1,FALSE
+deja_vu_2,Navigation,enter the Joe's place,turned_on_flashlight,enter_joe_place_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open the lock of slot,in_casino,open_slot_lock_test,deja_vu_1,FALSE
+deja_vu_2,Interact,turn of the flashlight,back_to_behind_joe_place,turn_off_flashlight_test,deja_vu_1,FALSE
+deja_vu_2,Inspect,read the card and get the location in it,in_alley,get_location_from_card_test,deja_vu_1,FALSE
+deja_vu_2,Interact,open the bag in vacuum with knife,opened_vacuum,open_bag_with_knife_test,deja_vu_1,FALSE
+deja_vu_2,Interact,ask the clerk about the nametag2,back_to_clerk,ask_about_nametag2_test,deja_vu_1,FALSE

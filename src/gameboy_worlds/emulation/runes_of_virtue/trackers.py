@@ -11,6 +11,11 @@ from gameboy_worlds.emulation.runes_of_virtue.test_metrics import (
     RunesOfVirtue1CavernOfHatredChooseRightDoorMelissaDialogTerminateMetric,
     RunesOfVirtue1CavernOfHatredEnterFloor3TerminateMetric,
     RunesOfVirtue1CavernOfHatredEnterFloor4TerminateMetric,
+    RunesOfVirtue1CavernOfHatredEnterFloor5TerminateMetric,
+    RunesOfVirtue1CavernOfHatredTalkToKlopFloor5TerminateMetric,
+    RunesOfVirtue1CavernOfHatredTalkToKlipFloor5TerminateMetric,
+    RunesOfVirtue1CavernOfHatredObtainAxeFloor5TerminateMetric,
+    RunesOfVirtue1CavernOfHatredExitedTerminateMetric,
     RunesOfVirtue1CavernOfHatredTerminateMetric,
     RunesOfVirtue1CavernOfCowardiceTerminateMetric,
     RunesOfVirtue1CavernOfCowardiceEnterFloor2TerminateMetric,
@@ -20,12 +25,27 @@ from gameboy_worlds.emulation.runes_of_virtue.test_metrics import (
     RunesOfVirtue1CavernOfCowardiceSherryFloor4DialogTerminateMetric,
     RunesOfVirtue1CavernOfCowardiceTakeStewFloor4TerminateMetric,
     RunesOfVirtue1CavernOfCowardiceObtainCoinFloor4TerminateMetric,
+    RunesOfVirtue1CavernOfCowardiceEnterFloor5TerminateMetric,
+    RunesOfVirtue1CavernOfCowardiceObtainKeyFromDrCatFloor5TerminateMetric,
+    RunesOfVirtue1CavernOfCowardiceEnterFloor6TerminateMetric,
+    RunesOfVirtue1CavernOfCowardiceEnterSecretDoorFloor6TerminateMetric,
+    RunesOfVirtue1CavernOfCowardiceTalkToSherryFloor6TerminateMetric,
+    RunesOfVirtue1CavernOfCowardiceTalkToChucklesFloor6TerminateMetric,
+    RunesOfVirtue1CavernOfCowardiceObtainMagicRopeFloor6TerminateMetric,
     RunesOfVirtue1CavernOfHatredChestFloor1OpenedTerminateMetric,
     RunesOfVirtue1CavernOfDeceitTerminateMetric,
+    RunesOfVirtue1CavernOfDeceitEnterFloor2TerminateMetric,
+    RunesOfVirtue1CavernOfDeceitEnterFloor3TerminateMetric,
+    RunesOfVirtue1CavernOfDeceitEnterFloor4TerminateMetric,
     RunesOfVirtue1ChucklesDialogTerminateMetric,
     RunesOfVirtue1DeathScreenTerminateMetric,
     RunesOfVirtue1DrCatDialogTerminateMetric,
+    RunesOfVirtue1CavernOfDeceitTalkToFinnFloor1TerminateMetric,
+    RunesOfVirtue1CavernOfDeceitTalkToKadorFloor3TerminateMetric,
+    RunesOfVirtue1CavernOfDeceitTalkToFinnFloor3TerminateMetric,
+    RunesOfVirtue1CavernOfDeceitEnterEastDoorFloor1TerminateMetric,
     RunesOfVirtue1DrCatCatsLairDialogTerminateMetric,
+    RunesOfVirtue1BuyTwoCakesTerminateMetric,
     RunesOfVirtue1GnuGnu1DialogTerminateMetric,
     RunesOfVirtue1GnuGnu2DialogTerminateMetric,
     RunesOfVirtue1KingDialogTerminateMetric,
@@ -36,6 +56,25 @@ from gameboy_worlds.emulation.runes_of_virtue.test_metrics import (
     RunesOfVirtue2BlacksmithFailBuyShieldTerminateMetric,
     RunesOfVirtue2BlockedRoomEnteredTerminateMetric,
     RunesOfVirtue2BringTholdenBackToKingTerminateMetric,
+    RunesOfVirtue2CaveOfDishonourLordWhitsaberFloor4TerminateMetric,
+    RunesOfVirtue2CaveOfDishonourEquipRodFloor3TerminateMetric,
+    RunesOfVirtue2CaveOfDishonourEnterFloor3BlockedTerminateMetric,
+    RunesOfVirtue2CaveOfDishonourEnterFloor4TerminateMetric,
+    RunesOfVirtue2CaveOfDishonourExitedTerminateMetric,
+    RunesOfVirtue2CityOfYewEnteredTerminateMetric,
+    RunesOfVirtue2CityOfYewWelcomeSignReadTerminateMetric,
+    RunesOfVirtue2MandrakeBardDialogTerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeTalkToZoltanFloor4TerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeReadHintFloor5TerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeTalkToTerryFloor5TerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeEnteredTerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeEnterFloor2TerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeEnterFloor3TerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeEnterFloor4TerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeEnterFloor5TerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeEnterFloor6TerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeEnterFloor7TerminateMetric,
+    RunesOfVirtue2CavernOfInjusticeEnterEastPortalFloor3TerminateMetric,
     RunesOfVirtue2CaveOfDishonourEnterFloor3TerminateMetric,
     RunesOfVirtue2CaveOfDishonourEnterFloor2TerminateMetric,
     RunesOfVirtue2CaveOfDishonourTerminateMetric,
@@ -43,6 +82,7 @@ from gameboy_worlds.emulation.runes_of_virtue.test_metrics import (
     RunesOfVirtue2FindLadderBackFromCastleTerminateMetric,
     RunesOfVirtue2FindLadderOutOfCavernOfHatredTerminateMetric,
     RunesOfVirtue2AttendCastleCeremonyTerminateMetric,
+    RunesOfVirtue2RuneOfHonourObtainedTerminateMetric,
     RunesOfVirtue2GiveCheeseToSherryTerminateMetric,
     RunesOfVirtue2GrabCheeseFromKitchenTerminateMetric,
     RunesOfVirtue2InteractWithMapOnTableTerminateMetric,
@@ -169,6 +209,17 @@ class RunesOfVirtue2LordWhitsaberDialogTestTracker(RunesOfVirtueTestTracker):
     SUBGOAL_METRIC = DummySubGoalMetric
 
 
+class RunesOfVirtue2CaveOfDishonourLordWhitsaberFloor4TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when Lord Whitsaber's floor 4 dialog is shown in the Cave of Dishonour."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CaveOfDishonourLordWhitsaberFloor4TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
 class RunesOfVirtue2CaveOfDishonourTestTracker(RunesOfVirtueTestTracker):
     """Ends an episode when the player has entered the Cave of Dishonour."""
 
@@ -197,6 +248,190 @@ class RunesOfVirtue2CaveOfDishonourEnterFloor3TestTracker(RunesOfVirtueTestTrack
 
     TERMINATION_TRUNCATION_METRIC = (
         RunesOfVirtue2CaveOfDishonourEnterFloor3TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CaveOfDishonourEquipRodFloor3TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player equips the rod on floor 3 in the Cave of Dishonour."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CaveOfDishonourEquipRodFloor3TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CaveOfDishonourEnterFloor3BlockedTestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player reaches the blocked path on floor 3 in the Cave of Dishonour."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CaveOfDishonourEnterFloor3BlockedTerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CaveOfDishonourEnterFloor4TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 4 in the Cave of Dishonour."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CaveOfDishonourEnterFloor4TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CaveOfDishonourExitedTestTracker(RunesOfVirtueTestTracker):
+    """Ends an episode when the player exits the Cave of Dishonour."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CaveOfDishonourExitedTerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CityOfYewEnteredTestTracker(RunesOfVirtueTestTracker):
+    """Ends an episode when the player enters the city of Yew."""
+
+    TERMINATION_TRUNCATION_METRIC = RunesOfVirtue2CityOfYewEnteredTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CityOfYewWelcomeSignReadTestTracker(RunesOfVirtueTestTracker):
+    """Ends an episode when the player reads the welcome sign in the city of Yew."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CityOfYewWelcomeSignReadTerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2MandrakeBardDialogTestTracker(RunesOfVirtueTestTracker):
+    """Ends an episode when Mandrake the Bard's dialog is shown."""
+
+    TERMINATION_TRUNCATION_METRIC = RunesOfVirtue2MandrakeBardDialogTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeTalkToZoltanFloor4TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when Zoltan's floor 4 dialog is shown."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeTalkToZoltanFloor4TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeReadHintFloor5TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player reads the floor 5 hint."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeReadHintFloor5TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeTalkToTerryFloor5TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when Terry's floor 5 dialog is shown."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeTalkToTerryFloor5TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeEnteredTestTracker(RunesOfVirtueTestTracker):
+    """Ends an episode when the player enters the Cavern of Injustice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeEnteredTerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor2TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 2 of the Cavern of Injustice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeEnterFloor2TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor3TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 3 of the Cavern of Injustice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeEnterFloor3TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor4TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 4 of the Cavern of Injustice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeEnterFloor4TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor5TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 5 of the Cavern of Injustice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeEnterFloor5TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor6TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 6 of the Cavern of Injustice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeEnterFloor6TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterFloor7TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 7 of the Cavern of Injustice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeEnterFloor7TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2CavernOfInjusticeEnterEastPortalFloor3TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters the east portal on floor 3."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2CavernOfInjusticeEnterEastPortalFloor3TerminateMetric
     )
     SUBGOAL_METRIC = DummySubGoalMetric
 
@@ -284,6 +519,15 @@ class RunesOfVirtue2AttendCastleCeremonyTestTracker(RunesOfVirtueTestTracker):
 
     TERMINATION_TRUNCATION_METRIC = (
         RunesOfVirtue2AttendCastleCeremonyTerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue2RuneOfHonourObtainedTestTracker(RunesOfVirtueTestTracker):
+    """Ends an episode when the player obtains the Rune of Honour."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue2RuneOfHonourObtainedTerminateMetric
     )
     SUBGOAL_METRIC = DummySubGoalMetric
 
@@ -416,6 +660,39 @@ class RunesOfVirtue1CavernOfDeceitTestTracker(RunesOfVirtueTestTracker):
     SUBGOAL_METRIC = DummySubGoalMetric
 
 
+class RunesOfVirtue1CavernOfDeceitEnterFloor2TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 2 of the Cavern of Deceit."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfDeceitEnterFloor2TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfDeceitEnterFloor3TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 3 of the Cavern of Deceit."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfDeceitEnterFloor3TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfDeceitEnterFloor4TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 4 of the Cavern of Deceit."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfDeceitEnterFloor4TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
 class RunesOfVirtue1CavernOfCowardiceTestTracker(RunesOfVirtueTestTracker):
     """Ends an episode when the player has entered the Cavern of Cowardice."""
 
@@ -500,10 +777,131 @@ class RunesOfVirtue1CavernOfCowardiceObtainCoinFloor4TestTracker(
     SUBGOAL_METRIC = DummySubGoalMetric
 
 
+class RunesOfVirtue1CavernOfCowardiceEnterFloor5TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 5 of the Cavern of Cowardice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfCowardiceEnterFloor5TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfCowardiceObtainKeyFromDrCatFloor5TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player obtains the key from Dr. Cat on floor 5 of the Cavern of Cowardice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfCowardiceObtainKeyFromDrCatFloor5TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfCowardiceEnterFloor6TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters floor 6 of the Cavern of Cowardice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfCowardiceEnterFloor6TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfCowardiceEnterSecretDoorFloor6TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters the secret door on floor 6 of the Cavern of Cowardice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfCowardiceEnterSecretDoorFloor6TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfCowardiceTalkToSherryFloor6TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player is in dialog with Sherry on floor 6 of the Cavern of Cowardice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfCowardiceTalkToSherryFloor6TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfCowardiceTalkToChucklesFloor6TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player is in dialog with Chuckles on floor 6 of the Cavern of Cowardice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfCowardiceTalkToChucklesFloor6TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfCowardiceObtainMagicRopeFloor6TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player obtains the magic rope on floor 6 of the Cavern of Cowardice."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfCowardiceObtainMagicRopeFloor6TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
 class RunesOfVirtue1DrCatDialogTestTracker(RunesOfVirtueTestTracker):
     """Ends an episode when the player is in dialog with Dr. Cat."""
 
     TERMINATION_TRUNCATION_METRIC = RunesOfVirtue1DrCatDialogTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfDeceitTalkToFinnFloor1TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player is in dialog with Finn on floor 1 of the Cavern of Deceit."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfDeceitTalkToFinnFloor1TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfDeceitTalkToKadorFloor3TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player is in dialog with Kador on floor 3 of the Cavern of Deceit."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfDeceitTalkToKadorFloor3TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfDeceitTalkToFinnFloor3TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player is in dialog with Finn on floor 3 of the Cavern of Deceit."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfDeceitTalkToFinnFloor3TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfDeceitEnterEastDoorFloor1TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player enters the east door on floor 1 of the Cavern of Deceit."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfDeceitEnterEastDoorFloor1TerminateMetric
+    )
     SUBGOAL_METRIC = DummySubGoalMetric
 
 
@@ -513,6 +911,13 @@ class RunesOfVirtue1DrCatCatsLairDialogTestTracker(RunesOfVirtueTestTracker):
     TERMINATION_TRUNCATION_METRIC = (
         RunesOfVirtue1DrCatCatsLairDialogTerminateMetric
     )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1BuyTwoCakesTestTracker(RunesOfVirtueTestTracker):
+    """Ends an episode when the player buys two cakes."""
+
+    TERMINATION_TRUNCATION_METRIC = RunesOfVirtue1BuyTwoCakesTerminateMetric
     SUBGOAL_METRIC = DummySubGoalMetric
 
 
@@ -593,6 +998,57 @@ class RunesOfVirtue1CavernOfHatredEnterFloor4TestTracker(RunesOfVirtueTestTracke
 
     TERMINATION_TRUNCATION_METRIC = (
         RunesOfVirtue1CavernOfHatredEnterFloor4TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfHatredEnterFloor5TestTracker(RunesOfVirtueTestTracker):
+    """Ends an episode when the player enters floor 5 of the Cavern of Hatred."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfHatredEnterFloor5TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfHatredTalkToKlopFloor5TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player is in dialog with Klop on floor 5 of the Cavern of Hatred."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfHatredTalkToKlopFloor5TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfHatredTalkToKlipFloor5TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player is in dialog with Klip on floor 5 of the Cavern of Hatred."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfHatredTalkToKlipFloor5TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfHatredObtainAxeFloor5TestTracker(
+    RunesOfVirtueTestTracker
+):
+    """Ends an episode when the player obtains the axe on floor 5 of the Cavern of Hatred."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfHatredObtainAxeFloor5TerminateMetric
+    )
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RunesOfVirtue1CavernOfHatredExitedTestTracker(RunesOfVirtueTestTracker):
+    """Ends an episode when the player exits the Cavern of Hatred."""
+
+    TERMINATION_TRUNCATION_METRIC = (
+        RunesOfVirtue1CavernOfHatredExitedTerminateMetric
     )
     SUBGOAL_METRIC = DummySubGoalMetric
 

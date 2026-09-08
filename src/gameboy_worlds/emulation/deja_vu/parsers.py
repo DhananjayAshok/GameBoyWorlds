@@ -83,6 +83,7 @@ class DejaVuStateParser(StateParser, ABC):
         ("pointed_at_41_on_map", 120, 56, 8, 8),
         ("pointed_at_45_on_map", 152, 56, 8, 8),
         ("pointed_at_52_on_map", 128, 48, 8, 8),
+        ("pointed_at_54_on_map", 144, 48, 8, 8),
         # action in menu
         ("selected_watch_action_in_menu", 8, 33, 16, 5),
         ("selected_use_action_in_menu", 24, 33, 16, 5),
@@ -423,6 +424,9 @@ class DejaVu2StateParser(DejaVuStateParser):
             ("using_key1_item", 0, 104, 160, 8),
             ("using_key2_item", 0, 79, 160, 8),
             ("using_knife_item", 0, 128, 160, 8),
+            ("using_key4_item", 0, 104, 160, 8),
+            ("using_flashlight_item", 0, 88, 160, 8),
+            ("using_nametag2_item", 0, 88, 160, 8),
         ]
         override_multi_target_regions = []
         override_multi_targets = {
@@ -475,10 +479,19 @@ class DejaVu2StateParser(DejaVuStateParser):
                 "opened_box",
                 "opened_pocket_knife",
                 "opened_door_by_knife",
+                "put_on_flashlight",
+                "entered_joe_place",
+                "opened_joe_place_door",
+                "opened_slot_lock",
+                "turned_off_flashlight",
+                "got_location_from_card",
+                "opened_bag_with_knife",
+                "asked_about_nametage2",
             ],
             "menu_title_area": [
                 "trench_coat_pocket_menu", 
                 "wallet1_menu",
+                "vacuum_menu",
             ],
             "game_screen_area": [
                 "on_track6",

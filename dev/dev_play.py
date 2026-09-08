@@ -19,18 +19,25 @@ import click
     "--init_state", type=str, default=None, help="Name of the initial state file"
 )
 @click.option(
+    "--save_video",
+    type=bool,
+    default=False,
+    help="Whether to save a video of the gameplay.",
+)
+@click.option(
     "--gameshark",
     type=str,
     default=None,
     multiple=True,
     help="GameShark code(s) to apply on startup (e.g. 0101C7C9). Can be repeated for multiple codes.",
 )
-def main(game, state_tracker_class, init_state, gameshark):
+def main(game, state_tracker_class, init_state, save_video, gameshark):
     env = get_emulator(
         game=game,
         init_state=init_state,
         headless=False,
         state_tracker_class=state_tracker_class,
+        save_video=save_video,
     )
     for code in gameshark:
         env._pyboy.gameshark.add(code)
