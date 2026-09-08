@@ -94,6 +94,7 @@ from gameboy_worlds.emulation.harry_potter.trackers import (
     TalkToMomSecondTimeTestTracker,
     TalkToDadFirstTimeTestTracker,
     TalkToDadSecondTimeTestTracker,
+    TalkToPercyTestTracker,
 )
 
 GAME_TO_GB_NAME = {
@@ -207,6 +208,7 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "talk_to_mom_second_time_test": TalkToMomSecondTimeTestTracker,
         "talk_to_dad_first_time_test": TalkToDadFirstTimeTestTracker,
         "talk_to_dad_second_time_test": TalkToDadSecondTimeTestTracker,
+        "talk_to_percy_test": TalkToPercyTestTracker,
     },
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """

@@ -146,6 +146,7 @@ class HarryPotterChamberOfSecretsParser(_BaseHarryPotterParser):
             "talk_to_mom_second_time",
             "talk_to_dad_first_time",
             "talk_to_dad_second_time",
+            "talk_to_percy",
         ],
         "dobby_dialogue_area": [
             "dobby_dialogue_started",

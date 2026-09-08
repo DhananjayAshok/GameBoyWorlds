@@ -933,3 +933,9 @@ class TalkToDadSecondTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
     REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
     _TERMINATION_NAMED_REGION = "dialogue_box_full"
     _TERMINATION_TARGET_NAME = "talk_to_dad_second_time"
+
+
+class TalkToPercyTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_percy"

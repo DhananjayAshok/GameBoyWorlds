@@ -151,6 +151,7 @@ from gameboy_worlds.emulation.harry_potter.test_metrics import (
     TalkToMomSecondTimeTerminateMetric,
     TalkToDadFirstTimeTerminateMetric,
     TalkToDadSecondTimeTerminateMetric,
+    TalkToPercyTerminateMetric,
 )
 
 
@@ -630,4 +631,9 @@ class TalkToDadFirstTimeTestTracker(HarryPotterTestTracker):
 
 class TalkToDadSecondTimeTestTracker(HarryPotterTestTracker):
     TERMINATION_TRUNCATION_METRIC = TalkToDadSecondTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToPercyTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToPercyTerminateMetric
     SUBGOAL_METRIC = DummySubGoalMetric
