@@ -87,6 +87,9 @@ from gameboy_worlds.emulation.harry_potter.trackers import (
     FightGnomeTopLeftTestTracker,
     FightGreyHoseTopLeftTestTracker,
     ReachDiagonAlleyTestTracker,
+    TalkToFredGeorgeFirstTimeTestTracker,
+    TalkToFredGeorgeSecondTimeTestTracker,
+    TalkToGreenStatueTestTracker,
 )
 
 GAME_TO_GB_NAME = {
@@ -193,6 +196,9 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "fight_gnome_top_left_test": FightGnomeTopLeftTestTracker,
         "fight_grey_hose_top_left_test": FightGreyHoseTopLeftTestTracker,
         "reach_diagon_alley_test": ReachDiagonAlleyTestTracker,
+        "talk_to_fred_george_first_time_test": TalkToFredGeorgeFirstTimeTestTracker,
+        "talk_to_fred_george_second_time_test": TalkToFredGeorgeSecondTimeTestTracker,
+        "talk_to_green_statue_test": TalkToGreenStatueTestTracker,
     },
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """

@@ -883,3 +883,25 @@ class ReachedDiagonAlleyTerminateMetric(RegionMatchTerminationOnlyMetric):
     REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
     _TERMINATION_NAMED_REGION = "dialogue_box_full"
     _TERMINATION_TARGET_NAME = "reached_diagon_alley"
+
+
+# ============================================================
+# Chamber of Secrets: Fred and George's room tasks
+# ============================================================
+
+class TalkToFredGeorgeFirstTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_fred_george_first_time"
+
+
+class TalkToFredGeorgeSecondTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_fred_george_second_time"
+
+
+class TalkToGreenStatueTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_green_statue"

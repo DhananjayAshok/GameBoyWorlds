@@ -139,6 +139,9 @@ class HarryPotterChamberOfSecretsParser(_BaseHarryPotterParser):
             "restore_all_magic",
             "broom_doom",
             "reached_diagon_alley",
+            "talk_to_fred_george_first_time",
+            "talk_to_fred_george_second_time",
+            "talk_to_green_statue",
         ],
         "dobby_dialogue_area": [
             "dobby_dialogue_started",

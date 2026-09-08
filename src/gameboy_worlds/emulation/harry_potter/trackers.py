@@ -144,6 +144,9 @@ from gameboy_worlds.emulation.harry_potter.test_metrics import (
     GnomeTopLeftTerminateMetric,
     GreyHoseTopLeftTerminateMetric,
     ReachedDiagonAlleyTerminateMetric,
+    TalkToFredGeorgeFirstTimeTerminateMetric,
+    TalkToFredGeorgeSecondTimeTerminateMetric,
+    TalkToGreenStatueTerminateMetric,
 )
 
 
@@ -586,4 +589,20 @@ class FightGreyHoseTopLeftTestTracker(HarryPotterTestTracker):
 
 class ReachDiagonAlleyTestTracker(HarryPotterTestTracker):
     TERMINATION_TRUNCATION_METRIC = ReachedDiagonAlleyTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+# Chamber of Secrets: Fred and George's Room Tasks
+class TalkToFredGeorgeFirstTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToFredGeorgeFirstTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToFredGeorgeSecondTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToFredGeorgeSecondTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToGreenStatueTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToGreenStatueTerminateMetric
     SUBGOAL_METRIC = DummySubGoalMetric
