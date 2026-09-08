@@ -98,3 +98,4 @@ harry_potter_chamber_of_secrets,"navigation, interaction",talk to Mrs Weasley fo
 harry_potter_chamber_of_secrets,"navigation, interaction",talk to Mr Weasley for the first time starting from Ginny's room,ginnys_room,talk_to_dad_first_time_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,"navigation, interaction",talk to Mr Weasley for the second time starting from Ginny's room,ginnys_room,talk_to_dad_second_time_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,"navigation, interaction",enter the Burrow starting from the beginning of the game,default,enter_burrow_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"navigation, interaction",find Dobby in the bedroom starting from the beginning of the game,default,find_dobby_test,harry_potter_philosophers_stone,False
