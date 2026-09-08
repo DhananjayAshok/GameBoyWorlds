@@ -80,3 +80,7 @@ harry_potter_chamber_of_secrets,navigation,get to diagon alley,after_degnomming,
 harry_potter_chamber_of_secrets,"navigation, interaction",talk to Fred and George for the first time,fred_george_room,talk_to_fred_george_first_time_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,"navigation, interaction",talk to Fred and George for the second time,fred_george_room,talk_to_fred_george_second_time_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,"navigation, interaction",talk to the green statue,fred_george_room,talk_to_green_statue_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"navigation, interaction",talk to Mrs Weasley for the first time,parents_room,talk_to_mom_first_time_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"navigation, interaction",talk to Mrs Weasley for the second time,parents_room,talk_to_mom_second_time_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"navigation, interaction",talk to Mr Weasley for the first time,parents_room,talk_to_dad_first_time_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"navigation, interaction",talk to Mr Weasley for the second time,parents_room,talk_to_dad_second_time_test,harry_potter_philosophers_stone,False

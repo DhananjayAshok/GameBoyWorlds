@@ -147,6 +147,10 @@ from gameboy_worlds.emulation.harry_potter.test_metrics import (
     TalkToFredGeorgeFirstTimeTerminateMetric,
     TalkToFredGeorgeSecondTimeTerminateMetric,
     TalkToGreenStatueTerminateMetric,
+    TalkToMomFirstTimeTerminateMetric,
+    TalkToMomSecondTimeTerminateMetric,
+    TalkToDadFirstTimeTerminateMetric,
+    TalkToDadSecondTimeTerminateMetric,
 )
 
 
@@ -605,4 +609,25 @@ class TalkToFredGeorgeSecondTimeTestTracker(HarryPotterTestTracker):
 
 class TalkToGreenStatueTestTracker(HarryPotterTestTracker):
     TERMINATION_TRUNCATION_METRIC = TalkToGreenStatueTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+# Chamber of Secrets: Weasley Parents' Room Tasks
+class TalkToMomFirstTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToMomFirstTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToMomSecondTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToMomSecondTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToDadFirstTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToDadFirstTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToDadSecondTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToDadSecondTimeTerminateMetric
     SUBGOAL_METRIC = DummySubGoalMetric

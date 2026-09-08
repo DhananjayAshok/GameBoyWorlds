@@ -90,6 +90,10 @@ from gameboy_worlds.emulation.harry_potter.trackers import (
     TalkToFredGeorgeFirstTimeTestTracker,
     TalkToFredGeorgeSecondTimeTestTracker,
     TalkToGreenStatueTestTracker,
+    TalkToMomFirstTimeTestTracker,
+    TalkToMomSecondTimeTestTracker,
+    TalkToDadFirstTimeTestTracker,
+    TalkToDadSecondTimeTestTracker,
 )
 
 GAME_TO_GB_NAME = {
@@ -199,6 +203,10 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "talk_to_fred_george_first_time_test": TalkToFredGeorgeFirstTimeTestTracker,
         "talk_to_fred_george_second_time_test": TalkToFredGeorgeSecondTimeTestTracker,
         "talk_to_green_statue_test": TalkToGreenStatueTestTracker,
+        "talk_to_mom_first_time_test": TalkToMomFirstTimeTestTracker,
+        "talk_to_mom_second_time_test": TalkToMomSecondTimeTestTracker,
+        "talk_to_dad_first_time_test": TalkToDadFirstTimeTestTracker,
+        "talk_to_dad_second_time_test": TalkToDadSecondTimeTestTracker,
     },
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """

@@ -905,3 +905,31 @@ class TalkToGreenStatueTerminateMetric(RegionMatchTerminationOnlyMetric):
     REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
     _TERMINATION_NAMED_REGION = "dialogue_box_full"
     _TERMINATION_TARGET_NAME = "talk_to_green_statue"
+
+
+# ============================================================
+# Chamber of Secrets: Weasley parents' room tasks
+# ============================================================
+
+class TalkToMomFirstTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_mom_first_time"
+
+
+class TalkToMomSecondTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_mom_second_time"
+
+
+class TalkToDadFirstTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_dad_first_time"
+
+
+class TalkToDadSecondTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_dad_second_time"

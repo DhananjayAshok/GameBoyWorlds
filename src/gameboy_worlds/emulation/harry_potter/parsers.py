@@ -142,6 +142,10 @@ class HarryPotterChamberOfSecretsParser(_BaseHarryPotterParser):
             "talk_to_fred_george_first_time",
             "talk_to_fred_george_second_time",
             "talk_to_green_statue",
+            "talk_to_mom_first_time",
+            "talk_to_mom_second_time",
+            "talk_to_dad_first_time",
+            "talk_to_dad_second_time",
         ],
         "dobby_dialogue_area": [
             "dobby_dialogue_started",
