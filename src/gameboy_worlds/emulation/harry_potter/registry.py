@@ -73,6 +73,15 @@ from gameboy_worlds.emulation.harry_potter.trackers import (
     HourglassTopThenBottomTestTracker,
     BottomRoomThenSealTestTracker,
     BetweenGargoylesThenSealTestTracker,
+    LearnToCastSpellTestTracker,
+    SelectCastSpellTestTracker,
+    SelectCardAttackTestTracker,
+    SelectUseItemTestTracker,
+    SelectFleeTestTracker,
+    SelectFolioBrutiTestTracker,
+    RestoreAllMagicTestTracker,
+    BroomDoomTestTracker,
+    UseCardAttackTestTracker,
 )
 
 GAME_TO_GB_NAME = {
@@ -165,6 +174,15 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "enter_kitchen_burrow_test": EnterKitchenBurrowTestTracker,
         "enter_burrow_garden_test": EnterBurrowGardenTestTracker,
         "navigate_to_car_test": NavigateToCarTestTracker,
+        "learn_to_cast_spell_test": LearnToCastSpellTestTracker,
+        "select_cast_spell_test": SelectCastSpellTestTracker,
+        "select_card_attack_test": SelectCardAttackTestTracker,
+        "select_use_item_test": SelectUseItemTestTracker,
+        "select_flee_test": SelectFleeTestTracker,
+        "select_folio_bruti_test": SelectFolioBrutiTestTracker,
+        "restore_all_magic_test": RestoreAllMagicTestTracker,
+        "broom_doom_test": BroomDoomTestTracker,
+        "use_card_attack_test": UseCardAttackTestTracker,
     },
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """

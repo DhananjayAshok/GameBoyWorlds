@@ -63,3 +63,12 @@ harry_potter_chamber_of_secrets,"navigation, interaction",talk to Ron in his roo
 harry_potter_chamber_of_secrets,"navigation, interaction",reach the kitchen and trigger Mrs Weasley's quest dialogue,rons_room,enter_kitchen_burrow_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,"navigation, interaction",reach the garden and start dialogue with Ron,post_quest,enter_burrow_garden_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,navigation,navigate to left side of white car,burrow_start,navigate_to_car_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"navigation, interaction",learn how to cast a spell,after_breakfast,learn_to_cast_spell_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"menu, battle",select cast spell in the battle action menu,after_breakfast,select_cast_spell_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"menu, battle",select card attack in the battle action menu,after_breakfast,select_card_attack_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"menu, battle",select use item in the battle action menu,after_breakfast,select_use_item_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"menu, battle",select flee in the battle action menu,after_breakfast,select_flee_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,"menu, battle",select folio bruti in the battle action menu,after_breakfast,select_folio_bruti_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,battle,use the restore all magic card attack,after_breakfast,restore_all_magic_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,battle,use the broom doom card attack,after_breakfast,broom_doom_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,battle,use a card attack,after_breakfast,use_card_attack_test,harry_potter_philosophers_stone,False

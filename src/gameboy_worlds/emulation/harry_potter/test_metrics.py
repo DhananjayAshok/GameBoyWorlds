@@ -786,3 +786,67 @@ class FindSecondStoneGargoylesTerminateMetric(RegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "stone_gargoyles_wall"
     _TERMINATION_TARGET_NAME = "two_stone_gargoyles_2"
 
+
+# ============================================================
+# Chamber of Secrets: spell learning and battle action tasks
+# ============================================================
+
+class TalkGlassesGuySubgoal(RegionMatchSubGoal):
+    NAME = "talk_glasses_guy"
+    _NAMED_REGION = "dialogue_box_full"
+    _TARGET_NAME = "talk_glasses_guy"
+
+
+class SpellLearnedTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "spell_learned"
+
+
+class SelectCastSpellTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "battle_action_area"
+    _TERMINATION_TARGET_NAME = "cast_spell"
+
+
+class SelectCardAttackTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "battle_action_area"
+    _TERMINATION_TARGET_NAME = "card_attack"
+
+
+class SelectUseItemTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "battle_action_area"
+    _TERMINATION_TARGET_NAME = "use_item"
+
+
+class SelectFleeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "battle_action_area"
+    _TERMINATION_TARGET_NAME = "flee"
+
+
+class SelectFolioBrutiTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "battle_action_area"
+    _TERMINATION_TARGET_NAME = "folio_bruti"
+
+
+class RestoreAllMagicTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "restore_all_magic"
+
+
+class BroomDoomTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "broom_doom"
+
+
+class UseCardAttackTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "full_screen_area"
+    _TERMINATION_TARGET_NAME = "use_card_attack"
+

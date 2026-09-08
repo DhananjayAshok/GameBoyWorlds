@@ -129,6 +129,16 @@ from gameboy_worlds.emulation.harry_potter.test_metrics import (
     BottomRoomSubgoal,
     BetweenGargoylesSubgoal,
     StandingOnSealFacingUpTerminateMetric,
+    TalkGlassesGuySubgoal,
+    SpellLearnedTerminateMetric,
+    SelectCastSpellTerminateMetric,
+    SelectCardAttackTerminateMetric,
+    SelectUseItemTerminateMetric,
+    SelectFleeTerminateMetric,
+    SelectFolioBrutiTerminateMetric,
+    RestoreAllMagicTerminateMetric,
+    BroomDoomTerminateMetric,
+    UseCardAttackTerminateMetric,
 )
 
 
@@ -500,3 +510,49 @@ class BottomRoomThenSealTestTracker(HarryPotterTestTracker):
 class BetweenGargoylesThenSealTestTracker(HarryPotterTestTracker):
     TERMINATION_TRUNCATION_METRIC = StandingOnSealFacingUpTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([BetweenGargoylesSubgoal])
+
+
+# Chamber of Secrets: Spell Learning and Battle Action Tasks
+class LearnToCastSpellTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SpellLearnedTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([TalkGlassesGuySubgoal])
+
+
+class SelectCastSpellTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectCastSpellTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SelectCardAttackTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectCardAttackTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SelectUseItemTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectUseItemTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SelectFleeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectFleeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SelectFolioBrutiTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectFolioBrutiTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RestoreAllMagicTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = RestoreAllMagicTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class BroomDoomTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = BroomDoomTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class UseCardAttackTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = UseCardAttackTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
