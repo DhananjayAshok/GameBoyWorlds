@@ -850,3 +850,36 @@ class UseCardAttackTerminateMetric(RegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "full_screen_area"
     _TERMINATION_TARGET_NAME = "use_card_attack"
 
+
+# ============================================================
+# Chamber of Secrets: garden battle opponents and Diagon Alley
+# ============================================================
+
+class SprinklerLeadTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "opponent_lead_area"
+    _TERMINATION_TARGET_NAME = "sprinkler_lead"
+
+
+class GreenRatLeadTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "opponent_lead_area"
+    _TERMINATION_TARGET_NAME = "green_rat_lead"
+
+
+class GnomeTopLeftTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "opponent_top_left_area"
+    _TERMINATION_TARGET_NAME = "gnome"
+
+
+class GreyHoseTopLeftTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "opponent_top_left_area"
+    _TERMINATION_TARGET_NAME = "grey_hose"
+
+
+class ReachedDiagonAlleyTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "reached_diagon_alley"

@@ -120,6 +120,10 @@ class HarryPotterChamberOfSecretsParser(_BaseHarryPotterParser):
         # Battle action list: bottom fifth of the screen, left three fifths.
         ("battle_action_area", 0, 115, 96, 29),
         ("full_screen_area", 0, 0, 160, 144),
+        # Front (lead) slot of the opponents box in battle.
+        ("opponent_lead_area", 0, 40, 48, 32),
+        # Top-left battle slot, directly above the lead slot.
+        ("opponent_top_left_area", 0, 0, 48, 40),
     ]
 
     MULTI_TARGETS = {
@@ -134,6 +138,7 @@ class HarryPotterChamberOfSecretsParser(_BaseHarryPotterParser):
             "spell_learned",
             "restore_all_magic",
             "broom_doom",
+            "reached_diagon_alley",
         ],
         "dobby_dialogue_area": [
             "dobby_dialogue_started",
@@ -165,6 +170,14 @@ class HarryPotterChamberOfSecretsParser(_BaseHarryPotterParser):
         ],
         "full_screen_area": [
             "use_card_attack",
+        ],
+        "opponent_lead_area": [
+            "sprinkler_lead",
+            "green_rat_lead",
+        ],
+        "opponent_top_left_area": [
+            "gnome",
+            "grey_hose",
         ],
         # -- Burrow room navigation tasks --
         "percy_room_area": [

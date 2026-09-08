@@ -82,6 +82,11 @@ from gameboy_worlds.emulation.harry_potter.trackers import (
     RestoreAllMagicTestTracker,
     BroomDoomTestTracker,
     UseCardAttackTestTracker,
+    FightSprinklerLeadTestTracker,
+    FightGreenRatLeadTestTracker,
+    FightGnomeTopLeftTestTracker,
+    FightGreyHoseTopLeftTestTracker,
+    ReachDiagonAlleyTestTracker,
 )
 
 GAME_TO_GB_NAME = {
@@ -183,6 +188,11 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "restore_all_magic_test": RestoreAllMagicTestTracker,
         "broom_doom_test": BroomDoomTestTracker,
         "use_card_attack_test": UseCardAttackTestTracker,
+        "fight_sprinkler_lead_test": FightSprinklerLeadTestTracker,
+        "fight_green_rat_lead_test": FightGreenRatLeadTestTracker,
+        "fight_gnome_top_left_test": FightGnomeTopLeftTestTracker,
+        "fight_grey_hose_top_left_test": FightGreyHoseTopLeftTestTracker,
+        "reach_diagon_alley_test": ReachDiagonAlleyTestTracker,
     },
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """

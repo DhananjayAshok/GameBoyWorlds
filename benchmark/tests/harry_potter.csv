@@ -72,3 +72,8 @@ harry_potter_chamber_of_secrets,"menu, battle",select folio bruti in the battle 
 harry_potter_chamber_of_secrets,battle,use the restore all magic card attack,after_breakfast,restore_all_magic_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,battle,use the broom doom card attack,after_breakfast,broom_doom_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,battle,use a card attack,after_breakfast,use_card_attack_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,battle,fight a sprinkler in the lead position,after_degnomming,fight_sprinkler_lead_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,battle,fight a green rat in the lead position,after_degnomming,fight_green_rat_lead_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,battle,fight a gnome in the top left position,after_degnomming,fight_gnome_top_left_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,battle,fight a grey hose in the top left position,after_degnomming,fight_grey_hose_top_left_test,harry_potter_philosophers_stone,False
+harry_potter_chamber_of_secrets,navigation,get to diagon alley,after_degnomming,reach_diagon_alley_test,harry_potter_philosophers_stone,False

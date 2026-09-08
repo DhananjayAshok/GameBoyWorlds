@@ -139,6 +139,11 @@ from gameboy_worlds.emulation.harry_potter.test_metrics import (
     RestoreAllMagicTerminateMetric,
     BroomDoomTerminateMetric,
     UseCardAttackTerminateMetric,
+    SprinklerLeadTerminateMetric,
+    GreenRatLeadTerminateMetric,
+    GnomeTopLeftTerminateMetric,
+    GreyHoseTopLeftTerminateMetric,
+    ReachedDiagonAlleyTerminateMetric,
 )
 
 
@@ -555,4 +560,30 @@ class BroomDoomTestTracker(HarryPotterTestTracker):
 
 class UseCardAttackTestTracker(HarryPotterTestTracker):
     TERMINATION_TRUNCATION_METRIC = UseCardAttackTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+# Chamber of Secrets: Garden Battle Opponents and Diagon Alley
+class FightSprinklerLeadTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SprinklerLeadTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class FightGreenRatLeadTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = GreenRatLeadTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class FightGnomeTopLeftTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = GnomeTopLeftTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class FightGreyHoseTopLeftTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = GreyHoseTopLeftTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class ReachDiagonAlleyTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = ReachedDiagonAlleyTerminateMetric
     SUBGOAL_METRIC = DummySubGoalMetric
