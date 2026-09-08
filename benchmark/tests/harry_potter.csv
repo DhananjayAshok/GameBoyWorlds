@@ -23,6 +23,32 @@ harry_potter_philosophers_stone,"navigation, menu, interaction",buy a cauldron a
 harry_potter_philosophers_stone,navigation,enter Sugarplums Sweets shop,shopping_area,enter_sugarplums_test,harry_potter_chamber_of_secrets,True
 harry_potter_philosophers_stone,"navigation, interaction",open the Sugarplums buy menu,inside_sugarplums,open_sugarplums_buy_menu_test,harry_potter_chamber_of_secrets,True
 harry_potter_philosophers_stone,"navigation, interaction",talk to Hagrid in Diagon Alley after shopping,shopping_complete,talk_to_hagrid_diagon_test,harry_potter_chamber_of_secrets,True
+harry_potter_philosophers_stone,navigation,"bring up the location banner to say you're in Diagon Alley, then open the start menu",shopping_complete,start_menu_test,harry_potter_chamber_of_secrets,True
+harry_potter_philosophers_stone,"menu, interaction",eat a pumpkin pasty,default,eat_pumpkin_pasty_test,harry_potter_chamber_of_secrets,True
+harry_potter_philosophers_stone,"menu, interaction",equip the pointed hat and then the plain work robe,default,equip_pointed_hat_plain_work_robe_test,harry_potter_chamber_of_secrets,True
+harry_potter_philosophers_stone,"menu, interaction",remove all of your equipped items starting with your hat,equipped_hat_robe,remove_all_equipped_items_test,harry_potter_chamber_of_secrets,True
+harry_potter_philosophers_stone,battle,Try to flee from the rat king but eventually die,before_boss,fail_rat_king_battle,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,battle,"restore MP to full, utilize your deflect cards in order to defeat the rat king",before_boss,defeat_rat_king_with_deflect_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,"navigation, interaction",exit gringotts WITHOUT first talking with Hagrid,inside_gringotts,exit_gringotts_without_hagrid_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,"navigation, interaction",get on the train,at_train_station,get_on_train_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,"menu, interaction",buy 5 chocolate frogs and confirm you have them in inventory,on_train,buy_chocolate_frogs_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,"menu, interaction",sell one chocolate frog and confirm you have 4 left,after_frog_purchase,sell_one_chocolate_frog_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,battle,lose the duel,after_frog_purchase,lose_duel_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,battle,win the duel,after_frog_purchase,win_duel_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,navigation,walk up and down the train 3 times,win_train_duel,walk_train_3_times,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,"navigation, interaction",Talk to Hagrid and get on the boat,off_train,talk_to_hagrid_boat_test,harry_potter_chamber_of_secrets,True
+harry_potter_philosophers_stone,battle,Die,after_boat,die_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,battle,fight a small yellow rat then a big yellow monster both in the top left corner in that order,after_boat,fight_rat_then_monster_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,battle,fight a bat then a big yellow monster both in the middle of the battlefield in that order,after_boat,fight_bat_then_monster_middle_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,navigation,find the stone gargoyles on the wall then find another pair further along,after_boat,find_stone_gargoyles_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,"navigation, interaction",get to the green dungeon room,after_boat,get_to_green_dungeon_room_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,battle,beat the stone boss in the purple room,purple_dungeon,beat_stone_boss_purple_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,battle,lose to the stone boss in the purple room,purple_dungeon,lose_to_stone_boss_purple_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,"navigation, interaction",find a locked door and get told by the professor to stay down there,at_hogwarts,find_locked_door_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,"navigation, interaction",figure out the number of house points each house currently has,at_hogwarts,check_house_points_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,navigation,stand facing the hourglass near the top of the room then the one at the bottom of the room,at_hogwarts,hourglass_top_then_bottom_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,navigation,go to the bottom of the room and stand in the middle then go up and stand in the middle of the seal facing up,at_hogwarts,bottom_room_then_seal_test,harry_potter_philosophers_stone,True
+harry_potter_philosophers_stone,navigation,stand in the corridor between the two gargoyles then return to the middle of the room on the seal facing up,at_hogwarts,between_gargoyles_then_seal_test,harry_potter_philosophers_stone,True
 harry_potter_chamber_of_secrets,"navigation, interaction",find Dobby in the bedroom,bedroom_start,find_dobby_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,menu,select a card deck before leaving,choose_deck_cos,select_card_deck_cos_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,"navigation, interaction",board the flying car,items_collected_cos,board_flying_car_test,harry_potter_philosophers_stone,False
@@ -37,29 +63,3 @@ harry_potter_chamber_of_secrets,"navigation, interaction",talk to Ron in his roo
 harry_potter_chamber_of_secrets,"navigation, interaction",reach the kitchen and trigger Mrs Weasley's quest dialogue,rons_room,enter_kitchen_burrow_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,"navigation, interaction",reach the garden and start dialogue with Ron,post_quest,enter_burrow_garden_test,harry_potter_philosophers_stone,False
 harry_potter_chamber_of_secrets,navigation,navigate to left side of white car,burrow_start,navigate_to_car_test,harry_potter_philosophers_stone,False
-harry_potter_philosophers_stone,navigation,"bring up the location banner to say you're in Diagon Alley, then open the start menu",shopping_complete,start_menu_test,harry_potter_chamber_of_secrets,True
-harry_potter_philosophers_stone,"menu, interaction",eat a pumpkin pasty,default,eat_pumpkin_pasty_test,harry_potter_chamber_of_secrets,True
-harry_potter_philosophers_stone,"menu, interaction",equip the pointed hat and then the plain work robe,default,equip_pointed_hat_plain_work_robe_test,harry_potter_chamber_of_secrets,True
-harry_potter_philosophers_stone,"menu, interaction",remove all of your equipped items starting with your hat,equipped_hat_robe,remove_all_equipped_items_test,harry_potter_chamber_of_secrets,True
-harry_potter_philosophers_stone,"battle",Try to flee from the rat king but eventually die,before_boss,fail_rat_king_battle,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"battle","restore MP to full, utilize your deflect cards in order to defeat the rat king",before_boss,defeat_rat_king_with_deflect_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation, interaction",exit gringotts WITHOUT first talking with Hagrid,inside_gringotts,exit_gringotts_without_hagrid_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation, interaction",get on the train,at_train_station,get_on_train_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"menu, interaction",buy 5 chocolate frogs and confirm you have them in inventory,on_train,buy_chocolate_frogs_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"menu, interaction",sell one chocolate frog and confirm you have 4 left,after_frog_purchase,sell_one_chocolate_frog_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"battle",lose the duel,after_frog_purchase,lose_duel_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"battle",win the duel,after_frog_purchase,win_duel_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation",walk up and down the train 3 times,win_train_duel,walk_train_3_times,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation, interaction",Talk to Hagrid and get on the boat,off_train,talk_to_hagrid_boat_test,harry_potter_chamber_of_secrets,True
-harry_potter_philosophers_stone,"battle",Die,after_boat,die_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"battle",fight a small yellow rat then a big yellow monster both in the top left corner in that order,after_boat,fight_rat_then_monster_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"battle",fight a bat then a big yellow monster both in the middle of the battlefield in that order,after_boat,fight_bat_then_monster_middle_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation",find the stone gargoyles on the wall then find another pair further along,after_boat,find_stone_gargoyles_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation, interaction",get to the green dungeon room,after_boat,get_to_green_dungeon_room_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"battle",beat the stone boss in the purple room,purple_dungeon,beat_stone_boss_purple_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"battle",lose to the stone boss in the purple room,purple_dungeon,lose_to_stone_boss_purple_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation, interaction",find a locked door and get told by the professor to stay down there,at_hogwarts,find_locked_door_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation, interaction",figure out the number of house points each house currently has,at_hogwarts,check_house_points_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation",stand facing the hourglass near the top of the room then the one at the bottom of the room,at_hogwarts,hourglass_top_then_bottom_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation",go to the bottom of the room and stand in the middle then go up and stand in the middle of the seal facing up,at_hogwarts,bottom_room_then_seal_test,harry_potter_philosophers_stone,True
-harry_potter_philosophers_stone,"navigation",stand in the corridor between the two gargoyles then return to the middle of the room on the seal facing up,at_hogwarts,between_gargoyles_then_seal_test,harry_potter_philosophers_stone,True
