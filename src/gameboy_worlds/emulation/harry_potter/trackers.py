@@ -114,6 +114,7 @@ from gameboy_worlds.emulation.harry_potter.test_metrics import (
     FightBatMiddleSubgoal,
     FightBigYellowMonsterMiddleTerminateMetric,
     FindFirstStoneGargoylesSubgoal,
+    FindThirdStoneGargoylesSubgoal,
     FindSecondStoneGargoylesTerminateMetric,
     TalkingWithHagridDungeonSubgoal,
     GreenDungeonRoomTerminateMetric,
@@ -455,7 +456,9 @@ class FightBatThenMonsterMiddleTestTracker(HarryPotterTestTracker):
 # Find Stone Gargoyles Task
 class FindStoneGargoylesTestTracker(HarryPotterTestTracker):
     TERMINATION_TRUNCATION_METRIC = FindSecondStoneGargoylesTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([FindFirstStoneGargoylesSubgoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [FindFirstStoneGargoylesSubgoal, FindThirdStoneGargoylesSubgoal]
+    )
 
 # Get To Green Dungeon Room Task
 class GetToGreenDungeonRoomTestTracker(HarryPotterTestTracker):

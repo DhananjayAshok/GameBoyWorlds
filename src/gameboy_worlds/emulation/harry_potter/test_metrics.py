@@ -8,7 +8,6 @@ from gameboy_worlds.emulation.tracker import (
     TerminationMetric,
     RegionMatchTerminationMetric,
     RegionMatchTerminationOnlyMetric,
-    AnyRegionMatchTerminationMetric,
     RegionMatchSubGoal,
     AnyRegionMatchSubGoal,
 )
@@ -776,13 +775,14 @@ class BossPurpleWinTerminateMetric(RegionMatchTerminationOnlyMetric):
     _TERMINATION_TARGET_NAME = "boss_purple_win"
 
 
-class FindSecondStoneGargoylesTerminateMetric(AnyRegionMatchTerminationMetric):
-    """
-    Terminates on reaching either of the two later gargoyle spots on the wall,
-    so the second sighting does not have to be one specific pair.
-    """
+class FindThirdStoneGargoylesSubgoal(RegionMatchSubGoal):
+    NAME = "find_third_stone_gargoyles"
+    _NAMED_REGION = "stone_gargoyles_wall"
+    _TARGET_NAME = "two_stone_gargoyles_3"
 
+
+class FindSecondStoneGargoylesTerminateMetric(RegionMatchTerminationOnlyMetric):
     REQUIRED_PARSER = HarryPotterPhilosophersStoneParser
-    _NAMED_REGIONS = ["stone_gargoyles_wall", "stone_gargoyles_wall"]
-    _TARGET_NAMES = ["two_stone_gargoyles_2", "two_stone_gargoyles_3"]
+    _TERMINATION_NAMED_REGION = "stone_gargoyles_wall"
+    _TERMINATION_TARGET_NAME = "two_stone_gargoyles_2"
 
