@@ -494,6 +494,7 @@ class BasePokemonRedStateParser(PokemonStateParser, ABC):
         ("pokemon_list_hp_text", 32, 9, 10, 5),
         ("pokemon_stats_line", 66, 55, 5, 5),
         ("battle_bag_options_bottom_left", 32, 96, 5, 5),
+        ("start_menu_top_right", 150, 1, 8, 6),
     ]
     """ Additional named screen regions specific to Pokemon Red games.
     - pokedex_top_left: Top left of the screen when the Pokedex is open. Open the Pokedex to capture this.
@@ -505,6 +506,7 @@ class BasePokemonRedStateParser(PokemonStateParser, ABC):
 
     MULTI_TARGET_REGIONS = [
         ("menu_box_strip", 89, 13, 5, 100),
+        ("start_menu_first_option", 86, 13, 66, 12),
     ]
     """ Additional multi-target named screen regions specific to Pokemon Red games. 
     - menu_box_strip: Strip of the menu box when the start menu is open. Open the start menu to capture this. The margins are adjusted to avoiding capturing the player name, as this may change across sav files and states. 
@@ -668,6 +670,29 @@ class BasePokemonCrystalStateParser(PokemonStateParser, ABC):
 
 
 class PokemonRedStateParser(BasePokemonRedStateParser):
+    _START_MENU_FIRST_OPTION_TARGETS = (
+        "pokedex_cursor",
+        "pokedex_no_cursor",
+        "pokemon_cursor",
+        "pokemon_no_cursor",
+    )
+
+    # The party list is six 16-pixel-tall rows.  The animated party sprite and
+    # selection cursor are left of x=20, so all of these crops deliberately
+    # start to its right.  These are live crops, not reference captures: names
+    # and HP values are expected to vary between saves and while playing.
+    _TEAM_SLOT_COUNT = 6
+    _TEAM_SLOT_Y = 0
+    _TEAM_SLOT_HEIGHT = 16
+    _TEAM_NAME_X = 21
+    _TEAM_NAME_WIDTH = 82
+    _TEAM_NAME_HEIGHT = 9
+    _TEAM_HP_X = 102
+    _TEAM_HP_Y_OFFSET = 7
+    _TEAM_HP_WIDTH = 58
+    _TEAM_HP_HEIGHT = 9
+    _TEAM_OCCUPIED_DARK_PIXELS = 10
+
     def __init__(self, pyboy, parameters):
         override_multi_targets = {
             "dialogue_box_middle": [
@@ -724,6 +749,12 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
                 "reach_giovanni_area"
             ],
             "screen_quadrant_2": ["opened_squirtle_pokedex", "opened_blastoise_status"],
+            "start_menu_first_option": [
+                "pokedex_cursor",
+                "pokedex_no_cursor",
+                "pokemon_cursor",
+                "pokemon_no_cursor",
+            ],
         }
         super().__init__(
             pyboy,
@@ -731,6 +762,59 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
             parameters=parameters,
             override_multi_targets=override_multi_targets,
         )
+
+    def is_start_menu_open(self, current_screen: np.ndarray) -> bool:
+        """Returns whether the Pokémon Red START menu is visibly open."""
+        return self.named_region_matches_target(
+            current_screen, "start_menu_top_right"
+        )
+
+    def get_start_menu_first_option(self, current_screen: np.ndarray) -> Optional[str]:
+        """Classifies the first START-menu row from its captured visual targets."""
+        for target_name in self._START_MENU_FIRST_OPTION_TARGETS:
+            if self.named_region_matches_multi_target(
+                current_screen, "start_menu_first_option", target_name
+            ):
+                return target_name
+        return None
+
+    def get_team_info(self, current_screen: np.ndarray) -> dict:
+        """Capture the six live party-list rows from a Pokémon Red frame.
+
+        This is intentionally a visual extractor, rather than an OCR decoder.
+        It returns the name and HP images for each slot. A downstream OCR/VLM
+        consumer can read the changing text without captured name or HP
+        reference images.
+        """
+        slots = []
+        for slot_index in range(self._TEAM_SLOT_COUNT):
+            row_y = self._TEAM_SLOT_Y + slot_index * self._TEAM_SLOT_HEIGHT
+            name_image = self.capture_box(
+                current_screen,
+                self._TEAM_NAME_X,
+                row_y,
+                self._TEAM_NAME_WIDTH,
+                self._TEAM_NAME_HEIGHT,
+            ).copy()
+            hp_image = self.capture_box(
+                current_screen,
+                self._TEAM_HP_X,
+                row_y + self._TEAM_HP_Y_OFFSET,
+                self._TEAM_HP_WIDTH,
+                self._TEAM_HP_HEIGHT,
+            ).copy()
+            slots.append(
+                {
+                    "slot": slot_index + 1,
+                    "occupied": bool(
+                        np.count_nonzero(name_image < 128)
+                        > self._TEAM_OCCUPIED_DARK_PIXELS
+                    ),
+                    "name_image": name_image,
+                    "hp_image": hp_image,
+                }
+            )
+        return {"slots": slots}
 
 
 class PokemonBrownStateParser(BasePokemonRedStateParser):

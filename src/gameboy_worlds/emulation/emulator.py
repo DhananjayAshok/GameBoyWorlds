@@ -26,6 +26,7 @@ from gameboy_worlds.utils import (
 from pyboy import PyBoy
 from pyboy.utils import WindowEvent
 from matplotlib import pyplot as plt
+from matplotlib.widgets import RectangleSelector
 from skimage.transform import downscale_local_mean
 import numpy as np
 from tqdm import tqdm
@@ -61,6 +62,26 @@ class ReleaseActions(Enum):
         LowLevelActions.PRESS_BUTTON_START: WindowEvent.RELEASE_BUTTON_START,
         # LowLevelActions.PRESS_BUTTON_SELECT: WindowEvent.RELEASE_BUTTON_SELECT,
     }
+
+
+def _rectangle_selection_to_region(
+    start_x: float,
+    start_y: float,
+    end_x: float,
+    end_y: float,
+    frame_shape: Tuple[int, ...],
+) -> Tuple[int, int, int, int]:
+    """Convert a mouse drag on a frame into an in-bounds ``(x, y, dx, dy)``.
+
+    The start edge is rounded down and the final edge is rounded up.  Therefore
+    every pixel touched by the drag belongs to the returned rectangle.
+    """
+    frame_height, frame_width = frame_shape[:2]
+    x = max(0, min(frame_width, int(np.floor(min(start_x, end_x)))))
+    y = max(0, min(frame_height, int(np.floor(min(start_y, end_y)))))
+    end_x = max(0, min(frame_width, int(np.ceil(max(start_x, end_x)))))
+    end_y = max(0, min(frame_height, int(np.ceil(max(start_y, end_y)))))
+    return x, y, max(1, end_x - x), max(1, end_y - y)
 
 
 class IDPathCreator:
@@ -859,6 +880,7 @@ class Emulator:
                 Enter 'c <region_name> <save_name / None if region.target_path is set>' to capture a named region and save it as a .npy file. To enter a multi-target region use the format "c <region_name>,<target_name> <save_name>" (no spaces in between region and target name)
                 Enter 'd <None / region_name>' to draw a named region and display the current screen with the region drawn.
                 Enter 'b' to enter a breakpoint.
+                Enter 'b <region_name>' to draw a rectangle on the current screen and print its x, y, dx, dy coordinates. This does not create or save a region.
                 Enter 'g <code>' to apply a GameShark code (e.g. g 0101C7C9).
                 Valid region names are: {valid_regions}
                 Initially unassigned regions (target array not set) were: {unassigned_regions}\n\t Note: This list does not update as you assign targets during this session.
@@ -924,10 +946,76 @@ class Emulator:
                             continue
                         self.set_init_state(state_path)
                 elif first_char == "b":
-                    grid_cells = self.state_parser.capture_grid_cells(
-                        current_frame=self.get_current_frame(), y_offset=0
+                    parts = user_input.split(maxsplit=1)
+                    if len(parts) == 1:
+                        grid_cells = self.state_parser.capture_grid_cells(
+                            current_frame=self.get_current_frame(), y_offset=0
+                        )
+                        breakpoint()
+                        continue
+
+                    region_name = parts[1]
+                    current_frame = self.get_current_frame()
+                    selected_region = None
+                    figure, axis = plt.subplots()
+                    axis.imshow(
+                        current_frame[:, :, 0],
+                        cmap="gray",
+                        origin="upper",
+                        interpolation="nearest",
                     )
-                    breakpoint()
+                    axis.set_xlim(0, current_frame.shape[1])
+                    axis.set_ylim(current_frame.shape[0], 0)
+                    axis.set_title(
+                        "Drag a rectangle, then close this window to print coordinates"
+                    )
+                    axis.set_xlabel("x")
+                    axis.set_ylabel("y")
+
+                    def on_rectangle_select(start_event, end_event):
+                        nonlocal selected_region
+                        if (
+                            start_event.xdata is None
+                            or start_event.ydata is None
+                            or end_event.xdata is None
+                            or end_event.ydata is None
+                        ):
+                            return
+                        selected_region = _rectangle_selection_to_region(
+                            start_event.xdata,
+                            start_event.ydata,
+                            end_event.xdata,
+                            end_event.ydata,
+                            current_frame.shape,
+                        )
+
+                    selector = RectangleSelector(
+                        axis,
+                        on_rectangle_select,
+                        useblit=True,
+                        button=[1],
+                        minspanx=1,
+                        minspany=1,
+                        spancoords="pixels",
+                        interactive=True,
+                        props={"edgecolor": "red", "facecolor": "none"},
+                    )
+                    # Keep a reference alive until the window is closed.
+                    figure._gameboy_worlds_rectangle_selector = selector
+                    plt.show()
+                    if selected_region is None:
+                        log_warn(
+                            "No rectangle selected. Nothing was created or saved.",
+                            self._parameters,
+                        )
+                    else:
+                        x, y, dx, dy = selected_region
+                        log_info(
+                            f"Rectangle for {region_name}: x={x}, y={y}, dx={dx}, dy={dy}\n"
+                            f'Parser region tuple: ("{region_name}", {x}, {y}, {dx}, {dy}),',
+                            self._parameters,
+                        )
+                    continue
                 elif first_char == "g":
                     parts = user_input.split(" ")
                     if len(parts) != 2:

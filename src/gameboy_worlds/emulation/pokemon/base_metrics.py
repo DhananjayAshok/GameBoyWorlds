@@ -72,6 +72,53 @@ class CorePokemonMetrics(MetricGroup):
         return {}
 
 
+class PokemonRedTeamInfoMetric(MetricGroup):
+    """Keeps the latest live Pokémon Red party-list image crops.
+
+    The parser runs on every emulator step.  Outside the party screen those
+    crops are simply ignored; ``GetTeamInfoAction`` only returns them after its
+    START-menu flow has established that the party screen opened.
+
+    The arrays live in this metric's ``team_info`` dictionary and are attached
+    to the HLA result only after a successful open.  ``report()`` intentionally
+    exposes only the capture step, otherwise every ordinary movement state log
+    would print all of the raw image arrays.
+
+    Reports:
+    - ``captured_at_step``: tracker step at which the live arrays were taken.
+    """
+
+    NAME = "pokemon_team_info"
+    REQUIRED_PARSER = PokemonStateParser
+
+    def reset(self, first=False):
+        self.steps = 0
+        self.team_info = None
+        self.captured_at_step = None
+
+    def step(self, current_frame: np.ndarray, recent_frames: Optional[np.ndarray]):
+        self.steps += 1
+        # PokemonOCRTracker is shared by the other Pokémon games.  Keep the
+        # metric harmless there while making it available for Pokémon Red.
+        if isinstance(self.state_parser, PokemonRedStateParser):
+            self.team_info = self.state_parser.get_team_info(current_frame)
+            self.captured_at_step = self.steps
+        else:
+            self.team_info = None
+            self.captured_at_step = None
+
+    def report(self) -> dict:
+        return {
+            "captured_at_step": self.captured_at_step,
+        }
+
+    def report_final(self) -> dict:
+        return {}
+
+    def close(self):
+        pass
+
+
 class PokemonOCRMetric(OCRegionMetric):
     REQUIRED_PARSER = PokemonStateParser
 

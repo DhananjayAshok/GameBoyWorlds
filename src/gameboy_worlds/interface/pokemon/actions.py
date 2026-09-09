@@ -4,6 +4,7 @@ from gameboy_worlds.emulation.pokemon.parsers import (
     AgentState,
     PokemonStateParser,
     BasePokemonRedStateParser,
+    PokemonRedStateParser,
 )
 from gameboy_worlds.emulation.pokemon.trackers import CorePokemonTracker
 from gameboy_worlds.emulation import LowLevelActions
@@ -705,6 +706,145 @@ class OpenMenuAction(HighLevelAction):
     @staticmethod
     def get_action_name(option: str) -> str:
         return f"OpenMenu {option}"
+
+
+class GetTeamInfoAction(SingleHighLevelAction):
+    """Opens the Pokémon Red party screen and returns its live slot captures.
+
+    Is Valid When:
+    - In Free Roam State
+
+    Action Success Interpretation:
+    - -1: The START menu or one of its expected visual states was not found.
+    - 0: The Pokémon party screen opened; ``team_info`` contains its live crops.
+    - 1: The START menu remained open after selecting POKéMON, indicating no party.
+
+    Action Returns:
+    - ``team_present`` (bool): Whether the party screen opened.
+    - ``team_info`` (dict | None): Six live party-slot dictionaries.  Each
+      occupied slot contains ``name_image`` and ``hp_image`` numpy arrays.
+      None when no Pokémon are present.
+    """
+
+    # PokemonStateWiseController is shared by several Pokémon variants. Keep its
+    # emulator assignment compatible, then limit this Red-specific action in
+    # is_valid() before it can execute.
+    REQUIRED_STATE_PARSER = PokemonStateParser
+    REQUIRED_STATE_TRACKER = CorePokemonTracker
+
+    _MAX_UP_PRESSES = 6
+    _EMULATED_SECOND_TICKS = 60
+
+    def is_valid(self, **kwargs):
+        return isinstance(self._emulator.state_parser, PokemonRedStateParser) and (
+            self._state_tracker.get_episode_metric(("pokemon_core", "agent_state"))
+            == AgentState.FREE_ROAM
+        )
+
+    def _step_and_report(self, action, transition_states):
+        self._emulator.step(action)
+        transition_states.append(self._state_tracker.report())
+
+    @staticmethod
+    def _set_action_return(transition_states, **result):
+        transition_states[-1]["core"]["action_return"] = result
+
+    def _navigation_failure(self, transition_states, reason: str):
+        self._set_action_return(
+            transition_states,
+            team_present=None,
+            team_info=None,
+            reason=reason,
+        )
+        return transition_states, -1
+
+    def _wait_one_emulated_second(self, transition_states):
+        wait_ticks = max(1, self._emulator.wait_ticks)
+        wait_steps = (
+            self._EMULATED_SECOND_TICKS + wait_ticks - 1
+        ) // wait_ticks
+        for _ in range(wait_steps):
+            self._step_and_report(None, transition_states)
+
+    def _execute(self):
+        parser: PokemonRedStateParser = self._emulator.state_parser
+        transition_states = []
+
+        # Open the START menu and use the tracker state rather than an image
+        # capture to confirm that the game entered its menu state.
+        self._step_and_report(LowLevelActions.PRESS_BUTTON_START, transition_states)
+        self._wait_one_emulated_second(transition_states)
+        if (
+            self._state_tracker.get_episode_metric(("pokemon_core", "agent_state"))
+            != AgentState.IN_MENU
+        ):
+            return self._navigation_failure(transition_states, "start_menu_not_open")
+
+        # Normalize the cursor from the first row. This handles either menu layout
+        # and any cursor position that a previous menu interaction left behind.
+        for up_presses in range(self._MAX_UP_PRESSES + 1):
+            first_option = parser.get_start_menu_first_option(
+                self._emulator.get_current_frame()
+            )
+
+            if first_option == "pokemon_cursor":
+                self._step_and_report(
+                    LowLevelActions.PRESS_BUTTON_A, transition_states
+                )
+                break
+
+            if first_option == "pokedex_cursor":
+                self._step_and_report(
+                    LowLevelActions.PRESS_ARROW_DOWN, transition_states
+                )
+                self._step_and_report(
+                    LowLevelActions.PRESS_BUTTON_A, transition_states
+                )
+                break
+
+            if first_option in ("pokemon_no_cursor", "pokedex_no_cursor"):
+                if up_presses == self._MAX_UP_PRESSES:
+                    return self._navigation_failure(
+                        transition_states, "cursor_did_not_reach_first_option"
+                    )
+                self._step_and_report(
+                    LowLevelActions.PRESS_ARROW_UP, transition_states
+                )
+                continue
+
+            return self._navigation_failure(
+                transition_states, "unknown_start_menu_first_option"
+            )
+        else:
+            return self._navigation_failure(
+                transition_states, "pokemon_option_not_selected"
+            )
+
+        # A wall-clock sleep would not advance PyBoy. Advance ~60 emulated ticks
+        # with no input before checking the user-observed post-selection cue.
+        self._wait_one_emulated_second(transition_states)
+        if parser.is_start_menu_open(self._emulator.get_current_frame()):
+            self._set_action_return(
+                transition_states,
+                team_present=False,
+                team_info=None,
+            )
+            return transition_states, 1
+
+        # The metric updates its live image-array dictionary on every emulator
+        # step.  Keep those arrays out of ordinary state logs, then attach the
+        # final party-screen capture only to this action's return value.
+        team_info = self._state_tracker.metrics["pokemon_team_info"].team_info
+        self._set_action_return(
+            transition_states,
+            team_present=True,
+            team_info=team_info,
+        )
+        return transition_states, 0
+
+    @staticmethod
+    def get_action_name() -> str:
+        return "GetTeamInfo"
 
 
 class BattleMenuAction(HighLevelAction):
