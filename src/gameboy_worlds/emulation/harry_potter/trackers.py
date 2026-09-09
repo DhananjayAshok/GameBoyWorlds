@@ -114,6 +114,7 @@ from gameboy_worlds.emulation.harry_potter.test_metrics import (
     FightBatMiddleSubgoal,
     FightBigYellowMonsterMiddleTerminateMetric,
     FindFirstStoneGargoylesSubgoal,
+    FindThirdStoneGargoylesSubgoal,
     FindSecondStoneGargoylesTerminateMetric,
     TalkingWithHagridDungeonSubgoal,
     GreenDungeonRoomTerminateMetric,
@@ -128,6 +129,29 @@ from gameboy_worlds.emulation.harry_potter.test_metrics import (
     BottomRoomSubgoal,
     BetweenGargoylesSubgoal,
     StandingOnSealFacingUpTerminateMetric,
+    TalkGlassesGuySubgoal,
+    SpellLearnedTerminateMetric,
+    SelectCastSpellTerminateMetric,
+    SelectCardAttackTerminateMetric,
+    SelectUseItemTerminateMetric,
+    SelectFleeTerminateMetric,
+    SelectFolioBrutiTerminateMetric,
+    RestoreAllMagicTerminateMetric,
+    BroomDoomTerminateMetric,
+    UseCardAttackTerminateMetric,
+    SprinklerLeadTerminateMetric,
+    GreenRatLeadTerminateMetric,
+    GnomeTopLeftTerminateMetric,
+    GreyHoseTopLeftTerminateMetric,
+    ReachedDiagonAlleyTerminateMetric,
+    TalkToFredGeorgeFirstTimeTerminateMetric,
+    TalkToFredGeorgeSecondTimeTerminateMetric,
+    TalkToGreenStatueTerminateMetric,
+    TalkToMomFirstTimeTerminateMetric,
+    TalkToMomSecondTimeTerminateMetric,
+    TalkToDadFirstTimeTerminateMetric,
+    TalkToDadSecondTimeTerminateMetric,
+    TalkToPercyTerminateMetric,
 )
 
 
@@ -455,7 +479,9 @@ class FightBatThenMonsterMiddleTestTracker(HarryPotterTestTracker):
 # Find Stone Gargoyles Task
 class FindStoneGargoylesTestTracker(HarryPotterTestTracker):
     TERMINATION_TRUNCATION_METRIC = FindSecondStoneGargoylesTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([FindFirstStoneGargoylesSubgoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class(
+        [FindFirstStoneGargoylesSubgoal, FindThirdStoneGargoylesSubgoal]
+    )
 
 # Get To Green Dungeon Room Task
 class GetToGreenDungeonRoomTestTracker(HarryPotterTestTracker):
@@ -497,3 +523,117 @@ class BottomRoomThenSealTestTracker(HarryPotterTestTracker):
 class BetweenGargoylesThenSealTestTracker(HarryPotterTestTracker):
     TERMINATION_TRUNCATION_METRIC = StandingOnSealFacingUpTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([BetweenGargoylesSubgoal])
+
+
+# Chamber of Secrets: Spell Learning and Battle Action Tasks
+class LearnToCastSpellTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SpellLearnedTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([TalkGlassesGuySubgoal])
+
+
+class SelectCastSpellTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectCastSpellTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SelectCardAttackTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectCardAttackTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SelectUseItemTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectUseItemTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SelectFleeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectFleeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class SelectFolioBrutiTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SelectFolioBrutiTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class RestoreAllMagicTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = RestoreAllMagicTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class BroomDoomTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = BroomDoomTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class UseCardAttackTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = UseCardAttackTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+# Chamber of Secrets: Garden Battle Opponents and Diagon Alley
+class FightSprinklerLeadTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = SprinklerLeadTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class FightGreenRatLeadTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = GreenRatLeadTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class FightGnomeTopLeftTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = GnomeTopLeftTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class FightGreyHoseTopLeftTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = GreyHoseTopLeftTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class ReachDiagonAlleyTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = ReachedDiagonAlleyTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+# Chamber of Secrets: Fred and George's Room Tasks
+class TalkToFredGeorgeFirstTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToFredGeorgeFirstTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToFredGeorgeSecondTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToFredGeorgeSecondTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToGreenStatueTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToGreenStatueTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+# Chamber of Secrets: Weasley Parents' Room Tasks
+class TalkToMomFirstTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToMomFirstTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToMomSecondTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToMomSecondTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToDadFirstTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToDadFirstTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToDadSecondTimeTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToDadSecondTimeTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class TalkToPercyTestTracker(HarryPotterTestTracker):
+    TERMINATION_TRUNCATION_METRIC = TalkToPercyTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric

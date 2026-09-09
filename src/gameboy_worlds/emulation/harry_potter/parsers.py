@@ -117,6 +117,13 @@ class HarryPotterChamberOfSecretsParser(_BaseHarryPotterParser):
         # -- Burrow kitchen / garden quest tasks --
         ("garden_door_area", 80, 24, 10, 8),        # subgoal: outside_garden_door
         ("car_area", 80, 65, 55, 70),
+        # Battle action list: bottom fifth of the screen, left three fifths.
+        ("battle_action_area", 0, 115, 96, 29),
+        ("full_screen_area", 0, 0, 160, 144),
+        # Front (lead) slot of the opponents box in battle.
+        ("opponent_lead_area", 0, 40, 48, 32),
+        # Top-left battle slot, directly above the lead slot.
+        ("opponent_top_left_area", 0, 0, 48, 40),
     ]
 
     MULTI_TARGETS = {
@@ -127,6 +134,19 @@ class HarryPotterChamberOfSecretsParser(_BaseHarryPotterParser):
             "talk_to_ron_burrow",
             "talk_to_mom_kitchen",
             "talk_to_ron_garden",
+            "talk_glasses_guy",
+            "spell_learned",
+            "restore_all_magic",
+            "broom_doom",
+            "reached_diagon_alley",
+            "talk_to_fred_george_first_time",
+            "talk_to_fred_george_second_time",
+            "talk_to_green_statue",
+            "talk_to_mom_first_time",
+            "talk_to_mom_second_time",
+            "talk_to_dad_first_time",
+            "talk_to_dad_second_time",
+            "talk_to_percy",
         ],
         "dobby_dialogue_area": [
             "dobby_dialogue_started",
@@ -148,6 +168,24 @@ class HarryPotterChamberOfSecretsParser(_BaseHarryPotterParser):
         ],
         "battle_menu_cos_area": [
             "in_battle_cos",
+        ],
+        "battle_action_area": [
+            "cast_spell",
+            "card_attack",
+            "use_item",
+            "flee",
+            "folio_bruti",
+        ],
+        "full_screen_area": [
+            "use_card_attack",
+        ],
+        "opponent_lead_area": [
+            "sprinkler_lead",
+            "green_rat_lead",
+        ],
+        "opponent_top_left_area": [
+            "gnome",
+            "grey_hose",
         ],
         # -- Burrow room navigation tasks --
         "percy_room_area": [

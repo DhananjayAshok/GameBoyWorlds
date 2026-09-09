@@ -8,7 +8,6 @@ from gameboy_worlds.emulation.tracker import (
     TerminationMetric,
     RegionMatchTerminationMetric,
     RegionMatchTerminationOnlyMetric,
-    AnyRegionMatchTerminationMetric,
     RegionMatchSubGoal,
     AnyRegionMatchSubGoal,
 )
@@ -776,13 +775,167 @@ class BossPurpleWinTerminateMetric(RegionMatchTerminationOnlyMetric):
     _TERMINATION_TARGET_NAME = "boss_purple_win"
 
 
-class FindSecondStoneGargoylesTerminateMetric(AnyRegionMatchTerminationMetric):
-    """
-    Terminates on reaching either of the two later gargoyle spots on the wall,
-    so the second sighting does not have to be one specific pair.
-    """
+class FindThirdStoneGargoylesSubgoal(RegionMatchSubGoal):
+    NAME = "find_third_stone_gargoyles"
+    _NAMED_REGION = "stone_gargoyles_wall"
+    _TARGET_NAME = "two_stone_gargoyles_3"
 
+
+class FindSecondStoneGargoylesTerminateMetric(RegionMatchTerminationOnlyMetric):
     REQUIRED_PARSER = HarryPotterPhilosophersStoneParser
-    _NAMED_REGIONS = ["stone_gargoyles_wall", "stone_gargoyles_wall"]
-    _TARGET_NAMES = ["two_stone_gargoyles_2", "two_stone_gargoyles_3"]
+    _TERMINATION_NAMED_REGION = "stone_gargoyles_wall"
+    _TERMINATION_TARGET_NAME = "two_stone_gargoyles_2"
 
+
+# ============================================================
+# Chamber of Secrets: spell learning and battle action tasks
+# ============================================================
+
+class TalkGlassesGuySubgoal(RegionMatchSubGoal):
+    NAME = "talk_glasses_guy"
+    _NAMED_REGION = "dialogue_box_full"
+    _TARGET_NAME = "talk_glasses_guy"
+
+
+class SpellLearnedTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "spell_learned"
+
+
+class SelectCastSpellTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "battle_action_area"
+    _TERMINATION_TARGET_NAME = "cast_spell"
+
+
+class SelectCardAttackTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "battle_action_area"
+    _TERMINATION_TARGET_NAME = "card_attack"
+
+
+class SelectUseItemTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "battle_action_area"
+    _TERMINATION_TARGET_NAME = "use_item"
+
+
+class SelectFleeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "battle_action_area"
+    _TERMINATION_TARGET_NAME = "flee"
+
+
+class SelectFolioBrutiTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "battle_action_area"
+    _TERMINATION_TARGET_NAME = "folio_bruti"
+
+
+class RestoreAllMagicTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "restore_all_magic"
+
+
+class BroomDoomTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "broom_doom"
+
+
+class UseCardAttackTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "full_screen_area"
+    _TERMINATION_TARGET_NAME = "use_card_attack"
+
+
+# ============================================================
+# Chamber of Secrets: garden battle opponents and Diagon Alley
+# ============================================================
+
+class SprinklerLeadTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "opponent_lead_area"
+    _TERMINATION_TARGET_NAME = "sprinkler_lead"
+
+
+class GreenRatLeadTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "opponent_lead_area"
+    _TERMINATION_TARGET_NAME = "green_rat_lead"
+
+
+class GnomeTopLeftTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "opponent_top_left_area"
+    _TERMINATION_TARGET_NAME = "gnome"
+
+
+class GreyHoseTopLeftTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "opponent_top_left_area"
+    _TERMINATION_TARGET_NAME = "grey_hose"
+
+
+class ReachedDiagonAlleyTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "reached_diagon_alley"
+
+
+# ============================================================
+# Chamber of Secrets: Fred and George's room tasks
+# ============================================================
+
+class TalkToFredGeorgeFirstTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_fred_george_first_time"
+
+
+class TalkToFredGeorgeSecondTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_fred_george_second_time"
+
+
+class TalkToGreenStatueTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_green_statue"
+
+
+# ============================================================
+# Chamber of Secrets: Weasley parents' room tasks
+# ============================================================
+
+class TalkToMomFirstTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_mom_first_time"
+
+
+class TalkToMomSecondTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_mom_second_time"
+
+
+class TalkToDadFirstTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_dad_first_time"
+
+
+class TalkToDadSecondTimeTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_dad_second_time"
+
+
+class TalkToPercyTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = HarryPotterChamberOfSecretsParser
+    _TERMINATION_NAMED_REGION = "dialogue_box_full"
+    _TERMINATION_TARGET_NAME = "talk_to_percy"
