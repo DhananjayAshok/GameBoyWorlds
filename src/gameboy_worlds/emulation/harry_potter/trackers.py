@@ -7,16 +7,10 @@ from gameboy_worlds.emulation.tracker import (
 from gameboy_worlds.emulation.harry_potter.base_metrics import HarryPotterOCRMetric
 from gameboy_worlds.emulation.harry_potter.test_metrics import (
     PotionsShopTerminateMetric,
-    OllivandersInteriorTerminateMetric,
-    OutsideOllivandersSubgoal,
-    GetWandTerminateMetric,
-    TalkToOllivanderSubgoal,
     ReceiveFolioMagiTerminateMetric,
     BoyApproachesSubgoal,
     SelectCardDeckTerminateMetric,
     CardOptionsShownSubgoal,
-    GringottsInteriorTerminateMetric,
-    OutsideGringottsSubgoal,
     TalkHagridGringottsTerminateMetric,
     FindHagridGringottsSubgoal,
     ReenterGringottsSubgoal,
@@ -176,25 +170,6 @@ class HarryPotterTestTracker(TestTrackerMixin, HarryPotterOCRTracker):
     SUBGOAL_METRIC = DummySubGoalMetric
 
 
-class PotionsShopTestTracker(HarryPotterTestTracker):
-    """
-    A TestTracker for Harry Potter Philosopher's Stone that ends an episode when the agent enters the potions shop.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = PotionsShopTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
-
-
-class EnterOllivandersTestTracker(HarryPotterTestTracker):
-    TERMINATION_TRUNCATION_METRIC = OllivandersInteriorTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideOllivandersSubgoal])
-
-
-class GetWandTestTracker(HarryPotterTestTracker):
-    TERMINATION_TRUNCATION_METRIC = GetWandTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([TalkToOllivanderSubgoal])
-
-
 class ReceiveFolioMagiTestTracker(HarryPotterTestTracker):
     TERMINATION_TRUNCATION_METRIC = ReceiveFolioMagiTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([BoyApproachesSubgoal])
@@ -203,11 +178,6 @@ class ReceiveFolioMagiTestTracker(HarryPotterTestTracker):
 class SelectCardDeckTestTracker(HarryPotterTestTracker):
     TERMINATION_TRUNCATION_METRIC = SelectCardDeckTerminateMetric
     SUBGOAL_METRIC = make_subgoal_metric_class([CardOptionsShownSubgoal])
-
-
-class EnterGringottsTestTracker(HarryPotterTestTracker):
-    TERMINATION_TRUNCATION_METRIC = GringottsInteriorTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideGringottsSubgoal])
 
 
 class TalkHagridGringottsTestTracker(HarryPotterTestTracker):

@@ -7,12 +7,8 @@ from gameboy_worlds.emulation.harry_potter.parsers import (
     HarryPotterChamberOfSecretsParser,
 )
 from gameboy_worlds.emulation.harry_potter.trackers import (
-    PotionsShopTestTracker,
-    EnterOllivandersTestTracker,
-    GetWandTestTracker,
     ReceiveFolioMagiTestTracker,
     SelectCardDeckTestTracker,
-    EnterGringottsTestTracker,
     TalkHagridGringottsTestTracker,
     ExitGringottsWithoutHagridTestTracker,
     GetOnTrainTestTracker,
@@ -118,12 +114,8 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
     "harry_potter_philosophers_stone": {
         "default": HarryPotterOCRTracker,
         "ocr": HarryPotterOCRTracker,
-        "potions_shop_test": PotionsShopTestTracker,
-        "enter_ollivanders_test": EnterOllivandersTestTracker,
-        "get_wand_test": GetWandTestTracker,
         "receive_folio_magi_test": ReceiveFolioMagiTestTracker,
         "select_card_deck_test": SelectCardDeckTestTracker,
-        "enter_gringotts_test": EnterGringottsTestTracker,
         "talk_hagrid_gringotts_test": TalkHagridGringottsTestTracker,
         "exit_gringotts_without_hagrid_test": ExitGringottsWithoutHagridTestTracker,
         "get_on_train_test": GetOnTrainTestTracker,
