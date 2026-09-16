@@ -35,7 +35,9 @@ def _plot(past: np.ndarray, current: np.ndarray):
 
 class PassDialogueAction(SingleHighLevelAction):
     """
-    Skips dialogue by pressing the B button.
+    Passes through dialogue by pressing the B button repeatedly until the agent is no longer in dialogue.
+    Stops early if the emulator is done, if the frame stops changing for MAX_UNCHANGED_PRESSES presses in a row, or after MAX_PRESSES presses.
+    Note that a yes/no choice box is parsed as a menu, so this stops at one without answering it.
 
     Is Valid When:
     - In Dialogue State
@@ -49,6 +51,9 @@ class PassDialogueAction(SingleHighLevelAction):
     REQUIRED_STATE_PARSER = PokemonStateParser
     REQUIRED_STATE_TRACKER = CorePokemonTracker
 
+    MAX_PRESSES = 50
+    MAX_UNCHANGED_PRESSES = 3
+
     def is_valid(self, **kwargs):
         """
         Just checks if the agent is in dialogue state.
@@ -59,18 +64,32 @@ class PassDialogueAction(SingleHighLevelAction):
         )
 
     def _execute(self):
-        frames, done = self._emulator.step(LowLevelActions.PRESS_BUTTON_B)
-        report = self._state_tracker.report()
-        if not report["core"]["frame_changed"]:
+        reports = []
+        any_changed = False
+        unchanged_presses = 0
+        still_in_dialogue = True
+        while len(reports) < self.MAX_PRESSES:
+            frames, done = self._emulator.step(LowLevelActions.PRESS_BUTTON_B)
+            report = self._state_tracker.report()
+            reports.append(report)
+            if report["core"]["frame_changed"]:
+                any_changed = True
+                unchanged_presses = 0
+            else:
+                unchanged_presses += 1
+            still_in_dialogue = (
+                self._emulator.state_parser.get_agent_state(frames[-1])
+                == AgentState.IN_DIALOGUE
+            )
+            if done or not still_in_dialogue:
+                break
+            if unchanged_presses >= self.MAX_UNCHANGED_PRESSES:
+                break
+        if not any_changed:
             action_success = -1
         else:
-            action_success = (
-                0
-                if self._emulator.state_parser.get_agent_state(frames[-1])
-                != AgentState.IN_DIALOGUE
-                else 1
-            )
-        return [report], action_success
+            action_success = 1 if still_in_dialogue else 0
+        return reports, action_success
 
     @staticmethod
     def get_action_name() -> str:

@@ -26,7 +26,7 @@ class PokemonStateWiseController(Controller):
         - OpenMenuAction(option: str): Open a specific player menu option.
 
     - In Dialogue:
-        - PassDialogueAction(): Advance the dialogue by one step.
+        - PassDialogueAction(): Advance through the dialogue until it ends or a choice box appears.
 
     - In Battle:
         - BattleMenuAction(option: str): Navigate the battle menu to select an option. Fight to choose an attack, Pokemon to switch Pokemon, Bag to use an item, Run to attempt to flee the battle, and Progress to continue dialogue or other battle events.
@@ -123,7 +123,7 @@ class PokemonStateWiseController(Controller):
             GetTeamInfoAction: "getteaminfo(): Open POKéMON from the START menu and return live name/HP image crops for its six team slots.",
         }
         dialogue_action_strings = {
-            PassDialogueAction: "passdialogue(): Advance the dialogue by one step.",
+            PassDialogueAction: "passdialogue(): Advance through the dialogue until it ends or a choice box appears.",
         }
         battle_action_strings = {
             BattleMenuAction: "battlemenu(<fight, pokemon, bag, run or progress>): Navigate the battle menu to select an option. Fight to choose an attack, Pokemon to switch Pokemon, Bag to use an item, Run to attempt to flee the battle, and Progress to continue dialogue or other battle events.",
