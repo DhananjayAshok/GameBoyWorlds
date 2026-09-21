@@ -11,7 +11,7 @@ from gameboy_worlds.interface.pokemon.actions import (
     GetTeamInfoAction,
 )
 from gameboy_worlds.interface.controller import Controller
-from gameboy_worlds.interface.action import HighLevelAction
+from gameboy_worlds.interface.action import HighLevelAction, LowLevelAction
 from gameboy_worlds.emulation.pokemon.parsers import AgentState
 from typing import Dict, Any
 
@@ -47,6 +47,7 @@ class PokemonStateWiseController(Controller):
         MoveStepsAction,
         OpenMenuAction,
         GetTeamInfoAction,
+        LowLevelAction,
     ]
 
     def string_to_high_level_action(self, input_str):
