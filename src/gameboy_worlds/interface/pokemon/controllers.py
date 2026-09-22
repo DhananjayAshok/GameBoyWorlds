@@ -38,6 +38,7 @@ class PokemonStateWiseController(Controller):
     """
 
     ACTIONS = [
+        LowLevelAction,
         MoveStepsAction,
         MenuAction,
         InteractAction,
@@ -47,7 +48,6 @@ class PokemonStateWiseController(Controller):
         MoveStepsAction,
         OpenMenuAction,
         GetTeamInfoAction,
-        LowLevelAction,
     ]
 
     def string_to_high_level_action(self, input_str):
