@@ -564,6 +564,9 @@ class BasePokemonCrystalStateParser(PokemonStateParser, ABC):
     Without this fix, the is_in_menu check may fail when in Kanto as the map_bottom_right region will not match.
     """
 
+    WHITE = 248
+    DIALOGUE_EMPTY_THRESHOLD = 0.009
+
     REGIONS = [
         ("pokemon_list_hp_text", 87, 16, 10, 5),
         ("pokedex_seen_text", 3, 88, 5, 5),
@@ -664,6 +667,12 @@ class BasePokemonCrystalStateParser(PokemonStateParser, ABC):
             return True
         else:
             return False
+
+    def dialogue_box_empty(self, current_screen: np.ndarray) -> bool:
+        box = self.capture_named_region(
+            current_frame=current_screen, name="dialogue_box_middle"
+        )
+        return bool(np.mean(box < self.WHITE) < self.DIALOGUE_EMPTY_THRESHOLD)
 
     def __repr__(self):
         return f"<PokemonCrystalParser(variant={self.variant})>"
