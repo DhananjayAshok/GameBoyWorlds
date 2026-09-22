@@ -17,7 +17,7 @@ from gymnasium.spaces import Box, Discrete, Text, OneOf
 import matplotlib.pyplot as plt
 from PIL import Image
 
-HARD_MAX_STEPS = 5
+HARD_MAX_STEPS = 20
 """ The hard maximum number of steps we'll let agents take in a sequence """
 
 
