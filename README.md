@@ -15,7 +15,7 @@
 
 <img src="assets/logo.png" width="70px"> is an AI research framework for training and evaluating generally capable agents in the GameBoy Universe, complete with flexible Python simulators and unified environment wrappers around several GameBoy and GameBoy Color games. 
 
-![](assets/worlds_random.gif)
+![](assets/GameBoyWorldsTeaser.gif)
 
 
 Challenge your agents to explore, build general skills and master one of the most iconic game universes ever created.
