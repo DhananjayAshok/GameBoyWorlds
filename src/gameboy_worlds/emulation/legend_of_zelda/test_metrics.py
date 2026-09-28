@@ -145,7 +145,7 @@ class ZeldaStateTerminationMetric(TerminationMetric):
         return False
     
 class ToronboShorePickupSwordTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "equipped_action_2"
+    _TERMINATION_NAMED_REGION = "sword_pickedupinit"
 
 class ShieldEquippedTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "shield_tracker"

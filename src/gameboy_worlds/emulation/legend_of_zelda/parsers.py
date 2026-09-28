@@ -141,6 +141,7 @@ class LegendOfZeldaLinksAwakeningParser(BaseLegendOfZeldaParser):
             ("health_bar_top", 102, 0, 36, 8),
             ("equipped_action_1", 7, 130, 8, 10),
             ("equipped_action_2", 46, 130, 8, 10),
+            ("sword_pickedupinit", 82, 53, 13, 12),
             ("owl_tracker", 70, 30, 13, 16),
             ("shield_tracker", 106, 54, 7, 8),
             ("outside_tarinhouse_tracker", 122, 20, 5, 10),

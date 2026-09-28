@@ -160,7 +160,7 @@ class ZeldaLinksAwakeningOwlTestTracker(
     TestTrackerMixin, LegendOfZeldaOCRTracker
 ):
     TERMINATION_TRUNCATION_METRIC = ToronboShorePickupSwordTerminateMetric
-    SUBGOAL_METRIC = ZeldaOwlSubGoalMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class DialogueSubGoal(SubGoal):
