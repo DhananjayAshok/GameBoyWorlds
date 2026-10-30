@@ -283,7 +283,7 @@ class LegendOfZeldaTheOracleOfSeasonsParser(BaseLegendOfZeldaParser):
             ("cat", 67, 95, 22, 20),
             ("meow", 64, 96, 62, 30),
             ("look_no_matter", 16, 79, 78, 39),
-            ("chest", 14, 32, 19, 15),
+            ("chest", 49, 65, 13, 13),
             ("dog", 28, 66, 22, 13),
             ("mickey", 31, 64, 15, 15),
             ("empty_block", 111, 64, 16, 15),
