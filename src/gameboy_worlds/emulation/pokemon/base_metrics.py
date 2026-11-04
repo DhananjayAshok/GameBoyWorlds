@@ -11,6 +11,7 @@ from gameboy_worlds.emulation.tracker import (
     OCRegionMetric,
     TerminationTruncationMetric,
 )
+from gameboy_worlds.emulation.pokemon.screen import is_fading
 
 
 import numpy as np
@@ -22,6 +23,8 @@ class CorePokemonMetrics(MetricGroup):
 
     Reports:
     - agent_state: The AgentState info. Is either Free Roam, In Dialogue, In Menu or In Battle.
+    - is_fading: Whether the current screen is blank or one fade step away from the frame before it.
+    - passed_fade: Whether any frame that passed during this step was blank or one fade step away from the frame before it (e.g. going through a door).
 
     Final Reports:
     - None
@@ -44,6 +47,9 @@ class CorePokemonMetrics(MetricGroup):
         )  # Start by default in dialogue because it has the least permissable actions.
         """ The current state of the agent in the game. """
         self._previous_state = self.current_state
+        self.is_fading = False
+        self.passed_fade = False
+        self._last_frame = None
 
     def close(self):
         self.reset()
@@ -53,16 +59,29 @@ class CorePokemonMetrics(MetricGroup):
         self._previous_state = self.current_state
         current_state = self.state_parser.get_agent_state(current_frame)
         self.current_state = current_state
+        if recent_frames is None or len(recent_frames) == 0:
+            recent_frames = [current_frame]
+        frames = list(recent_frames)
+        fading = [
+            is_fading(frame, previous)
+            for frame, previous in zip(frames, [self._last_frame] + frames[:-1])
+        ]
+        self.is_fading = fading[-1]
+        self.passed_fade = any(fading)
+        self._last_frame = current_frame
 
     def report(self) -> dict:
         """
         Reports the current Pokémon core metrics:
         - Agent state
+        - Whether the screen is fading, and whether a fade passed during this step
         Returns:
-            dict: A dictionary containing the current agent state.
+            dict: A dictionary containing the current agent state and the fade flags.
         """
         return {
-            "agent_state": self.current_state
+            "agent_state": self.current_state,
+            "is_fading": self.is_fading,
+            "passed_fade": self.passed_fade,
         }
 
     def report_final(self) -> dict:

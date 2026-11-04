@@ -1,14 +1,15 @@
 from gameboy_worlds.emulation.emulator import Emulator, LowLevelActions
 from gameboy_worlds.emulation.pokemon.parsers import PokemonStateParser, AgentState
 from gameboy_worlds.emulation.pokemon.trackers import CorePokemonTracker
+from gameboy_worlds.emulation.pokemon.screen import is_blank, is_fading
 from gameboy_worlds.utils import log_error
-from typing import Tuple
+from typing import Optional, Tuple
 import numpy as np
 
 
 class PokemonEmulator(Emulator):
     """
-    Almost the exact same as Emulator, but forces the agent to not mess with the menu options cursor. Also auto skips naming screens.
+    Almost the exact same as Emulator, but forces the agent to not mess with the menu options cursor. Also auto skips naming screens, and waits out screen fades so that no action ends on a blank or half-faded screen.
     """
 
     REQUIRED_STATE_PARSER = PokemonStateParser
@@ -17,6 +18,52 @@ class PokemonEmulator(Emulator):
     """ Maximum number of times the agent will click B to get through a dialogue. """
     _SKIP_DIALOGUE = False
     """ Whether to auto skip dialogue by clicking B repeatedly until we are no longer in dialogue."""
+    _FADE_CHECK_TICKS = 4
+    """ Ticks between frames while waiting out a fade. """
+    _FADE_CALM_CHECKS = 3
+    """ A fade is over once this many checks in a row see neither a blank screen nor a fade step. A fade holds each shade for up to ~8 ticks, so these checks must span longer than that. """
+    _FADE_MAX_TICKS = 240
+    """ Maximum number of ticks to wait for a fade to end. """
+    _last_frame: Optional[np.ndarray] = None
+    """ The last frame returned by run_action_on_emulator, to compare the next action's first frame against. """
+
+    def reset(self, new_init_state: str = None):
+        super().reset(new_init_state)
+        self._last_frame = None
+
+    def run_action_on_emulator(
+        self, action: LowLevelActions = None
+    ) -> Optional[np.ndarray]:
+        """
+        Performs the action as Emulator does. If the screen is then in a fade, keeps the emulator running with no buttons pressed until the fade is over.
+
+        Args:
+            action (LowLevelActions): Lowest level action to perform on the emulator.
+        Returns:
+            Optional[np.ndarray]: The stack of frames that passed while performing the action and waiting out any fade.
+        """
+        frames = super().run_action_on_emulator(action)
+        before = frames[-2] if len(frames) > 1 else self._last_frame
+        if is_fading(frames[-1], before) or (before is not None and is_blank(before)):
+            waited = self._wait_out_fade(frames[-1])
+            if self.save_video and self.video_writer.video_running:
+                self.video_writer.add_video_frames(waited)
+            frames = np.concatenate([frames, waited], axis=0)
+        self._last_frame = frames[-1]
+        return frames
+
+    def _wait_out_fade(self, last_frame: np.ndarray) -> np.ndarray:
+        waited, calm, previous = [], 0, last_frame
+        for _ in range(self._FADE_MAX_TICKS // self._FADE_CHECK_TICKS):
+            self._pyboy.tick(self._FADE_CHECK_TICKS, True)
+            current = self.get_current_frame()
+            waited.append(current)
+            fading = is_blank(previous) or is_fading(current, previous)
+            calm = 0 if fading else calm + 1
+            if calm >= self._FADE_CALM_CHECKS:
+                break
+            previous = current
+        return np.stack(waited)
 
     def step(self, action=None) -> Tuple[np.ndarray, bool]:
         frames, done = super().step(action)
