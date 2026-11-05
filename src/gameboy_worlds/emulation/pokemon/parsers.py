@@ -34,6 +34,11 @@ import json
 import numpy as np
 from bidict import bidict
 
+BATTLE_SHAKE_SHIFTS = sorted(
+    ((dx, dy) for dx in range(-6, 7) for dy in range(-6, 7)),
+    key=lambda s: abs(s[0]) + abs(s[1]),
+)
+
 
 class AgentState(Enum):
     """
@@ -285,13 +290,22 @@ class PokemonStateParser(StateParser, ABC):
         """
         if self.is_in_fight_bag(current_screen):
             return False  # Then, is in menu
-        enemy_hp_match = self.named_region_matches_target(
-            current_screen, "battle_enemy_hp_text"
-        )
-        player_hp_match = self.named_region_matches_target(
-            current_screen, "battle_player_hp_text"
-        )
-        return enemy_hp_match or player_hp_match
+        regions = [
+            self.named_screen_regions[name]
+            for name in ("battle_enemy_hp_text", "battle_player_hp_text")
+        ]
+        for dx, dy in BATTLE_SHAKE_SHIFTS:
+            for region in regions:
+                captured = self.capture_box(
+                    current_screen,
+                    region.start_x + dx,
+                    region.start_y + dy,
+                    region.width,
+                    region.height,
+                )
+                if region.matches_target(captured):
+                    return True
+        return False
 
     def is_in_base_battle_menu(self, current_screen: np.ndarray) -> bool:
         """
