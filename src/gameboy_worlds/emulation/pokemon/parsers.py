@@ -134,6 +134,7 @@ class PokemonStateParser(StateParser, ABC):
             "no_pp_for_move",
             "used_not_very_effective_attack",
             "used_super_effective_attack",
+            "lost_battle",            
         ],
         "menu_box_strip": ["cursor_on_options", "cursor_on_pokedex"],
     }
@@ -338,6 +339,19 @@ class PokemonStateParser(StateParser, ABC):
             current_screen, "dialogue_box_middle", "cannot_run_from_trainer"
         )
         return got_away_safely or cannot_escape or cannot_run_from_trainer
+
+    def has_lost_battle(self, current_screen: np.ndarray) -> bool:
+        """
+        Determines if the 'lost battle' dialogue is currently showing.
+
+        Args:
+            current_screen (np.ndarray): The current screen frame from the emulator.
+        Returns:
+            bool: True if the lost battle dialogue is visible, False otherwise.
+        """
+        return self.named_region_matches_multi_target(
+            current_screen, "dialogue_box_middle", "lost_battle"
+        )
 
     def is_in_fight_options_menu(self, current_screen: np.ndarray) -> bool:
         """

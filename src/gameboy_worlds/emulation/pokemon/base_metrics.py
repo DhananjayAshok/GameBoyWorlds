@@ -25,9 +25,11 @@ class CorePokemonMetrics(MetricGroup):
     - agent_state: The AgentState info. Is either Free Roam, In Dialogue, In Menu or In Battle.
     - is_fading: Whether the current screen is blank or one fade step away from the frame before it.
     - passed_fade: Whether any frame that passed during this step was blank or one fade step away from the frame before it (e.g. going through a door).
+    - lost_battle: Whether the 'lost battle' dialogue appeared on any frame that passed during this step.
+    - n_battles_lost: Number of battles lost so far this episode (counted on the rising edge of the dialogue).
 
     Final Reports:
-    - None
+    - mean_n_battles_lost_per_episode: Mean number of battles lost per completed episode.
 
 
     """
@@ -37,11 +39,15 @@ class CorePokemonMetrics(MetricGroup):
 
     def start(self):
         self.n_battles_total = []
+        self.n_battles_lost_total = []
         super().start()
 
     def reset(self, first=False):
         if not first:
-            pass
+            self.n_battles_lost_total.append(self.n_battles_lost)
+        self.lost_battle = False
+        self.n_battles_lost = 0
+        self._lost_battle_prev = False
         self.current_state: AgentState = (
             AgentState.IN_DIALOGUE
         )  # Start by default in dialogue because it has the least permissable actions.
@@ -69,26 +75,39 @@ class CorePokemonMetrics(MetricGroup):
         self.is_fading = fading[-1]
         self.passed_fade = any(fading)
         self._last_frame = current_frame
+        self.lost_battle = any(self.state_parser.has_lost_battle(f) for f in frames)
+        if self.lost_battle and not self._lost_battle_prev:
+            self.n_battles_lost += 1
+        self._lost_battle_prev = self.lost_battle
 
     def report(self) -> dict:
         """
         Reports the current Pokémon core metrics:
         - Agent state
         - Whether the screen is fading, and whether a fade passed during this step
+        - Whether the lost battle dialogue appeared this step, and the episode's loss count
         Returns:
-            dict: A dictionary containing the current agent state and the fade flags.
+            dict: A dictionary containing the current agent state, the fade flags and battle loss info.
         """
         return {
             "agent_state": self.current_state,
             "is_fading": self.is_fading,
             "passed_fade": self.passed_fade,
+            "lost_battle": self.lost_battle,
+            "n_battles_lost": self.n_battles_lost,
         }
 
     def report_final(self) -> dict:
         """
-        Reports nothing:
+        Reports the mean number of battles lost per completed episode.
         """
-        return {}
+        if not self.n_battles_lost_total:
+            return {}
+        return {
+            "mean_n_battles_lost_per_episode": float(
+                np.mean(self.n_battles_lost_total)
+            )
+        }
 
 
 class PokemonRedTeamInfoMetric(MetricGroup):
