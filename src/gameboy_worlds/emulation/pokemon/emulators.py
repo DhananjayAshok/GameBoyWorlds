@@ -1,7 +1,7 @@
 from gameboy_worlds.emulation.emulator import Emulator, LowLevelActions
 from gameboy_worlds.emulation.pokemon.parsers import PokemonStateParser, AgentState
 from gameboy_worlds.emulation.pokemon.trackers import CorePokemonTracker
-from gameboy_worlds.emulation.pokemon.screen import is_blank, is_fading
+from gameboy_worlds.emulation.pokemon.screen import is_blank, is_fading, judge_scroll
 from gameboy_worlds.utils import log_error
 from typing import Optional, Tuple
 import numpy as np
@@ -9,7 +9,7 @@ import numpy as np
 
 class PokemonEmulator(Emulator):
     """
-    Almost the exact same as Emulator, but forces the agent to not mess with the menu options cursor. Also auto skips naming screens, and waits out screen fades so that no action ends on a blank or half-faded screen.
+    Almost the exact same as Emulator, but forces the agent to not mess with the menu options cursor. Also auto skips naming screens, waits out screen fades so that no action ends on a blank or half-faded screen, and waits out a step or ledge hop still scrolling the map so that no move ends mid-step.
     """
 
     REQUIRED_STATE_PARSER = PokemonStateParser
@@ -24,6 +24,16 @@ class PokemonEmulator(Emulator):
     """ A fade is over once this many checks in a row see neither a blank screen nor a fade step. A fade holds each shade for up to ~8 ticks, so these checks must span longer than that. """
     _FADE_MAX_TICKS = 240
     """ Maximum number of ticks to wait for a fade to end. """
+    _SCROLL_CHECK_TICKS = 4
+    """ Ticks between frames while waiting for the map to stop scrolling. Walking scrolls about 1 px per tick, so a scroll still under way moves at least 2 px between checks. """
+    _SCROLL_MAX_TICKS = 48
+    """ Maximum number of ticks to wait for the map to stop scrolling. A ledge hop is the longest move, at about 32 ticks. """
+    _ARROW_DIRECTIONS = {
+        LowLevelActions.PRESS_ARROW_UP: "up",
+        LowLevelActions.PRESS_ARROW_DOWN: "down",
+        LowLevelActions.PRESS_ARROW_LEFT: "left",
+        LowLevelActions.PRESS_ARROW_RIGHT: "right",
+    }
     _last_frame: Optional[np.ndarray] = None
     """ The last frame returned by run_action_on_emulator, to compare the next action's first frame against. """
 
@@ -35,7 +45,7 @@ class PokemonEmulator(Emulator):
         self, action: LowLevelActions = None
     ) -> Optional[np.ndarray]:
         """
-        Performs the action as Emulator does. If the screen is then in a fade, keeps the emulator running with no buttons pressed until the fade is over.
+        Performs the action as Emulator does. If an arrow press left the map still scrolling (a step or a ledge hop under way), keeps the emulator running with no buttons pressed until it stops, so the move is finished before the action returns: a press made mid-step is dropped by the game, and a frame caught mid-step misplaces the player. If the screen is then in a fade, likewise waits until the fade is over.
 
         Args:
             action (LowLevelActions): Lowest level action to perform on the emulator.
@@ -43,6 +53,12 @@ class PokemonEmulator(Emulator):
             Optional[np.ndarray]: The stack of frames that passed while performing the action and waiting out any fade.
         """
         frames = super().run_action_on_emulator(action)
+        direction = self._ARROW_DIRECTIONS.get(action)
+        if direction is not None:
+            waited = self._wait_out_scroll(frames[-1], direction)
+            if self.save_video and self.video_writer.video_running:
+                self.video_writer.add_video_frames(waited)
+            frames = np.concatenate([frames, waited], axis=0)
         before = frames[-2] if len(frames) > 1 else self._last_frame
         if is_fading(frames[-1], before) or (before is not None and is_blank(before)):
             waited = self._wait_out_fade(frames[-1])
@@ -51,6 +67,18 @@ class PokemonEmulator(Emulator):
             frames = np.concatenate([frames, waited], axis=0)
         self._last_frame = frames[-1]
         return frames
+
+    def _wait_out_scroll(self, last_frame: np.ndarray, direction: str) -> np.ndarray:
+        waited, previous = [], last_frame
+        for _ in range(self._SCROLL_MAX_TICKS // self._SCROLL_CHECK_TICKS):
+            self._pyboy.tick(self._SCROLL_CHECK_TICKS, True)
+            current = self.get_current_frame()
+            # kept even when it ends the wait: it is the screen as it now is
+            waited.append(current)
+            if judge_scroll(previous, current, direction) is not True:
+                break
+            previous = current
+        return np.stack(waited)
 
     def _wait_out_fade(self, last_frame: np.ndarray) -> np.ndarray:
         waited, calm, previous = [], 0, last_frame
