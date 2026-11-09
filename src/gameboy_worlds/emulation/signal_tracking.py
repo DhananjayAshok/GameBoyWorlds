@@ -10,6 +10,17 @@ from gameboy_worlds.utils import log_error
 STUCK_AFTER_STEPS = 200
 
 
+def signal_changes(
+    before: Dict[str, Optional[float]], after: Dict[str, Optional[float]]
+) -> Dict[str, Dict[str, Optional[float]]]:
+    changes = {}
+    for name in sorted(set(before) | set(after)):
+        old, new = before.get(name), after.get(name)
+        delta = new - old if old is not None and new is not None else None
+        changes[name] = {"before": old, "after": new, "delta": delta}
+    return changes
+
+
 class SignalSeries:
     __slots__ = (
         "current", "previous", "first", "minimum", "maximum", "total", "count",
@@ -139,6 +150,9 @@ class MemorySignalsMetric(MetricGroup):
     @abstractmethod
     def read_position(self) -> Optional[Tuple[Any, Tuple[int, int], Optional[bool]]]:
         raise NotImplementedError
+
+    def read_signals(self) -> Dict[str, Optional[float]]:
+        return {**self.read_situational(), **self.read_progress()}
 
     def read_clock_seconds(self) -> Optional[float]:
         return None

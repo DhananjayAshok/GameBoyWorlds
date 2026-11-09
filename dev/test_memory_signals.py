@@ -285,6 +285,85 @@ def benchmark_environments(results, project_root):
             environment.close()
 
 
+def peek_candidates(environment):
+    controller = environment._controller
+    return [
+        (action_class, kwargs)
+        for action_class, action in zip(controller.ACTIONS, controller.actions)
+        for kwargs in action.get_all_valid_parameters()
+    ]
+
+
+def peek_signals(results, project_root):
+    scenarios = {
+        "pokemon": [("pokemon_red", None), ("pokemon_crystal", None)],
+        "pokemon_brown": [("pokemon_brown", None)],
+        "pokemon_prism": [("pokemon_prism", None)],
+        "legend_of_zelda": [(ZELDA[0], "nearmonster"), (ZELDA[1], "near_monster")],
+    }
+    changed_anywhere = {}
+    for benchmark, entries in scenarios.items():
+        tasks = pd.read_csv(os.path.join(project_root, "benchmark", "tests", f"{benchmark}.csv"))
+        for game, state in entries:
+            rows = tasks[tasks["game"] == game]
+            row = (rows[rows["init_state"] == state] if state else rows).iloc[0]
+            environment = get_test_environment(row, max_steps=200, session_name="memory_signal_test")
+            environment.reset()
+            for _ in range(3):
+                environment.step(environment.action_space.sample())
+            emulator = environment._emulator
+            metric = emulator.state_tracker.metrics["memory_signals"]
+            steps = metric.steps
+            before_report = json.dumps(emulator.state_tracker.report()["memory_signals"], default=str)
+            before_frame = emulator.get_current_frame().copy()
+            before_signals = metric.read_signals()
+            candidates = peek_candidates(environment)
+            for action_class, kwargs in candidates:
+                frame = environment.peek_high_level_action(action_class, **kwargs)
+                results.check(frame is None or isinstance(frame, np.ndarray), f"{game}: default peek still returns a frame")
+                peeked = environment.peek_high_level_action(action_class, return_signals=True, **kwargs)
+                results.check(isinstance(peeked, tuple) and len(peeked) == 2, f"{game}: signal peek returns a pair")
+                _, changes = peeked
+                results.check(set(before_signals) <= set(changes), f"{game}: peek reports every signal")
+                for name, change in changes.items():
+                    results.check(change["before"] == before_signals.get(name), f"{game}: {name} before value")
+                    if change["delta"]:
+                        results.check(change["after"] - change["before"] == change["delta"], f"{game}: {name} delta")
+                        changed_anywhere.setdefault(game, set()).add(name)
+            results.check(metric.steps == steps, f"{game}: peek did not advance the metric")
+            results.check(json.dumps(emulator.state_tracker.report()["memory_signals"], default=str) == before_report, f"{game}: peek left the report alone")
+            results.check(metric.read_signals() == before_signals, f"{game}: peek restored game state")
+            results.check((emulator.get_current_frame() == before_frame).all(), f"{game}: peek restored the frame")
+            print(f"{game}: peeked {len(candidates)} actions, signals that changed: {sorted(changed_anywhere.get(game, []))}")
+            environment.close()
+    return changed_anywhere
+
+
+def peek_sees_real_change(results, project_root):
+    tasks = pd.read_csv(os.path.join(project_root, "benchmark", "tests", "legend_of_zelda.csv"))
+    row = tasks[(tasks["game"] == ZELDA[0]) & (tasks["init_state"] == "inside_fathouse")].iloc[0]
+    environment = get_test_environment(row, max_steps=200, session_name="memory_signal_test")
+    environment.reset()
+    emulator = environment._emulator
+    metric = emulator.state_tracker.metrics["memory_signals"]
+    poke(emulator, "wAddRupeeBufferLow", [50])
+    start = metric.read_signals()["rupees"]
+    action_class, kwargs = next(
+        (action, parameters)
+        for action, parameters in peek_candidates(environment)
+        if parameters["low_level_action"] == LowLevelActions.PRESS_ARROW_LEFT
+    )
+    _, changes = environment.peek_high_level_action(action_class, return_signals=True, **kwargs)
+    print(f"{ZELDA[0]}: pending rupees during peek gave {changes['rupees']}")
+    results.check(changes["rupees"]["before"] == start, "peek before value")
+    results.check(changes["rupees"]["delta"] > 0, f"peek sees rupees rise during the action: {changes['rupees']}")
+    results.check(metric.read_signals()["rupees"] == start, "peek restored rupees afterwards")
+    environment._controller.execute(action_class, **kwargs)
+    actual = metric.read_signals()["rupees"]
+    results.check(actual == changes["rupees"]["after"], f"peek matches really taking the action: {actual} vs {changes['rupees']}")
+    environment.close()
+
+
 def main():
     parameters = load_parameters(None)
     results = Results()
@@ -297,6 +376,8 @@ def main():
     seasons_hud(results)
     memory_free_games_still_build(results)
     benchmark_environments(results, parameters["project_root"])
+    peek_signals(results, parameters["project_root"])
+    peek_sees_real_change(results, parameters["project_root"])
     print(f"\npassed {results.passed}, failed {len(results.failures)}")
     sys.exit(0 if not results.failures else 1)
 
