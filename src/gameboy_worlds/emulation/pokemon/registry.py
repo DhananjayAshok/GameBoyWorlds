@@ -4,7 +4,9 @@ from gameboy_worlds.emulation.tracker import StateTracker
 from gameboy_worlds.emulation.emulator import Emulator
 
 from gameboy_worlds.emulation.pokemon.parsers import (
+    MemoryBasedPokemonBrownStateParser,
     MemoryBasedPokemonCrystalStateParser,
+    MemoryBasedPokemonPrismStateParser,
     MemoryBasedPokemonRedStateParser,
     PokemonBrownStateParser,
     PokemonStarBeastsStateParser,
@@ -137,14 +139,14 @@ GAME_TO_GB_NAME = {
 
 STRONGEST_PARSERS: Dict[str, Type[StateParser]] = {
     "pokemon_red": MemoryBasedPokemonRedStateParser,
-    "pokemon_brown": PokemonBrownStateParser,
+    "pokemon_brown": MemoryBasedPokemonBrownStateParser,
     "pokemon_crystal": MemoryBasedPokemonCrystalStateParser,
     "pokemon_starbeasts": PokemonStarBeastsStateParser,
     "pokemon_starbeasts_comet": PokemonStarBeastsCometStateParser,
     "pokemon_fools_gold": PokemonFoolsGoldStateParser,
-    "pokemon_prism": PokemonPrismStateParser,
+    "pokemon_prism": MemoryBasedPokemonPrismStateParser,
 }
-""" Mapping of game names to their corresponding strongest StateParser classes. 
+""" Mapping of game names to their corresponding strongest StateParser classes.
 Unless you have a very good reason, you should always use the STRONGEST possible parser for a given game. 
 The parser itself does not affect performance, as for it to perform a read / screen comparison operation , it must be called upon by the state tracker.
 This means there is never a reason to use a weaker parser. 

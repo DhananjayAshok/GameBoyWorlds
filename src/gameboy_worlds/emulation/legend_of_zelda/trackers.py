@@ -1,5 +1,6 @@
 from gameboy_worlds.emulation.legend_of_zelda.base_metrics import (
     CoreLegendOfZeldaMetrics,
+    LegendOfZeldaMemorySignalsMetric,
     LegendOfZeldaOCRMetric,
 )
 
@@ -128,6 +129,8 @@ class CoreLegendOfZeldaTracker(StateTracker):
     def start(self):
         super().start()
         self.metric_classes.extend([CoreLegendOfZeldaMetrics])
+        if hasattr(self.state_parser, "memory"):
+            self.metric_classes.append(LegendOfZeldaMemorySignalsMetric)
 
 
 class LegendOfZeldaOCRTracker(CoreLegendOfZeldaTracker):

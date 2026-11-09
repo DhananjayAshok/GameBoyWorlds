@@ -1,5 +1,9 @@
 from gameboy_worlds.utils import verify_parameters, log_error
 from gameboy_worlds.emulation.parser import StateParser, NamedScreenRegion
+from gameboy_worlds.emulation.legend_of_zelda.memory import (
+    LinksAwakeningMemory,
+    OracleOfSeasonsMemory,
+)
 import os
 from typing import List, Tuple, Optional
 
@@ -222,6 +226,7 @@ class LegendOfZeldaLinksAwakeningParser(BaseLegendOfZeldaParser):
             parameters=parameters,
             override_regions=override_regions,
         )
+        self.memory = LinksAwakeningMemory(pyboy)
 
     def is_in_cutscene(self, current_screen) -> bool:
         """
@@ -318,6 +323,7 @@ class LegendOfZeldaTheOracleOfSeasonsParser(BaseLegendOfZeldaParser):
             parameters=parameters,
             override_regions=override_regions,
         )
+        self.memory = OracleOfSeasonsMemory(pyboy)
 
     def is_in_cutscene(self, current_screen) -> bool:
         """

@@ -12,6 +12,7 @@ from gameboy_worlds.emulation.tracker import (
     TerminationTruncationMetric,
 )
 from gameboy_worlds.emulation.pokemon.screen import is_fading
+from gameboy_worlds.emulation.signal_tracking import MemorySignalsMetric
 
 
 import numpy as np
@@ -461,3 +462,142 @@ class PokemonTestMetric(MetricGroup):
 
     def report_final(self) -> dict:
         return {}
+
+
+class PokemonMemorySignalsMetric(MemorySignalsMetric):
+    REQUIRED_PARSER = PokemonStateParser
+
+    def is_ready(self) -> bool:
+        return self.state_parser.memory.is_map_loaded()
+
+    def read_clock_seconds(self) -> Optional[float]:
+        player = self.state_parser.memory.player()
+        clock = player.get("play_time") or player.get("game_time")
+        if clock is None:
+            return None
+        return clock["hours"] * 3600 + clock["minutes"] * 60 + clock["seconds"] + clock["frames"] / 60
+
+    def experience_signal(self) -> Optional[str]:
+        return "party_total_experience"
+
+    def _bag(self):
+        memory = self.state_parser.memory
+        return memory.bag() if hasattr(memory, "bag") else memory.items()
+
+    def read_situational(self) -> dict:
+        memory = self.state_parser.memory
+        player = memory.player()
+        party = memory.party()
+        bag = self._bag()
+        signals = {
+            "money": player.get("money"),
+            "bag_kinds": len(bag),
+            "bag_total_quantity": sum(item.get("quantity", 1) for item in bag),
+            "in_battle": float(memory.is_in_battle()) if memory.has(*self._battle_labels()) else None,
+        }
+        if party:
+            total_hp = sum(mon["hp"] for mon in party)
+            total_max = sum(mon["max_hp"] for mon in party)
+            signals.update(
+                party_hp_total=total_hp,
+                party_hp_fraction=total_hp / total_max if total_max else None,
+                party_fainted=sum(mon["hp"] == 0 for mon in party),
+                party_status_ailments=sum(mon["status"]["raw"] != 0 for mon in party),
+            )
+        if hasattr(memory, "hidden_objects"):
+            hidden = memory.hidden_objects()
+            if hidden:
+                signals["hidden_objects"] = len(hidden)
+        if memory._overlay is None:
+            signals["events_raised_all"] = len(memory.events_raised())
+        return signals
+
+    def _battle_labels(self) -> tuple:
+        return ("wIsInBattle",) if self.state_parser.memory.has("wIsInBattle") else ("wBattleMode",)
+
+    def read_progress(self) -> dict:
+        memory = self.state_parser.memory
+        player = memory.player()
+        party = memory.party()
+        signals = {"party_size": len(party)}
+        if party:
+            levels = [mon["level"] for mon in party]
+            signals.update(
+                party_total_experience=sum(mon["experience"] for mon in party),
+                party_level_sum=sum(levels),
+                party_max_level=max(levels),
+                party_distinct_moves=len({move["id"] for mon in party for move in mon["moves"]}),
+            )
+        if "badges" in player:
+            signals["badge_count"] = player["badges"]["count"]
+        pokedex = memory.pokedex()
+        if pokedex:
+            signals["pokedex_caught"] = pokedex["owned_count"]
+            signals["pokedex_seen"] = pokedex["seen_count"]
+        if memory._overlay is None:
+            events = memory.events_raised()
+            signals["trainers_beaten"] = sum(event.startswith("EVENT_BEAT_") for event in events)
+            signals["story_flags_got"] = sum(event.startswith("EVENT_GOT_") for event in events)
+        elif hasattr(memory, "event_bits") and memory.has("wEventFlags"):
+            signals["event_bits_raw"] = len(memory.event_bits())
+        if hasattr(memory, "engine_flags_raised") and memory._overlay is None:
+            flags = memory.engine_flags_raised()
+            signals["engine_flags"] = len(flags)
+            signals["fly_points"] = sum("FLYPOINT" in flag for flag in flags)
+        if hasattr(memory, "key_items"):
+            signals["key_items"] = len(memory.key_items())
+        return signals
+
+    def read_position(self):
+        location = self.state_parser.memory.location()
+        if "x" not in location or "y" not in location:
+            return None
+        map_key = location.get("map_id", (location.get("map_group"), location.get("map_number")))
+        return map_key, (location["x"], location["y"]), location.get("map_settled")
+
+    def reset_combat(self) -> None:
+        self.combat = {
+            "battles_started": 0,
+            "wild_battles": 0,
+            "trainer_battles": 0,
+            "battles_won": 0,
+            "battles_lost": 0,
+            "battles_fled": 0,
+            "pokemon_caught_in_battle": 0,
+        }
+        self._battle_mode = "none"
+        self._enemy_hp = None
+        self._battle_party_fainted_all = False
+        self._caught_at_battle_start = None
+
+    # UNTESTED: battle outcomes have not been validated against real play. They are inferred when
+    # the battle ends: all party fainted or Red's "lost" mode is a loss, a dead enemy is a win, a new
+    # Pokedex catch is a catch and anything else is fled. Steps are coarser than frames, so a very
+    # short battle or the final HP of the enemy can be missed.
+    def update_combat(self) -> None:
+        memory = self.state_parser.memory
+        battle = memory.battle()
+        mode = battle.get("mode", "none")
+        party = memory.party()
+        caught = memory.pokedex().get("owned_count")
+        in_battle = mode in ("wild", "trainer")
+        was_in_battle = self._battle_mode in ("wild", "trainer")
+        if in_battle and not was_in_battle:
+            self.combat["battles_started"] += 1
+            self.combat[f"{mode}_battles"] += 1
+            self._enemy_hp = None
+            self._caught_at_battle_start = caught
+        if in_battle:
+            if "enemy_mon" in battle:
+                self._enemy_hp = battle["enemy_mon"]["hp"]
+            self._battle_party_fainted_all = bool(party) and all(mon["hp"] == 0 for mon in party)
+        if was_in_battle and not in_battle:
+            if caught is not None and self._caught_at_battle_start is not None and caught > self._caught_at_battle_start:
+                self.combat["pokemon_caught_in_battle"] += 1
+            elif mode == "lost" or self._battle_party_fainted_all:
+                self.combat["battles_lost"] += 1
+            elif self._enemy_hp == 0:
+                self.combat["battles_won"] += 1
+            else:
+                self.combat["battles_fled"] += 1
+        self._battle_mode = mode

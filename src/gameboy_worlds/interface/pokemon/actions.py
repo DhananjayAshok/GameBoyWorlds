@@ -7,9 +7,10 @@ from gameboy_worlds.emulation.pokemon.parsers import (
     PokemonRedStateParser,
 )
 from gameboy_worlds.emulation.pokemon.trackers import CorePokemonTracker
+from gameboy_worlds.emulation.pokemon.screen import judge_scroll
 from gameboy_worlds.emulation import LowLevelActions
 from abc import ABC, abstractmethod
-from typing import List, Tuple, Dict
+from typing import List, Optional, Tuple, Dict
 from gameboy_worlds.utils import show_frames
 import numpy as np
 
@@ -244,7 +245,7 @@ class BaseMovementAction(HighLevelAction, ABC):
         return False
 
     def judge_movement(
-        self, previous_frame: np.ndarray, current_frame: np.ndarray
+        self, previous_frame: np.ndarray, current_frame: np.ndarray, direction: Optional[str] = None
     ) -> Tuple[bool, bool]:
         """
         Judges whether movement has occurred between two frames.
@@ -252,6 +253,7 @@ class BaseMovementAction(HighLevelAction, ABC):
         Args:
             previous_frame (np.ndarray): The previous frame.
             current_frame (np.ndarray): The current frame.
+            direction (Optional[str]): The direction pressed, if known. The screen is then checked for a scroll along it first, falling back to the quadrant check only when that cannot tell.
         Returns:
             Tuple[bool, bool]: A tuple containing:
             - bool: True if movement has occurred, False otherwise.
@@ -260,6 +262,15 @@ class BaseMovementAction(HighLevelAction, ABC):
         # if the full screen hasn't changed at all, player has neither moved nor rotated
         if not frame_changed(previous_frame, current_frame):
             return False, False
+        # With the direction known, ask whether the picture shifted along it. Animated tiles, wandering NPCs and the
+        # player turning in place change pixels without shifting the picture, and fool the quadrant check below.
+        scrolled = judge_scroll(previous_frame, current_frame, direction) if direction is not None else None
+        if scrolled is True:
+            return True, None
+        if scrolled is False:
+            prev_player_cell = self._emulator.state_parser.capture_grid_cells(previous_frame)[(0, 0)]
+            curr_player_cell = self._emulator.state_parser.capture_grid_cells(current_frame)[(0, 0)]
+            return False, bool(frame_changed(prev_player_cell, curr_player_cell))
         # split the screen into quadrants and check which quadrants have changed. If any of them stayed the same, the player has not moved, but may have rotated.
         # One caveat is if the quadrant is uniform tiles (i.e. all have the same grid texture in them). In this case, we can't say for sure that the quadrant hasn't changed, since it may just be that the uniform texture is the same. So we check for that too.
         flag = False
@@ -357,12 +368,19 @@ class BaseMovementAction(HighLevelAction, ABC):
             # check if frames changed. If not, break out.
             # We check all frames in sequence to try and catch oscillations. But nothing will catch 1 step into wall in areas like this
             player_moved, player_rotated = self.judge_movement(
-                previous_frame, current_frame
+                previous_frame, current_frame, direction
             )
-            if player_rotated == True:
-                has_rotated = True
             if not player_moved and not player_rotated:
                 break
+            if player_rotated == True and has_rotated is None:
+                # Gen 2 games turn the player in place on the first press in a new direction, without
+                # stepping. That press is not one of the requested steps, or a 1-step move after a turn
+                # would never move at all. Only the first rotation is free, so this cannot loop.
+                has_rotated = True
+                previous_frame = current_frame
+                continue
+            if player_rotated == True:
+                has_rotated = True
             if player_moved:
                 n_successful_steps += 1  # don't count rotation as a step
             agent_state = self._emulator.state_parser.get_agent_state(

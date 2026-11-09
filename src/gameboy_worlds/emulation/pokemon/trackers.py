@@ -1,5 +1,6 @@
 from gameboy_worlds.emulation.pokemon.base_metrics import (
     CorePokemonMetrics,
+    PokemonMemorySignalsMetric,
     PokemonOCRMetric,
     PokemonRedTeamInfoMetric,
     PokemonRedLocation,
@@ -170,6 +171,8 @@ class CorePokemonTracker(StateTracker):
     def start(self):
         super().start()
         self.metric_classes.extend([CorePokemonMetrics, PokemonTestMetric])
+        if hasattr(self.state_parser, "memory"):
+            self.metric_classes.append(PokemonMemorySignalsMetric)
 
     def step(self, *args, **kwargs):
         """

@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from typing import Optional, Type, Dict, Any, List, Tuple
+from typing import Optional, Type, Dict, Any, List, Tuple, Union
 
 from gameboy_worlds.utils import (
     load_parameters,
@@ -18,9 +18,11 @@ from gameboy_worlds.emulation.registry import (
     get_state_tracker_class,
     get_train_init_states,
 )
+from gameboy_worlds.emulation.signal_tracking import signal_changes
 from gameboy_worlds.interface.controller import Controller
 from gameboy_worlds.interface.action import HighLevelAction
 
+import io
 import numpy as np
 import gymnasium as gym
 import warnings
@@ -198,6 +200,32 @@ class Environment(gym.Env, ABC):
         state_name = f"custom_{state_name}"
         self._emulator.set_init_state(state_name)
         self.reset()  # reset to apply the new init state
+
+    def peek_high_level_action(
+        self, action: Type[HighLevelAction], *, return_signals: bool = False, **kwargs
+    ) -> Union[Optional[np.ndarray], Tuple[Optional[np.ndarray], Optional[Dict[str, Dict[str, Optional[float]]]]]]:
+        emulator = self._emulator
+        metric = emulator.state_tracker.metrics.get("memory_signals") if return_signals else None
+        before = metric.read_signals() if metric is not None else None
+        after = None
+        snapshot = io.BytesIO()
+        emulator._pyboy.save_state(snapshot)
+        attributes = dict(vars(emulator))
+        emulator.save_video = False
+        emulator._update_listeners_after_actions = lambda frames: None
+        try:
+            transition_states, _ = self._controller.execute(action, **kwargs)
+            frame = None if transition_states is None else emulator.get_current_frame()
+            if metric is not None:
+                after = metric.read_signals()
+        finally:
+            snapshot.seek(0)
+            emulator._pyboy.load_state(snapshot)
+            vars(emulator).clear()
+            vars(emulator).update(attributes)
+        if not return_signals:
+            return frame
+        return frame, signal_changes(before, after) if metric is not None else None
 
     @abstractmethod
     def get_observation(
