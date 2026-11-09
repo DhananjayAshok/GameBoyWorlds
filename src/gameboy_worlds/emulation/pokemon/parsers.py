@@ -22,6 +22,12 @@ from gameboy_worlds.utils import (
     verify_parameters,
 )
 from gameboy_worlds.emulation.parser import StateParser, _get_proper_regions
+from gameboy_worlds.emulation.pokemon.memory import (
+    PokemonBrownMemory,
+    PokemonCrystalMemory,
+    PokemonPrismMemory,
+    PokemonRedMemory,
+)
 
 from typing import Set, List, Type, Dict, Optional, Tuple
 import os
@@ -1054,6 +1060,7 @@ class MemoryBasedPokemonRedStateParser(PokemonRedStateParser):
             parameters: A dictionary of parameters for configuration.
         """
         super().__init__(pyboy, parameters=parameters)
+        self.memory = PokemonRedMemory(pyboy)
         events_location = parameters["pokemon_red_rom_data_path"] + "/events.json"
         with open(events_location) as f:
             event_slots = json.load(f)
@@ -1310,6 +1317,10 @@ class MemoryBasedPokemonCrystalStateParser(PokemonCrystalStateParser):
         "rising",
     )
 
+    def __init__(self, pyboy, parameters):
+        super().__init__(pyboy, parameters)
+        self.memory = PokemonCrystalMemory(pyboy)
+
     def get_johto_badges(self) -> np.array:
         """
         Gets the player's Johto badges in game progression order.
@@ -1319,11 +1330,7 @@ class MemoryBasedPokemonCrystalStateParser(PokemonCrystalStateParser):
         """
         return np.array(
             [
-                int(
-                    self.read_bit(
-                        self.JOHTO_BADGE_ADDRESS, self.BADGE_BITS[badge]
-                    )
-                )
+                int(self.memory.read_flag("wJohtoBadges", self.BADGE_BITS[badge]))
                 for badge in self.BADGE_ORDER
             ],
             dtype=np.int8,
@@ -1345,26 +1352,34 @@ class MemoryBasedPokemonCrystalStateParser(PokemonCrystalStateParser):
                 f"Unknown Pokemon Crystal badge '{badge_name}'. Available badges: {list(self.BADGE_BITS)}",
                 self._parameters,
             )
-        return self.read_bit(
-            self.JOHTO_BADGE_ADDRESS, self.BADGE_BITS[normalized_name]
-        )
+        return self.memory.read_flag("wJohtoBadges", self.BADGE_BITS[normalized_name])
 
     def has_hall_of_fame_status(self) -> bool:
         """
         Determines whether Pokemon Crystal's Hall of Fame status flag is set.
         """
-        return self.read_bit(
-            self.STATUS_FLAGS_ADDRESS, self.HALL_OF_FAME_STATUS_BIT
-        )
+        return self.memory.read_flag("wStatusFlags", self.HALL_OF_FAME_STATUS_BIT)
 
     def get_hall_of_fame_count(self) -> int:
         """
         Gets the number of Hall of Fame entries recorded by Pokemon Crystal.
         """
-        return self.read_m(self.HALL_OF_FAME_COUNT_ADDRESS)
+        return self.memory.read_byte("wHallOfFameCount")
 
     def has_completed_championship(self) -> bool:
         """
         Determines whether the player has entered the Hall of Fame.
         """
         return self.has_hall_of_fame_status() or self.get_hall_of_fame_count() > 0
+
+
+class MemoryBasedPokemonBrownStateParser(PokemonBrownStateParser):
+    def __init__(self, pyboy, parameters):
+        super().__init__(pyboy, parameters)
+        self.memory = PokemonBrownMemory(pyboy)
+
+
+class MemoryBasedPokemonPrismStateParser(PokemonPrismStateParser):
+    def __init__(self, pyboy, parameters):
+        super().__init__(pyboy, parameters)
+        self.memory = PokemonPrismMemory(pyboy)
