@@ -48,6 +48,7 @@ pokemon_red,menu,Open Blastoise's status page,bridge_water,opened_blastoise_stat
 pokemon_red,menu,Open Charizard's move list,bridge_water,charizard_moves,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
 pokemon_red,interaction,Speak to the gym leader,in_fuschia_gym,spoke_to_leader,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
 pokemon_red,navigation,Reach the gym leader,in_viridian_gym,reach_giovanni_area,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
+pokemon_red,"navigation, interaction",Read the blackboard in the school nearby,location_viridian_city_starting_charmander,read_blackboard,"pokemon_crystal, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",True
 pokemon_crystal,navigation,Enter the Cherrygrove Pokemon Center,route_29,entered_cherrygrove_centre,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
 pokemon_crystal,interaction,Watch TV,in_radio_house,watched_tv,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False
 pokemon_crystal,interaction,Look into the mirror,in_radio_house,saw_mirror,"pokemon_red, pokemon_brown, pokemon_starbeasts, pokemon_fools_gold, pokemon_prism",False

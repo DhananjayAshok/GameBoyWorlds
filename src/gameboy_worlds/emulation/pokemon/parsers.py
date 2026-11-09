@@ -775,6 +775,7 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
                 "caught_goldeen",
                 "tried_to_teach_staryu_toxic",
                 "play_flute",
+                "read_blackboard",
             ],
             "screen_bottom_half": [
                 "viridian_pokemon_center_entrance",

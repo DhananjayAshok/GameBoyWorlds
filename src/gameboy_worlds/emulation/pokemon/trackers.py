@@ -92,6 +92,7 @@ from gameboy_worlds.emulation.pokemon.test_metrics import (
     CharizardMovesTerminateMetric,
     SpokeToLeaderTerminateMetric,
     ReachGiovanniAreaTerminateMetric,
+    ReadBlackboardTerminateMetric,
     EnteredCherrygroveCentreTerminateMetric,
     WatchedTvTerminateMetric,
     SawMirrorTerminateMetric,
@@ -645,6 +646,15 @@ class PokemonRedReachGiovanniAreaTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = ReachGiovanniAreaTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
+
+
+class PokemonRedReadBlackboardTestTracker(PokemonTestTracker):
+    """
+    A TestTracker for Pokémon Red that ends an episode when the agent reads the blackboard in the Viridian City school.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = ReadBlackboardTerminateMetric
     SUBGOAL_METRIC = DummySubGoalMetric
 
 

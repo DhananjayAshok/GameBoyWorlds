@@ -394,6 +394,13 @@ class ReachGiovanniAreaTerminateMetric(RegionMatchTerminationOnlyMetric):
     _TERMINATION_TARGET_NAME = "reach_giovanni_area"
 
 
+class ReadBlackboardTerminateMetric(RegionMatchTerminationOnlyMetric):
+    REQUIRED_PARSER = PokemonRedStateParser
+
+    _TERMINATION_NAMED_REGION = "dialogue_box_middle"
+    _TERMINATION_TARGET_NAME = "read_blackboard"
+
+
 # ---------------------------------------------------------------------------
 # Pokemon Crystal metrics
 # ---------------------------------------------------------------------------

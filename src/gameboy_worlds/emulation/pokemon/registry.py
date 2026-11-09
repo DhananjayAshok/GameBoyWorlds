@@ -72,6 +72,7 @@ from gameboy_worlds.emulation.pokemon.trackers import (
     PokemonRedCharizardMovesTestTracker,
     PokemonRedSpokeToLeaderTestTracker,
     PokemonRedReachGiovanniAreaTestTracker,
+    PokemonRedReadBlackboardTestTracker,
     PokemonCrystalEnteredCherrygroveCentreTestTracker,
     PokemonCrystalWatchedTvTestTracker,
     PokemonCrystalSawMirrorTestTracker,
@@ -206,6 +207,7 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "charizard_moves": PokemonRedCharizardMovesTestTracker,
         "spoke_to_leader": PokemonRedSpokeToLeaderTestTracker,
         "reach_giovanni_area": PokemonRedReachGiovanniAreaTestTracker,
+        "read_blackboard": PokemonRedReadBlackboardTestTracker,
     },
     "pokemon_brown": {
         "default": PokemonOCRTracker,
