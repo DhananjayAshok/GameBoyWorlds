@@ -153,6 +153,7 @@ class LegendOfZeldaLinksAwakeningParser(BaseLegendOfZeldaParser):
             ("kid_screen_tracker", 154, 49, 5, 8),
             ("library", 33, 17, 12, 13),
             ("signboard", 32, 17, 14, 10),
+            ("leaves_near_the_signboard", 80, 15, 47, 15),
             ("cash_counter_tracker", 94, 84, 15, 10),
             ("shop_signboard_tracker", 57, 73, 30, 5),
             ("call_booth", 76, 50, 20, 12),

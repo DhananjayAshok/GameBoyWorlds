@@ -171,8 +171,23 @@ class StatueTalkTerminateMetric(ZeldaRegionAndStateTerminationMetric):
     _TERMINATION_AGENT_STATE = "in_dialogue"
 
 class ReadSignboardTerminateMetric(ZeldaRegionAndStateTerminationMetric):
-    _TERMINATION_NAMED_REGION = "signboard"
+    _TERMINATION_NAMED_REGION = "leaves_near_the_signboard"
     _TERMINATION_AGENT_STATE = "in_dialogue"
+
+    def reset(self, first=False):
+        super().reset(first)
+        self._signboard_reached = False
+
+    def determine_terminated(self, current_frame, recent_frames):
+        frames = recent_frames if recent_frames is not None else [current_frame]
+        for frame in frames:
+            if not self._signboard_reached:
+                self._signboard_reached = self.state_parser.named_region_matches_target(
+                    frame, "signboard"
+                )
+            if self._signboard_reached and super().determine_terminated(frame, None):
+                return True
+        return False
 
 class GoInsideShopTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "cash_counter_tracker"
