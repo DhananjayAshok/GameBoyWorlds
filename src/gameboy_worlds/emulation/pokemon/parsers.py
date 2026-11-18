@@ -140,7 +140,7 @@ class PokemonStateParser(StateParser, ABC):
             "no_pp_for_move",
             "used_not_very_effective_attack",
             "used_super_effective_attack",
-            "lost_battle",            
+            "lost_battle",
         ],
         "menu_box_strip": ["cursor_on_options", "cursor_on_pokedex"],
     }
@@ -781,16 +781,20 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
                 "viridian_pokemon_center_entrance",
                 "mt_moon_entrance",
                 "bought_potion_at_pewter_pokemart",
-                "switched_to_staryu"
+                "switched_to_staryu",
             ],
-            "screen": ["sold_1_psychich_at_cinnabar", "fly_to_pallet_town_from_cinnabar", "charizard_moves"], 
+            "screen": [
+                "sold_1_psychich_at_cinnabar",
+                "fly_to_pallet_town_from_cinnabar",
+                "charizard_moves",
+            ],
             "screen_middle": [
                 "outside_viridian_center_from_left",
                 "outside_viridian_center_from_right",
                 "outside_silf_co",
                 "outside_robbed_house_back",
                 "outside_seafoam_islands",
-                "reach_giovanni_area"
+                "reach_giovanni_area",
             ],
             "screen_quadrant_2": ["opened_squirtle_pokedex", "opened_blastoise_status"],
             "start_menu_first_option": [
@@ -809,9 +813,7 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
 
     def is_start_menu_open(self, current_screen: np.ndarray) -> bool:
         """Returns whether the Pokémon Red START menu is visibly open."""
-        return self.named_region_matches_target(
-            current_screen, "start_menu_top_right"
-        )
+        return self.named_region_matches_target(current_screen, "start_menu_top_right")
 
     def get_start_menu_first_option(self, current_screen: np.ndarray) -> Optional[str]:
         """Classifies the first START-menu row from its captured visual targets."""
@@ -901,16 +903,16 @@ class PokemonStarBeastsStateParser(BasePokemonRedStateParser):
 
 class PokemonStarBeastsCometStateParser(BasePokemonRedStateParser):
     def __init__(self, pyboy, parameters):
-        #override_regions = [
-            #("pokemon_list_hp_text", 33, 10, 4, 4),
-            #("battle_enemy_hp_text", 6, 15, 5, 5),
-            #("battle_player_hp_text", 88, 72, 5, 5),
-        #]
+        # override_regions = [
+        # ("pokemon_list_hp_text", 33, 10, 4, 4),
+        # ("battle_enemy_hp_text", 6, 15, 5, 5),
+        # ("battle_player_hp_text", 88, 72, 5, 5),
+        # ]
         super().__init__(
             pyboy,
             variant="pokemon_starbeasts_comet",
             parameters=parameters,
-            #override_regions=override_regions,
+            # override_regions=override_regions,
         )
 
 
@@ -920,7 +922,6 @@ class PokemonCrystalStateParser(BasePokemonCrystalStateParser):
             "screen": [
                 "exited_mt_mortar",
                 "bought_antidote",
-                "sold_revive",
                 "left_ice_path",
                 "ice_maze_other_side",
                 "suicune_pic",
@@ -941,6 +942,7 @@ class PokemonCrystalStateParser(BasePokemonCrystalStateParser):
                 "spoke_to_violet_gym_leader",
                 "pidgeot_learned_toxic",
                 "got_alan_number",
+                "sold_revive",
                 "interacted_cut_tree",
                 "picked_up_parlz_heal",
                 "read_book",
@@ -1282,9 +1284,7 @@ class MemoryBasedPokemonRedStateParser(PokemonRedStateParser):
         """
         Determines whether the player has defeated the Champion Rival.
         """
-        return self.read_m_bit(
-            self.defeated_opponent_events[self.CHAMPION_OPPONENT]
-        )
+        return self.read_m_bit(self.defeated_opponent_events[self.CHAMPION_OPPONENT])
 
 
 class MemoryBasedPokemonCrystalStateParser(PokemonCrystalStateParser):
