@@ -12,8 +12,25 @@ from gameboy_worlds.interface.pokemon.actions import (
 )
 from gameboy_worlds.interface.controller import Controller
 from gameboy_worlds.interface.action import HighLevelAction, LowLevelAction
+from gameboy_worlds.emulation.emulator import LowLevelActions
 from gameboy_worlds.emulation.pokemon.parsers import AgentState
 from typing import Dict, Any
+
+BUTTONS = {
+    "a": LowLevelActions.PRESS_BUTTON_A,
+    "b": LowLevelActions.PRESS_BUTTON_B,
+    "start": LowLevelActions.PRESS_BUTTON_START,
+    "up": LowLevelActions.PRESS_ARROW_UP,
+    "down": LowLevelActions.PRESS_ARROW_DOWN,
+    "left": LowLevelActions.PRESS_ARROW_LEFT,
+    "right": LowLevelActions.PRESS_ARROW_RIGHT,
+}
+""" Arguments of button(<name>): one press of one Game Boy button. """
+
+BUTTON_ACTION_STRINGS = {
+    LowLevelAction: "button(<a, b, start, up, down, left or right>): Press one Game Boy button once.",
+}
+""" Listed in every state: a single press is always possible. """
 
 
 class PokemonStateWiseController(Controller):
@@ -35,6 +52,9 @@ class PokemonStateWiseController(Controller):
 
     - In Menu:
         - MenuAction(menu_action: str): Navigate the game menu.
+
+    - In any state:
+        - button(<a, b, start, up, down, left or right>): One press of one button (a LowLevelAction).
     """
 
     ACTIONS = [
@@ -47,7 +67,7 @@ class PokemonStateWiseController(Controller):
         PickAttackAction,
         MoveStepsAction,
         OpenMenuAction,
-        GetTeamInfoAction,
+        # GetTeamInfoAction: not offered. It only works in Pokemon Red, and its crops reach no client.
     ]
 
     def string_to_high_level_action(self, input_str):
@@ -56,13 +76,18 @@ class PokemonStateWiseController(Controller):
             return None, None  # Invalid format
         action_name = input_str.split("(")[0].strip()
         action_args_str = input_str.split("(")[1].split(")")[0].strip()
+        if action_name == "button":
+            button = BUTTONS.get(action_args_str)
+            if button is None:
+                return None, None
+            return LowLevelAction, {"low_level_action": button}
         # First handle the no arg actions
         if action_name == "interact":
             return InteractAction, {}
         if action_name == "passdialogue":
             return PassDialogueAction, {}
-        if action_name == "getteaminfo":
-            return GetTeamInfoAction, {}
+        # if action_name == "getteaminfo":
+        #     return GetTeamInfoAction, {}
         # Now handle the actions with fixed options
         if action_name == "battlemenu":
             option = action_args_str.strip()
@@ -121,7 +146,7 @@ class PokemonStateWiseController(Controller):
             MoveStepsAction: "move(<up, down, right or left> <steps: int>): Move in a particular direction by a specified number of grid steps.",
             InteractAction: "interact(): Interact with cell directly in front of you. Only works if there is something to interact with.",
             OpenMenuAction: "openmenu(<pokedex, pokemon, bag, trainer>): Open a specific player menu option.",
-            GetTeamInfoAction: "getteaminfo(): Open POKéMON from the START menu and return live name/HP image crops for its six team slots.",
+            # GetTeamInfoAction: "getteaminfo(): Open POKéMON from the START menu and return live name/HP image crops for its six team slots.",
         }
         dialogue_action_strings = {
             PassDialogueAction: "passdialogue(): Advance through the dialogue until it ends or a choice box appears.",
@@ -161,4 +186,4 @@ class PokemonStateWiseController(Controller):
                 log_error(
                     f"Unknown agent state {current_state} when getting action strings."
                 )
-        return actions
+        return {**actions, **BUTTON_ACTION_STRINGS}
