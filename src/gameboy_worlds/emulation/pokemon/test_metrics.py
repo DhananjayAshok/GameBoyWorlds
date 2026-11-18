@@ -336,9 +336,7 @@ class SwitchedToStaryuTerminateMetric(RegionMatchTerminationOnlyMetric):
     _TERMINATION_TARGET_NAME = "switched_to_staryu"
 
 
-class CaughtGoldeenTerminateMetric(
-    RegionMatchTerminationMetric, PokemonExitBattleTruncationMetric
-):
+class CaughtGoldeenTerminateMetric(RegionMatchTerminationOnlyMetric):
     REQUIRED_PARSER = PokemonRedStateParser
 
     _TERMINATION_NAMED_REGION = "dialogue_box_middle"
