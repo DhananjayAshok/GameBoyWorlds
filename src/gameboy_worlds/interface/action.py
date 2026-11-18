@@ -240,6 +240,29 @@ class SingleHighLevelAction(HighLevelAction):
             return []
 
 
+class WaitAction(SingleHighLevelAction):
+    """
+    Lets the game run for one step without pressing anything.
+
+    Is Valid When:
+    - Always
+
+    Action Success Interpretation:
+    - 0: Always
+    """
+
+    def is_valid(self, **kwargs) -> bool:
+        return True
+
+    def _execute(self) -> Tuple[List[Dict[str, Dict[str, Any]]], int]:
+        self._emulator.step(None)
+        return [self._state_tracker.report()], 0
+
+    @staticmethod
+    def get_action_name() -> str:
+        return "Wait"
+
+
 class LowLevelAction(HighLevelAction):
     """A high level action that directly maps to a single low level action."""
 

@@ -11,7 +11,7 @@ from gameboy_worlds.interface.pokemon.actions import (
     GetTeamInfoAction,
 )
 from gameboy_worlds.interface.controller import Controller
-from gameboy_worlds.interface.action import HighLevelAction, LowLevelAction
+from gameboy_worlds.interface.action import HighLevelAction, LowLevelAction, WaitAction
 from gameboy_worlds.emulation.emulator import LowLevelActions
 from gameboy_worlds.emulation.pokemon.parsers import AgentState
 from typing import Dict, Any
@@ -27,10 +27,11 @@ BUTTONS = {
 }
 """ Arguments of button(<name>): one press of one Game Boy button. """
 
-BUTTON_ACTION_STRINGS = {
+ANY_STATE_ACTION_STRINGS = {
     LowLevelAction: "button(<a, b, start, up, down, left or right>): Press one Game Boy button once.",
+    WaitAction: "wait(): Let the game run for a moment without pressing anything.",
 }
-""" Listed in every state: a single press is always possible. """
+""" Listed in every state: a single press, or none, is always possible. """
 
 
 class PokemonStateWiseController(Controller):
@@ -55,10 +56,12 @@ class PokemonStateWiseController(Controller):
 
     - In any state:
         - button(<a, b, start, up, down, left or right>): One press of one button (a LowLevelAction).
+        - WaitAction(): Let the game run for one step without pressing anything.
     """
 
     ACTIONS = [
         LowLevelAction,
+        WaitAction,
         MoveStepsAction,
         MenuAction,
         InteractAction,
@@ -82,6 +85,8 @@ class PokemonStateWiseController(Controller):
                 return None, None
             return LowLevelAction, {"low_level_action": button}
         # First handle the no arg actions
+        if action_name == "wait":
+            return WaitAction, {}
         if action_name == "interact":
             return InteractAction, {}
         if action_name == "passdialogue":
@@ -186,4 +191,4 @@ class PokemonStateWiseController(Controller):
                 log_error(
                     f"Unknown agent state {current_state} when getting action strings."
                 )
-        return {**actions, **BUTTON_ACTION_STRINGS}
+        return {**actions, **ANY_STATE_ACTION_STRINGS}
