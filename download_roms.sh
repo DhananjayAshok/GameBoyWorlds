@@ -33,12 +33,10 @@ declare -A rom_series
 declare -A rom_links
 
 # -- pokemon -----------------------------------------------------------------
-rom_series["pokemon"]="pokemon_red pokemon_crystal pokemon_fools_gold pokemon_prism pokemon_brown pokemon_starbeasts"
+rom_series["pokemon"]="pokemon_red pokemon_crystal pokemon_fools_gold pokemon_starbeasts"
 rom_links["pokemon:pokemon_red"]="PLACEHOLDER"
 rom_links["pokemon:pokemon_crystal"]="PLACEHOLDER"
 rom_links["pokemon:pokemon_fools_gold"]="PLACEHOLDER"
-rom_links["pokemon:pokemon_prism"]="PLACEHOLDER"
-rom_links["pokemon:pokemon_brown"]="PLACEHOLDER"
 rom_links["pokemon:pokemon_starbeasts"]="PLACEHOLDER"
 
 # -- hamtaro -----------------------------------------------------------------

@@ -665,13 +665,6 @@ class PokemonRedMemory(Gen1Memory):
         return boxes
 
 
-class PokemonBrownMemory(Gen1Memory):
-    OVERLAY_FILE = "pokemon_brown.json"
-    ROM_TITLE = b"POKEMON BROWN"
-    ROM_GLOBAL_CHECKSUM = 0xEF95
-    UNVERIFIED_MON_FIELDS = ("dvs", "stat_exp", "catch_rate", "box_level", "type_names")
-
-
 class Gen2Memory(PokemonMemory):
     DATA_FILE = "pokecrystal.json"
     TILEMAP_LABEL = "wTilemap"
@@ -1105,25 +1098,3 @@ class Gen2Memory(PokemonMemory):
 class PokemonCrystalMemory(Gen2Memory):
     ROM_TITLE = b"PM_CRYSTAL"
     ROM_GLOBAL_CHECKSUM = 0x18D2
-
-
-class PokemonPrismMemory(Gen2Memory):
-    OVERLAY_FILE = "pokemon_prism.json"
-    ROM_TITLE = b"PM_PRISM"
-    ROM_GLOBAL_CHECKSUM = 0x78E6
-    POKE_TOKEN = "Poké"
-    UNVERIFIED_MON_FIELDS = (
-        "dvs",
-        "stat_exp",
-        "happiness",
-        "pokerus",
-        "caught_data_raw",
-        "caught_level",
-        "caught_time_raw",
-        "caught_location_id",
-        "caught_location",
-        "type_names",
-    )
-    NUM_ITEMS_CAPACITY = 40
-    NUM_KEY_ITEMS_CAPACITY = 50
-    NUM_BALLS_CAPACITY = 24

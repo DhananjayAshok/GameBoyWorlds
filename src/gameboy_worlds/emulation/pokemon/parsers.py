@@ -23,9 +23,7 @@ from gameboy_worlds.utils import (
 )
 from gameboy_worlds.emulation.parser import StateParser, _get_proper_regions
 from gameboy_worlds.emulation.pokemon.memory import (
-    PokemonBrownMemory,
     PokemonCrystalMemory,
-    PokemonPrismMemory,
     PokemonRedMemory,
 )
 
@@ -863,29 +861,6 @@ class PokemonRedStateParser(BasePokemonRedStateParser):
         return {"slots": slots}
 
 
-class PokemonBrownStateParser(BasePokemonRedStateParser):
-    def __init__(self, pyboy, parameters):
-        override_multi_targets = {
-            "dialogue_box_middle": [
-                "collect_marine_badge",
-                "collect_hail_badge",
-                "collect_sprout_badge",
-                "collect_sparky_badge",
-                "collect_fist_badge",
-                "collect_equity_badge",
-                "collect_star_badge",
-                "collect_psi_badge",
-                "collect_championship",
-            ],
-        }
-        super().__init__(
-            pyboy,
-            variant="pokemon_brown",
-            parameters=parameters,
-            override_multi_targets=override_multi_targets,
-        )
-
-
 class PokemonStarBeastsStateParser(BasePokemonRedStateParser):
     def __init__(self, pyboy, parameters):
         override_regions = [
@@ -982,31 +957,6 @@ class PokemonCrystalStateParser(BasePokemonCrystalStateParser):
             pyboy,
             variant="pokemon_crystal",
             parameters=parameters,
-            override_multi_targets=override_multi_targets,
-        )
-
-
-class PokemonPrismStateParser(BasePokemonCrystalStateParser):
-    def __init__(self, pyboy, parameters):
-        override_regions = [("player_card_middle", 25, 58, 5, 5)]
-        override_multi_targets = {
-            "dialogue_box_middle": [
-                "collect_pyre_badge",
-                "collect_nature_badge",
-                "collect_charm_badge",
-                "collect_midnight_badge",
-                "collect_muscle_badge",
-                "collect_haze_badge",
-                "collect_raucous_badge",
-                "collect_naljo_badge",
-                "collect_championship",
-            ],
-        }
-        super().__init__(
-            pyboy,
-            variant="pokemon_prism",
-            parameters=parameters,
-            override_regions=override_regions,
             override_multi_targets=override_multi_targets,
         )
 
@@ -1372,15 +1322,3 @@ class MemoryBasedPokemonCrystalStateParser(PokemonCrystalStateParser):
         Determines whether the player has entered the Hall of Fame.
         """
         return self.has_hall_of_fame_status() or self.get_hall_of_fame_count() > 0
-
-
-class MemoryBasedPokemonBrownStateParser(PokemonBrownStateParser):
-    def __init__(self, pyboy, parameters):
-        super().__init__(pyboy, parameters)
-        self.memory = PokemonBrownMemory(pyboy)
-
-
-class MemoryBasedPokemonPrismStateParser(PokemonPrismStateParser):
-    def __init__(self, pyboy, parameters):
-        super().__init__(pyboy, parameters)
-        self.memory = PokemonPrismMemory(pyboy)

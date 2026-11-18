@@ -3,7 +3,7 @@ Screen-only checks for fades, blank transition screens, and whether the map scro
 
 A fade changes the palette, not the picture: every shade moves together towards one colour (black in Pokemon Red,
 white in Pokemon Crystal) until the screen is a single colour, and then the next screen fades in. These checks only
-look at pixel values. The thresholds are tuned on Pokemon Red, Crystal, Brown and Prism.
+look at pixel values. The thresholds are tuned on Pokemon Red and Crystal.
 """
 
 from typing import Optional, Tuple

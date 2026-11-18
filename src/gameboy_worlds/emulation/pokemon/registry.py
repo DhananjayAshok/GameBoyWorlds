@@ -4,15 +4,11 @@ from gameboy_worlds.emulation.tracker import StateTracker
 from gameboy_worlds.emulation.emulator import Emulator
 
 from gameboy_worlds.emulation.pokemon.parsers import (
-    MemoryBasedPokemonBrownStateParser,
     MemoryBasedPokemonCrystalStateParser,
-    MemoryBasedPokemonPrismStateParser,
     MemoryBasedPokemonRedStateParser,
-    PokemonBrownStateParser,
     PokemonStarBeastsStateParser,
     PokemonStarBeastsCometStateParser,
     PokemonCrystalStateParser,
-    PokemonPrismStateParser,
     PokemonFoolsGoldStateParser,
 )
 from gameboy_worlds.emulation.pokemon.trackers import (
@@ -36,9 +32,7 @@ from gameboy_worlds.emulation.pokemon.trackers import (
     PokemonRedOpenMapTestTracker,
     PokemonRedUsedNotVeryEffectiveAttackOnSeakingTestTracker,
     PokemonRedChampionshipTestTracker,
-    PokemonBrownChampionshipTestTracker,
     PokemonCrystalChampionshipTestTracker,
-    PokemonPrismChampionshipTestTracker,
     PokemonRedTriedBuyBikeTestTracker,
     PokemonRedClickVolcanobadgeTestTracker,
     PokemonRedOpenedCeruleanHouseMapTestTracker,
@@ -129,23 +123,19 @@ from gameboy_worlds.emulation.pokemon.emulators import PokemonEmulator
 
 GAME_TO_GB_NAME = {
     "pokemon_red": "PokemonRed.gb",
-    "pokemon_brown": "PokemonBrown.gb",
     "pokemon_starbeasts": "PokemonStarBeasts.gb",
     "pokemon_starbeasts_comet": "PokemonStarBeastsComet.gb",
     "pokemon_crystal": "PokemonCrystal.gbc",
     "pokemon_fools_gold": "PokemonFoolsGold.gbc",
-    "pokemon_prism": "PokemonPrism.gbc",
 }
 """ Expected save name for each game. Save the file to <storage_dir_from_config_file>/<game_name>_rom_data/<gb_name>"""
 
 STRONGEST_PARSERS: Dict[str, Type[StateParser]] = {
     "pokemon_red": MemoryBasedPokemonRedStateParser,
-    "pokemon_brown": MemoryBasedPokemonBrownStateParser,
     "pokemon_crystal": MemoryBasedPokemonCrystalStateParser,
     "pokemon_starbeasts": PokemonStarBeastsStateParser,
     "pokemon_starbeasts_comet": PokemonStarBeastsCometStateParser,
     "pokemon_fools_gold": PokemonFoolsGoldStateParser,
-    "pokemon_prism": MemoryBasedPokemonPrismStateParser,
 }
 """ Mapping of game names to their corresponding strongest StateParser classes.
 Unless you have a very good reason, you should always use the STRONGEST possible parser for a given game. 
@@ -208,10 +198,6 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "spoke_to_leader": PokemonRedSpokeToLeaderTestTracker,
         "reach_giovanni_area": PokemonRedReachGiovanniAreaTestTracker,
         "read_blackboard": PokemonRedReadBlackboardTestTracker,
-    },
-    "pokemon_brown": {
-        "default": PokemonOCRTracker,
-        "collect_championship_test": PokemonBrownChampionshipTestTracker,
     },
     "pokemon_crystal": {
         "default": PokemonOCRTracker,
@@ -276,19 +262,12 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
     "pokemon_fools_gold": {
         "default": PokemonOCRTracker,
     },
-    "pokemon_prism": {
-        "default": PokemonOCRTracker,
-        "collect_championship_test": PokemonPrismChampionshipTestTracker,
-    },
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """
 
 
 AVAILABLE_EMULATORS: Dict[str, Dict[str, Type[Emulator]]] = {
     "pokemon_red": {
-        "default": PokemonEmulator,
-    },
-    "pokemon_brown": {
         "default": PokemonEmulator,
     },
     "pokemon_crystal": {
@@ -301,9 +280,6 @@ AVAILABLE_EMULATORS: Dict[str, Dict[str, Type[Emulator]]] = {
         "default": PokemonEmulator,
     },
     "pokemon_fools_gold": {
-        "default": PokemonEmulator,
-    },
-    "pokemon_prism": {
         "default": PokemonEmulator,
     },
 }

@@ -190,7 +190,7 @@ class MemorySignalsMetric(MetricGroup):
         self.update_combat()
 
     # UNTESTED: exploration counters have not been validated against real play.
-    # Location is skipped while map_settled is False. Games without that flag (Brown, Prism, Zelda)
+    # Location is skipped while map_settled is False. Games without that flag (Zelda)
     # instead wait until a new map has been seen on two consecutive steps, which has not been shown
     # to remove every stale coordinate read during a warp.
     def update_exploration(self) -> None:

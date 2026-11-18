@@ -23,12 +23,6 @@ AVAILABLE_ENVIRONMENTS: Dict[str, Dict[str, Type[Environment]]] = {
         "train": PokemonTrainEnvironment,
         "test": PokemonTestEnvironment,
     },
-    "pokemon_brown": {
-        "default": PokemonOCREnvironment,
-        "basic": PokemonEnvironment,
-        "train": PokemonTrainEnvironment,
-        "test": PokemonTestEnvironment,
-    },
     "pokemon_starbeasts": {
         "default": PokemonOCREnvironment,
         "basic": PokemonEnvironment,
@@ -42,12 +36,6 @@ AVAILABLE_ENVIRONMENTS: Dict[str, Dict[str, Type[Environment]]] = {
         "test": PokemonTestEnvironment,
     },
     "pokemon_crystal": {
-        "default": PokemonOCREnvironment,
-        "basic": PokemonEnvironment,
-        "train": PokemonTrainEnvironment,
-        "test": PokemonTestEnvironment,
-    },
-    "pokemon_prism": {
         "default": PokemonOCREnvironment,
         "basic": PokemonEnvironment,
         "train": PokemonTrainEnvironment,
@@ -65,9 +53,6 @@ AVAILABLE_CONTROLLERS: Dict[str, Dict[str, Type[Controller]]] = {
     "pokemon_red": {
         "state_wise": PokemonStateWiseController,
     },
-    "pokemon_brown": {
-        "state_wise": PokemonStateWiseController,
-    },
     "pokemon_crystal": {
         "state_wise": PokemonStateWiseController,
     },
@@ -75,9 +60,6 @@ AVAILABLE_CONTROLLERS: Dict[str, Dict[str, Type[Controller]]] = {
         "state_wise": PokemonStateWiseController,
     },
     "pokemon_starbeasts_comet": {
-        "state_wise": PokemonStateWiseController,
-    },
-    "pokemon_prism": {
         "state_wise": PokemonStateWiseController,
     },
     "pokemon_fools_gold": {

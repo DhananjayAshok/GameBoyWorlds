@@ -31,15 +31,6 @@ from gameboy_worlds.emulation.pokemon.test_metrics import (
     PokemonRedSoulBadgeSubGoal,
     PokemonRedThunderBadgeSubGoal,
     PokemonRedVolcanoBadgeSubGoal,
-    PokemonBrownChampionshipTerminateMetric,
-    PokemonBrownEquityBadgeSubGoal,
-    PokemonBrownFistBadgeSubGoal,
-    PokemonBrownHailBadgeSubGoal,
-    PokemonBrownMarineBadgeSubGoal,
-    PokemonBrownPsiBadgeSubGoal,
-    PokemonBrownSparkyBadgeSubGoal,
-    PokemonBrownSproutBadgeSubGoal,
-    PokemonBrownStarBadgeSubGoal,
     PokemonCrystalChampionshipTerminateMetric,
     PokemonCrystalFogBadgeSubGoal,
     PokemonCrystalGlacierBadgeSubGoal,
@@ -49,15 +40,6 @@ from gameboy_worlds.emulation.pokemon.test_metrics import (
     PokemonCrystalRisingBadgeSubGoal,
     PokemonCrystalStormBadgeSubGoal,
     PokemonCrystalZephyrBadgeSubGoal,
-    PokemonPrismChampionshipTerminateMetric,
-    PokemonPrismCharmBadgeSubGoal,
-    PokemonPrismHazeBadgeSubGoal,
-    PokemonPrismMidnightBadgeSubGoal,
-    PokemonPrismMuscleBadgeSubGoal,
-    PokemonPrismNaljoBadgeSubGoal,
-    PokemonPrismNatureBadgeSubGoal,
-    PokemonPrismPyreBadgeSubGoal,
-    PokemonPrismRaucousBadgeSubGoal,
     UsedNotVeryEffectiveAttackOnSeakingTerminateMetric,
     TriedBuyBikeTerminateMetric,
     ClickVolcanobadgeTerminateMetric,
@@ -1129,27 +1111,6 @@ class PokemonRedChampionshipTestTracker(PokemonTestTracker):
     )
 
 
-class PokemonBrownChampionshipTestTracker(PokemonTestTracker):
-    """
-    A TestTracker for Pokemon Brown that tracks all eight badges and ends an episode
-    when the player becomes the Rijon League Champion.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = PokemonBrownChampionshipTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class(
-        [
-            PokemonBrownMarineBadgeSubGoal,
-            PokemonBrownHailBadgeSubGoal,
-            PokemonBrownSproutBadgeSubGoal,
-            PokemonBrownSparkyBadgeSubGoal,
-            PokemonBrownFistBadgeSubGoal,
-            PokemonBrownEquityBadgeSubGoal,
-            PokemonBrownStarBadgeSubGoal,
-            PokemonBrownPsiBadgeSubGoal,
-        ]
-    )
-
-
 class PokemonCrystalChampionshipTestTracker(PokemonTestTracker):
     """
     A TestTracker for Pokemon Crystal that tracks all eight Johto badges and
@@ -1167,26 +1128,5 @@ class PokemonCrystalChampionshipTestTracker(PokemonTestTracker):
             PokemonCrystalMineralBadgeSubGoal,
             PokemonCrystalGlacierBadgeSubGoal,
             PokemonCrystalRisingBadgeSubGoal,
-        ]
-    )
-
-
-class PokemonPrismChampionshipTestTracker(PokemonTestTracker):
-    """
-    A TestTracker for Pokemon Prism that tracks all eight badges and ends an episode
-    when the player becomes the Rijon League Champion.
-    """
-
-    TERMINATION_TRUNCATION_METRIC = PokemonPrismChampionshipTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class(
-        [
-            PokemonPrismPyreBadgeSubGoal,
-            PokemonPrismNatureBadgeSubGoal,
-            PokemonPrismCharmBadgeSubGoal,
-            PokemonPrismMidnightBadgeSubGoal,
-            PokemonPrismMuscleBadgeSubGoal,
-            PokemonPrismHazeBadgeSubGoal,
-            PokemonPrismRaucousBadgeSubGoal,
-            PokemonPrismNaljoBadgeSubGoal,
         ]
     )

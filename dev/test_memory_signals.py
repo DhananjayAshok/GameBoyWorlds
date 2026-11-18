@@ -15,14 +15,12 @@ from gameboy_worlds import get_emulator, get_test_environment
 from gameboy_worlds.emulation.emulator import LowLevelActions
 from gameboy_worlds.utils import load_parameters
 
-GEN1 = ("pokemon_red", "pokemon_brown")
-GEN2 = ("pokemon_crystal", "pokemon_prism")
+GEN1 = ("pokemon_red",)
+GEN2 = ("pokemon_crystal",)
 ZELDA = ("legend_of_zelda_links_awakening", "legend_of_zelda_the_oracle_of_seasons")
 STATES = {
     "pokemon_red": "pewter",
     "pokemon_crystal": "outside_berry_tree",
-    "pokemon_brown": "custom_strategistbrownargon374",
-    "pokemon_prism": "route_69",
     "legend_of_zelda_links_awakening": "shore_state",
     "legend_of_zelda_the_oracle_of_seasons": "near_shop",
 }
@@ -35,8 +33,6 @@ ARROWS = [
 EXPECTED_SIGNALS = {
     "pokemon_red": ({"money", "party_hp_fraction", "party_fainted", "bag_kinds", "hidden_objects", "events_raised_all"}, {"party_total_experience", "party_level_sum", "badge_count", "pokedex_caught", "pokedex_seen", "trainers_beaten", "story_flags_got"}),
     "pokemon_crystal": ({"money", "party_hp_fraction", "party_fainted", "bag_kinds", "events_raised_all"}, {"party_total_experience", "party_level_sum", "badge_count", "pokedex_caught", "pokedex_seen", "trainers_beaten", "story_flags_got", "engine_flags", "fly_points", "key_items"}),
-    "pokemon_brown": ({"money", "party_hp_fraction", "party_fainted", "bag_kinds"}, {"party_total_experience", "party_level_sum", "badge_count", "event_bits_raw"}),
-    "pokemon_prism": ({"money", "party_hp_fraction", "party_fainted", "bag_kinds"}, {"party_total_experience", "party_level_sum", "pokedex_caught", "pokedex_seen", "key_items"}),
     "legend_of_zelda_links_awakening": ({"health_units", "health_fraction", "rupees", "bombs", "inventory_item_count"}, {"max_health_units", "sword_level", "instruments", "rooms_visited", "deaths"}),
     "legend_of_zelda_the_oracle_of_seasons": ({"health_units", "health_fraction", "rupees", "ore_chunks", "inventory_item_count"}, {"max_health_units", "sword_level", "essence_count", "rooms_visited", "enemies_killed", "treasures_obtained", "deaths"}),
 }
@@ -269,7 +265,7 @@ def memory_free_games_still_build(results):
 
 
 def benchmark_environments(results, project_root):
-    for benchmark, games in (("pokemon", ("pokemon_red", "pokemon_crystal")), ("legend_of_zelda", ZELDA), ("pokemon_brown", ("pokemon_brown",)), ("pokemon_prism", ("pokemon_prism",))):
+    for benchmark, games in (("pokemon", ("pokemon_red", "pokemon_crystal")), ("legend_of_zelda", ZELDA)):
         tasks = pd.read_csv(os.path.join(project_root, "benchmark", "tests", f"{benchmark}.csv"))
         for game in games:
             row = tasks[tasks["game"] == game].iloc[0]
@@ -297,8 +293,6 @@ def peek_candidates(environment):
 def peek_signals(results, project_root):
     scenarios = {
         "pokemon": [("pokemon_red", None), ("pokemon_crystal", None)],
-        "pokemon_brown": [("pokemon_brown", None)],
-        "pokemon_prism": [("pokemon_prism", None)],
         "legend_of_zelda": [(ZELDA[0], "nearmonster"), (ZELDA[1], "near_monster")],
     }
     changed_anywhere = {}

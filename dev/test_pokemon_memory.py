@@ -1,7 +1,6 @@
 import glob
 import json
 import os
-import random
 import re
 import sys
 import time
@@ -10,15 +9,11 @@ import warnings
 warnings.filterwarnings("ignore")
 
 import click
-import numpy as np
 from pyboy import PyBoy
 
 from gameboy_worlds.emulation.pokemon.memory import (
-    PokemonBrownMemory,
     PokemonCrystalMemory,
-    PokemonPrismMemory,
     PokemonRedMemory,
-    SignalUnavailable,
     UnsupportedRom,
 )
 from gameboy_worlds.utils import load_parameters
@@ -26,20 +21,14 @@ from gameboy_worlds.utils import load_parameters
 GAMES = {
     "pokemon_red": ("PokemonRed.gb", PokemonRedMemory),
     "pokemon_crystal": ("PokemonCrystal.gbc", PokemonCrystalMemory),
-    "pokemon_brown": ("PokemonBrown.gb", PokemonBrownMemory),
-    "pokemon_prism": ("PokemonPrism.gbc", PokemonPrismMemory),
 }
 WALK_STATE = {
     "pokemon_red": "starter",
     "pokemon_crystal": "starter",
-    "pokemon_brown": "custom_strategistbrownargon374",
-    "pokemon_prism": "route_69",
 }
 CARD_STATE = {
     "pokemon_red": "pewter",
     "pokemon_crystal": "starter",
-    "pokemon_brown": "custom_strategistbrownargon374",
-    "pokemon_prism": "route_69",
 }
 KNOWN_OWNED_NOT_SEEN = {"custom_strategistredjudgebedroomb6"}
 
@@ -100,7 +89,7 @@ class Session:
     def open_card(self):
         self.press("start", after=50)
         name = self.memory.read_text("wPlayerName")
-        if self.game in ("pokemon_brown", "pokemon_red"):
+        if self.game == "pokemon_red":
             self.poke("wCurrentMenuItem", [0])
             for _ in range(3):
                 self.press("down", after=18)
@@ -179,7 +168,6 @@ def red_events_match_existing_table(results, rom_root, data_dir):
 
 def every_state_invariants(results, game, session, rom_root):
     memory = session.memory
-    is_hack = memory._overlay is not None
     maps = memory._data["maps"]
     counts = dict(states=0, map_checked=0, bounds=0)
     for state in states_of(rom_root):
@@ -203,28 +191,27 @@ def every_state_invariants(results, game, session, rom_root):
                 location["x"] < 2 * width and location["y"] < 2 * height,
                 f"{game}/{state}: position {location['x']},{location['y']} outside {width}x{height}",
             )
-            if not is_hack:
-                key = (
-                    str(location["map_id"])
-                    if "map_id" in location
-                    else f"{location['map_group']}:{location['map_number']}"
+            key = (
+                str(location["map_id"])
+                if "map_id" in location
+                else f"{location['map_group']}:{location['map_number']}"
+            )
+            expected = maps.get(key)
+            results.check(expected is not None, f"{game}/{state}: unknown map {key}")
+            if expected and expected["width"] is not None:
+                counts["map_checked"] += 1
+                matches = (width, height) == (expected["width"], expected["height"])
+                results.check(
+                    location["map_settled"] == matches,
+                    f"{game}/{state}: map_settled disagrees with pret dims",
                 )
-                expected = maps.get(key)
-                results.check(expected is not None, f"{game}/{state}: unknown map {key}")
-                if expected and expected["width"] is not None:
-                    counts["map_checked"] += 1
-                    matches = (width, height) == (expected["width"], expected["height"])
+                if not matches:
+                    counts["mid_warp"] = counts.get("mid_warp", 0) + 1
+                    session.pyboy.tick(60, True)
                     results.check(
-                        location["map_settled"] == matches,
-                        f"{game}/{state}: map_settled disagrees with pret dims",
+                        memory.is_map_settled() is True,
+                        f"{game}/{state}: map {key} never settled",
                     )
-                    if not matches:
-                        counts["mid_warp"] = counts.get("mid_warp", 0) + 1
-                        session.pyboy.tick(60, True)
-                        results.check(
-                            memory.is_map_settled() is True,
-                            f"{game}/{state}: map {key} never settled",
-                        )
         pokedex = memory.pokedex()
         if pokedex and state not in KNOWN_OWNED_NOT_SEEN:
             seen = {entry.get("dex", entry.get("species_id")) for entry in pokedex["seen"]}
@@ -235,10 +222,7 @@ def every_state_invariants(results, game, session, rom_root):
             if reader is None:
                 continue
             for item in reader():
-                results.check(
-                    item["name"] is not None or (is_hack and item["id"] > 100),
-                    f"{game}/{state}: {group} item {item['id']}",
-                )
+                results.check(item["name"] is not None, f"{game}/{state}: {group} item {item['id']}")
         battle = memory.battle()
         if battle and battle["mode"] in ("none", "lost"):
             results.check("enemy_mon" not in battle, f"{game}/{state}: stale battle data exposed")
@@ -278,8 +262,6 @@ def registered_parsers(results):
     expected = {
         "pokemon_red": ("starter", PokemonRedMemory),
         "pokemon_crystal": ("custom_strategistcrystalargon4", PokemonCrystalMemory),
-        "pokemon_brown": (WALK_STATE["pokemon_brown"], PokemonBrownMemory),
-        "pokemon_prism": (WALK_STATE["pokemon_prism"], PokemonPrismMemory),
     }
     for game, (state, memory_class) in expected.items():
         emulator = get_emulator(game=game, init_state=state, headless=True)
@@ -339,7 +321,7 @@ def time_and_joypad(results, game, session):
 def trainer_card_pokes(results, game, session):
     memory = session.memory
     session.load(CARD_STATE[game])
-    if game in ("pokemon_red", "pokemon_brown"):
+    if game == "pokemon_red":
         session.poke("wPlayerMoney", [0x12, 0x34, 0x56])
         session.poke("wPlayTimeHours", [7])
         session.poke("wPlayTimeMinutes", [41])
@@ -412,231 +394,11 @@ def crystal_named_signals(results, session):
     results.check(battle["player_mon"]["type_names"] == ["NORMAL", "FLYING"], "crystal: pidgeot types")
 
 
-def status_screen(results, game, session, state, slot):
-    memory = session.memory
-    session.load(state)
-    mon = memory.party()[slot]
-    session.press("start", after=50)
-    if game == "pokemon_brown":
-        session.poke("wCurrentMenuItem", [0])
-        session.press("down", after=18)
-        session.press("a", after=90)
-        for _ in range(slot):
-            session.press("down", after=20)
-        session.press("a", after=50)
-        session.press("a", after=150)
-        pages = [session.screen()]
-        session.press("a", after=80)
-        pages.append(session.screen())
-    else:
-        session.cursor_to("Pokémon")
-        session.press("a", after=120)
-        for _ in range(slot):
-            session.press("down", after=20)
-        session.press("a", after=60)
-        session.press("a", after=180)
-        pages = [session.screen()]
-        for _ in range(2):
-            session.press("right", after=60)
-            pages.append(session.screen())
-    text = "\n".join(pages)
-    for name, value in mon["stats"].items():
-        results.check(re.search(rf"\b{value}\b", text) is not None, f"{game}: {name}={value} on status\n{text}")
-    results.check(str(mon["experience"]) in text, f"{game}: exp {mon['experience']} on status\n{text}")
-    results.check(f"{mon['original_trainer_id']:05d}" in text, f"{game}: OT id on status\n{text}")
-    results.check(mon["original_trainer"] in text, f"{game}: OT name on status\n{text}")
-    for move in mon["moves"]:
-        results.check(move["name"] in text, f"{game}: move {move['name']} on status\n{text}")
-        results.check(f"{move['pp']}/" in text, f"{game}: pp of {move['name']} on status\n{text}")
-    if "held_item_name" in mon and mon["held_item_name"]:
-        results.check(mon["held_item_name"] in text, f"{game}: held item on status\n{text}")
-
-
-def status_condition_poke(results, game, session, state):
-    memory = session.memory
-    session.load(state)
-    bank, address, _ = memory.symbol_info("wPartyMons")
-    offset = 4 if game == "pokemon_brown" else 32
-    if memory._cgb:
-        session.pyboy.memory[bank, address + offset] = 0x08
-    else:
-        session.pyboy.memory[address + offset] = 0x08
-    session.pyboy.tick(20, True)
-    results.check(memory.party()[0]["status"]["poisoned"], f"{game}: decoded poison")
-    session.press("start", after=50)
-    if game == "pokemon_brown":
-        session.poke("wCurrentMenuItem", [0])
-        session.press("down", after=18)
-    else:
-        session.cursor_to("Pokémon")
-    session.press("a", after=120)
-    screen = session.screen()
-    marker = "のふへ" if game == "pokemon_brown" else "PSN"
-    results.check(marker in screen, f"{game}: poked poison on party screen\n{screen}")
-
-
-def hack_fields_are_withheld(results, session, labels, keys):
-    memory = session.memory
-    for label in labels:
-        results.check(not memory.has(label), f"{label} must not be readable")
-    for mon in memory.party():
-        for key in keys:
-            results.check(key not in mon, f"{key} must be withheld")
-
-
-def brown_battle_hud(results, session):
-    memory = session.memory
-    session.load("capture_clefairy")
-    battle = memory.battle()
-    results.check(battle["mode"] == "wild", "brown: battle mode")
-    screen = session.screen()
-    for key in ("player_mon", "enemy_mon"):
-        results.check(battle[key]["species_name"] in screen, f"brown: {key} name on HUD\n{screen}")
-        results.check(str(battle[key]["level"]) in screen, f"brown: {key} level on HUD")
-    player = battle["player_mon"]
-    results.check(f"{player['hp']}/ {player['max_hp']}" in screen, f"brown: player hp on HUD\n{screen}")
-
-
-def brown_bag_screen(results, session):
-    memory = session.memory
-    session.load(WALK_STATE["pokemon_brown"])
-    bag = memory.bag()
-    session.press("start", after=50)
-    session.poke("wCurrentMenuItem", [0])
-    session.press("down", after=18)
-    session.press("down", after=18)
-    session.press("a", after=120)
-    screen = session.screen()
-    named = [item["name"] for item in bag if item["name"]][:3]
-    results.check(len(named) == 3, "brown: bag has named entries")
-    for name in named:
-        results.check(name in screen, f"brown: {name} on item screen\n{screen}")
-
-
-def brown_badge_bits(results, session):
-    memory = session.memory
-    frames = {}
-    for mask in (0, 1, 2, 4, 8, 16, 32, 64, 128):
-        session.load(CARD_STATE["pokemon_brown"])
-        session.poke("wObtainedBadges", [mask])
-        session.pyboy.tick(20, True)
-        session.open_card()
-        frames[mask] = np.array(session.pyboy.screen.ndarray[:, :, 0]).astype(int)
-    regions = set()
-    for mask in (1, 2, 4, 8, 16, 32, 64, 128):
-        changed = np.argwhere(frames[mask] != frames[0])
-        results.check(len(changed) > 0, f"brown: badge bit {mask} changes the card")
-        if len(changed):
-            regions.add(tuple(changed.min(axis=0).tolist()))
-    results.check(len(regions) == 8, f"brown: 8 distinct badge icons, got {len(regions)}")
-
-
-def prism_battle_screen(results, session):
-    memory = session.memory
-    session.load("route_70")
-    generator = random.Random(0)
-    for step in range(600):
-        session.press(generator.choice(["up", "down", "left", "right"]), hold=10, after=14)
-        if step % 3 == 0:
-            session.press("b", hold=3, after=6)
-        if memory.read_byte("wBattleMode"):
-            break
-    results.check(memory.read_byte("wBattleMode") == 1, "prism: wild battle started")
-    for _ in range(16):
-        session.press("a", hold=3, after=40)
-        if "Fight" in session.screen():
-            break
-    battle = memory.battle()
-    screen = session.screen()
-    for key in ("player_mon", "enemy_mon"):
-        results.check(battle[key]["species_name"] in screen, f"prism: {key} name on HUD\n{screen}")
-        results.check(str(battle[key]["level"]) in screen, f"prism: {key} level on HUD\n{screen}")
-    player = battle["player_mon"]
-    results.check(f"{player['hp']}/ {player['max_hp']}" in screen, f"prism: player hp on HUD\n{screen}")
-    results.check(player["types"] == [5, 4], f"prism: larvitar rock/ground raw types {player['types']}")
-    session.press("a", after=60)
-    screen = session.screen()
-    for move in player["moves"]:
-        results.check(move["name"] in screen, f"prism: move {move['name']} on fight menu\n{screen}")
-
-
-def prism_pack_pokes(results, session):
-    memory = session.memory
-    session.load("caper_ridge")
-    results.check([item["name"] for item in memory.items()] == ["Potion", "Oran Berry"], f"prism: items {memory.items()}")
-    session.poke("wNumItems", [2])
-    session.poke("wItems", [18, 42, 19, 17, 0xFF])
-    session.poke("wNumBalls", [1])
-    session.poke("wBalls", [5, 33, 0xFF])
-    session.poke("wNumKeyItems", [1])
-    session.poke("wKeyItems", [67, 0xFF])
-    session.pyboy.tick(20, True)
-    results.check(memory.items()[0] == {"id": 18, "name": "Potion", "quantity": 42}, "prism: decoded poked items")
-    results.check(memory.ball_pocket()[0]["name"] == "Poké Ball", "prism: decoded poked balls")
-    results.check(memory.key_items()[0]["name"] == "Rijon Pass", "prism: decoded poked key items")
-    session.press("start", after=50)
-    session.cursor_to("Pack")
-    session.press("a", after=150)
-    screen = session.screen()
-    results.check("×42" in screen and "Escape Rope" in screen and "×17" in screen, f"prism: items pocket\n{screen}")
-    session.press("right", after=40)
-    screen = session.screen()
-    results.check("Poké Ball" in screen and "×33" in screen, f"prism: balls pocket\n{screen}")
-    session.press("right", after=40)
-    screen = session.screen()
-    results.check("Rijon Pass" in screen, f"prism: key pocket\n{screen}")
-
-
-def prism_pokedex(results, session):
-    memory = session.memory
-    session.load("pokedex")
-    results.check(
-        [entry["species_name"] for entry in memory.pokedex()["owned"]]
-        == [mon["species_name"] for mon in memory.party()],
-        "prism: Pokedex caught bit is the party species",
-    )
-    session.press("start", after=50)
-    session.cursor_to("Pokédex")
-    session.press("a", after=180)
-    results.check("Larvitar" in session.screen(), "prism: Larvitar listed before zeroing")
-    session.load("pokedex")
-    session.poke("wPokedexCaught", [0] * 32)
-    session.poke("wPokedexSeen", [0] * 32)
-    session.pyboy.tick(20, True)
-    session.press("start", after=50)
-    session.cursor_to("Pokédex")
-    session.press("a", after=180)
-    results.check("Larvitar" not in session.screen(), "prism: zeroed Pokedex hides Larvitar")
-
-
-def prism_badge_address_is_rejected(results, session):
-    memory = session.memory
-    for label in ("wJohtoBadges", "wKantoBadges", "wPlayerState", "wTMsHMs", "wStatusFlags"):
-        try:
-            memory.read_byte(label)
-            results.check(False, f"prism: {label} should be unavailable")
-        except SignalUnavailable:
-            results.check(True, label)
-    results.check("badges" not in memory.player(), "prism: badges omitted from player signals")
-
-
-def brown_rejections(results, session):
-    memory = session.memory
-    for label in ("wPokedexOwned", "wPokedexSeen"):
-        try:
-            memory.read_byte(label)
-            results.check(False, f"brown: {label} should be unavailable")
-        except SignalUnavailable:
-            results.check(True, label)
-    results.check(memory.pokedex() == {}, "brown: pokedex omitted")
-    results.check("names" not in memory.badges(), "brown: badge names are not claimed")
-
-
 def wrong_rom_is_refused(results, rom_root_red):
     pyboy = PyBoy(os.path.join(rom_root_red, "PokemonRed.gb"), window="null", sound_emulated=False)
     try:
-        PokemonBrownMemory(pyboy)
-        results.check(False, "Brown memory must refuse the Red ROM")
+        PokemonCrystalMemory(pyboy)
+        results.check(False, "Crystal memory must refuse the Red ROM")
     except UnsupportedRom:
         results.check(True, "wrong rom refused")
     pyboy.stop(save=False)
@@ -679,22 +441,6 @@ def main(game):
         if name == "pokemon_crystal":
             base_game_battle_hud(results, name, session, "battle_delibird")
             crystal_named_signals(results, session)
-        if name == "pokemon_brown":
-            brown_battle_hud(results, session)
-            brown_bag_screen(results, session)
-            brown_badge_bits(results, session)
-            brown_rejections(results, session)
-            status_screen(results, name, session, WALK_STATE[name], 1)
-            status_condition_poke(results, name, session, WALK_STATE[name])
-            hack_fields_are_withheld(results, session, ("wPartyMon1DVs", "wPartyMon1HPExp", "wBattleMonDVs", "wPokedexOwned"), ("dvs", "stat_exp", "catch_rate"))
-        if name == "pokemon_prism":
-            prism_battle_screen(results, session)
-            prism_pack_pokes(results, session)
-            prism_pokedex(results, session)
-            prism_badge_address_is_rejected(results, session)
-            status_screen(results, name, session, "route_70", 0)
-            status_condition_poke(results, name, session, "route_70")
-            hack_fields_are_withheld(results, session, ("wPartyMon1DVs", "wPartyMon1Happiness", "wBattleMonDVs", "wNumPCItems"), ("dvs", "happiness", "pokerus", "caught_location"))
         snapshot_speed(name, session)
         session.stop()
     sys.exit(0 if results.summary() else 1)

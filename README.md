@@ -35,7 +35,7 @@ While all games can be played with joystick inputs and a few buttons, not all in
 
 
 **General and "Unleaked" Test Environments:**
-<img src="assets/logo.png" width="70"> not only supports classic titles like PokémonRed and PokémonCrystal, but also includes multiple fan-made variants such as [PokémonPrism](https://rainbowdevs.com/title/prism/), that place the agent in completely new regions, sometimes with  fan-made Pokémon ([Fakémon](https://en.wikipedia.org/wiki/Fakemon)). The research value of these fan-made games is considerable:
+<img src="assets/logo.png" width="70"> not only supports classic titles like PokémonRed and PokémonCrystal, but also includes multiple fan-made variants such as [Pokémon Fool's Gold](https://www.pokecommunity.com/threads/pok%C3%A9mon-fools-gold-a-hack-of-crystal-where-everything-is-familiar-yet-different.433723/), that place the agent in completely new regions, sometimes with  fan-made Pokémon ([Fakémon](https://en.wikipedia.org/wiki/Fakemon)). The research value of these fan-made games is considerable:
 
 * Fan-made games are an ideal environment to test the *generalization* capabilities of an agent trained in the original games. To perform well in these unseen environments, agents must learn transferrable skills like battle competence and maze navigation, as opposed to memorizing the solutions to the original games.
 * Unlike the original games, fan-made games are scarcely documented and so models trained on internet-scale corpora (e.g. Large Language Models) are unlikely to have already acquired a rich base of knowledge regarding the game areas or particular Fakémon. While good performance in PokémonRed may be a result of the backbone model's data being contaminated with walkthroughs and internet guides, the same concern is far less valid for more obscure fan-made games.
@@ -105,8 +105,6 @@ Next, you must legally acquire ROMs for the GameBoy games from Nintendo (perhaps
 * Pokémon Crystal (save as `PokemonCrystal.gbc`)
 
 Additionally, our testing environment uses several Pokémon ROM patches / hacks that alter the game in some way. The official way to acquire these can be obtained is by applying a "patch" to the original ROM. After patching the original ROM, you will be left with a `.gb` or `.gbc` file. Once again, despite their widespread availability, we do not advise you to download the pre-patched ROMs. We support:
-* [Pokémon Brown](https://rainbowdevs.com/title/brown/) (save as `PokemonBrown.gbc`)
-* [Pokémon Prism](https://rainbowdevs.com/title/prism/) (save as `PokemonPrism.gbc`)
 * [Pokémon Fool's Gold](https://www.pokecommunity.com/threads/pok%C3%A9mon-fools-gold-a-hack-of-crystal-where-everything-is-familiar-yet-different.433723/) (save as `PokemonFoolsGold.gbc`)
 * [Pokémon Star Beasts](https://www.pokecommunity.com/threads/star-beasts-asteroid-version.530552/) (save as `PokemonStarBeasts.gb`)
 
