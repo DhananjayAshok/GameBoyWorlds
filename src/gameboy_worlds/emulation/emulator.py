@@ -193,6 +193,10 @@ class VideoWriter:
         self._frame_writer = None
         self.video_running = False
         """ Whether the video writer is currently recording video. """
+        self.video_path = None
+        """ The video file being written, or the last one written. """
+        self.frames_written = 0
+        """ How many frames have been written to video_path. """
         project_dir = self._parameters["project_root"]
         cv2 = import_cv2(self._parameters)
         self._button_images = {
@@ -284,6 +288,8 @@ class VideoWriter:
             isColor=True,
         )
         self.video_running = True
+        self.video_path = video_path
+        self.frames_written = 0
         log_info(f"\nStarted recording video to: {video_path}\n", self._parameters)
 
     def _get_reduced(self, frame: np.ndarray) -> np.ndarray:
@@ -339,6 +345,7 @@ class VideoWriter:
             else:
                 pass
             self._frame_writer.write(treated_frame)
+            self.frames_written += 1
         return
 
     def close_video(self):
