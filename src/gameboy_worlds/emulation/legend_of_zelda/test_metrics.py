@@ -154,7 +154,7 @@ class OutsideTarinHouseTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "outside_tarinhouse_tracker"
 
 class OpenInventoryTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "health_bar_top"
+    _TERMINATION_NAMED_REGION = "cross_inventory"
 
 class NoWeaponTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "no_weapon"
@@ -167,12 +167,27 @@ class TalkToKidTerminateMetric(ZeldaRegionAndStateTerminationMetric):
     _TERMINATION_AGENT_STATE = "in_dialogue"
 
 class StatueTalkTerminateMetric(ZeldaRegionAndStateTerminationMetric):
-    _TERMINATION_NAMED_REGION = "girl"
+    _TERMINATION_NAMED_REGION = "rooster"
     _TERMINATION_AGENT_STATE = "in_dialogue"
 
 class ReadSignboardTerminateMetric(ZeldaRegionAndStateTerminationMetric):
-    _TERMINATION_NAMED_REGION = "signboard"
+    _TERMINATION_NAMED_REGION = "leaves_near_the_signboard"
     _TERMINATION_AGENT_STATE = "in_dialogue"
+
+    def reset(self, first=False):
+        super().reset(first)
+        self._signboard_reached = False
+
+    def determine_terminated(self, current_frame, recent_frames):
+        frames = recent_frames if recent_frames is not None else [current_frame]
+        for frame in frames:
+            if not self._signboard_reached:
+                self._signboard_reached = self.state_parser.named_region_matches_target(
+                    frame, "signboard"
+                )
+            if self._signboard_reached and super().determine_terminated(frame, None):
+                return True
+        return False
 
 class GoInsideShopTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "cash_counter_tracker"
@@ -233,8 +248,8 @@ class InsideHouseTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "stool"
 
 
-class PotRoomTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "char_onstairs"
+class PotRoomTerminateMetric(ZeldaMultiRegionTerminationOnlyMetric):
+    _TERMINATION_NAMED_REGIONS = ["pot_room_down", "pot_room_up"]
 
 
 class PondTerminateMetric(ZeldaRegionMatchTerminationOnlyMetric):
@@ -251,7 +266,7 @@ class WitchTalkTerminateMetric(ZeldaRegionAndStateTerminationMetric):
 
 
 class PotholesSignboardReadTerminateMetric(ZeldaRegionAndStateTerminationMetric):
-    _TERMINATION_NAMED_REGION = "signboard_tracker"
+    _TERMINATION_NAMED_REGION = "signboard_content"
     _TERMINATION_AGENT_STATE = "in_dialogue"
 
 
@@ -386,7 +401,7 @@ class OracleOtherPeopleTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
 
 
 class OracleGirlTalkTerminateMetric(OracleRegionAndStateTerminationMetric):
-    _TERMINATION_NAMED_REGION = "red_edges"
+    _TERMINATION_NAMED_REGION = "horon"
     _TERMINATION_AGENT_STATE = "in_dialogue"
 
 
@@ -394,9 +409,26 @@ class OracleJumpingTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "after_jump"
 
 
-class OracleFarmerTalkTerminateMetric(OracleRegionAndStateTerminationMetric):
-    _TERMINATION_NAMED_REGION = "flowers"
-    _TERMINATION_AGENT_STATE = "in_dialogue"
+class OracleFarmerTalkTerminateMetric(TerminationMetric):
+    REQUIRED_PARSER = LegendOfZeldaTheOracleOfSeasonsParser
+
+    def reset(self, first=False):
+        super().reset(first)
+        self._flowers_reached = False
+
+    def determine_terminated(self, current_frame, recent_frames):
+        frames = recent_frames if recent_frames is not None else [current_frame]
+        for frame in frames:
+            if not self._flowers_reached:
+                self._flowers_reached = self.state_parser.named_region_matches_target(
+                    frame, "flowers"
+                )
+            if self._flowers_reached and any(
+                self.state_parser.named_region_matches_target(frame, name)
+                for name in ("hotdown", "hotup")
+            ):
+                return True
+        return False
 
 
 class OracleLibraryTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
@@ -469,7 +501,7 @@ class OracleInventoryOpenTerminateMetric(OracleRegionMatchTerminationOnlyMetric)
 
 
 class OracleClockTowerSignReadTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
-    _TERMINATION_NAMED_REGION = "sign_dialogue"
+    _TERMINATION_NAMED_REGION = "mayor_ruul_signboard"
 
 
 class OracleNearStairsTerminateMetric(OracleMultiRegionTerminationOnlyMetric):
@@ -485,9 +517,8 @@ class OraclePierGoTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "bush_of_pier"
 
 
-class OracleBoardwalkTerminateMetric(OracleRegionAndStateTerminationMetric):
+class OracleBoardwalkTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
     _TERMINATION_NAMED_REGION = "empty_walk"
-    _TERMINATION_AGENT_STATE = "in_dialogue"
 
 
 class OracleCatCheckTerminateMetric(OracleRegionMatchTerminationOnlyMetric):
